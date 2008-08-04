@@ -4,7 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{291E7C53-3CC8-45AA-A3D4-5F41CD103B64}"
 	ProjectSection(SolutionItems) = preProject
 		Clean.bat = Clean.bat
-		Copyfile.bat = Copyfile.bat
 		debugbuild.bat = debugbuild.bat
 		GPL License.txt = GPL License.txt
 		GPL发布许可.txt = GPL发布许可.txt
