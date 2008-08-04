@@ -1,0 +1,9 @@
+%windir%\microsoft.net\framework\v3.5\msbuild /t:clean Uniframework.sln
+del src\*.dll /s
+del src\*.bak /s
+del src\*.xml /s
+del src\*.pdb /s
+del src\*.log /s
+del bin\*.xml /s 
+del bin\*.dll /s
+del bin\*.pdb /s
