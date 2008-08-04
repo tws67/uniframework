@@ -12,15 +12,94 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{AE608705-2AC0-4304-86DB-78D331CE79D1}"
+	ProjectSection(SolutionItems) = preProject
+		assembly\Castle.Components.Common.EmailSender.dll = assembly\Castle.Components.Common.EmailSender.dll
+		assembly\Castle.Components.Common.EmailSender.xml = assembly\Castle.Components.Common.EmailSender.xml
+		assembly\Castle.Components.Validator.dll = assembly\Castle.Components.Validator.dll
+		assembly\Castle.Components.Validator.xml = assembly\Castle.Components.Validator.xml
+		assembly\Castle.Core.dll = assembly\Castle.Core.dll
+		assembly\Castle.Core.xml = assembly\Castle.Core.xml
+		assembly\Castle.DynamicProxy.dll = assembly\Castle.DynamicProxy.dll
+		assembly\Castle.DynamicProxy.xml = assembly\Castle.DynamicProxy.xml
+		assembly\Castle.DynamicProxy2.dll = assembly\Castle.DynamicProxy2.dll
+		assembly\Castle.DynamicProxy2.xml = assembly\Castle.DynamicProxy2.xml
+		assembly\Castle.MicroKernel.dll = assembly\Castle.MicroKernel.dll
+		assembly\Castle.MicroKernel.xml = assembly\Castle.MicroKernel.xml
+		assembly\Castle.Windsor.dll = assembly\Castle.Windsor.dll
+		assembly\Castle.Windsor.xml = assembly\Castle.Windsor.xml
+		assembly\Db4objects.Db4o.dll = assembly\Db4objects.Db4o.dll
+		assembly\Db4objects.Db4o.Linq.dll = assembly\Db4objects.Db4o.Linq.dll
+		assembly\Db4objects.Db4o.xml = assembly\Db4objects.Db4o.xml
+		assembly\ICSharpCode.SharpZipLib.dll = assembly\ICSharpCode.SharpZipLib.dll
+		assembly\ICSharpCode.SharpZipLib.xml = assembly\ICSharpCode.SharpZipLib.xml
+		assembly\log4net.dll = assembly\log4net.dll
+		assembly\log4net.xml = assembly\log4net.xml
+		assembly\Microsoft.Practices.ObjectBuilder.dll = assembly\Microsoft.Practices.ObjectBuilder.dll
+		assembly\nunit.framework.dll = assembly\nunit.framework.dll
+		assembly\nunit.framework.extensions.dll = assembly\nunit.framework.extensions.dll
+		assembly\nunit.framework.xml = assembly\nunit.framework.xml
+		assembly\nunit.mocks.dll = assembly\nunit.mocks.dll
+		assembly\Rhino.Mocks.dll = assembly\Rhino.Mocks.dll
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{F26E206D-93C0-42E1-906E-55154DFA27FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design", "Design", "{F303106C-C535-47B7-9192-29326C64AA72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{AD2ADB89-32C4-4535-9678-39D45604F9FF}"
+	ProjectSection(SolutionItems) = preProject
+		sources\UniframeworkInfo.cs = sources\UniframeworkInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B1174DAB-27C1-496D-B691-676323EA5B37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{C9EDC766-4B5B-4B8F-A3BD-41FAB4AE3D7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{1C132BB1-7E27-4610-8721-EEB0E7F2305D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Slice", "Slice", "{CBD80B93-D845-44F5-B16A-3584AB758C4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composite UI Application Block", "Composite UI Application Block", "{B689B4A4-0646-42EF-A080-0A4580362A8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectBuilder", "sources\cab\ObjectBuilder\ObjectBuilder.csproj", "{2AE49F19-392B-4C50-A13C-F49B2579849D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI", "sources\cab\CompositeUI\CompositeUI.csproj", "{C478E40B-A05E-4C69-9AB3-7A3BB374243F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.WinForms", "sources\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj", "{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.Common", "sources\cab\CompositeUI.Common\CompositeUI.Common.csproj", "{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}"
 EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE49F19-392B-4C50-A13C-F49B2579849D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B689B4A4-0646-42EF-A080-0A4580362A8A} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
+		{2AE49F19-392B-4C50-A13C-F49B2579849D} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
+		{C478E40B-A05E-4C69-9AB3-7A3BB374243F} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
+		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
+		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
 	EndGlobalSection
 EndGlobal
