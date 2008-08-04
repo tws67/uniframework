@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.WinForms", "sou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.Common", "sources\cab\CompositeUI.Common\CompositeUI.Common.csproj", "{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework", "sources\Uniframework\Uniframework.csproj", "{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,12 +92,17 @@ Global
 		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B689B4A4-0646-42EF-A080-0A4580362A8A} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
+		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{2AE49F19-392B-4C50-A13C-F49B2579849D} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
 		{C478E40B-A05E-4C69-9AB3-7A3BB374243F} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
 		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
