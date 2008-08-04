@@ -1,6 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{291E7C53-3CC8-45AA-A3D4-5F41CD103B64}"
+	ProjectSection(SolutionItems) = preProject
+		Clean.bat = Clean.bat
+		Copyfile.bat = Copyfile.bat
+		debugbuild.bat = debugbuild.bat
+		GPL License.txt = GPL License.txt
+		GPL发布许可.txt = GPL发布许可.txt
+		releasebuild.bat = releasebuild.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{AE608705-2AC0-4304-86DB-78D331CE79D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{F26E206D-93C0-42E1-906E-55154DFA27FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design", "Design", "{F303106C-C535-47B7-9192-29326C64AA72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{AD2ADB89-32C4-4535-9678-39D45604F9FF}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
