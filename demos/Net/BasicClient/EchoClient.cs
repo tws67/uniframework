@@ -40,9 +40,9 @@ namespace BasicClient
         /// Called when [connect server fail].
         /// </summary>
         /// <param name="e">The e.</param>
-        protected override void OnConnectServerFail(Exception e)
+        protected override void OnConnectServerFailed(Exception e)
         {
-            base.OnConnectServerFail(e);
+            base.OnConnectServerFailed(e);
             NetDebuger.PrintDebugMessage(e.Message);
         }
 

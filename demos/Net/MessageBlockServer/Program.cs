@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Diagnostics;
 
-namespace BasicClient
+namespace MessageBlockServer
 {
     class Program
     {
@@ -12,14 +12,14 @@ namespace BasicClient
         {
             Trace.Listeners.Add(new ConsoleTraceListener());
 
-            using (EchoClient client = new EchoClient()) {
-                client.Port = 8088;
-                client.Host = "localhost";
-                client.Start();
+            // 启动服务器
+            using (MessageServer server = new MessageServer()) {
+                server.Port = 8088;
+                server.Start();
 
                 Console.WriteLine("Press enter key to exit...");
                 Console.ReadLine();
-                client.Stop();
+                server.Stop();
             }
         }
     }
