@@ -7,7 +7,7 @@ namespace Uniframework
     /// <summary>
     /// 远程调用包工具类
     /// </summary>
-    public static class PackageHelper
+    public static class PackageUtility
     {
         /// <summary>
         /// 
