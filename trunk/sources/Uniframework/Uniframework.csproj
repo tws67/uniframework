@@ -40,6 +40,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
@@ -65,12 +66,53 @@
     <Compile Include="Attributes\RemoteServiceAttribute.cs" />
     <Compile Include="Client\IRemoteCaller.cs" />
     <Compile Include="Client\ISmartClient.cs" />
+    <Compile Include="Common\AsyncHelper.cs" />
+    <Compile Include="Common\CollectionBase.cs" />
     <Compile Include="Common\Collections\DoubleEndedQueue.cs" />
     <Compile Include="Common\Collections\PriorityQueue.cs" />
     <Compile Include="Common\Collections\Queue.cs" />
+    <Compile Include="Common\DisposableAndStartableBase.cs" />
+    <Compile Include="Common\DisposableBase.cs" />
     <Compile Include="Common\EventArgs.cs" />
+    <Compile Include="Common\Exception.cs" />
+    <Compile Include="Common\WaitCursor.cs" />
+    <Compile Include="Net\DataBlock.cs" />
+    <Compile Include="Net\Tcp\HeartBeatChecker.cs" />
+    <Compile Include="Net\MessageBlock.cs" />
+    <Compile Include="Net\NetDebuger.cs" />
+    <Compile Include="Net\NetException.cs" />
+    <Compile Include="Net\Tcp\CommandClient.cs" />
+    <Compile Include="Net\Tcp\CommandServer.cs" />
+    <Compile Include="Net\Tcp\CommandSession.cs" />
+    <Compile Include="Net\Tcp\HandshakeType.cs" />
+    <Compile Include="Net\Tcp\MessageBlockClient.cs" />
+    <Compile Include="Net\Tcp\MessageBlockServer.cs" />
+    <Compile Include="Net\Tcp\MessageBlockSession.cs" />
+    <Compile Include="Net\Tcp\NetBuildConnectionException.cs" />
+    <Compile Include="Net\Tcp\NetSecureException.cs" />
+    <Compile Include="Net\Tcp\NotBuildSecureConnectionException.cs" />
+    <Compile Include="Net\Tcp\SecureClientBase.cs" />
+    <Compile Include="Net\Tcp\SecureServerBase.cs" />
+    <Compile Include="Net\Tcp\SecureSession.cs" />
+    <Compile Include="Net\Tcp\TcpClientBase.cs" />
+    <Compile Include="Net\Tcp\TcpEventArgs.cs" />
+    <Compile Include="Net\Tcp\TcpException.cs" />
+    <Compile Include="Net\Tcp\TcpServerBase.cs" />
+    <Compile Include="Net\Tcp\TcpSession.cs" />
+    <Compile Include="Security\IRSACryptService.cs" />
+    <Compile Include="Security\ISymmetricCryptService.cs" />
+    <Compile Include="Security\RSACryptServiceBase.cs" />
+    <Compile Include="Security\RSAKey.cs" />
+    <Compile Include="Security\SecurityCommon.cs" />
+    <Compile Include="Security\SymmetricCryptServiceBase.cs" />
+    <Compile Include="Utility\MyConvert.cs" />
     <Compile Include="Common\NetworkInvokePackage.cs" />
-    <Compile Include="Common\PackageHelper.cs" />
+    <Compile Include="Common\PackageUtility.cs" />
+    <Compile Include="Common\ShortGuid.cs" />
+    <Compile Include="Utility\Singleton.cs" />
+    <Compile Include="Common\Startable.cs" />
+    <Compile Include="Utility\StringEx.cs" />
+    <Compile Include="Common\TEventArgs.cs" />
     <Compile Include="Service\Authorization\AuthorizationAction.cs" />
     <Compile Include="Service\Authorization\AuthorizationResource.cs" />
     <Compile Include="Service\Authorization\IAuthorizationStoreService.cs" />
@@ -123,11 +165,12 @@
     <Compile Include="Utility\SecurityUtility.cs" />
     <Compile Include="Utility\Serializer.cs" />
     <Compile Include="Utility\Set.cs" />
+    <Compile Include="Utility\Task.cs" />
+    <Compile Include="Utility\TimeCounter.cs" />
     <Compile Include="Utility\WorkThread.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Constants\" />
-    <Folder Include="Security\" />
+    <Folder Include="Constant\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
