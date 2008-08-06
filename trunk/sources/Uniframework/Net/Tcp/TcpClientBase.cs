@@ -211,7 +211,7 @@ namespace Uniframework.Net
             catch (Exception e)
             {
                 //连接服务器失败
-                OnConnectServerFail(e);
+                OnConnectServerFailed(e);
             }
         }
 
@@ -254,7 +254,7 @@ namespace Uniframework.Net
             }
         }
 
-        protected virtual void OnConnectServerFail(Exception e)
+        protected virtual void OnConnectServerFailed(Exception e)
         {
 
         }
