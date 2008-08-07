@@ -129,7 +129,6 @@
     <Compile Include="Service\IInitializeService.cs" />
     <Compile Include="Service\ILoggerFactory.cs" />
     <Compile Include="Service\IObjectDatabaseService.cs" />
-    <Compile Include="Service\IRegisterService.cs" />
     <Compile Include="Service\IServiceCaller.cs" />
     <Compile Include="Service\ISessionService.cs" />
     <Compile Include="Service\ISessionState.cs" />

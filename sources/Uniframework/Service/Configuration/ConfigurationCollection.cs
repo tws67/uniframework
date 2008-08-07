@@ -59,7 +59,7 @@ namespace Uniframework.Services
         /// <summary>
         /// Ë÷Òý
         /// </summary>
-        /// <param name="name"></param>
+        /// <value></value>
         /// <returns></returns>
         public IConfiguration this[String name]
         {

@@ -15,7 +15,7 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="path">路径名称</param>
         /// <returns>如果存在的话返回true，否则返回false</returns>
-        bool Exist(string path);
+        bool Exists(string path);
 
         /// <summary>
         /// 判断指定路径中的某个节点是否存在
@@ -23,7 +23,7 @@ namespace Uniframework.Services
         /// <param name="path">路径名称</param>
         /// <param name="item">节点名称</param>
         /// <returns>如果存在的话返回true，否则返回false</returns>
-        bool Exist(string path, string item);
+        bool Exists(string path, string item);
 
         /// <summary>
         /// 判断指定路径中的是否存在子节点

@@ -78,11 +78,11 @@ namespace Uniframework.Services
         #region IConfigurationService Members
 
         /// <summary>
-        /// 
+        /// 判断路径是否存在
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public bool Exist(string path)
+        /// <param name="path">路径名称</param>
+        /// <returns>如果存在的话返回true，否则返回false</returns>
+        public bool Exists(string path)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
             path = path.Trim();
@@ -95,10 +95,10 @@ namespace Uniframework.Services
         /// <summary>
         /// 检查指定路径的节点是否存在
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public bool Exist(string path, string item)
+        /// <param name="path">路径名称</param>
+        /// <param name="item">节点名称</param>
+        /// <returns>如果存在的话返回true，否则返回false</returns>
+        public bool Exists(string path, string item)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
             path = path.Trim();
@@ -115,8 +115,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 检查指定路径下是否含有子节点
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <returns>如果存在的话返回true，否则返回false</returns>
         public bool HasChildren(string path)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
@@ -134,8 +134,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取指定路径的节点
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <returns>如果存在的话返回指定路径下的节点，否则返回null</returns>
         public XmlNode GetItem(string path)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
@@ -144,11 +144,11 @@ namespace Uniframework.Services
         }
 
         /// <summary>
-        /// 
+        /// 获取指定路径、指定节点名称的节点
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <param name="item">属性名称</param>
+        /// <returns>如果存在的话返回指定路径下的节点，否则返回null</returns>
         public XmlNode GetItem(string path, KeyValuePair<string, string> item)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
@@ -160,11 +160,11 @@ namespace Uniframework.Services
         }
 
         /// <summary>
-        /// 
+        /// 获取指定路径下对应索引的节点
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <param name="index">索引号</param>
+        /// <returns>如果存在的话返回指定路径下的节点，否则返回null</returns>
         public XmlNode GetItem(string path, int index)
         {
             XmlNodeList nodes = GetChildren(path);
@@ -179,8 +179,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取指定路径的节点的值
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <returns>如果存在的话返回指定路径节点下的值，否则返回空字符串</returns>
         public string GetItemValue(string path)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
@@ -192,9 +192,9 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取指定路径的节点的属性信息
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="attribute"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <param name="attribute">属性名称</param>
+        /// <returns>如果存在的话返回指定属性的值，否则返回空字符串</returns>
         public string GetItemAttribute(string path, string attribute)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
@@ -218,8 +218,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取指定路径下所有的子节点
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">路径名称</param>
+        /// <returns>如果存在的话返回指定路径下的所有节点列表，否则返回null</returns>
         public XmlNodeList GetChildren(string path)
         {
             ArgumentUtility.AssertNotNull<string>(path, "path");
@@ -234,8 +234,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取指定节点名称的路径信息
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">节点名称</param>
+        /// <returns>如果找到节点返回节点的路径，否则返回null</returns>
         public string SearchNode(string item)
         {
             ArgumentUtility.AssertNotNull<string>(item, "item");

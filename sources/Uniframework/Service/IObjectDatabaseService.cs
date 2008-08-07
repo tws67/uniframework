@@ -95,7 +95,7 @@ namespace Uniframework.Services
         /// 激活对象实例
         /// </summary>
         /// <param name="obj">要激活的对象实例</param>
-        /// <param name="depth">操作深度</param>
+        /// <param name="depth">需要操作的对象层次</param>
         void Activate(object obj, int depth);
     }
     #endregion

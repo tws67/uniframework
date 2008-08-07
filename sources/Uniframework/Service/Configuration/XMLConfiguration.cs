@@ -14,8 +14,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
         public XMLConfiguration(string name, string value)
             : base()
         {
@@ -26,7 +26,7 @@ namespace Uniframework.Services
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="node">The node.</param>
         public XMLConfiguration(XmlNode node)
             : base()
         {

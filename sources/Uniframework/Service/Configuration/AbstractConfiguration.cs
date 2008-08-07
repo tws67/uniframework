@@ -88,9 +88,11 @@ namespace Uniframework.Services
         }
 
         /// <summary>
-        /// 
+        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        /// </returns>
         public override string ToString()
         {
             string tmp = "NAME: " + Name + ", VALUE: " + (String.IsNullOrEmpty(Value) ? "- " : Value) + " ATTRIBUTE: ";
