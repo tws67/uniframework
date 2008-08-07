@@ -63,7 +63,7 @@ namespace Uniframework
         {
             if (IsRun)
             {
-                throw new RuntimeException("对象已经在运行，请先停止对象再启动");
+                throw new RuntimeException("对象已经在运行，请先停止对象再启动。");
             }
 
             OnStart();
