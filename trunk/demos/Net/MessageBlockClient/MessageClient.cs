@@ -42,5 +42,15 @@ namespace MessageBlockClient
             base.OnReceivedData(dataBlock);
             NetDebuger.PrintDebugMessage(Encoding.Unicode.GetString(dataBlock.ToArray()));
         }
+
+        /// <summary>
+        /// Called when [connect server failed].
+        /// </summary>
+        /// <param name="e">The e.</param>
+        protected override void OnConnectServerFailed(Exception e)
+        {
+            base.OnConnectServerFailed(e);
+            NetDebuger.PrintErrorMessage(Session, e.ToString());
+        }
     }
 }
