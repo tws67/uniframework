@@ -18,7 +18,7 @@ namespace Uniframework
     /// <typeparam name="T">Class type would be implemented singleton mode</typeparam>
     public abstract class Singleton<T>
     {
-        private static object syncObject = new object();
+        private static object syncObj = new object();
         private static T instance;
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Uniframework
             {
                 if(instance == null)
                 {
-                    Monitor.Enter(syncObject);
+                    Monitor.Enter(syncObj);
                     if (instance == null)
                     {
                         try
@@ -39,7 +39,7 @@ namespace Uniframework
                         }
                         finally
                         {
-                            Monitor.Exit(syncObject);
+                            Monitor.Exit(syncObj);
                         }
                     }
                 }
@@ -48,14 +48,14 @@ namespace Uniframework
             }
             set
             {
-                Monitor.Enter(syncObject);
+                Monitor.Enter(syncObj);
                 try
                 {
                     instance = value;
                 }
                 finally
                 {
-                    Monitor.Exit(syncObject);
+                    Monitor.Exit(syncObj);
                 }
             }
         }

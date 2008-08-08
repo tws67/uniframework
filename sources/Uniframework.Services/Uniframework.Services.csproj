@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AB560843-D1D0-4D14-AAED-42F87ED5D089}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Uniframework.Services</RootNamespace>
+    <AssemblyName>Uniframework.Services</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Db4objects.Db4o, Version=7.4.49.11005, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Db4objects.Db4o.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\UniframeworkInfo.cs">
+      <Link>UniframeworkInfo.cs</Link>
+    </Compile>
+    <Compile Include="DefaultContainer.cs" />
+    <Compile Include="DefaultServiceCaller.cs" />
+    <Compile Include="EventDispatch\EventCollector.cs" />
+    <Compile Include="EventDispatch\EventDispatcher.cs" />
+    <Compile Include="EventDispatch\EventListener.cs" />
+    <Compile Include="Facilities\EventAutoWiringFacility.cs" />
+    <Compile Include="Facilities\SystemComponentInspector.cs" />
+    <Compile Include="Facilities\SystemFacility.cs" />
+    <Compile Include="InitializeService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceGateway.cs" />
+    <Compile Include="Services\Extend\AbstractExtend.cs" />
+    <Compile Include="Services\Logger\Log4NetLogger.cs" />
+    <Compile Include="Services\Logger\Log4NetLoggerFactory.cs" />
+    <Compile Include="Services\ObjectDatabase\db4oDatabase.cs" />
+    <Compile Include="Services\ObjectDatabase\db4oDatabaseService.cs" />
+    <Compile Include="Services\ObjectDatabase\db4oEnlist.cs" />
+    <Compile Include="Services\ObjectDatabase\db4oHttpModule.cs" />
+    <Compile Include="Services\Session\SessionService.cs" />
+    <Compile Include="Services\Session\SessionState.cs" />
+    <Compile Include="Services\Upgrade\IISManager.cs" />
+    <Compile Include="Services\Upgrade\UpgradeService.cs" />
+    <Compile Include="SystemService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Uniframework\Uniframework.csproj">
+      <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
+      <Name>Uniframework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
