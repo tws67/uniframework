@@ -216,7 +216,7 @@ namespace Uniframework.Net
         }
 
         /// <summary>
-        /// 回话被创建，接收数据之前被调用
+        /// 会话被创建，接收数据之前被调用
         /// </summary>
         protected virtual void OnCreateSession()
         {
@@ -274,7 +274,7 @@ namespace Uniframework.Net
         /// <summary>
         /// 等待接收数据
         /// </summary>
-        void WaitForData()
+        private void WaitForData()
         {
             try
             {

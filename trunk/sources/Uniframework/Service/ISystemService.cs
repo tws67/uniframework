@@ -215,7 +215,6 @@ namespace Uniframework.Services
     public class ClientModuleInfo
     {
         private bool isMainModule = false;
-        private string[] allowRoles;
         private string assemblyFile = string.Empty;
         private string updateLocation = string.Empty;
 
@@ -232,19 +231,18 @@ namespace Uniframework.Services
         /// <param name="assemblyFile">程序集文件名</param>
         /// <param name="updateLocation">更新位置</param>
         /// <param name="isMainModule">是否主要模块</param>
-        public ClientModuleInfo(string[] allowRoles, string assemblyFile, string updateLocation, bool isMainModule)
+        public ClientModuleInfo(string assemblyFile, string updateLocation, bool isMainModule)
             : this()
         {
-            this.allowRoles = allowRoles;
             this.assemblyFile = assemblyFile;
             this.updateLocation = updateLocation;
             this.isMainModule = isMainModule;
         }
 
-        /// <summary>
-        /// 获取允许操作的角色数组
-        /// </summary>
-        public string[] AllowedRoles { get { return allowRoles; } }
+        ///// <summary>
+        ///// 获取允许操作的角色数组
+        ///// </summary>
+        //public string[] AllowedRoles { get { return allowRoles; } }
 
         /// <summary>
         /// 获取装配件文件
