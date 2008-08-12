@@ -55,20 +55,23 @@ namespace Uniframework.Net
         /// <summary>
         /// 发送数据
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="startIndex"></param>
-        /// <param name="length"></param>
+        /// <param name="data">The data.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="length">The length.</param>
         public virtual void Send(byte[] data, int startIndex, int length)
         {
             SafeSend(new DataBlock(data, startIndex, length));
         }
 
-        //private void 
+        /// <summary>
+        /// Safes the send.
+        /// </summary>
+        /// <param name="target">The target.</param>
         private void SafeSend(DataBlock target)
         {
             lock (sendQueue.SyncRoot)
             {
-                sendQueue.Enqueue(target);//添加到发送列表
+                sendQueue.Enqueue(target); //添加到发送列表
 
                 if (sendQueue.Count == 1)
                 {
@@ -77,6 +80,10 @@ namespace Uniframework.Net
             }
         }
 
+        /// <summary>
+        /// Atoms the send.
+        /// </summary>
+        /// <param name="target">The target.</param>
         private void AtomSend(DataBlock target)
         {
             try

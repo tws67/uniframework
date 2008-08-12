@@ -27,9 +27,9 @@ namespace Uniframework.Net
         /// </summary>
        internal event  EventHandler<DataBlockArgs> OnReceivedData;
 
-        Socket socket;
-        DataBlock buffer;
-        int id;
+        private Socket socket;
+        private DataBlock buffer;
+        private int id;
         internal IAsyncResult recvResult;
         internal IAsyncResult sendResult;
 
