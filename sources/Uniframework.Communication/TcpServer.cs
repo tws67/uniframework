@@ -52,6 +52,7 @@ namespace Uniframework.Communication
                         result.CopyTo(returns, 1);
                         Send(session, returns); // 向客户端回传处理结果
                     }
+                    dataBlock.Reset();
                 }
                 catch (Exception ex)
                 {
