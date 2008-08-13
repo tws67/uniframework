@@ -45,5 +45,31 @@ namespace Uniframework
                 handler(sender, createEventArgs());
             }
         }
+
+        /// <summary>
+        /// Generic method used to broadcast events when needed. This method will attempt to send the event to each registered
+        /// listener, even if any particular event throws an exception
+        /// </summary>
+        /// <param name="eventToBroadcast">Event to be broadcast</param>
+        /// <param name="eventSender">Object that sent the event</param>
+        /// <param name="eventData">EventArgs to be broadcast with the event</param>
+        public static void BroadcastEvent(Delegate eventToBroadcast, object eventSender, EventArgs eventData)
+        {
+            if (eventToBroadcast != null)
+            {
+                object[] args = new object[] { eventSender, eventData };
+                foreach (Delegate callbackDelegate in eventToBroadcast.GetInvocationList())
+                {
+                    try
+                    {
+                        callbackDelegate.DynamicInvoke(args);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
     }
 }
