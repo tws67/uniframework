@@ -36,7 +36,7 @@ namespace Uniframework.Client
         /// <returns></returns>
         public byte[] Invoke(byte[] data)
         {
-            
+            return null;
         }
 
         #endregion
