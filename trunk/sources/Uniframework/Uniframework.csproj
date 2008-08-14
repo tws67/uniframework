@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -75,6 +75,7 @@
     <Compile Include="Common\DisposableBase.cs" />
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\Exception.cs" />
+    <Compile Include="Common\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
     <Compile Include="Net\DataBlock.cs" />
     <Compile Include="Net\Tcp\HeartBeatChecker.cs" />
