@@ -35,6 +35,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -46,6 +47,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EventDispatcher\EventDispatcher.cs" />
+    <Compile Include="Services\EventDispatcher\EventService.cs" />
+    <Compile Include="Services\EventDispatcher\EventSubject.cs" />
+    <Compile Include="Services\EventDispatcher\IEventService.cs" />
+    <Compile Include="Services\EventDispatcher\ISubscripterRegister.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uniframework\Uniframework.csproj">
+      <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
+      <Name>Uniframework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
