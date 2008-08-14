@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{66C19B1E-1414-4FF3-B4B5-6B19C398D683}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Uniframework.XtraForms</RootNamespace>
+    <AssemblyName>Uniframework.XtraForms</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="DevExpress.Data.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\UniframeworkInfo.cs">
+      <Link>UniframeworkInfo.cs</Link>
+    </Compile>
+    <Compile Include="Commands\BarItemCommandAdapter.cs" />
+    <Compile Include="Commands\DXMenuItemCommandAdapter.cs" />
+    <Compile Include="Commands\NavBarItemCommandAdapter.cs" />
+    <Compile Include="Commands\RepositoryItemHyperLinkEditCommandAdapter.cs" />
+    <Compile Include="Commands\RibbonPageGroupCommandAdapter.cs" />
+    <Compile Include="ExceptionFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmartPartInfos\DockManagerSmartPartInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartPartInfos\XtraImageSmartPartInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartPartInfos\XtraNavBarGroupSmartPartInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartPartInfos\XtraTabSmartPartInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartPartInfos\XtraWindowSmartPartInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElementsDynamic\BarLinksCollectionDynamicUIAdapter.cs" />
+    <Compile Include="UIElementsDynamic\DynamicCommandEventLink.cs" />
+    <Compile Include="UIElementsDynamic\DynamicEventArgs.cs" />
+    <Compile Include="UIElementsDynamic\RibbonGalleryDynamicUIAdapter.cs" />
+    <Compile Include="UIElementsDynamic\RibbonGalleryGroupDynamicUIAdapter.cs" />
+    <Compile Include="UIElements\BarItemWrapper.cs" />
+    <Compile Include="UIElements\BarLinksCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\BarLinksOwnerCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\BarsUIAdapter.cs" />
+    <Compile Include="UIElements\EditorButtonCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\EditorButtonCollectionUIAdapterFactory.cs" />
+    <Compile Include="UIElements\NavBarGroupCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\NavBarItemCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\NavigatorCustomButtonsUIAdapter.cs" />
+    <Compile Include="UIElements\NavigatorCustomButtonsUIAdapterFactory.cs" />
+    <Compile Include="UIElements\RibbonApplicationMenuUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonAppMenuBottomPaneSimpleButtonUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonGalleryGroupUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonGalleryUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonGroupUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElements\RibbonPageCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonPageGroupCollectionUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonPageHeaderUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonQuickAccessToolbarUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonStatusBarUIAdapter.cs" />
+    <Compile Include="UIElements\RibbonUIAdapterFactory.cs" />
+    <Compile Include="UIElements\XtraBarUIAdapterFactory.cs" />
+    <Compile Include="UIElements\XtraNavBarUIAdapterFactory.cs" />
+    <Compile Include="Workspaces\DockManagerWorkspace.cs" />
+    <Compile Include="Workspaces\XtraNavBarWorkspace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workspaces\XtraTabWorkspace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workspaces\XtraWindowWorkspace.cs" />
+    <Compile Include="Workspaces\XtraWorkspaceComposer.cs" />
+    <Compile Include="XtraFormApplication.cs" />
+    <Compile Include="XtraFormApplicationBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
