@@ -32,7 +32,6 @@ namespace Microsoft.Practices.CompositeUI.Commands
 		private List<CommandAdapter> adapters = new List<CommandAdapter>();
 		private List<CommandAdapter> ownedAdapters = new List<CommandAdapter>();
 		private string name;
-        private string resourcePath;
 		private ICommandAdapterMapService mapService;
         private IAuthorizationService authorizationService;
 
@@ -87,15 +86,6 @@ namespace Microsoft.Practices.CompositeUI.Commands
 		{
 			get { return name; }
 		}
-
-        /// <summary>
-        /// Get or set the resource path of command
-        /// </summary>
-        public string ResourcePath
-        {
-            get { return resourcePath; }
-            set { resourcePath = value; }
-        }
 
 		/// <summary>
 		/// Gets or sets the status of the <see cref="Command"/>, which controls the 
@@ -248,16 +238,16 @@ namespace Microsoft.Practices.CompositeUI.Commands
 		{
 			if (Status == CommandStatus.Enabled && ExecuteAction != null)
 			{
-                // Modified by Jacky 2008-02-28 暂时从这里去除权限检查
-                //if (authorizationService != null)
-                //{
-                //    if (authorizationService.CanExecute(resourcePath, name))
-                //        ExecuteAction(this, e);
-                //    else
-                //        throw new AuthorizationException("You have no power to execute this command.");
-                //}
-                //else
-                //    ExecuteAction(this, e);
+                // Modified by Jacky 2008-08-15 增加权限检查
+                if (authorizationService != null)
+                {
+                    if (authorizationService.CanExecute(name))
+                        ExecuteAction(this, e);
+                    else
+                        throw new AuthorizationException("You have no power to execute this command.");
+                }
+                else
+                    ExecuteAction(this, e);
                 ExecuteAction(this, e);
 			}
 		}

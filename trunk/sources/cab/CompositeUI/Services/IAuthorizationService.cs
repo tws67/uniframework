@@ -1,4 +1,4 @@
-﻿using System;
+﻿　using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,9 +13,8 @@ namespace Microsoft.Practices.CompositeUI.Services
         /// 检查指定路径下的命令可否执行
         /// </summary>
         /// <param name="command">命令名</param>
-        /// <param name="exPath">路径</param>
         /// <returns>如果可以执行返回true，否则为false</returns>
-        bool CanExecute(string exPath, string command);
+        bool CanExecute(string command);
     }
 
     /// <summary>
