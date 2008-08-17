@@ -164,7 +164,6 @@
     <Compile Include="Utility\MyBinaryFormatter.cs" />
     <Compile Include="Utility\SecurityUtility.cs" />
     <Compile Include="Utility\Serializer.cs" />
-    <Compile Include="Utility\Set.cs" />
     <Compile Include="Utility\Task.cs" />
     <Compile Include="Utility\TimeCounter.cs" />
     <Compile Include="Utility\WorkThread.cs" />
