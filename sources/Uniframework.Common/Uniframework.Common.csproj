@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3A800ABE-8658-460C-A471-D1C14FADF408}</ProjectGuid>
+    <ProjectGuid>{2A4A8833-ECC2-41CE-918A-AD3A18819C2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Uniframework.SmartClient</RootNamespace>
-    <AssemblyName>Uniframework.SmartClient</AssemblyName>
+    <RootNamespace>Uniframework.Common</RootNamespace>
+    <AssemblyName>Uniframework.Common</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,21 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\assembly\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -56,52 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddIns\AddIn.cs" />
-    <Compile Include="AddIns\AddInElement.cs" />
-    <Compile Include="AddIns\AddInException.cs" />
-    <Compile Include="AddIns\AddInNode.cs" />
-    <Compile Include="AddIns\AddInTree.cs" />
-    <Compile Include="AddIns\AuthorizationCondition.cs" />
-    <Compile Include="AddIns\BuilderService.cs" />
-    <Compile Include="AddIns\Builders\ObjectBuilder.cs" />
-    <Compile Include="AddIns\ComplexCondition.cs" />
-    <Compile Include="AddIns\Condition.cs" />
-    <Compile Include="AddIns\ExtensionPath.cs" />
-    <Compile Include="AddIns\IBuilder.cs" />
-    <Compile Include="AddIns\IBuilderModifier.cs" />
-    <Compile Include="AddIns\IBuilderService.cs" />
-    <Compile Include="AddIns\ICondition.cs" />
-    <Compile Include="AddIns\IConditionEvaluator.cs" />
-    <Compile Include="Commands\CommandHandlers.cs" />
-    <Compile Include="Constants\CommandHandlerNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Authorization\AuthorizationService.cs" />
-    <Compile Include="Services\EventDispatcher\EventDispatcher.cs" />
-    <Compile Include="Services\EventDispatcher\EventService.cs" />
-    <Compile Include="Services\EventDispatcher\EventSubject.cs" />
-    <Compile Include="Services\EventDispatcher\IEventService.cs" />
-    <Compile Include="Services\EventDispatcher\ISubscripterRegister.cs" />
-    <Compile Include="Services\IImageService.cs" />
-    <Compile Include="Services\ImageService.cs" />
-    <Compile Include="Services\RemoteServiceRegister.cs" />
-    <Compile Include="Services\WebServiceModuleEnumerator.cs" />
-    <Compile Include="SmartClientEnvironment.cs" />
-    <Compile Include="Strategies\AuthorizationStrategy.cs" />
-    <Compile Include="Strategies\EventConnectStrategy.cs" />
-    <Compile Include="UniframeworkApplication.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
-      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
-      <Name>CompositeUI.WinForms</Name>
+    <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
+      <Project>{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}</Project>
+      <Name>CompositeUI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Uniframework.Client\Uniframework.Client.csproj">
-      <Project>{7423F696-7D41-47A6-94C8-AD951FF9BF5B}</Project>
-      <Name>Uniframework.Client</Name>
+    <ProjectReference Include="..\Uniframework.SmartClient\Uniframework.SmartClient.csproj">
+      <Project>{3A800ABE-8658-460C-A471-D1C14FADF408}</Project>
+      <Name>Uniframework.SmartClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.XtraForms\Uniframework.XtraForms.csproj">
       <Project>{E9CBA808-D476-4034-9FD7-ABBF69D13B2B}</Project>
@@ -111,12 +72,6 @@
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
       <Name>Uniframework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AddIns\AddIns.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AddIns\Sample.addin" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

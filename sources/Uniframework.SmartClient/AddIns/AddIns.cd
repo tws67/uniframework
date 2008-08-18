@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LightweightCTI.SmartClient.AddInTree" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAQAAIAkAgEQAAABAIAAQQQAAlBAAAAQAAAgAEAAAA=</HashCode>
+      <FileName>AddIns\AddInTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddIn" Collapsed="true">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAEAhAABAQAkAIkKpAGACIQgAAAMAKAACAAAAABAAAQ=</HashCode>
+      <FileName>AddIns\AddIn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddInNode" Collapsed="true">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAACAAAAAgAA=</HashCode>
+      <FileName>AddIns\AddInNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddInElement" Collapsed="true">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAKEEAIGDBACBQQQAASEAAAAgAAAAAABAgA=</HashCode>
+      <FileName>AddIns\AddInElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.ExtensionPath" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAQQIAAEECAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\ExtensionPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.BuilderService" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAECAASAAIAAAAAAQAAIAAAABAAAAAAAAA=</HashCode>
+      <FileName>AddIns\BuilderService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.Condition" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAACAgAAAQgAACEAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>AddIns\Condition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.BarBuilder" Collapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\BarBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.BuilderHelper" Collapsed="true">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAQAAAAAAAAAAAAAAEAACAAAAAAAAABAAAA=</HashCode>
+      <FileName>AddIns\Builders\BuilderHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.ButtonItemBuilder" Collapsed="true">
+    <Position X="6.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\ButtonItemBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.CheckBoxItemBuilder" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\CheckBoxItemBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.ComboBoxItemBuilder" Collapsed="true">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\ComboBoxItemBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddIns.Builders.ContentMenuBuilder" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\ContentMenuBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.DockableWindowWorkspaceBuilder" Collapsed="true">
+    <Position X="6.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\DockableWindowWorkspaceBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddIns.Builders.ExplorerBarGroupItemBuilder" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\ExplorerBarGroupItemBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.ExplorerBarWorkspaceBuilder" Collapsed="true">
+    <Position X="8.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\ExplorerBarWorkspaceBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddIns.Builders.LabelItemBuilder" Collapsed="true">
+    <Position X="8.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\LabelItemBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.AddIns.Builders.ProgressBarItemBuilder" Collapsed="true">
+    <Position X="8.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\ProgressBarItemBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="LightweightCTI.SmartClient.TabbedDocumentWorkspaceBuilder" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\Builders\TabbedDocumentWorkspaceBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="LightweightCTI.SmartClient.IConditionEvaluator" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\IConditionEvaluator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LightweightCTI.SmartClient.IBuilder" Collapsed="true">
+    <Position X="6.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddIns\IBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="LightweightCTI.SmartClient.AddInAction" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAEAAAACAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>AddIns\AddIn.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="SimSun" Size="9" />
+</ClassDiagram>
