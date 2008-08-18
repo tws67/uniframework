@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Practices.CompositeUI;
+using Uniframework.Services;
 
 namespace Uniframework.SmartClient
 {
@@ -13,14 +14,26 @@ namespace Uniframework.SmartClient
     [Service]
     public class SmartClientEnvironment
     {
+        private UserInfo currentUser;
+
         /// <summary>
         /// Gets the application path.
         /// </summary>
         /// <value>The application path.</value>
         public string ApplicationPath {
             get {
-                return FileUtility.ApplicationRootPath;
+                return FileUtility.GetParent(FileUtility.ApplicationRootPath);
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the current user.
+        /// </summary>
+        /// <value>The current user.</value>
+        public UserInfo CurrentUser
+        {
+            get { return currentUser; }
+            internal set { currentUser = value;}
         }
     }
 }
