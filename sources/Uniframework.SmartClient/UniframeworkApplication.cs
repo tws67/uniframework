@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing;
+using System.IO;
 using System.Security.Principal;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,10 +18,8 @@ using Uniframework.Client;
 using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
 using Uniframework.Services;
+using Uniframework.Services.db4oService;
 using Uniframework.XtraForms;
-using System.Configuration;
-using System.IO;
-using System.Drawing;
 
 namespace Uniframework.SmartClient
 {
@@ -36,10 +37,8 @@ namespace Uniframework.SmartClient
         protected override void BeforeShellCreated()
         {
             base.BeforeShellCreated();
-
             InitializeEnvironment();
         }
-
 
         /// <summary>
         /// See <see cref="CabShellApplication{T,S}.AfterShellCreated"/>
@@ -59,7 +58,6 @@ namespace Uniframework.SmartClient
             //AddClientService();
             addInTree = new AddInTree();
             RootWorkItem.Services.Add<AddInTree>(addInTree);
-            //RootWorkItem.Items.Add(addInTree, "AddInTree"); // 添加插件树到RootWorkItem
             RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandlers"); // 创建框架通用的命令处理器
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
@@ -82,6 +80,19 @@ namespace Uniframework.SmartClient
         {
             base.AddBuilderStrategies(builder);
 
+            builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
+        }
+
+        /// <summary>
+        /// See <see cref="CabApplication{TWorkItem}.AddServices"/>
+        /// </summary>
+        protected override void AddServices()
+        {
+            base.AddServices();
+
+            string dbPath = Path.Combine(FileUtility.GetParent(FileUtility.ApplicationRootPath), @"\Data\");
+            IObjectDatabaseService databaseService = new db4oDatabaseService(dbPath);
+            RootWorkItem.Services.Add<IObjectDatabaseService>(databaseService);
         }
 
         #region Assistant functions
@@ -142,10 +153,14 @@ namespace Uniframework.SmartClient
                 UserInfo user = initService.GetUserInfo(CommunicateProxy.UserName);
                 RootWorkItem.Items.Add(user, "CurrentUser");
                 IMembershipService membershipServce = RootWorkItem.Services.Get<IMembershipService>();
-                if (membershipServce != null)
-                {
+                if (membershipServce != null) {
                     string[] roles = membershipServce.GetRolesForUser(CommunicateProxy.UserName);
                     Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(CommunicateProxy.UserName), roles);
+                }
+                // 为环境变量赋值
+                SmartClientEnvironment scEnvironment = RootWorkItem.Services.Get<SmartClientEnvironment>();
+                if (scEnvironment != null) {
+                    scEnvironment.CurrentUser = user;
                 }
             }
         }
