@@ -22,16 +22,10 @@ namespace Uniframework.SmartClient
 
         private object SyncObj = new object(); // locker
         private string imagePath = String.Empty;
+        private SmartClientEnvironment scEnvironment;
         private Dictionary<Size, Dictionary<string, Icon>> iconsCache = new Dictionary<Size, Dictionary<string, Icon>>();
         private Dictionary<string, Bitmap> imagesCache = new Dictionary<string, Bitmap>();
         private Dictionary<string, string> imagesMap = new Dictionary<string, string>();
-
-        public ImageService([ServiceDependency]SmartClientEnvironment scEnvironment)
-        {
-            imagePath = Path.Combine(scEnvironment.ApplicationPath, @"\Resources\");
-            if (!Directory.Exists(imagePath))
-                Directory.CreateDirectory(imagePath);
-        }
 
         #region IImageService Members
 
@@ -148,6 +142,25 @@ namespace Uniframework.SmartClient
         #endregion
 
         #region assistant functions
+
+        [ServiceDependency]
+        internal SmartClientEnvironment SCEnvironment
+        {
+            get { return scEnvironment; }
+            set { scEnvironment = value; }
+        }
+
+        private string ImagePath
+        {
+            get {
+                if (String.IsNullOrEmpty(imagePath)) {
+                    imagePath = Path.Combine(SCEnvironment.ApplicationPath, @"\Resources\");
+                    if (!Directory.Exists(imagePath))
+                        Directory.CreateDirectory(imagePath);
+                }
+                return imagePath;
+            }
+        }
 
         /// <summary>
         /// 分析字符串将其中以${...}括起来的字符串资源替换为实际的值。

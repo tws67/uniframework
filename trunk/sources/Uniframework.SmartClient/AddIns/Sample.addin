@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration name = "LightweightCTi.Sample"
+               author = "Jacky"
+               copyright = "copyright by Sjteksoft"
+               url = "www.lightweightcti.cn"
+               description = "this is a sample addin file for lightweightcti framework."
+               hideninmanager = "true">
+  
+  <!-- 在Resource节下定义用到的图形或字符串资源 -->
+  <Resources>
+    <Images>
+      <Item key="Icons.16X16.Messenger" value="Icons.16X16.Messenger.png"/>
+      <Item key="Icons.32X32.Messenger" value="Icons.32X32.Messenger.png"/>
+      <Item key="Icons.16X16.Setup" value="Icons.16X16.Setup.png"/>
+      <Item key="Icons.32X32.Setup" value="Icons.32X32.Setup.png"/>
+      <Item key="Icons.16X16.Security" value="Icons.16X16.Security.png"/>
+      <Item key="Icons.32X32.Security" value="Icons.32X32.Security.png"/>
+      <Item key="Icons.16X16.Group" value="Icons.16X16.Group.png"/>
+      <Item key="Icons.32X32.Group" value="Icons.32X32.Group.png"/>
+      <Item key="Icons.16X16.Exit" value="Icons.16X16.Exit.png"/>
+      <Item key="Icons.32X32.Exit" value="Icons.32X32.Exit.png"/>
+      <Item key="Icons.16X16.Refresh" value="Icons.16X16.Refresh.png"/>
+      <Item key="Icons.32X32.Refresh" value="Icons.32X32.Refresh.png"/>
+    </Images>
+    <Strings>
+      <Item key="ShellTitle" value="LightweightCTi 1.20"/>
+      <Item key="SplashDescription" value="based on LightweightCTi"/>
+    </Strings>
+  </Resources>
+  
+  <!-- 在Builder节下定义向框架注册的UI类工厂、命令适配器、Builders等组件以方便用户对框架进行扩展-->
+  <Builders>
+    <UIAdapterFactories>
+      <add name="OutlookBarAdapterFactory" 
+           type="LightweightCTi.Layout.OutlookBarUIAdapterFactory, LightweightCTi.Layout.dll"/>
+    </UIAdapterFactories>
+    <CommandAdapters>
+      <add name="OutlookBarCommandAdapter"
+           invokertype="BaseItem"
+           adaptertype="LightweightCTi.Layout.OutlookBarCommandAdapter, LightweightCTi.Layout.dll"/>
+    </CommandAdapters>
+    <UIBuilders>
+      <add name="OutlookBarBuilder" 
+           type="LightweightCTi.Layout.OutlookBarBuilder, LightweightCTi.Layout.dll"/>
+    </UIBuilders>
+  </Builders>
+
+  <AddIns>
+    <Path name="/Shell" label="LightweightCTi">
+      <Item id="MainmenuBar" name="MainmenuBar" label="主菜单" command="" classname="Bar" register="true" show="true"/>
+    </Path>
+    
+    <Path name="/Shell/MainmenuBar" label="主菜单" buildnow="false">
+      <Item id="File" name="mmFile" label="文件(&amp;F)" classname="ButtonItem" command="" register="true">
+        <Item id="FileNew" name="mmifNew" label="新建(&amp;N)..." classname="ButtonItem" command="" shortcut="CtrlN"/>
+        <Item id="FileOpen" name="mmifOpen" label="打开(&amp;O)..." classname="ButtonItem" command="" shortcut="CtrlO"/>
+        <Item id="FileSave" name="mmifSave" label="保存(&amp;S)" classname="ButtonItem" command="" shortcut="F2"/>
+        <Item id="FileSaveAs" name="mmifSaveAs" label="另存为(&amp;A)..." classname="ButtonItem" command="" shortcut="CtrlS"/>
+        <Item id="FilePrit" name="mmifPrint" label="打印(&amp;P)..." classname="ButtonItem" command="" shortcut="CtrlP" begingroup="true"/>
+        <Item id="FileQuickPrint" name="mmifQuickPrint" label="快速打印(&amp;Q)" classname="ButtonItem" command="" shortcut="F9"/>
+        <Item id="FilePreview" name="mmifPreviewFile" label="打印预览(&amp;V)" classname="ButtonItem" command=""/>
+        <Item id="FileImport" name="mmifImport" label="导入(&amp;I)..." classname="ButtonItem" command="" shortcut="CtrlI"/>
+        <Item id="FileExport" name="mmifExport" label="导出(&amp;E)..." classname="ButtonItem" command="" shortcut="CtrlE"/>
+        <Item id="FileExit" name="mmifExit" label="退出(&amp;X)..." classname="ButtonItem" command="" imagefile="Icons.16X16.Exit"/>
+      </Item>
+      <Item id="Edit" name="mmEdit" label="编辑(&amp;E)..." classname="ButtonItem" command="">
+        <Item id="EitRedo" name="mmieRedo" label="重做(&amp;R)" classname="ButtonItem" command="" shortcut="CtrlShiftZ"/>
+        <Item id="EitUndo" name="mmieUndo" label="撤销(&amp;O)" classname="ButtonItem" command="" shortcut="CtrlZ"/>
+        <Item id="EitCopy" name="mmieCopy" label="复制(&amp;C)" classname="ButtonItem" command="" shortcut="CtrlC" begingroup="true"/>
+        <Item id="EitCut" name="mmieCut" label="剪切(&amp;T)" classname="ButtonItem" command="" shortcut="CtrlX"/>
+        <Item id="EitPaste" name="mmiePaste" label="粘帖(&amp;P)" classname="ButtonItem" command="" shortcut="CtrlV"/>
+        <Item id="EitSelectAll" name="mmieSelectAll" label="全部选择(&amp;A)" classname="ButtonItem" command="" shortcut="CtrlA" begingroup="true"/>
+        <Item id="EitSearch" name="mmieSearch" label="查询(&amp;S)..." classname="ButtonItem" command="" shortcut="CtrlF" begingroup="true"/>
+      </Item>
+      <Item id="View" name="mmivView" label="视图(&amp;V)" classname="ButtonItem" command="" register="true">
+        <Item id="ViewToolbar" name="mmivToolbar" label="工具栏(&amp;T)" classname="ButtonItem" command=""/>
+        <Item id="ViewNavigationPane" name="mmivNavigationPane" label="导航栏(&amp;N)" classname="ButtonItem" command=""/>
+        <Item id="ViewStatusbar" name="mmivStatusbar" label="状态栏(&amp;S)" classname="ButtonItem" command=""/>
+        <Item id="ViewShowNetworkStatus" name="mmivShowNetworkStatus" label="显示网络连接状态(&amp;W)" classname="ButtonItem" command="" begingroup="true" checked="true"/>
+      </Item>
+      <Item id="Help" name="mmHelp" label="帮助(&amp;H)" classname="ButtonItem" command="" register="true">
+        <Item id="HelpIndex" name="mmihIndex" label="索引(&amp;I)" classname="ButtonItem" command="" shortcut="F1"/>
+        <Item id="HelpContent" name="mmihContent" label="目录(&amp;C)" classname="ButtonItem" command=""/>
+        <Item id="HelpTutorial" name="mmihTutorial" label="入门指南(&amp;L)" classname="ButtonItem" command=""/>
+        <Item id="HelpTips" name="mmihTips" label="每日一帖(&amp;T)..." classname="ButtonItem" command="" shortcut="CtrlShiftT"/>
+        <Item id="HelpRegister" name="mmihRegister" label="注册本产品(&amp;R)..." classname="ButtonItem" command="" begingroup="true"/>
+        <Item id="HelpUpgrade" name="mmihUpgrade" label="在线更新(&amp;U)" classname="ButtonItem" command="" begingroup="true"/>
+        <Item id="HelpHomepage" name="mmihHomepage" label="访问产品主页(&amp;H)" classname="ButtonItem" command=""/>
+        <Item id="HelpContact" name="mmihContact" label="联系作者(&amp;O)" classname="ButtonItem" command=""/>
+        <Item id="HelpAbout" name="mmihAbout" label="关于(&amp;A)..." classname="ButtonItem" command="" begingroup="true"/>
+      </Item>
+    </Path>
+
+    <Path name="/Shell">
+      <!-- 必须为SmartPart部件提供Workspace、Type属性以便系统可以自动为其构建相关实例。-->
+      <Item id="StartUp" 
+            name="StartUpView" 
+            label="起始页" 
+            tooltip="显示系统起动时的初始界面" 
+            classname="SmartPart" 
+            type="LightweightCTI.SmartClient.Views.StartUpView, LightWeightCTI.SmartClient.dll"
+            command="" 
+            workspace="DocumentWorkspace" 
+            imagefile="Icons.16X16.Setup"
+            show="true"/>
+    </Path>
+  </AddIns>
+</configuration>
