@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Uniframework.CSScript")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sjteksoft")]
 [assembly: AssemblyProduct("Uniframework.CSScript")]
-[assembly: AssemblyCopyright("Copyright © Sjteksoft 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

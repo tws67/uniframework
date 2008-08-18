@@ -27,5 +27,16 @@ namespace Uniframework.SmartClient
             sb.AppendLine("You click me at " + DateTime.Now.ToLocalTime());
             MessageBox.Show(sb.ToString());
         }
+
+        /// <summary>
+        /// Called when [unframework exit].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_EXIT)]
+        public void OnUnframeworkExit(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

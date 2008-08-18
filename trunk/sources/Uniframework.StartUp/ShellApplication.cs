@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Uniframework.SmartClient;
-using Microsoft.Practices.CompositeUI;
 using System.Windows.Forms;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Common;
+using Uniframework.SmartClient;
 
 namespace Uniframework.StartUp
 {
-    public class ShellApplication<TWorkItem, TShell> : UniframeworkApplication<TWorkItem, TShell>
-        where TWorkItem : WorkItem, new()
-        where TShell : Form
+    public class ShellApplication : UniframeworkApplication<ControlledWorkItem<RootWorkItemController>, ShellForm>
     {
     }
 }

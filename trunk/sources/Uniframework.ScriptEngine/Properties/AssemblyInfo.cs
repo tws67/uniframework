@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Uniframework.ScriptEngine")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sjteksoft")]
 [assembly: AssemblyProduct("Uniframework.ScriptEngine")]
-[assembly: AssemblyCopyright("Copyright © Sjteksoft 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

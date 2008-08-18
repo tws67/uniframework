@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Uniframework.XtraForms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("DJSW")]
 [assembly: AssemblyProduct("Uniframework.XtraForms")]
-[assembly: AssemblyCopyright("Copyright © Sjteksoft 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
