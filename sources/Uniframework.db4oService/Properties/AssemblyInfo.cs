@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Uniframework.db4oService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sjteksoft")]
 [assembly: AssemblyProduct("Uniframework.db4oService")]
-[assembly: AssemblyCopyright("Copyright © Sjteksoft 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

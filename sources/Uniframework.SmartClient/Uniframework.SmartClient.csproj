@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\UniframeworkInfo.cs">
+      <Link>UniframeworkInfo.cs</Link>
+    </Compile>
     <Compile Include="AddIns\AddIn.cs" />
     <Compile Include="AddIns\AddInElement.cs" />
     <Compile Include="AddIns\AddInException.cs" />
@@ -73,8 +76,9 @@
     <Compile Include="AddIns\ICondition.cs" />
     <Compile Include="AddIns\IConditionEvaluator.cs" />
     <Compile Include="Commands\CommandHandlers.cs" />
-    <Compile Include="Commands\UIExtensionSiteNames.cs" />
+    <Compile Include="Constants\UIExtensionSiteNames.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
+    <Compile Include="Constants\EventNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
     <Compile Include="Services\EventDispatcher\EventDispatcher.cs" />
