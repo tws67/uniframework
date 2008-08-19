@@ -15,7 +15,7 @@ namespace Uniframework.Client
     {
         static string url;
         static int port;
-        static string serverAddress;
+        static string server;
         static CommunicationChannel communicationChannel;
 
         #region Assistant function
@@ -29,7 +29,7 @@ namespace Uniframework.Client
 
         private static SocketChannel CreateSocketChannel()
         {
-            SocketChannel socket = new SocketChannel(serverAddress, port);
+            SocketChannel socket = new SocketChannel(server, port);
             return socket;
         }
 
@@ -64,7 +64,7 @@ namespace Uniframework.Client
         {
             set
             {
-                serverAddress = value;
+                server = value;
             }
         }
 

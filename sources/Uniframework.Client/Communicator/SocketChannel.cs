@@ -12,9 +12,7 @@ namespace Uniframework.Client
     /// </summary>
     public class SocketChannel : TcpClientBase<TcpSession>, ICommunicationChannel
     {
-        private string host;
-        private int port;
-        private Serializer serializer;
+        private Serializer serializer = new Serializer();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SocketChannel"/> class.
@@ -23,9 +21,7 @@ namespace Uniframework.Client
         /// <param name="port">The port.</param>
         public SocketChannel(string host, int port)
             : base(host, port)
-        {
-            serializer = new Serializer();
-        }
+        { }
 
         #region ICommunicationChannel Members
 

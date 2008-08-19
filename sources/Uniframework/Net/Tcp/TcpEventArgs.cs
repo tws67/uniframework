@@ -27,7 +27,7 @@ namespace Uniframework.Net
             this.dataBlock = dataBlock;
         }
 
-        DataBlock dataBlock;
+        private DataBlock dataBlock;
 
         public DataBlock DataBlock
         {
