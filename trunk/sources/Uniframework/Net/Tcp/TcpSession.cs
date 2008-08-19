@@ -103,7 +103,7 @@ namespace Uniframework.Net
         /// <param name="readCount">数据读取的个数</param>
         internal protected virtual void ReceivedData(int readCount)
         {
-            //写指针增加
+            // 写指针增加
             Buffer.WriteIndex += readCount;
 
             EventHandler<DataBlockArgs> temp = OnReceivedData;

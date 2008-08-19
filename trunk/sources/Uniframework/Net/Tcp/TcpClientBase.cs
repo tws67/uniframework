@@ -71,7 +71,7 @@ namespace Uniframework.Net
         {
             lock (sendQueue.SyncRoot)
             {
-                sendQueue.Enqueue(target); //添加到发送列表
+                sendQueue.Enqueue(target); // 添加到发送列表
 
                 if (sendQueue.Count == 1)
                 {
@@ -125,6 +125,7 @@ namespace Uniframework.Net
         }
 
         #region 属性和字段
+
         private Socket socket;
         private string host;
         private int port;
@@ -196,6 +197,7 @@ namespace Uniframework.Net
         #endregion
 
         #region 受保护的成员
+
         /// <summary>
         /// 建立Tcp连接后处理过程
         /// </summary>
@@ -207,7 +209,7 @@ namespace Uniframework.Net
                 socket.EndConnect(iar);
                 session = new TSession();
 
-                session.Socket = this.Socket; //两者持有同样的Socket
+                session.Socket = this.Socket; // 两者持有同样的Socket
                 session.OnReceivedData += new EventHandler<DataBlockArgs>(SessionOnReceivedData);
 
                 OnCreateSession();
@@ -231,18 +233,14 @@ namespace Uniframework.Net
 
         private void SendEndCallBack(IAsyncResult parameter)
         {
-            try
-            {
-                if (Socket != null)
-                {
+            try {
+                if (Socket != null) {
                     int count = Socket.EndSend(parameter);
                     object data = parameter.AsyncState;
-                    lock (sendQueue.SyncRoot)
-                    {
+                    lock (sendQueue.SyncRoot) {
                         object head = sendQueue.Dequeue();
                         Debug.Assert(head == data);
-                        if (sendQueue.Count != 0)
-                        {
+                        if (sendQueue.Count != 0) {
                             head = sendQueue.Peek();
                             AtomSend(head as DataBlock);
                         }
@@ -251,19 +249,16 @@ namespace Uniframework.Net
                     OnSendEnd(data as DataBlock);
                 }
             }
-            catch (ObjectDisposedException)
-            {
+            catch (ObjectDisposedException) {
                 RaiseDropLineEvent();
             }
-            catch (SocketException e)
-            {
+            catch (SocketException e) {
                 RaiseErrorEvent(e);
             }
         }
 
         protected virtual void OnConnectServerFailed(Exception e)
         {
-
         }
 
 
@@ -275,7 +270,6 @@ namespace Uniframework.Net
 
         protected virtual void OnError(Exception e)
         {
-
         }
 
         /// <summary>
@@ -330,7 +324,7 @@ namespace Uniframework.Net
         {
             /*如果EnableCheckHeartBeat=true,会启动心跳检查,这样就不能调用基类的OnStart()函数
              * 服务器设定一个心跳超时时间，客户端检查超时的时间应该与此一致。客户端程序会在该时间
-             * 的二分之一时间内，发送一个心跳包，服务器会返回一个心跳包，这样客户端就能够知道服务器段能够正确的响应。
+             * 的二分之一时间内，发送一个心跳包，服务器会返回一个心跳包，这样客户端就能够知道服务器是否能够正确的响应。
              */
             if (EnableCheckHeartBeat)
             {
