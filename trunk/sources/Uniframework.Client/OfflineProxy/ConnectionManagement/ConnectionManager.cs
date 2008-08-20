@@ -10,8 +10,6 @@ using System;
 using System.Threading;
 using System.Runtime.CompilerServices;
 
-using LightweightCTI.Utility;
-
 namespace Uniframework.Client.ConnectionManagement
 {
 	/// <summary>

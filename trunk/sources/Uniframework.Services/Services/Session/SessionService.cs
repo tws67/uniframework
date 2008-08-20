@@ -25,7 +25,7 @@ namespace Uniframework.Services
         private int checkSpan;
         private bool isRunning = true;
 
-        private readonly string SESSION_PAPH = "/System/Services/SessionService";
+        private readonly string SESSION_PAPH = "System/Services/SessionService/";
         private readonly string SESSION_DATABASE_NAME = "Session.yap";
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Uniframework.Services
             this.dispatcher = dispatcher;
             try
             {
-                IConfiguration config = configService.GetChildren(SESSION_PAPH) as IConfiguration;
+                IConfiguration config = new XMLConfiguration(configService.GetItem(SESSION_PAPH));
                 timeout = config.Attributes["timeout"] != null ? Convert.ToInt32(config.Attributes["timeout"]) : 180;
                 checkSpan = config.Attributes["checkspan"] != null ? Convert.ToInt32(config.Attributes["checkspan"]) : 1000;
             }

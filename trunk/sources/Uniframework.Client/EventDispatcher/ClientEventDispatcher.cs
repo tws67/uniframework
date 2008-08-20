@@ -197,9 +197,8 @@ namespace Uniframework.Client
 
         private void InvokeMehtod(object target, MethodInfo method, EventArgs e)
         {
-            LightweightCTI.Utility.FastInvokeHandler invoker = LightweightCTI.Utility.FastInvokeUtility.GetMethodInvoker(method);
+            FastInvokeHandler invoker = FastInvokeUtility.GetMethodInvoker(method);
             invoker(target, new object[] { null, e });
-            //method.Invoke(target, new object[] { null, e });
         }
 
         #endregion

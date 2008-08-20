@@ -36,7 +36,7 @@ namespace Uniframework.Client
         private static bool CanSocketUse()
         {
             SocketChannel socket = CreateSocketChannel();
-            return socket.IsConnected;
+            return socket.Available;
         }
 
         #endregion

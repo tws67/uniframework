@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
+using System.Web;
 
 namespace Uniframework.Services
 {
@@ -16,6 +17,11 @@ namespace Uniframework.Services
         private XmlDocument xml = new XmlDocument();
         private readonly static string RootPath = "/configuration";
 
+        public XMLConfigurationService()
+        { 
+            
+        }
+
         /// <summary>
         /// 创建XML配置服务
         /// </summary>
@@ -23,7 +29,11 @@ namespace Uniframework.Services
         public XMLConfigurationService(string filename)
         {
             this.filename = filename;
-            FileStream fs = new FileStream(filename, FileMode.Open);
+            FileStream fs = null;
+            if(HttpContext.Current != null)
+                fs = new FileStream(HttpContext.Current.Server.MapPath(filename), FileMode.Open);
+            else
+                fs = new FileStream(filename, FileMode.Open);
             try
             {
                 xml.Load(fs);

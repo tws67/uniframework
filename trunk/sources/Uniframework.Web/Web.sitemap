@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="~/Default.aspx" title="主页">
+      <siteMapNode url="~/userlist.aspx" title="成员列表"  description="" />
+      <siteMapNode url="~/CreateAccount.aspx" title="成员注册"  description="" />
+      <siteMapNode url="~/rolelist.aspx" title="角色列表" description=""/>
+      <siteMapNode url="~/createrole.aspx" title="创建角色" description=""/>
+      <siteMapNode url="~/Users/Default.aspx" title="用户角色验证专用！" />
+      <siteMapNode url="~/Admin/Default.aspx" title="管理员角色验证专用！" />
+    </siteMapNode>
+</siteMap>

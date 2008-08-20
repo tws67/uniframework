@@ -131,9 +131,9 @@ namespace Uniframework.Services
         /// <returns></returns>
         private AbstractExtend[] AddExtends()
         {
-            string extendsPath = "/System/Extends/";
+            string extendsPath = "System/Extends/";
             IConfigurationService configService = this[typeof(IConfigurationService)] as IConfigurationService;
-            IConfiguration extends = configService.GetChildren(extendsPath) as IConfiguration;
+            IConfiguration extends = new XMLConfiguration(configService.GetItem(extendsPath));
             List<AbstractExtend> list = new List<AbstractExtend>();
 
             // 加载所有的扩展项
@@ -206,7 +206,7 @@ namespace Uniframework.Services
 
                     try {
                         inteDef = service.Attributes["interface"];
-                        commDef = service.Attributes["Commponent"];
+                        commDef = service.Attributes["commponent"];
                     }
                     catch {
                         throw new ArgumentException(String.Format("服务 \"{0} \" 配置错误，请为其配置对应的[interface]及[commponent]属性。", service.Name));

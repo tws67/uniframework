@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>LightweightCTi Web Server!</title>
+</head>
+<body>
+     <form id="form1" runat="server">
+         <div style="width: 1024px;">
+             &nbsp;<div class="left" style="width: 200px; background: #eee; float: left;">
+                 <asp:LoginView ID="LoginView1" runat="server">
+                     <LoggedInTemplate>
+                         欢迎回来,
+                         <asp:LoginName ID="LoginName1" runat="server" />
+                         !<br />
+                         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/changepassword.aspx">修改密码</asp:HyperLink><br />
+                         [<asp:LoginStatus ID="LoginStatus2" runat="server" LogoutAction="Redirect" LogoutPageUrl="~/Default.aspx" />
+                         ]
+                     </LoggedInTemplate>
+                     <AnonymousTemplate>
+                         <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                     </AnonymousTemplate>
+                 </asp:LoginView>
+                 <hr />
+                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+                 <asp:TreeView ID="TreeView1" runat="server" ImageSet="Arrows" DataSourceID="SiteMapDataSource1">
+                     <ParentNodeStyle Font-Bold="False" />
+                     <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                     <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px"
+                         VerticalPadding="0px" />
+                     <NodeStyle Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px"
+                         NodeSpacing="0px" VerticalPadding="0px" />
+                 </asp:TreeView>
+             </div>
+             <div class="right" style="width:720px; background:white; float: right; height: 275px;">
+                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                 </asp:ContentPlaceHolder>
+                 &nbsp;</div>
+         </div>
+    </form>
+</body>
+</html>
