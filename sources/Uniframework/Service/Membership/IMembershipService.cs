@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.Security;
 
-using LightweightCTI;
-
 namespace Uniframework.Services
 {
     /// <summary>

@@ -137,6 +137,7 @@ namespace Uniframework.StartUp
             // 
             // txtPassword
             // 
+            this.txtPassword.EnterMoveNextControl = true;
             this.txtPassword.Location = new System.Drawing.Point(50, 38);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Properties.PasswordChar = '¡ñ';
@@ -158,6 +159,7 @@ namespace Uniframework.StartUp
             // 
             // txtUser
             // 
+            this.txtUser.EnterMoveNextControl = true;
             this.txtUser.Location = new System.Drawing.Point(50, 5);
             this.txtUser.Name = "txtUser";
             this.txtUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Diagnostics;
 
-namespace LightweightCTI.Utility
+namespace Uniframework
 {
     public delegate object FastInvokeHandler(object target, object[] paramters);
 

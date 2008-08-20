@@ -15,7 +15,8 @@ namespace Uniframework.Services
     /// </summary>
     public sealed class db4oDatabaseService : IObjectDatabaseService, IDisposable
     {
-        readonly string ConfigPathRootPath = "/System/Services/ObjectDatabaseService";
+        readonly string CONFIG_ROOTPATH = "System/Services/ObjectDatabaseService/";
+        readonly string DEFAULT_DBPATH = "~/App_Data/";
         readonly int MAX_TRYTIMES = 100;
 
         private string dbPath;
@@ -30,20 +31,20 @@ namespace Uniframework.Services
         /// <param name="loggerFactory">日志工厂</param>
         public db4oDatabaseService(IConfigurationService configService, ILoggerFactory loggerFactory)
         {
+            containers = new Dictionary<string, IObjectContainer>();
+            descriptions = new Dictionary<string, string>();
+            logger = loggerFactory.CreateLogger<db4oDatabaseService>("Framework");
+
             try
             {
-                //dbPath = configuration.GetNodeSubItemValue(ConfigPathRootPath, DatabaseDirectoryKey);
-                IConfiguration config = configService.GetChildren(ConfigPathRootPath) as IConfiguration;
-                dbPath = config.Attributes["datapath"]; // 将配置信息改为简单的字符串
+                IConfiguration config = new XMLConfiguration(configService.GetItem(CONFIG_ROOTPATH));
+                dbPath = config != null ? config.Attributes["dbpath"] : DEFAULT_DBPATH;
             }
             catch (Exception ex)
             {
                 throw new ArgumentException("读取db4o对象数据库服务的配置信息出错", ex);
             }
 
-            containers = new Dictionary<string, IObjectContainer>();
-            descriptions = new Dictionary<string, string>();
-            logger = loggerFactory.CreateLogger<db4oDatabaseService>("Framework");
             Db4oFactory.Configure().UpdateDepth(Int32.MaxValue);
             Db4oFactory.Configure().OptimizeNativeQueries(true);
             Db4oFactory.Configure().DetectSchemaChanges(true); // 自动探测数据库模式的变化
@@ -64,7 +65,7 @@ namespace Uniframework.Services
             IObjectContainer container = null;
             try
             {
-                string filename = String.IsNullOrEmpty(Path.GetExtension(databaseName)) ? dbPath + databaseName + ".yap" : dbPath + databaseName;
+                string filename = String.IsNullOrEmpty(Path.GetExtension(databaseName)) ? Path.Combine(dbPath, databaseName + ".yap") : Path.Combine(dbPath, databaseName);
                 container = Db4oFactory.OpenFile(HttpContext.Current.Server.MapPath(filename));
             }
             catch { }

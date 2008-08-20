@@ -268,12 +268,12 @@ namespace Uniframework.Services
             string user = sessionService.CurrentSession[ServerVariables.CURRENT_USER].ToString();
             List<ClientModuleInfo> list = new List<ClientModuleInfo>();
 
-            IConfiguration workstations = configService.GetChildren(WORKSTATION_PATH) as IConfiguration;
+            IConfiguration workstations = new XMLConfiguration(configService.GetItem(WORKSTATION_PATH));
             foreach (IConfiguration workstation in workstations.Children) { 
                 // 检查拥有每个子系统的角色
                 bool hasPower = false;
-                if (workstation.Attributes["AllowRoles"] != null) {
-                    string[] allowRoles = workstation.Attributes["AllowRoles"].Split(new char[]{' ', ',', ';'});
+                if (workstation.Attributes["allowroles"] != null) {
+                    string[] allowRoles = workstation.Attributes["allowroles"].Split(new char[]{' ', ',', ';'});
                     if (allowRoles.Length == 1 && allowRoles[0].ToLower() == "all")
                         hasPower = true;
                     else {

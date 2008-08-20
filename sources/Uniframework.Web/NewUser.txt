@@ -1,0 +1,5 @@
+Este mail foi enviado para confirmar a criação da sua nova conta.
+
+Os seus dados são os seguintes:
+Nome: <% UserName %>
+Senha: <% Password %>

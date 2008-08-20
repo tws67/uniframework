@@ -64,6 +64,7 @@
     <Compile Include="Communicator\CommunicateProxy.cs" />
     <Compile Include="Communicator\CommunicatorFactory.cs" />
     <Compile Include="Communicator\ICommunicationChannel.cs" />
+    <Compile Include="Communicator\SocketChannel.cs" />
     <Compile Include="Communicator\WebServiceChannel.cs" />
     <Compile Include="EventDispatcher\ClientEventDispatcher.cs" />
     <Compile Include="EventDispatcher\EventDetector.cs" />
