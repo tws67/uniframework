@@ -17,6 +17,7 @@ namespace SyncCallServer
 
             Int32[] arrays = serializer.Deserialize<Int32[]>(dataBlock.ToArray());
             if (arrays.Length == 2) {
+                Console.WriteLine(arrays[0] + " + " + arrays[1]);
                 byte[] results = serializer.Serialize<Int32>(arrays[0] + arrays[1]);
                 Send(session, results);
             }
