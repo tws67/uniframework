@@ -18,6 +18,8 @@ namespace Uniframework.Communication
         private static ILoggerFactory loggerFactory;
         private static ILogger logger;
         private static TcpServer tcpServer;
+        private static DefaultContainer container;
+        private static object syncObj = new object();
 
         /// <summary>
         /// Handles the OnStart event of the Application control.
@@ -86,7 +88,14 @@ namespace Uniframework.Communication
         {
             get
             {
-                return Singleton<DefaultContainer>.Instance;
+                if (container == null)
+                {
+                    lock (syncObj)
+                    {
+                        if (container == null) container = new DefaultContainer();
+                    }
+                }
+                return container;
             }
         }
     }

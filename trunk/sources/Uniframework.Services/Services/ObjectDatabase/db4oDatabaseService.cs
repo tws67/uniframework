@@ -15,7 +15,7 @@ namespace Uniframework.Services
     /// </summary>
     public sealed class db4oDatabaseService : IObjectDatabaseService, IDisposable
     {
-        readonly string CONFIG_ROOTPATH = "System/Services/ObjectDatabaseService/";
+        readonly string CONFIG_ROOTPATH = "System/Services/ObjectDatabaseService";
         readonly string DEFAULT_DBPATH = "~/App_Data/";
         readonly int MAX_TRYTIMES = 100;
 
@@ -37,8 +37,12 @@ namespace Uniframework.Services
 
             try
             {
-                IConfiguration config = new XMLConfiguration(configService.GetItem(CONFIG_ROOTPATH));
-                dbPath = config != null ? config.Attributes["dbpath"] : DEFAULT_DBPATH;
+                Guard.ArgumentNotNull(configService, "configService");
+                IConfiguration config = null;
+                if (configService.Exists(CONFIG_ROOTPATH))
+                    config = new XMLConfiguration(configService.GetItem(CONFIG_ROOTPATH));
+                dbPath = config != null ? config.Attributes["dbpath"] 
+                    : (HttpContext.Current != null) ? DEFAULT_DBPATH : Path.Combine(FileUtility.GetParent(FileUtility.ApplicationRootPath), @"\Data\");
             }
             catch (Exception ex)
             {
