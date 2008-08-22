@@ -16,6 +16,8 @@ namespace Uniframework.Communication
         private static ILoggerFactory loggerFactory;
         private static ILogger logger;
         private static TcpServer tcpServer;
+        private static DefaultContainer container;
+        private static object syncObj = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultApplication"/> class.
@@ -77,7 +79,14 @@ namespace Uniframework.Communication
         {
             get
             {
-                return Singleton<DefaultContainer>.Instance;
+                if (container == null)
+                {
+                    lock (syncObj)
+                    {
+                        if (container == null) container = new DefaultContainer();
+                    }
+                }
+                return container;
             }
         }
 

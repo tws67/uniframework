@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="XMLConfigurationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLConfigurationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\sources\Uniframework\Uniframework.csproj">

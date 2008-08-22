@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
+using System.Web;
+
 using Castle.Core;
 using Castle.MicroKernel.Facilities;
 using Castle.Windsor;
 using Castle.Windsor.Configuration;
 using Castle.Windsor.Configuration.Interpreters;
+
 using Uniframework.Services.Facilities;
 
 namespace Uniframework.Services
@@ -57,23 +61,20 @@ namespace Uniframework.Services
             : base()
         {
             // 初始化日志系统的相关组件
-            try
-            {
+            try {
                 if (loggerFactory == null) throw new Exception("日志对象没有被初始化");
                 IConfigurationInterpreter interpreter = new XmlInterpreter();
                 interpreter.ProcessResource(interpreter.Source, Kernel.ConfigurationStore);
                 this.Kernel.AddComponentInstance("logger", typeof(ILoggerFactory), loggerFactory);
                 logger = loggerFactory.CreateLogger<DefaultContainer>("Framework");
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 System.Diagnostics.EventLog.WriteEntry("Framework", "日志启动错误：" + ex.Message, System.Diagnostics.EventLogEntryType.Error);
                 throw;
             }
 
             // 加载服务器端的服务
-            try
-            {
+            try {
                 logger.Info("开始加载注册表服务");
                 //AddComponent("RegisterService", typeof(IRegisterService), typeof(XmlRegisterService));
                 AddComponent("ConfigurationService", typeof(IConfigurationService), typeof(XMLConfigurationService));
@@ -106,8 +107,7 @@ namespace Uniframework.Services
 
                 WiringEvent();
 
-                foreach (AbstractExtend extend in loadedExtends)
-                {
+                foreach (AbstractExtend extend in loadedExtends) {
                     extend.LoadFinished(components);
                 }
 
@@ -117,8 +117,7 @@ namespace Uniframework.Services
                 systemReady = true;
                 logger.Info("服务启动完成");
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 logger.Fatal("注册组件时发生错误", ex);
             }
         }

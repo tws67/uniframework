@@ -31,8 +31,8 @@
     <add name="OutlookBarBuilder" type="LightweightCTi.Layout.OutlookBarBuilder, LightweightCTi.Layout.dll"/>
   </UIBuilders-->
 
-  <Resources>
-    <!--图象资源，其属性有以下这些：-->
+  <!--<Resources>
+    --><!--图象资源，其属性有以下这些：--><!--
     <Images>
       <Item key="Icons.16X16.Messenger" value="Icons.16X16.Messenger.png"/>
       <Item key="Icons.32X32.Messenger" value="Icons.32X32.Messenger.png"/>
@@ -93,15 +93,15 @@
       <Item key="MenuBar_Unlink" value="MenuBar_Unlink.png"/>
       <Item key="MenuBar_Validate" value="MenuBar_Validate.png"/>
     </Images>
-    <!-- 字符串资源-->
+    --><!-- 字符串资源--><!--
     <Strings>
       <Item key="ShellTitle" value="LightweightCTi 1.20"/>
       <Item key="SplashDescription" value="based on LightweightCTi"/>
     </Strings>
-  </Resources>
+  </Resources>-->
 
   <!-- 在Builder节下定义向框架注册的UI类工厂、命令适配器、Builders等组件以方便用户对框架进行扩展-->
-  <Builders>
+  <!--<Builders>
     <UIAdapterFactories>
       <add name="BaseItemUIAdapterFactory"
            type="LightweightCTI.SmartClient.UIElements.BaseItemUIAdapterFactory, LightweightCTi.SmartClient"/>
@@ -128,7 +128,7 @@
       <add name="SmartPart" type="LightweightCTI.SmartClient.SmartPartBuilder, LightweightCTi.SmartClient"/>
       <add name="Object" type="LightweightCTI.SmartClient.ObjectBuilder, LightweightCTi.SmartClient"/>
     </UIBuilders>
-  </Builders>
+  </Builders>-->
   
   <!--用户界面元素配置项，在完成相关适配器、构建器的注册工作后便可以向系统中插入相关的UI元素啦，UIBuilderService服务会扫描每一
       个UI配置项并通过其构建相关的UI元素，目前框架支持的UI项有：
@@ -222,7 +222,7 @@
     /SHELL/NaviPane/XXX/Views/XXX/Contents 子系统对应视图下的右键菜单路径，例如：/SHELL/NaviPane/HRS/Views/Customer/Contents/BrowserGrid、/SHELL/NaviPane/HRS/Views/Customer/Contents/TreeView
     /SHELL/NaviPane/XXX/Views/XXX/Toolbars 子系统对应视图下的工具条的路径，例如：/SHELL/NaviPane/HRS/Views/Customer/Toolbars/Formart、/SHELL/NaviPane/HRS/Views/Customer/Toolbars/Styles
   -->
-  <AddIns>
+  <!--<AddIns>
     <Path name="/SHELL" label="LightweightCTi" buildstartup="true">
       <Item id="Mainmenu" name="MainmenuBar" label="主菜单" command="" classname="Bar" register="true" show="true"/>
     </Path>
@@ -282,12 +282,12 @@
     
     <Path name="/SHELL/Workspace" buildstartup="true">
       <Item id="Dockable" name="DockableWorkspace" Label="导航栏" classname="DockableWindowWorkspace" alias="Siderbar">
-        <!--<Item id="UserView0" name="UserView0" label="UserView0" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Right" show="true"/>
+        --><!--<Item id="UserView0" name="UserView0" label="UserView0" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Right" show="true"/>
         <Item id="UserView3" name="UserView3" label="UserView3" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Right" show="true"/>
-        <Item id="UserView4" name="UserView4" label="UserView4" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Bottom" show="true"/>-->
+        <Item id="UserView4" name="UserView4" label="UserView4" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Bottom" show="true"/>--><!--
       </Item>
       <Item id="Document" name="DocumentWorkspace" label="工作区" classname="TabbedDocumentWorkspace" alias="Main">
       </Item>
     </Path>
-  </AddIns>
+  </AddIns>-->
 </configuration>

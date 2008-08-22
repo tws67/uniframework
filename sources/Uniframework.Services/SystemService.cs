@@ -21,7 +21,7 @@ namespace Uniframework.Services
         private Dictionary<string, ServiceInfo> subsystems;
         private Dictionary<MethodInfo, FastInvokeHandler> invokers;
 
-        private readonly string WORKSTATION_PATH = "/System/Workstations/"; // 客户端配置路径
+        private readonly string WORKSTATION_PATH = "System/Workstations/"; // 客户端配置路径
 
         /// <summary>
         /// 系统服务构造器

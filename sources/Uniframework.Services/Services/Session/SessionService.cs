@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using System.Threading;
+using System.Xml;
 using Db4objects.Db4o;
 
 namespace Uniframework.Services
@@ -52,14 +53,14 @@ namespace Uniframework.Services
 
             this.configService = configService;
             this.dispatcher = dispatcher;
-            try
-            {
-                IConfiguration config = new XMLConfiguration(configService.GetItem(SESSION_PAPH));
+            try {
+                XmlNode node = configService.GetItem(SESSION_PAPH);
+                Guard.ArgumentNotNull(node, "Session node");
+                IConfiguration config = new XMLConfiguration(node);
                 timeout = config.Attributes["timeout"] != null ? Convert.ToInt32(config.Attributes["timeout"]) : 180;
                 checkSpan = config.Attributes["checkspan"] != null ? Convert.ToInt32(config.Attributes["checkspan"]) : 1000;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 logger.Warn("无法从注册表服务中读取Session服务的设置，采用默认设置", ex);
                 timeout = 180; // 3分钟超时
                 checkSpan = 1000;
