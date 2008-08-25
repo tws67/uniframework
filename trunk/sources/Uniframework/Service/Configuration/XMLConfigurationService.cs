@@ -18,11 +18,6 @@ namespace Uniframework.Services
         private XmlDocument xml = new XmlDocument();
         private readonly static string RootPath = "/configuration";
 
-        public XMLConfigurationService()
-        { 
-            
-        }
-
         /// <summary>
         /// 创建XML配置服务
         /// </summary>
@@ -31,19 +26,16 @@ namespace Uniframework.Services
         {
             this.filename = filename;
             FileStream fs = null;
-            if (HttpContext.Current != null) {
-                string file = HttpContext.Current.Server.MapPath(filename);
-                if (!File.Exists(file))
-                    throw new ArgumentException(String.Format("文件 \"{0}\" 不存在", file));
-                fs = new FileStream(HttpContext.Current.Server.MapPath(filename), FileMode.Open);
-            }
-            else {
-                if(!File.Exists(filename))
-                    throw new ArgumentException(String.Format("文件 \"{0}\" 不存在", filename));
-                fs = new FileStream(filename, FileMode.Open);
-            }
 
             try {
+                if (HttpContext.Current != null) {
+                    filename = (filename.IndexOf("~/") == -1) ? "~/" + filename : filename; // 添加相对路径
+                    fs = new FileStream(HttpContext.Current.Server.MapPath(filename), FileMode.Open);
+                }
+                else {
+                    fs = new FileStream(filename, FileMode.Open);
+                }
+
                 xml.Load(fs);
             }
             catch {

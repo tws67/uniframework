@@ -33,7 +33,7 @@ namespace Uniframework.SmartClient
         public UserInfo CurrentUser
         {
             get { return currentUser; }
-            internal set { currentUser = value;}
+            set { currentUser = value;}
         }
     }
 }

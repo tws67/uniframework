@@ -84,8 +84,8 @@ namespace Uniframework.StartUp
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.pbProgress);
-            this.panel1.Controls.Add(this.lblProgress);
             this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.lblProgress);
             this.panel1.Location = new System.Drawing.Point(287, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(261, 200);
@@ -94,7 +94,7 @@ namespace Uniframework.StartUp
             // pbProgress
             // 
             this.pbProgress.EditValue = 20;
-            this.pbProgress.Location = new System.Drawing.Point(8, 146);
+            this.pbProgress.Location = new System.Drawing.Point(8, 149);
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Properties.ProgressViewStyle = DevExpress.XtraEditors.Controls.ProgressViewStyle.Solid;
             this.pbProgress.Properties.Step = 1;
@@ -106,7 +106,7 @@ namespace Uniframework.StartUp
             // 
             this.lblProgress.AutoSize = true;
             this.lblProgress.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblProgress.Location = new System.Drawing.Point(6, 131);
+            this.lblProgress.Location = new System.Drawing.Point(7, 134);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(59, 12);
             this.lblProgress.TabIndex = 20;
@@ -184,7 +184,7 @@ namespace Uniframework.StartUp
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Top;
-            this.panel3.Location = new System.Drawing.Point(272, -7);
+            this.panel3.Location = new System.Drawing.Point(270, -7);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(2, 214);
             this.panel3.TabIndex = 3;

@@ -18,6 +18,7 @@ namespace Uniframework.Services
 {
     public class DefaultContainer : WindsorContainer
     {
+        private static string CONFIG_FILENAME = "Uniframework.config";
         private ILogger logger;
         private static bool systemReady = false;
         private static ILoggerFactory loggerFactory;
@@ -76,8 +77,7 @@ namespace Uniframework.Services
             // 加载服务器端的服务
             try {
                 logger.Info("开始加载注册表服务");
-                //AddComponent("RegisterService", typeof(IRegisterService), typeof(XmlRegisterService));
-                AddComponent("ConfigurationService", typeof(IConfigurationService), typeof(XMLConfigurationService));
+                this.Kernel.AddComponentInstance("configService", typeof(IConfigurationService), new XMLConfigurationService(CONFIG_FILENAME));
 
                 logger.Info("开始加载嵌入式对象数据库服务");
                 AddComponent("ObjectDatabaseService", typeof(IObjectDatabaseService), typeof(db4oDatabaseService));
@@ -193,7 +193,7 @@ namespace Uniframework.Services
 
             string servicesPath = "/System/Services/";
             IConfigurationService configService = this[typeof(IConfigurationService)] as IConfigurationService;
-            IConfiguration services = configService.GetChildren(servicesPath) as IConfiguration;
+            IConfiguration services = new XMLConfiguration(configService.GetItem(servicesPath));
 
             foreach (IConfiguration service in services.Children) {
                 try
