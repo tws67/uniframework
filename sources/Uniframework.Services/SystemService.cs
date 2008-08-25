@@ -16,7 +16,7 @@ namespace Uniframework.Services
     {
         private ILogger logger;
         private ISessionService sessionService;
-        private IConfigurationService configService;
+        //private IConfigurationService configService;
         private IKernel kernal;
         private Dictionary<string, ServiceInfo> subsystems;
         private Dictionary<MethodInfo, FastInvokeHandler> invokers;
@@ -30,13 +30,13 @@ namespace Uniframework.Services
         /// <param name="log">日志对象</param>
         /// <param name="sessionService">会话服务</param>
         /// <param name="registerService">注册服务</param>
-        public SystemService(IKernel kernal, ILoggerFactory log, ISessionService sessionService, IConfigurationService configService)
+        public SystemService(IKernel kernal, ILoggerFactory log, ISessionService sessionService/*, IConfigurationService configService*/)
         {
             this.logger = log.CreateLogger<SystemService>("Framework");
             this.subsystems = new Dictionary<string, ServiceInfo>();
             this.invokers = new Dictionary<MethodInfo, FastInvokeHandler>();
             this.sessionService = sessionService;
-            this.configService = configService;
+            //this.configService = configService;
             this.kernal = kernal;
         }
 
@@ -268,6 +268,7 @@ namespace Uniframework.Services
             string user = sessionService.CurrentSession[ServerVariables.CURRENT_USER].ToString();
             List<ClientModuleInfo> list = new List<ClientModuleInfo>();
 
+            IConfigurationService configService = kernal[typeof(IConfigurationService)] as IConfigurationService;
             IConfiguration workstations = new XMLConfiguration(configService.GetItem(WORKSTATION_PATH));
             foreach (IConfiguration workstation in workstations.Children) { 
                 // 检查拥有每个子系统的角色
