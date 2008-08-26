@@ -22,6 +22,7 @@ using Uniframework.Services;
 using Uniframework.Services.db4oService;
 using Uniframework.XtraForms;
 using Uniframework.SmartClient;
+using DevExpress.XtraEditors;
 
 namespace Uniframework.StartUp
 {
@@ -54,7 +55,7 @@ namespace Uniframework.StartUp
                 Shell.Icon = new Icon(iconFile);
             RootWorkItem.Items.Add(Shell, "ShellForm");
 
-            //Program.SetInitialState("加载应用模块……");
+            Program.SetInitialState("加载应用模块……");
             //AddClientService();
             addInTree = new AddInTree();
             RootWorkItem.Services.Add<AddInTree>(addInTree);
@@ -90,7 +91,7 @@ namespace Uniframework.StartUp
         {
             base.AddServices();
 
-            string dbPath = Path.Combine(FileUtility.GetParent(FileUtility.ApplicationRootPath), @"\Data\");
+            string dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
             IObjectDatabaseService databaseService = new db4oDatabaseService(dbPath);
             RootWorkItem.Services.Add<IObjectDatabaseService>(databaseService);
         }
