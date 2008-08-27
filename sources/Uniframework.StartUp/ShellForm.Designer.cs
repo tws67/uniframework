@@ -50,6 +50,7 @@ namespace Uniframework.StartUp
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.tabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
             this.naviWorkspace = new Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace();
+            this.SplitterNaviPane = new DevExpress.XtraEditors.SplitterControl();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).BeginInit();
@@ -218,6 +219,7 @@ namespace Uniframework.StartUp
             // naviWorkspace
             // 
             this.naviWorkspace.ActiveGroup = null;
+            this.naviWorkspace.AllowSelectedLink = true;
             this.naviWorkspace.ContentButtonHint = null;
             this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Left;
             this.naviWorkspace.Location = new System.Drawing.Point(0, 50);
@@ -228,11 +230,22 @@ namespace Uniframework.StartUp
             this.naviWorkspace.Text = "xtraNavBarWorkspace1";
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
+            // SplitterNaviPane
+            // 
+            this.SplitterNaviPane.Location = new System.Drawing.Point(169, 50);
+            this.SplitterNaviPane.MinExtra = 84;
+            this.SplitterNaviPane.MinSize = 84;
+            this.SplitterNaviPane.Name = "SplitterNaviPane";
+            this.SplitterNaviPane.Size = new System.Drawing.Size(6, 498);
+            this.SplitterNaviPane.TabIndex = 6;
+            this.SplitterNaviPane.TabStop = false;
+            // 
             // ShellForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
+            this.Controls.Add(this.SplitterNaviPane);
             this.Controls.Add(this.naviWorkspace);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
@@ -275,5 +288,6 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarStaticItem barStaticItem2;
         private DevExpress.XtraBars.BarEditItem ZoomBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar repositoryItemZoomTrackBar1;
+        private DevExpress.XtraEditors.SplitterControl SplitterNaviPane;
     }
 }
