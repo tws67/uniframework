@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Resources;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Windows.Forms;
-
 using Microsoft.Practices.CompositeUI;
 
 namespace Uniframework.SmartClient
@@ -81,7 +80,7 @@ namespace Uniframework.SmartClient
         /// <param name="name">位图名称</param>
         /// <param name="size">位图尺寸</param>
         /// <returns>系统将从指定的图标字典中返回找到的位图资源，如果没有找到将从位图字典中返回。</returns>
-        public Bitmap GetBitmap(string name, System.Drawing.Size size)
+        public Bitmap GetBitmap(string name, Size size)
         {
             Icon icon = GetIcon(name, size);
             if (icon != null)
@@ -109,7 +108,7 @@ namespace Uniframework.SmartClient
         /// <param name="name">图标名称</param>
         /// <param name="size">尺寸</param>
         /// <returns>系统将从指定的图标字典中返回找到的图标资源。</returns>
-        public System.Drawing.Icon GetIcon(string name, System.Drawing.Size size)
+        public System.Drawing.Icon GetIcon(string name,Size size)
         {
             lock (SyncObj) {
                 Icon icon = null;

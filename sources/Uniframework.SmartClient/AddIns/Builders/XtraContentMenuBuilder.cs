@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DevExpress.XtraNavBar;
+using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Commands;
 
-namespace Uniframework.SmartClient.AddIns.Builders
+namespace Uniframework.SmartClient
 {
-    /// <summary>
-    /// Xtra Navbar Control item builder
-    /// </summary>
-    public class NavBarItemBuilder : IBuilder
+    public class XtraContentMenuBuilder : IBuilder
     {
         #region IBuilder Members
 
@@ -31,7 +30,7 @@ namespace Uniframework.SmartClient.AddIns.Builders
         /// <value></value>
         public string ClassName
         {
-            get { return "NavBarItem"; }
+            get { return "XtraContentMenu"; }
         }
 
         /// <summary>
@@ -44,17 +43,20 @@ namespace Uniframework.SmartClient.AddIns.Builders
         /// <returns>构建好的插件单元</returns>
         public object BuildItem(object caller, WorkItem context, AddInElement element, ArrayList subItems)
         {
-            if (element.Configuration.Attributes["label"] == null)
-                throw new AddInException(String.Format("没有为类型为 \"{0}\" 的插件单元{1}提供label属性。",
-                    element.ClassName, element.Id));
+            IContentMenuService cmbService = context.Services.Get<IContentMenuService>();
+            if (cmbService == null)
+                throw new UniframeworkException(String.Format("未注册IContentMenuBarService无法创建上下文菜单 \"{0}\"。", element.Name));
 
-            string label = element.Configuration.Attributes["label"];
-            NavBarItem item = new NavBarItem(label);
-            if (element.Configuration.Attributes["tooltip"] != null)
-                item.Hint = element.Configuration.Attributes["tooltip"];
-
-            if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
-                context.UIExtensionSites[element.Path].Add(item);
+            BarSubItem item = new BarSubItem();
+            item.Tag = element.Path;
+            cmbService.RegisterContentMenu(item.Tag as string, item);
+            if (!String.IsNullOrEmpty(element.Command))
+            {
+                Command cmd = BuilderUtility.GetCommand(context, element.Command);
+                if (cmd != null)
+                    cmd.AddInvoker(item, "Popup");
+            }
+            context.UIExtensionSites.RegisterSite(BuilderUtility.CombinPath(element.Path, element.Id), item);
             return item;
         }
 

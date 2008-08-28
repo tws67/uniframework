@@ -77,8 +77,12 @@
     <Compile Include="AddIns\AuthorizationCondition.cs" />
     <Compile Include="AddIns\BuilderService.cs" />
     <Compile Include="AddIns\Builders\BuilderUtility.cs" />
-    <Compile Include="AddIns\Builders\NavBarItemBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraButtonItemBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraContentMenuBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraNavBarGroupBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraNavBarItemBuilder.cs" />
     <Compile Include="AddIns\Builders\ObjectBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraBarBuilder.cs" />
     <Compile Include="AddIns\ComplexCondition.cs" />
     <Compile Include="AddIns\Condition.cs" />
     <Compile Include="AddIns\ExtensionPath.cs" />
@@ -100,8 +104,10 @@
     <Compile Include="Services\EventDispatcher\ISubscripterRegister.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\IContentMenuService.cs" />
     <Compile Include="Services\RemoteServiceRegister.cs" />
     <Compile Include="Services\WebServiceModuleEnumerator.cs" />
+    <Compile Include="Services\XtraContentMenuService.cs" />
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
