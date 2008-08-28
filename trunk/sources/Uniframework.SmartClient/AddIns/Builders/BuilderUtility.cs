@@ -5,13 +5,14 @@ using System.Text;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
+using System.Drawing;
 
-namespace Uniframework.SmartClient.AddIns.Builders
+namespace Uniframework.SmartClient
 {
     public class BuilderUtility
     {
-        private static readonly String ResourcePath = @"\Resources\";
-        private static readonly String SHELL_FORM = "ShellForm";
+        private static readonly string ResourcePath = @"\Resources\";
+        private static readonly string DEFAULT_IMAGE = "${gear}"; 
 
         /// <summary>
         /// 获取指定名称的Command组件
@@ -57,6 +58,37 @@ namespace Uniframework.SmartClient.AddIns.Builders
                 return parentPath + "/" + id;
         }
 
+        /// <summary>
+        /// Gets the bitmap.
+        /// </summary>
+        /// <param name="workItem">The work item.</param>
+        /// <param name="filename">The filename.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <returns></returns>
+        public static Bitmap GetBitmap(WorkItem workItem, string filename, int width, int height)
+        {
+            Size size = new Size(width, height);
+            IImageService imageService = workItem.Services.Get<IImageService>();
+            if (imageService != null) {
+                Bitmap bitmap = imageService.GetBitmap(filename, size);
+                if (bitmap == null)
+                    bitmap = imageService.GetBitmap(DEFAULT_IMAGE, size);
+                return bitmap;
+            }
+            throw new UniframeworkException("没有加载 ImageService 服务不能获取指定的图像资源。");
+        }
 
+        public static Bitmap GetBitmap(WorkItem workItem, string filename)
+        {
+            IImageService imageService = workItem.Services.Get<IImageService>();
+            if (imageService != null) {
+                Bitmap bitmap = imageService.GetBitmap(filename);
+                if (bitmap == null)
+                    bitmap = imageService.GetBitmap(DEFAULT_IMAGE);
+                return bitmap;
+            }
+            throw new UniframeworkException("没有加载 ImageService 服务不能获取指定的图像资源。");
+        }
     }
 }

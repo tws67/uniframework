@@ -28,7 +28,7 @@ namespace Uniframework.StartUp
 {
     public class ShellApplication : XtraFormApplicationBase<ControlledWorkItem<RootWorkItemController>, ShellForm>
     {
-        private bool multiMainWorksapce;
+        //private bool multiMainWorksapce;
         private AddInTree addInTree;
 
         /// <summary>
@@ -59,7 +59,9 @@ namespace Uniframework.StartUp
             //AddClientService();
             addInTree = new AddInTree();
             RootWorkItem.Services.Add<AddInTree>(addInTree);
+            RootWorkItem.Services.Add<IContentMenuService>(new XtraContentMenuService(RootWorkItem, Shell.barManager));
             RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandlers"); // 创建框架通用的命令处理器
+            RootWorkItem.Items.Add(Shell.barManager, UIExtensionSiteNames.Shell_Bar_Manager);
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
 
@@ -123,7 +125,6 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.Add<SmartClientEnvironment>(new SmartClientEnvironment());
             RootWorkItem.Services.Add<IImageService>(new ImageService());
             RootWorkItem.Services.Add<IBuilderService>(new BuilderService(RootWorkItem));
-            //RootWorkItem.Services.Add<IContentMenuBarService>(new ContentMenuBarService());
 
             // 添加系统自定义的默认服务
             Program.SetInitialState("注册本地默认服务……");
@@ -135,11 +136,11 @@ namespace Uniframework.StartUp
             // 从服务器下载配置模块信息
             Program.SetInitialState("从服务器下载客户端配置信息……");
             Program.IncreaseProgressBar(10);
-            WebServiceModuleEnumerator wsme = new WebServiceModuleEnumerator();
-            wsme.Load();
-            multiMainWorksapce = wsme.HasMultiMainWorkspace;
+            WebServiceModuleEnumerator ws = new WebServiceModuleEnumerator();
+            ws.Load();
+            //multiMainWorksapce = ws.HasMultiMainWorkspace;
 
-            RootWorkItem.Services.Add<IModuleEnumerator>(wsme);
+            RootWorkItem.Services.Add<IModuleEnumerator>(ws);
             Program.IncreaseProgressBar(10);
         }
 

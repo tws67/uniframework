@@ -101,8 +101,8 @@
   </Resources>-->
 
   <!-- 在Builder节下定义向框架注册的UI类工厂、命令适配器、Builders等组件以方便用户对框架进行扩展-->
-  <!--<Builders>
-    <UIAdapterFactories>
+  <Builders>
+    <!--<UIAdapterFactories>
       <add name="BaseItemUIAdapterFactory"
            type="LightweightCTI.SmartClient.UIElements.BaseItemUIAdapterFactory, LightweightCTi.SmartClient"/>
     </UIAdapterFactories>
@@ -110,25 +110,16 @@
       <add name="BaseItemCommandAdapter"
            invokertype="DevComponents.DotNetBar.BaseItem, DevComponents.DotNetBar2,Version=7.1.0.1,Culture=neutral,PublicKeyToken=f1c29b8f5383a946"
            adaptertype="LightweightCTI.SmartClient.UIElements.BaseItemCommandAdapter, LightweightCTI.SmartClient"/>
-    </CommandAdapters>
+    </CommandAdapters>-->
     <UIBuilders>
-      <add name="Bar" type="LightweightCTI.SmartClient.BarBuilder, LightweightCTi.SmartClient"/>
-      <add name="ButtonItem" type="LightweightCTI.SmartClient.ButtonItemBuilder, LightweightCTi.SmartClient"/>
-      <add name="CheckBoxItem" type="LightweightCTI.SmartClient.CheckBoxItemBuilder, LightweightCTi.SmartClient"/>
-      <add name="LabelItem" type="LightweightCTI.SmartClient.LabelItemBuilder, LightweightCTi.SmartClient"/>
-      <add name="ComboBoxItem" type="LightweightCTI.SmartClient.ComboBoxItemBuilder, LightweightCTi.SmartClient"/>
-      <add name="ContentMenu" type="LightweightCTI.SmartClient.ContentMenuBuilder, LightweightCTi.SmartClient"/>
-      <add name="DockableWindowWorkspace" type="LightweightCTI.SmartClient.DockableWindowWorkspaceBuilder, LightweightCTi.SmartClient"/>
-      <add name="TabbedDocumentWorkspace" type="LightweightCTI.SmartClient.TabbedDocumentWorkspaceBuilder, LightweightCTi.SmartClient"/>
-      <add name="ExplorerBarWorkspace" type="LightweightCTI.SmartClient.ExplorerBarWorkspaceBuilder, LightweightCTi.SmartClient"/>
-      <add name="ExplorerBarGroupItem" type="LightweightCTI.SmartClient.ExplorerBarGroupItemBuilder, LightweightCTi.SmartClient"/>
-      <add name="ItemPanel" type="LightweightCTI.SmartClient.ItemPanelBuilder, LightweightCTi.SmartClient"/>
-      <add name="NavigationPaneWorkspace" type="LightweightCTI.SmartClient.NavigationPaneWorkspaceBuilder, LightweightCTi.SmartClient"/>
-      <add name="ProgressBarItem" type="LightweightCTI.SmartClient.ProgressBarItemBuilder, LightweightCTi.SmartClient"/>
-      <add name="SmartPart" type="LightweightCTI.SmartClient.SmartPartBuilder, LightweightCTi.SmartClient"/>
-      <add name="Object" type="LightweightCTI.SmartClient.ObjectBuilder, LightweightCTi.SmartClient"/>
+      <add name="Object" type="Uniframework.SmartClient.ObjectBuilder, Uniframework.SmartClient"/>
+      <add name="XtraBar" type="Uniframework.SmartClient.XtraBarBuilder, Uniframework.SmartClient"/>
+      <add name="XtraButtonItem" type="Uniframework.SmartClient.XtraButtonItemBuilder, Uniframework.SmartClient"/>
+      <add name="XtraContentMenu" type="Uniframework.SmartClient.XtraContentMenuBuilder, Uniframework.SmartClient"/>
+      <add name="XtraNavBarGroup" type="Uniframework.SmartClient.XtraNavBarGroupBuilder, Uniframework.SmartClient"/>
+      <add name="XtraNavBarItem" type="Uniframework.SmartClient.XtraNavBarItemBuilder, Uniframework.SmartClient"/>
     </UIBuilders>
-  </Builders>-->
+  </Builders>
   
   <!--用户界面元素配置项，在完成相关适配器、构建器的注册工作后便可以向系统中插入相关的UI元素啦，UIBuilderService服务会扫描每一
       个UI配置项并通过其构建相关的UI元素，目前框架支持的UI项有：
