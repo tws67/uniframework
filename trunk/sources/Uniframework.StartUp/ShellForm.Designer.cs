@@ -156,8 +156,10 @@ namespace Uniframework.StartUp
             // tlabUser
             // 
             this.tlabUser.Caption = "User";
+            this.tlabUser.Glyph = global::Uniframework.StartUp.Properties.Resources.user1_earth;
             this.tlabUser.Id = 3;
             this.tlabUser.Name = "tlabUser";
+            this.tlabUser.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.tlabUser.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // ProgressBar
@@ -225,7 +227,7 @@ namespace Uniframework.StartUp
             this.naviWorkspace.Location = new System.Drawing.Point(0, 50);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 498);
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 495);
             this.naviWorkspace.TabIndex = 5;
             this.naviWorkspace.Text = "xtraNavBarWorkspace1";
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
@@ -236,7 +238,7 @@ namespace Uniframework.StartUp
             this.SplitterNaviPane.MinExtra = 84;
             this.SplitterNaviPane.MinSize = 84;
             this.SplitterNaviPane.Name = "SplitterNaviPane";
-            this.SplitterNaviPane.Size = new System.Drawing.Size(6, 498);
+            this.SplitterNaviPane.Size = new System.Drawing.Size(6, 495);
             this.SplitterNaviPane.TabIndex = 6;
             this.SplitterNaviPane.TabStop = false;
             // 
@@ -275,7 +277,6 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         public DevExpress.XtraBars.BarManager barManager;
-        private DevExpress.XtraBars.Docking.DockManager DockManager;
         public DevExpress.XtraTabbedMdi.XtraTabbedMdiManager tabbedMdiManager;
         private Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace naviWorkspace;
         private DevExpress.XtraBars.BarStaticItem tlabStatus;
@@ -289,5 +290,6 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarEditItem ZoomBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar repositoryItemZoomTrackBar1;
         private DevExpress.XtraEditors.SplitterControl SplitterNaviPane;
+        public DevExpress.XtraBars.Docking.DockManager DockManager;
     }
 }
