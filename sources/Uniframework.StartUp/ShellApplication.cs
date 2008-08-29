@@ -7,6 +7,8 @@ using System.Security.Principal;
 using System.Threading;
 using System.Windows.Forms;
 
+using DevExpress.XtraEditors;
+
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
@@ -20,9 +22,8 @@ using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
 using Uniframework.Services;
 using Uniframework.Services.db4oService;
-using Uniframework.XtraForms;
 using Uniframework.SmartClient;
-using DevExpress.XtraEditors;
+using Uniframework.XtraForms;
 
 namespace Uniframework.StartUp
 {
@@ -62,6 +63,17 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.Add<IContentMenuService>(new XtraContentMenuService(RootWorkItem, Shell.barManager));
             RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandlers"); // 创建框架通用的命令处理器
             RootWorkItem.Items.Add(Shell.barManager, UIExtensionSiteNames.Shell_Bar_Manager);
+            RootWorkItem.Items.Add(Shell.barManager, UIExtensionSiteNames.Shell_Manager_BarManager);
+            RootWorkItem.Items.Add(Shell.DockManager, UIExtensionSiteNames.Shell_Manager_DockManager);
+            RootWorkItem.Items.Add(Shell.TabbedMdiManager, UIExtensionSiteNames.Shell_Manager_TabbedMdiManager);
+            RootWorkItem.Items.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
+            RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
+            RootWorkItem.Items.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
+
+            //RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
+            //RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
+            //RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
+
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
 

@@ -83,6 +83,8 @@
     <Compile Include="AddIns\Builders\XtraNavBarItemBuilder.cs" />
     <Compile Include="AddIns\Builders\ObjectBuilder.cs" />
     <Compile Include="AddIns\Builders\XtraBarBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraSkinMenuBuilder.cs" />
+    <Compile Include="AddIns\Builders\XtraWindowMenuBuilder.cs" />
     <Compile Include="AddIns\ComplexCondition.cs" />
     <Compile Include="AddIns\Condition.cs" />
     <Compile Include="AddIns\ExtensionPath.cs" />

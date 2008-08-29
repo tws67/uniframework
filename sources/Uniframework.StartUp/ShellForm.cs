@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using DevExpress.XtraBars.Docking;
 using DevExpress.XtraEditors;
+using DevExpress.XtraTabbedMdi;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
@@ -15,6 +17,8 @@ using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.SmartClient.Constants;
 using Uniframework.XtraForms.Workspaces;
+using Uniframework.Services;
+using Uniframework.Client;
 
 namespace Uniframework.StartUp
 {
@@ -47,6 +51,20 @@ namespace Uniframework.StartUp
         {
             this.workItem = workItem;
             this.workItemTypeCatalog = workItemTypeCatalog;
+
+            IInitializeService initialService = ServiceRepository.Instance.GetService(typeof(IInitializeService)) as IInitializeService;
+            UserInfo ui = initialService.GetUserInfo(CommunicateProxy.UserName);
+            tlabUser.Caption = ui.DispalyName;
+        }
+
+        /// <summary>
+        /// Gets or sets the current login user.
+        /// </summary>
+        /// <value>The current login user.</value>
+        public string CurrentLoginUser
+        {
+            get { return tlabUser.Caption; }
+            set { tlabUser.Caption = value; }
         }
 
         #region Shell form members
@@ -59,6 +77,11 @@ namespace Uniframework.StartUp
         public DockManagerWorkspace DockWorkspace
         {
             get { return dockManagerWorkspace; }
+        }
+
+        public XtraTabbedMdiManager TabbedMdiManager
+        {
+            get { return tabbedMdiManager; }
         }
 
         #endregion
