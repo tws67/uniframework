@@ -35,68 +35,10 @@
     --><!--图象资源，其属性有以下这些：--><!--
     <Images>
       <Item key="Icons.16X16.Messenger" value="Icons.16X16.Messenger.png"/>
-      <Item key="Icons.32X32.Messenger" value="Icons.32X32.Messenger.png"/>
-      <Item key="Icons.16X16.Setup" value="Icons.16X16.Setup.png"/>
-      <Item key="Icons.32X32.Setup" value="Icons.32X32.Setup.png"/>
-      <Item key="Icons.16X16.Security" value="Icons.16X16.Security.png"/>
-      <Item key="Icons.32X32.Security" value="Icons.32X32.Security.png"/>
-      <Item key="Icons.16X16.Group" value="Icons.16X16.Group.png"/>
-      <Item key="Icons.32X32.Group" value="Icons.32X32.Group.png"/>
-      <Item key="Icons.16X16.Exit" value="Icons.16X16.Exit.png"/>
-      <Item key="Icons.32X32.Exit" value="Icons.32X32.Exit.png"/>
-      <Item key="Icons.16X16.Refresh" value="Icons.16X16.Refresh.png"/>
-      <Item key="Icons.32X32.Refresh" value="Icons.32X32.Refresh.png"/>
-      <Item key="Icons.32X32.VolumeManager" value="Icons.32X32.VolumeManager.png"/>
-      <Item key="Icons.16X16.VolumeManager" value="Icons.16X16.VolumeManager.png"/>
-      <Item key="Icons.32X32.Folderlin" value="Icons.32X32.Folderlin.png"/>
-      <Item key="Icons.16X16.Folderlin" value="Icons.16X16.Folderlin.png"/>
-
-      <Item key="MenuBar_BackFrame" value="MenuBar_BackFrame.png"/>
-      <Item key="MenuBar_Cancel" value="MenuBar_Cancel.png"/>
-      <Item key="MenuBar_ChooseSkin" value="MenuBar_ChooseSkin.png"/>
-      <Item key="MenuBar_Clone" value="MenuBar_Clone.png"/>
-      <Item key="MenuBar_CloneObject" value="MenuBar_CloneObject.png"/>
-      <Item key="MenuBar_Close" value="MenuBar_Close.png"/>
-      <Item key="MenuBar_Copy" value="MenuBar_Copy.png"/>
-      <Item key="MenuBar_Delete" value="MenuBar_Delete.png"/>
-      <Item key="MenuBar_Edit" value="MenuBar_Edit.png"/>
-      <Item key="MenuBar_EditModel" value="MenuBar_EditModel.png"/>
-      <Item key="MenuBar_ExecuteReport" value="MenuBar_ExecuteReport.png"/>
-      <Item key="MenuBar_ExportToExcel" value="MenuBar_ExportToExcel.png"/>
-      <Item key="MenuBar_ExportToHTML" value="MenuBar_ExportToHTML.png"/>
-      <Item key="MenuBar_ExportToPDF" value="MenuBar_ExportToPDF.png"/>
-      <Item key="MenuBar_ExportToText" value="MenuBar_ExportToText.png"/>
-      <Item key="MenuBar_ExportToXML" value="MenuBar_ExportToXML.png"/>
-      <Item key="MenuBar_Filter" value="MenuBar_Filter.png"/>
-      <Item key="MenuBar_FindObjectByID" value="MenuBar_FindObjectByID.png"/>
-      <Item key="MenuBar_ForwardFrame" value="MenuBar_ForwardFrame.png"/>
-      <Item key="MenuBar_Link" value="MenuBar_Link.png"/>
-      <Item key="MenuBar_Localization" value="MenuBar_Localization.png"/>
-      <Item key="MenuBar_Merge" value="MenuBar_Merge.png"/>
-      <Item key="MenuBar_Minus" value="MenuBar_Minus.png"/>
-      <Item key="MenuBar_New" value="MenuBar_New.png"/>
-      <Item key="MenuBar_Next" value="MenuBar_Next.png"/>
-      <Item key="MenuBar_Open" value="MenuBar_Open.png"/>
-      <Item key="MenuBar_PageSetup" value="MenuBar_PageSetup.png"/>
-      <Item key="MenuBar_Paste" value="MenuBar_Paste.png"/>
-      <Item key="MenuBar_Plus" value="MenuBar_Plus.png"/>
-      <Item key="MenuBar_Prev" value="MenuBar_Prev.png"/>
-      <Item key="MenuBar_Print" value="MenuBar_Print.png"/>
-      <Item key="MenuBar_PrintPreview" value="MenuBar_PrintPreview.png"/>
-      <Item key="MenuBar_Refresh" value="MenuBar_Refresh.png"/>
-      <Item key="MenuBar_Save" value="MenuBar_Save.png"/>
-      <Item key="MenuBar_SaveAndClose" value="MenuBar_SaveAndClose.png"/>
-      <Item key="MenuBar_SaveAndNew" value="MenuBar_SaveAndNew.png"/>
-      <Item key="MenuBar_SaveTo" value="MenuBar_SaveTo.png"/>
-      <Item key="MenuBar_Search" value="MenuBar_Search.png"/>
-      <Item key="MenuBar_ShowReportDesigner" value="MenuBar_ShowReportDesigner.png"/>
-      <Item key="MenuBar_Unlink" value="MenuBar_Unlink.png"/>
-      <Item key="MenuBar_Validate" value="MenuBar_Validate.png"/>
     </Images>
     --><!-- 字符串资源--><!--
     <Strings>
       <Item key="ShellTitle" value="LightweightCTi 1.20"/>
-      <Item key="SplashDescription" value="based on LightweightCTi"/>
     </Strings>
   </Resources>-->
 
@@ -118,6 +60,8 @@
       <add name="XtraContentMenu" type="Uniframework.SmartClient.XtraContentMenuBuilder, Uniframework.SmartClient"/>
       <add name="XtraNavBarGroup" type="Uniframework.SmartClient.XtraNavBarGroupBuilder, Uniframework.SmartClient"/>
       <add name="XtraNavBarItem" type="Uniframework.SmartClient.XtraNavBarItemBuilder, Uniframework.SmartClient"/>
+      <add name="XtraSkinMenu" type="Uniframework.SmartClient.XtraSkinMenuBuilder, Uniframework.SmartClient"/>
+      <add name="XtraWindowMenu" type="Uniframework.SmartClient.XtraWindowMenuBuilder, Uniframework.SmartClient"/>
     </UIBuilders>
   </Builders>
   
@@ -213,6 +157,26 @@
     /SHELL/NaviPane/XXX/Views/XXX/Contents 子系统对应视图下的右键菜单路径，例如：/SHELL/NaviPane/HRS/Views/Customer/Contents/BrowserGrid、/SHELL/NaviPane/HRS/Views/Customer/Contents/TreeView
     /SHELL/NaviPane/XXX/Views/XXX/Toolbars 子系统对应视图下的工具条的路径，例如：/SHELL/NaviPane/HRS/Views/Customer/Toolbars/Formart、/SHELL/NaviPane/HRS/Views/Customer/Toolbars/Styles
   -->
+  <AddIns>
+    <Path name="/Shell" label="Uniframework" buildstartup="true">
+        <!--<Item id="Bar/Standard" name="Standard_toolBar" label="工具栏" command="" classname="XtraBar" dockstyle="Top"/>-->
+    </Path>
+
+    <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
+      <Item id="MyWorkspace" name="naviMyWorkspace" label="快速启动栏" command="" classname="XtraNavBarGroup" register="true"/>
+    </Path>
+
+    <Path name="/Shell/Bar/Mainmenu" label="主菜单" buildstartup="true">
+      <Item id="File" name="mmiFile" label="文件(&amp;F)" command="" classname="XtraButtonItem" register="true"/>
+      <Item id="Edit" name="mmiEdit" label="编辑(&amp;E)" command="" classname="XtraButtonItem" register="true"/>
+      <Item id="View" name="mmiView" label="视图(&amp;V)" command="" classname="XtraButtonItem" register="true">
+        <Item id="Skin" name="mmivSkin" label="系统界面皮肤(&amp;K)" command="" classname="XtraSkinMenu"/>
+      </Item>
+      <Item id="Tool" name="mmiTool" label="工具(&amp;T)" command="" classname="XtraButtonItem" register="true"/>
+      <Item id="Window" name="mmiWindow" label="窗口(&amp;W)" command="" classname="XtraWindowMenu" register="true"/>
+      <Item id="Help" name="mmiHelp" label="帮助(&amp;H)" command="" classname="XtraButtonItem" register="true"/>
+    </Path>
+  </AddIns>
   <!--<AddIns>
     <Path name="/SHELL" label="LightweightCTi" buildstartup="true">
       <Item id="Mainmenu" name="MainmenuBar" label="主菜单" command="" classname="Bar" register="true" show="true"/>

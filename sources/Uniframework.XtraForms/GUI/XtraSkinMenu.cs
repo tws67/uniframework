@@ -6,6 +6,7 @@ using System.Text;
 using DevExpress.LookAndFeel;
 using DevExpress.Skins;
 using DevExpress.XtraBars;
+using Uniframework.XtraForms.Properties;
 
 namespace Uniframework.XtraForms
 {
@@ -30,6 +31,7 @@ namespace Uniframework.XtraForms
         private void AddAllMenuItems()
         {
             Caption = "系统界面皮肤(&K)";
+            Glyph = Resource.window_colors;
 
             foreach (string skinName in GetSortedSkinNames())
             {

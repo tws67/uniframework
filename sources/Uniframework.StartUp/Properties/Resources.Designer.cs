@@ -74,6 +74,20 @@ namespace Uniframework.StartUp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap link {
+            get {
+                object obj = ResourceManager.GetObject("link", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap link_delete {
+            get {
+                object obj = ResourceManager.GetObject("link_delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Middle {
             get {
                 object obj = ResourceManager.GetObject("Middle", resourceCulture);

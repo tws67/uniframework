@@ -34,7 +34,7 @@ namespace Uniframework.SmartClient
         /// <value></value>
         public string ClassName
         {
-            get { return "XtraBarItem"; }
+            get { return "XtraButtonItem"; }
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace Uniframework.SmartClient
                 string key = element.Configuration.Attributes["shortcut"];
                 item.ItemShortcut = new BarShortcut((Keys)Enum.Parse(typeof(Keys), key));
             }
+            item.Tag = false;
             if (element.Configuration.Attributes["begingroup"] != null) { 
                 bool beginGroup = bool.Parse(element.Configuration.Attributes["begingroup"]);
-                if (beginGroup && item.Links.Count > 0)
-                    item.Links[0].BeginGroup = true;
+                item.Tag = beginGroup;
             }
 
             // 设置菜单项/按钮为选择项
