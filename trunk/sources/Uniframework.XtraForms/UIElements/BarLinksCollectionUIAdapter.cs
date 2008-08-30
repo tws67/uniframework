@@ -32,7 +32,9 @@ namespace Uniframework.XtraForms.UIElements
 		protected override BarItem Add(BarItem uiElement)
 		{
 			itemCollection.Add(uiElement);
-			linkCollection.Insert(GetInsertingIndex(uiElement), uiElement);
+			BarItemLink link = linkCollection.Insert(GetInsertingIndex(uiElement), uiElement);
+            if (link != null && uiElement != null && uiElement.Tag != null)
+                link.BeginGroup = (bool)uiElement.Tag ? true : false;
 			return uiElement;
 		}
 

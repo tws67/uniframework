@@ -160,6 +160,8 @@
   <ItemGroup>
     <Content Include="Resources\icecube.ico" />
     <None Include="Resources\user1_earth.png" />
+    <None Include="Resources\link_delete.png" />
+    <None Include="Resources\link.png" />
     <Content Include="Uniframework.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

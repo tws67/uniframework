@@ -48,13 +48,9 @@ namespace Uniframework.StartUp
         protected override void AfterShellCreated()
         {
             base.AfterShellCreated();
+            InitializeShell();
 
-            Shell.Text = ConfigurationManager.AppSettings["ShellCaption"];
-            string iconFile = ConfigurationManager.AppSettings["ShellIcon"];
-            iconFile = File.Exists(iconFile) ? iconFile : Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory) + @"\Resources\" + iconFile;
-            if (File.Exists(iconFile))
-                Shell.Icon = new Icon(iconFile);
-            RootWorkItem.Items.Add(Shell, "ShellForm");
+            RootWorkItem.Items.Add(Shell, UIExtensionSiteNames.Shell);
 
             Program.SetInitialState("加载应用模块……");
             //AddClientService();
@@ -62,19 +58,37 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.Add<AddInTree>(addInTree);
             RootWorkItem.Services.Add<IContentMenuService>(new XtraContentMenuService(RootWorkItem, Shell.barManager));
             RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandlers"); // 创建框架通用的命令处理器
-            RootWorkItem.Items.Add(Shell.barManager, UIExtensionSiteNames.Shell_Bar_Manager);
-            RootWorkItem.Items.Add(Shell.barManager, UIExtensionSiteNames.Shell_Manager_BarManager);
+            RootWorkItem.Items.Add(Shell.BarManager, UIExtensionSiteNames.Shell_Bar_Manager);
+            RootWorkItem.Items.Add(Shell.BarManager.MainMenu, UIExtensionSiteNames.Shell_Bar_Mainmenu);
+            RootWorkItem.Items.Add(Shell.BarManager.StatusBar, UIExtensionSiteNames.Shell_Bar_Status);
+            RootWorkItem.Items.Add(Shell.BarManager, UIExtensionSiteNames.Shell_Manager_BarManager);
             RootWorkItem.Items.Add(Shell.DockManager, UIExtensionSiteNames.Shell_Manager_DockManager);
             RootWorkItem.Items.Add(Shell.TabbedMdiManager, UIExtensionSiteNames.Shell_Manager_TabbedMdiManager);
             RootWorkItem.Items.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
             RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
+            RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane);
             RootWorkItem.Items.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
 
-            //RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
-            //RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
-            //RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
-
             RegisterUISite(); // 构建用户界面并添加UI构建服务
+        }
+
+        /// <summary>
+        /// Initializes the shell.
+        /// </summary>
+        private void InitializeShell()
+        {
+            ServiceRepository.Instance.RequestQueueChanged += new RequestQueueChangedEventHandler(Shell.OnRequestQueueChanged);
+            ServiceRepository.Instance.ConnectionStateChanged += new ConnectionStateChangedEventHandler(Shell.OnConnectionStateChanged);
+
+            Shell.Text = ConfigurationManager.AppSettings["ShellCaption"];
+            string iconFile = ConfigurationManager.AppSettings["ShellIcon"];
+            iconFile = File.Exists(iconFile) ? iconFile : Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory) + @"\Resources\" + iconFile;
+            if (File.Exists(iconFile))
+                Shell.Icon = new Icon(iconFile);
+
+            // 注册系统主菜单及状态栏
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Mainmenu, Shell.BarManager.MainMenu);
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Status, Shell.BarManager.StatusBar);
         }
 
 

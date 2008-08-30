@@ -30,16 +30,16 @@ namespace Uniframework.StartUp
         {
             this.components = new System.ComponentModel.Container();
             this.barManager = new DevExpress.XtraBars.BarManager(this.components);
-            this.ToolBar = new DevExpress.XtraBars.Bar();
             this.MenuBar = new DevExpress.XtraBars.Bar();
             this.StatusBar = new DevExpress.XtraBars.Bar();
             this.tlabStatus = new DevExpress.XtraBars.BarStaticItem();
             this.tlabCustomPanel1 = new DevExpress.XtraBars.BarStaticItem();
             this.tlabCustomPanel2 = new DevExpress.XtraBars.BarStaticItem();
-            this.tlabUser = new DevExpress.XtraBars.BarStaticItem();
             this.ProgressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
+            this.tlabUser = new DevExpress.XtraBars.BarStaticItem();
+            this.tbtnNetworkStatus = new DevExpress.XtraBars.BarButtonItem();
+            this.tlabRequestSize = new DevExpress.XtraBars.BarStaticItem();
             this.ZoomBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -62,7 +62,6 @@ namespace Uniframework.StartUp
             // barManager
             // 
             this.barManager.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
-            this.ToolBar,
             this.MenuBar,
             this.StatusBar});
             this.barManager.DockControls.Add(this.barDockControlTop);
@@ -79,22 +78,15 @@ namespace Uniframework.StartUp
             this.tlabUser,
             this.barStaticItem1,
             this.ProgressBar,
-            this.barStaticItem2,
-            this.ZoomBar});
+            this.tlabRequestSize,
+            this.ZoomBar,
+            this.tbtnNetworkStatus});
             this.barManager.MainMenu = this.MenuBar;
-            this.barManager.MaxItemId = 8;
+            this.barManager.MaxItemId = 9;
             this.barManager.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemProgressBar1,
             this.repositoryItemZoomTrackBar1});
             this.barManager.StatusBar = this.StatusBar;
-            // 
-            // ToolBar
-            // 
-            this.ToolBar.BarName = "Tools";
-            this.ToolBar.DockCol = 0;
-            this.ToolBar.DockRow = 1;
-            this.ToolBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            this.ToolBar.Text = "工具栏";
             // 
             // MenuBar
             // 
@@ -119,9 +111,10 @@ namespace Uniframework.StartUp
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabStatus),
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabCustomPanel1, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabCustomPanel2),
+            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.ProgressBar, "", true, true, true, 106, null, DevExpress.XtraBars.BarItemPaintStyle.Standard),
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabUser, true),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.ProgressBar, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.Caption),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barStaticItem2, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.tbtnNetworkStatus, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.tlabRequestSize, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.ZoomBar)});
             this.StatusBar.OptionsBar.AllowQuickCustomization = false;
             this.StatusBar.OptionsBar.DrawDragBorder = false;
@@ -139,7 +132,7 @@ namespace Uniframework.StartUp
             // 
             // tlabCustomPanel1
             // 
-            this.tlabCustomPanel1.Caption = "Custom Panel1 ";
+            this.tlabCustomPanel1.Caption = "Custom Panel1";
             this.tlabCustomPanel1.Id = 1;
             this.tlabCustomPanel1.Name = "tlabCustomPanel1";
             this.tlabCustomPanel1.TextAlignment = System.Drawing.StringAlignment.Near;
@@ -153,21 +146,14 @@ namespace Uniframework.StartUp
             this.tlabCustomPanel2.TextAlignment = System.Drawing.StringAlignment.Near;
             this.tlabCustomPanel2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
-            // tlabUser
-            // 
-            this.tlabUser.Caption = "User";
-            this.tlabUser.Glyph = global::Uniframework.StartUp.Properties.Resources.user1_earth;
-            this.tlabUser.Id = 3;
-            this.tlabUser.Name = "tlabUser";
-            this.tlabUser.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            this.tlabUser.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
             // ProgressBar
             // 
-            this.ProgressBar.Caption = "进度条";
             this.ProgressBar.Edit = this.repositoryItemProgressBar1;
+            this.ProgressBar.EditValue = 0;
+            this.ProgressBar.Hint = "显示当前工作完成进度";
             this.ProgressBar.Id = 5;
             this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.ProgressBar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.ProgressBar.Width = 100;
             // 
@@ -176,18 +162,37 @@ namespace Uniframework.StartUp
             this.repositoryItemProgressBar1.Name = "repositoryItemProgressBar1";
             this.repositoryItemProgressBar1.Step = 1;
             // 
-            // barStaticItem2
+            // tlabUser
             // 
-            this.barStaticItem2.Caption = "指令队列(0)";
-            this.barStaticItem2.Id = 6;
-            this.barStaticItem2.Name = "barStaticItem2";
-            this.barStaticItem2.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.tlabUser.Caption = "User";
+            this.tlabUser.Glyph = global::Uniframework.StartUp.Properties.Resources.user1_earth;
+            this.tlabUser.Hint = "当前登录的系统的用户名称";
+            this.tlabUser.Id = 3;
+            this.tlabUser.Name = "tlabUser";
+            this.tlabUser.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.tlabUser.TextAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // tbtnNetworkStatus
+            // 
+            this.tbtnNetworkStatus.Glyph = global::Uniframework.StartUp.Properties.Resources.link;
+            this.tbtnNetworkStatus.Id = 8;
+            this.tbtnNetworkStatus.Name = "tbtnNetworkStatus";
+            this.tbtnNetworkStatus.ItemDoubleClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbtnNetworkStatus_ItemDoubleClick);
+            // 
+            // tlabRequestSize
+            // 
+            this.tlabRequestSize.Caption = "指令队列(0)";
+            this.tlabRequestSize.Hint = "当前未提交到服务器的命令";
+            this.tlabRequestSize.Id = 6;
+            this.tlabRequestSize.Name = "tlabRequestSize";
+            this.tlabRequestSize.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // ZoomBar
             // 
             this.ZoomBar.AutoFillWidth = true;
             this.ZoomBar.Edit = this.repositoryItemZoomTrackBar1;
             this.ZoomBar.EditValue = 0;
+            this.ZoomBar.Hint = "缩放、显示比例";
             this.ZoomBar.Id = 7;
             this.ZoomBar.Name = "ZoomBar";
             this.ZoomBar.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
@@ -224,21 +229,21 @@ namespace Uniframework.StartUp
             this.naviWorkspace.AllowSelectedLink = true;
             this.naviWorkspace.ContentButtonHint = null;
             this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Left;
-            this.naviWorkspace.Location = new System.Drawing.Point(0, 50);
+            this.naviWorkspace.Location = new System.Drawing.Point(0, 25);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 495);
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 520);
             this.naviWorkspace.TabIndex = 5;
             this.naviWorkspace.Text = "xtraNavBarWorkspace1";
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
             // SplitterNaviPane
             // 
-            this.SplitterNaviPane.Location = new System.Drawing.Point(169, 50);
+            this.SplitterNaviPane.Location = new System.Drawing.Point(169, 25);
             this.SplitterNaviPane.MinExtra = 84;
             this.SplitterNaviPane.MinSize = 84;
             this.SplitterNaviPane.Name = "SplitterNaviPane";
-            this.SplitterNaviPane.Size = new System.Drawing.Size(6, 495);
+            this.SplitterNaviPane.Size = new System.Drawing.Size(6, 520);
             this.SplitterNaviPane.TabIndex = 6;
             this.SplitterNaviPane.TabStop = false;
             // 
@@ -257,6 +262,7 @@ namespace Uniframework.StartUp
             this.Name = "ShellForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShellForm";
+            this.Load += new System.EventHandler(this.ShellForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).EndInit();
@@ -269,7 +275,6 @@ namespace Uniframework.StartUp
 
         #endregion
 
-        private DevExpress.XtraBars.Bar ToolBar;
         private DevExpress.XtraBars.Bar MenuBar;
         private DevExpress.XtraBars.Bar StatusBar;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
@@ -286,10 +291,11 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
         private DevExpress.XtraBars.BarEditItem ProgressBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBar1;
-        private DevExpress.XtraBars.BarStaticItem barStaticItem2;
+        private DevExpress.XtraBars.BarStaticItem tlabRequestSize;
         private DevExpress.XtraBars.BarEditItem ZoomBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar repositoryItemZoomTrackBar1;
         private DevExpress.XtraEditors.SplitterControl SplitterNaviPane;
         public DevExpress.XtraBars.Docking.DockManager DockManager;
+        private DevExpress.XtraBars.BarButtonItem tbtnNetworkStatus;
     }
 }

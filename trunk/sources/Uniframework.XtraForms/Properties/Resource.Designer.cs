@@ -60,6 +60,13 @@ namespace Uniframework.XtraForms.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap window_colors {
+            get {
+                object obj = ResourceManager.GetObject("window_colors", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap window_split_hor {
             get {
                 object obj = ResourceManager.GetObject("window_split_hor", resourceCulture);

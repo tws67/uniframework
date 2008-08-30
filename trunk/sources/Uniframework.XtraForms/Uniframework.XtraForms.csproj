@@ -73,6 +73,10 @@
     <Compile Include="GUI\XtraWindowMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Localizer\ChineseXtraBarsCustomization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Localizer\ChineseXtraBarsCustomizationLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -160,6 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\window_split_hor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\window_colors.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

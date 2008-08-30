@@ -48,7 +48,7 @@ namespace Uniframework.SmartClient
             string label = element.Configuration.Attributes["label"];
             NavBarGroup item = new NavBarGroup(label);
             item.GroupStyle = NavBarGroupStyle.LargeIconsText;
-            NavBarControl naviPane = context.Items.Get(UIExtensionSiteNames.Shell_NaviPane) as NavBarControl;
+            NavBarControl naviPane = context.Items.Get<NavBarControl>(UIExtensionSiteNames.Shell_NaviPane);
             if (naviPane == null)
                 throw new UniframeworkException("未定义框架外壳的导航栏管理器。");
             naviPane.Groups.Add(item); // 添加分组条到导航栏
