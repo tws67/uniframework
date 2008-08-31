@@ -23,6 +23,7 @@ namespace Uniframework.SmartClient
 
         public const string Shell_Workspace_NaviPane        = "/Shell/Workspace/NaviPane";
         public const string Shell_Workspace_Dockable        = "/Shell/Workspace/Dockable";
+        public const string Shell_Workspace_Deck            = "/Shell/Workspace/Deck";
         public const string Shell_Workspace_Tabbed          = "/Shell/Workspace/Tabbed";
         public const string Shell_Workspace_Window          = "/Shell/Workspace/Window";
         public const string Shell_Workspace_Main            = "/Shell/Workspace/Content";

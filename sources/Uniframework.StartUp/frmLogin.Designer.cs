@@ -34,13 +34,13 @@ namespace Uniframework.StartUp
             this.pnlClient = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pbProgress = new DevExpress.XtraEditors.ProgressBarControl();
-            this.lblProgress = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnLogin = new DevExpress.XtraEditors.SimpleButton();
             this.txtPassword = new DevExpress.XtraEditors.TextEdit();
             this.label4 = new System.Windows.Forms.Label();
             this.txtUser = new DevExpress.XtraEditors.MRUEdit();
             this.label3 = new System.Windows.Forms.Label();
+            this.lblProgress = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -101,17 +101,6 @@ namespace Uniframework.StartUp
             this.pbProgress.Size = new System.Drawing.Size(239, 16);
             this.pbProgress.TabIndex = 21;
             this.pbProgress.Visible = false;
-            // 
-            // lblProgress
-            // 
-            this.lblProgress.AutoSize = true;
-            this.lblProgress.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblProgress.Location = new System.Drawing.Point(7, 134);
-            this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(59, 12);
-            this.lblProgress.TabIndex = 20;
-            this.lblProgress.Text = "进度条...";
-            this.lblProgress.Visible = false;
             // 
             // panel2
             // 
@@ -179,6 +168,17 @@ namespace Uniframework.StartUp
             this.label3.TabIndex = 8;
             this.label3.Text = "用户名";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblProgress
+            // 
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblProgress.Location = new System.Drawing.Point(7, 134);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(59, 12);
+            this.lblProgress.TabIndex = 20;
+            this.lblProgress.Text = "进度条...";
+            this.lblProgress.Visible = false;
             // 
             // panel3
             // 
@@ -293,6 +293,7 @@ namespace Uniframework.StartUp
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLogin";
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.Activated += new System.EventHandler(this.LoginForm_Activated);
             this.pnlClient.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

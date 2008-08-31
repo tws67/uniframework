@@ -67,7 +67,9 @@ namespace Uniframework.StartUp
             RootWorkItem.Items.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
             RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
             RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane);
-            RootWorkItem.Items.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
+            
+            RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
+            RootWorkItem.Workspaces.Add(Shell.DeckWorkspace, UIExtensionSiteNames.Shell_Workspace_Deck);
 
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
@@ -90,7 +92,6 @@ namespace Uniframework.StartUp
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Mainmenu, Shell.BarManager.MainMenu);
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Status, Shell.BarManager.StatusBar);
         }
-
 
         /// <summary>
         /// Must be overriden. This method is called when the application is fully created and
@@ -122,6 +123,7 @@ namespace Uniframework.StartUp
             string dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
             IObjectDatabaseService databaseService = new db4oDatabaseService(dbPath);
             RootWorkItem.Services.Add<IObjectDatabaseService>(databaseService);
+            //RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
         }
 
         #region Assistant functions

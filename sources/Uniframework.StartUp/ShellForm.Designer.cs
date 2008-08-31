@@ -49,8 +49,9 @@ namespace Uniframework.StartUp
             this.DockManager = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.tabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.DeckWorkspace = new Microsoft.Practices.CompositeUI.WinForms.DeckWorkspace();
             this.naviWorkspace = new Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace();
-            this.SplitterNaviPane = new DevExpress.XtraEditors.SplitterControl();
+            this.SplitterControl = new DevExpress.XtraEditors.SplitterControl();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).BeginInit();
@@ -223,37 +224,45 @@ namespace Uniframework.StartUp
             // 
             this.tabbedMdiManager.MdiParent = this;
             // 
+            // DeckWorkspace
+            // 
+            this.DeckWorkspace.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DeckWorkspace.Location = new System.Drawing.Point(0, 25);
+            this.DeckWorkspace.Name = "DeckWorkspace";
+            this.DeckWorkspace.Size = new System.Drawing.Size(792, 60);
+            this.DeckWorkspace.TabIndex = 5;
+            // 
             // naviWorkspace
             // 
             this.naviWorkspace.ActiveGroup = null;
             this.naviWorkspace.AllowSelectedLink = true;
             this.naviWorkspace.ContentButtonHint = null;
             this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Left;
-            this.naviWorkspace.Location = new System.Drawing.Point(0, 25);
+            this.naviWorkspace.Location = new System.Drawing.Point(0, 85);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 520);
-            this.naviWorkspace.TabIndex = 5;
-            this.naviWorkspace.Text = "xtraNavBarWorkspace1";
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 460);
+            this.naviWorkspace.TabIndex = 6;
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
-            // SplitterNaviPane
+            // SplitterControl
             // 
-            this.SplitterNaviPane.Location = new System.Drawing.Point(169, 25);
-            this.SplitterNaviPane.MinExtra = 84;
-            this.SplitterNaviPane.MinSize = 84;
-            this.SplitterNaviPane.Name = "SplitterNaviPane";
-            this.SplitterNaviPane.Size = new System.Drawing.Size(6, 520);
-            this.SplitterNaviPane.TabIndex = 6;
-            this.SplitterNaviPane.TabStop = false;
+            this.SplitterControl.Location = new System.Drawing.Point(169, 85);
+            this.SplitterControl.MinExtra = 80;
+            this.SplitterControl.MinSize = 80;
+            this.SplitterControl.Name = "SplitterControl";
+            this.SplitterControl.Size = new System.Drawing.Size(6, 460);
+            this.SplitterControl.TabIndex = 7;
+            this.SplitterControl.TabStop = false;
             // 
             // ShellForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
-            this.Controls.Add(this.SplitterNaviPane);
+            this.Controls.Add(this.SplitterControl);
             this.Controls.Add(this.naviWorkspace);
+            this.Controls.Add(this.DeckWorkspace);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -263,6 +272,7 @@ namespace Uniframework.StartUp
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShellForm";
             this.Load += new System.EventHandler(this.ShellForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ShellForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).EndInit();
@@ -283,7 +293,6 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         public DevExpress.XtraBars.BarManager barManager;
         public DevExpress.XtraTabbedMdi.XtraTabbedMdiManager tabbedMdiManager;
-        private Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace naviWorkspace;
         private DevExpress.XtraBars.BarStaticItem tlabStatus;
         private DevExpress.XtraBars.BarStaticItem tlabCustomPanel1;
         private DevExpress.XtraBars.BarStaticItem tlabCustomPanel2;
@@ -294,8 +303,10 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarStaticItem tlabRequestSize;
         private DevExpress.XtraBars.BarEditItem ZoomBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar repositoryItemZoomTrackBar1;
-        private DevExpress.XtraEditors.SplitterControl SplitterNaviPane;
         public DevExpress.XtraBars.Docking.DockManager DockManager;
         private DevExpress.XtraBars.BarButtonItem tbtnNetworkStatus;
+        private Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace naviWorkspace;
+        private DevExpress.XtraEditors.SplitterControl SplitterControl;
+        public Microsoft.Practices.CompositeUI.WinForms.DeckWorkspace DeckWorkspace;
     }
 }

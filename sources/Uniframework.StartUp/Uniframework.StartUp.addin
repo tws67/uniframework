@@ -163,7 +163,11 @@
     </Path>
 
     <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
-      <Item id="MyWorkspace" name="naviMyWorkspace" label="快速启动栏" command="" classname="XtraNavBarGroup" register="true"/>
+      <Item id="MyWorkspace" name="naviMyWorkspace" label="快速启动栏" command="" classname="XtraNavBarGroup" largeimage="${magic-wand}" register="true">
+        <Item id="Desktop" name="naviiDesktop" label="我的桌面" command="" classname="XtraNavBarItem" largeimage="${window}" imagefile="${window}"/>
+        <Item id="ChangePassword" name="naviiChangeMyPassword" label="修改我的密码" command="" classname="XtraNavBarItem" largeimage="${key1}" imagefile="${key1}"/>
+      </Item>
+      <Item id="DGGS" name="DGGS" label="营业收费系统" command="" classname="XtraNavBarGroup" largeimage="${money}" register="true"/>
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu" label="主菜单" buildstartup="true">
