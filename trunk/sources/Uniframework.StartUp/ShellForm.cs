@@ -22,6 +22,7 @@ using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
 using Uniframework.StartUp.Properties;
 using Uniframework.Client.ConnectionManagement;
+using Uniframework.SmartClient;
 
 namespace Uniframework.StartUp
 {
@@ -62,6 +63,13 @@ namespace Uniframework.StartUp
             UserInfo ui = initialService.GetUserInfo(CommunicateProxy.UserName);
             tlabUser.Caption = ui.DispalyName;
         }
+
+        //[ServiceDependency]
+        //public PropertyService PropertyService
+        //{
+        //    get;
+        //    set;
+        //}
 
         /// <summary>
         /// Gets or sets the current login user.
@@ -253,6 +261,11 @@ namespace Uniframework.StartUp
         private void tbtnNetworkStatus_ItemDoubleClick(object sender, ItemClickEventArgs e)
         {
             Online = Online ? false : true;
+        }
+
+        private void ShellForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //PropertyService.Set<Rectangle>("Shell.Bounds", Bounds);
         }
 
     }

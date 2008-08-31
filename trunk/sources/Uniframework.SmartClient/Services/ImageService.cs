@@ -21,7 +21,6 @@ namespace Uniframework.SmartClient
 
         private object SyncObj = new object(); // locker
         private string imagePath = String.Empty;
-        private SmartClientEnvironment scEnvironment;
         private Dictionary<Size, Dictionary<string, Icon>> iconsCache = new Dictionary<Size, Dictionary<string, Icon>>();
         private Dictionary<string, Bitmap> imagesCache = new Dictionary<string, Bitmap>();
         private Dictionary<string, string> imagesMap = new Dictionary<string, string>();
@@ -50,7 +49,7 @@ namespace Uniframework.SmartClient
                 }
                 else
                 {
-                    List<string> files = FileUtility.SearchDirectory(imagePath, filename, true);
+                    List<string> files = FileUtility.SearchDirectory(ImagePath, filename, true);
                     if (files.Count > 0)
                     {
                         bitmap = new Bitmap(files[0]);
@@ -108,7 +107,7 @@ namespace Uniframework.SmartClient
         /// <param name="name">图标名称</param>
         /// <param name="size">尺寸</param>
         /// <returns>系统将从指定的图标字典中返回找到的图标资源。</returns>
-        public System.Drawing.Icon GetIcon(string name,Size size)
+        public Icon GetIcon(string name,Size size)
         {
             lock (SyncObj) {
                 Icon icon = null;
@@ -127,13 +126,16 @@ namespace Uniframework.SmartClient
                     icon = new Icon(filename, size);
                 }
                 else {
-                    List<string> files = FileUtility.SearchDirectory(imagePath, filename, true);
+                    List<string> files = FileUtility.SearchDirectory(ImagePath, filename, true);
                     if (files.Count > 0) {
                         icon = new Icon(files[0], size);
                     }
                 }
 
-                iconsCache[size][key] = icon; // 保存图标到缓存中
+                if (!iconsCache.ContainsKey(size)) { // 保存图标到缓存中
+                    iconsCache.Add(size, new Dictionary<string,Icon>());
+                    iconsCache[size][key] = icon;
+                }
                 return icon;
             }
         }
@@ -142,18 +144,11 @@ namespace Uniframework.SmartClient
 
         #region assistant functions
 
-        [ServiceDependency]
-        internal SmartClientEnvironment SCEnvironment
-        {
-            get { return scEnvironment; }
-            set { scEnvironment = value; }
-        }
-
         private string ImagePath
         {
             get {
                 if (String.IsNullOrEmpty(imagePath)) {
-                    imagePath = Path.Combine(SCEnvironment.ApplicationPath, @"\Resources\");
+                    imagePath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Resources\";
                     if (!Directory.Exists(imagePath))
                         Directory.CreateDirectory(imagePath);
                 }

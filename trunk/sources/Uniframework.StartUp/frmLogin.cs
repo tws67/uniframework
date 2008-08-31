@@ -150,5 +150,9 @@ namespace Uniframework.StartUp
         {
             txtUser.Focus();
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

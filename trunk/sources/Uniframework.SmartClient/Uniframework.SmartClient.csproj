@@ -109,6 +109,10 @@
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
+    <Compile Include="Services\Property\IPropertyService.cs" />
+    <Compile Include="Services\Property\Properties.cs" />
+    <Compile Include="Services\Property\PropertyChangedEventArgs.cs" />
+    <Compile Include="Services\Property\PropertyService.cs" />
     <Compile Include="Services\RemoteServiceRegister.cs" />
     <Compile Include="Services\WebServiceModuleEnumerator.cs" />
     <Compile Include="Services\XtraContentMenuService.cs" />
