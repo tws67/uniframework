@@ -14,10 +14,10 @@ namespace Uniframework.Db4o
     public interface IDb4oDatabaseService
     {
         /// <summary>
-        /// Opens the specified db name.
+        /// 打开数据库
         /// </summary>
-        /// <param name="dbName">Name of the db.</param>
-        /// <returns></returns>
+        /// <param name="dbName">数据名称</param>
+        /// <returns>打开的数据库对象</returns>
         IDb4oDatabase Open(string dbName);
         /// <summary>
         /// 打开数据库
