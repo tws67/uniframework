@@ -5,21 +5,25 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Services;
 using Uniframework.Services.db4oService;
+using Uniframework.SmartClient.Constants;
 
 namespace Uniframework.SmartClient
 {
     public class PropertyService : IPropertyService, IDisposable
     {
-        private static readonly string PROPERTY_DBFILE = "Uniframework.conf";
 
-        private Properties properties = new Properties();
-        //private db4oDatabaseService dbService;
+        private static readonly string PROPERTY_DBFILE = "Uniframework.conf";
+        private IObjectDatabaseService dbService;
         private IObjectDatabase db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyService"/> class.
+        /// </summary>
         public PropertyService()
         {
             string confPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Configuration";
@@ -27,34 +31,73 @@ namespace Uniframework.SmartClient
                 Directory.CreateDirectory(confPath);
             dbService = new db4oDatabaseService(confPath);
             db = dbService.OpenDatabase(PROPERTY_DBFILE);
-
-            Properties[] pros = db.Load<Properties>();
-            if (pros.Length > 0)
-                properties = pros[0];
-        }
-
-        [ServiceDependency]
-        public db4oDatabaseService dbService
-        {
-            get;
-            internal set;
         }
 
         #region IPropertyService Members
 
+        /// <summary>
+        /// Gets the specified property.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <returns></returns>
         public object Get(string property)
         {
-            return properties.Get(property);
+            Property[] items = db.Load<Property>(delegate(Property prop) {
+                return prop.Name == property;
+            });
+            return items.Length > 0 ? items[0].Data : null;
         }
 
-        public T Get<T>(string property, T defautValue)
+        /// <summary>
+        /// Gets the specified property.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property">The property.</param>
+        /// <param name="defautValue">The defaut value.</param>
+        /// <returns></returns>
+        public T Get<T>(string property, T defaultValue)
         {
-            return properties.Get<T>(property, defautValue);
+            Property[] items = db.Load<Property>(delegate(Property prop) {
+                return prop.Name == property;
+            });
+            try {
+                return items.Length > 0 ? (T)items[0].Data : defaultValue;
+            }
+            catch(InvalidCastException ex) {
+                throw ex;
+            }
         }
 
+        /// <summary>
+        /// Sets the specified property.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property">The property.</param>
+        /// <param name="value">The value.</param>
         public void Set<T>(string property, T value)
         {
-            properties.Set<T>(property, value);
+            Property prop = Get(property) as Property;
+            object oldValue = (prop != null && prop.Data != null) ? prop.Data : null;
+            if (prop != null)
+                db.Delete(prop);
+
+            Property item = new Property();
+            item.Name = property;
+            item.Data = value;
+            db.Save(item);
+            OnPropertyChanged(new PropertyChangedEventArgs(item, oldValue)); // 触发事件
+        }
+
+        /// <summary>
+        /// Occurs when [property changed].
+        /// </summary>
+        [EventPublication(EventNames.Uniframework_PropertyChanged, PublicationScope.Global)]
+        public event EventHandler<PropertyChangedEventArgs> PropertyChanged;
+
+        protected void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
         }
 
         #endregion
@@ -63,7 +106,7 @@ namespace Uniframework.SmartClient
 
         public void Dispose()
         {
-            db.Save(properties);
+            dbService.CloseDatabase(PROPERTY_DBFILE);
         }
 
         #endregion

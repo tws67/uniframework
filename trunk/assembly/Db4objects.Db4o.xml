@@ -60,6 +60,7 @@
             </remarks>
             <seealso cref="T:System.Collections.IDictionary">IDictionary</seealso>
             <seealso cref="T:Db4objects.Db4o.TA.IActivatable">IActivatable</seealso>
+            <decaf.ignore></decaf.ignore>
         </member>
         <member name="T:Db4objects.Db4o.TA.IActivatable">
             <summary>
@@ -235,6 +236,7 @@
             </remarks>
             <seealso cref="T:System.Collections.ArrayList">ArrayList</seealso>
             <seealso cref="T:Db4objects.Db4o.TA.IActivatable">IActivatable</seealso>
+            <decaf.ignore></decaf.ignore>
         </member>
         <member name="M:Db4objects.Db4o.Collections.ArrayList4`1.Activate(Db4objects.Db4o.Activation.ActivationPurpose)">
             <summary>activate basic implementation.</summary>
@@ -1354,6 +1356,14 @@
             <param name="adapter">- the IoAdapter</param>
             <exception cref="T:Db4objects.Db4o.Config.GlobalOnlyConfigException"></exception>
         </member>
+        <member name="M:Db4objects.Db4o.Config.IConfiguration.Io">
+            <summary>
+            returns the configured
+            <see cref="T:Db4objects.Db4o.IO.IoAdapter">IoAdapter</see>
+            .
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Db4objects.Db4o.Config.IConfiguration.MarkTransient(System.String)">
             <summary>allows to mark fields as transient with custom attributes.</summary>
             <remarks>
@@ -1687,7 +1697,7 @@
             </remarks>
             <param name="milliseconds">the time in milliseconds</param>
         </member>
-        <member name="M:Db4objects.Db4o.Config.IConfiguration.RegisterTypeHandler(Db4objects.Db4o.Typehandlers.ITypeHandlerPredicate,Db4objects.Db4o.Internal.ITypeHandler4)">
+        <member name="M:Db4objects.Db4o.Config.IConfiguration.RegisterTypeHandler(Db4objects.Db4o.Typehandlers.ITypeHandlerPredicate,Db4objects.Db4o.Typehandlers.ITypeHandler4)">
             <summary>
             allows registering special TypeHandlers for customized marshalling
             and customized comparisons.
@@ -3529,10 +3539,6 @@
         <member name="M:Db4objects.Db4o.Defragment.Defragment.UpgradeFile(Db4objects.Db4o.Defragment.DefragmentConfig)">
             <exception cref="T:System.IO.IOException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Defragment.Defragment.DefragUnindexed(Db4objects.Db4o.Defragment.DefragmentServicesImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
         <member name="M:Db4objects.Db4o.Defragment.Defragment.FirstPass(Db4objects.Db4o.Defragment.DefragmentServicesImpl,Db4objects.Db4o.Defragment.DefragmentConfig)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:System.IO.IOException"></exception>
@@ -3559,13 +3565,6 @@
         </member>
         <member name="T:Db4objects.Db4o.Internal.ISlotCopyHandler">
             <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.ISlotCopyHandler.ProcessCopy(Db4objects.Db4o.Internal.DefragmentContextImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Defragment.Defragment._ISlotCopyHandler_177.ProcessCopy(Db4objects.Db4o.Internal.DefragmentContextImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Foundation.IVisitor4">
             <exclude></exclude>
@@ -3775,9 +3774,6 @@
         <member name="M:Db4objects.Db4o.Internal.Mapping.IDefragmentServices.TargetBufferByAddress(System.Int32,System.Int32)">
             <exception cref="T:System.IO.IOException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.Mapping.IDefragmentServices.SourceBufferByID(System.Int32)">
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
         <member name="M:Db4objects.Db4o.Defragment.DefragmentServicesImpl.MappedID(System.Int32)">
             <exception cref="T:Db4objects.Db4o.Internal.Mapping.MappingNotFoundException"></exception>
         </member>
@@ -3799,8 +3795,8 @@
         <member name="M:Db4objects.Db4o.Defragment.DefragmentServicesImpl.TargetClassCollectionID(System.String,System.Int32)">
             <exception cref="T:System.IO.IOException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Defragment.DefragmentServicesImpl.SourceBufferByID(System.Int32)">
-            <exception cref="T:System.IO.IOException"></exception>
+        <member name="T:Db4objects.Db4o.Foundation.IProcedure4">
+            <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Defragment.FirstPassCommand">
             <summary>
@@ -3866,10 +3862,6 @@
             <exception cref="T:System.IO.IOException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Defragment.SecondPassCommand.ProcessBTree(Db4objects.Db4o.Defragment.DefragmentServicesImpl,Db4objects.Db4o.Internal.Btree.BTree)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Defragment.SecondPassCommand._ISlotCopyHandler_35.ProcessCopy(Db4objects.Db4o.Internal.DefragmentContextImpl)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:System.IO.IOException"></exception>
         </member>
@@ -6814,9 +6806,16 @@
             <summary>Useful as "out" or "by ref" function parameter.</summary>
             <remarks>Useful as "out" or "by ref" function parameter.</remarks>
         </member>
+        <member name="T:Db4objects.Db4o.Foundation.ByReference">
+            <summary>Useful as "out" or "by reference" function parameter.</summary>
+            <remarks>Useful as "out" or "by reference" function parameter.</remarks>
+        </member>
         <member name="T:Db4objects.Db4o.Foundation.Collection4">
             <summary>Fast linked list for all usecases.</summary>
             <remarks>Fast linked list for all usecases.</remarks>
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Foundation.ISequence4">
             <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Types.IUnversioned">
@@ -6951,6 +6950,9 @@
             <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Foundation.Hashtable4">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Foundation.IMap4">
             <exclude></exclude>
         </member>
         <member name="M:Db4objects.Db4o.Foundation.Hashtable4.#ctor(Db4objects.Db4o.Foundation.IDeepClone)">
@@ -7860,6 +7862,9 @@
             
             </summary>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IHandlerVersionContext">
+            <exclude></exclude>
+        </member>
         <member name="T:Db4objects.Db4o.Internal.Activation.ActivationContext4">
             <exclude></exclude>
         </member>
@@ -8123,13 +8128,6 @@
         <member name="F:Db4objects.Db4o.Internal.Btree.BTree._nodes">
             <summary>All instantiated nodes are held in this tree.</summary>
             <remarks>All instantiated nodes are held in this tree.</remarks>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Btree.BTree.DefragBTree(Db4objects.Db4o.Internal.Mapping.IDefragmentServices)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Btree.BTree._ISlotCopyHandler_400.ProcessCopy(Db4objects.Db4o.Internal.DefragmentContextImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Btree.BTreeAdd">
             <exclude></exclude>
@@ -8849,35 +8847,98 @@
         <member name="T:Db4objects.Db4o.Internal.CallbackObjectInfoCollections">
             <exclude></exclude>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.ClassAspect">
+            <exclude></exclude>
+        </member>
         <member name="T:Db4objects.Db4o.Internal.ClassMetadata">
             <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Internal.IIndexableTypeHandler">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.ITypeHandler4">
-            <exclude>
-            TODO: Not all TypeHandlers can implement Comparable4.
-            Consider to change the hierarchy, not to extend Comparable4
-            and to have callers check, if Comparable4 is implemented by
-            a TypeHandler.
-            </exclude>
+        <member name="T:Db4objects.Db4o.Typehandlers.ITypeHandler4">
+            <summary>
+            handles reading, writing, deleting, defragmenting and
+            comparisons for types of objects.<br/><br/>
+            Custom Typehandlers can be implemented to alter the default
+            behaviour of storing all non-transient fields of an object.<br/><br/>
+            </summary>
+            <seealso>
+            
+            <see cref="M:Db4objects.Db4o.Config.IConfiguration.RegisterTypeHandler(Db4objects.Db4o.Typehandlers.ITypeHandlerPredicate,Db4objects.Db4o.Typehandlers.ITypeHandler4)">IConfiguration.RegisterTypeHandler
+            	</see>
+            
+            </seealso>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Fieldhandlers.IFieldHandler">
             <exclude></exclude>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.ITypeHandler4.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
-            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        <member name="M:Db4objects.Db4o.Typehandlers.ITypeHandler4.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
+            <summary>gets called when an object gets deleted.</summary>
+            <remarks>gets called when an object gets deleted.</remarks>
+            <param name="context"></param>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException">Db4oIOException</exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.IIndexableTypeHandler.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+        <member name="M:Db4objects.Db4o.Typehandlers.ITypeHandler4.Defragment(Db4objects.Db4o.Internal.IDefragmentContext)">
+            <summary>gets called when an object gets defragmented.</summary>
+            <remarks>gets called when an object gets defragmented.</remarks>
+            <param name="context"></param>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.ITypeHandler4.Read(Db4objects.Db4o.Marshall.IReadContext)">
+            <summary>gets called when an object is read from the database.</summary>
+            <remarks>gets called when an object is read from the database.</remarks>
+            <param name="context"></param>
+            <returns>the instantiated object</returns>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.ITypeHandler4.Write(Db4objects.Db4o.Marshall.IWriteContext,System.Object)">
+            <summary>gets called when an object is to be written to the database.</summary>
+            <remarks>gets called when an object is to be written to the database.</remarks>
+            <param name="context"></param>
+            <param name="obj">the object</param>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.IIndexableTypeHandler.ReadIndexEntryFromObjectSlot(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.IFirstClassHandler">
-            <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.IFirstClassHandler.ReadCandidates(Db4objects.Db4o.Internal.Marshall.QueryingReadContext)">
+        <member name="M:Db4objects.Db4o.Internal.IIndexableTypeHandler.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.IObjectIdContext)">
+            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        </member>
+        <member name="T:Db4objects.Db4o.Typehandlers.IFirstClassHandler">
+            <summary>
+            TypeHandler for objects with own identity that support
+            activation and querying on members.
+            </summary>
+            <remarks>
+            TypeHandler for objects with own identity that support
+            activation and querying on members.
+            </remarks>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.IFirstClassHandler.CascadeActivation(Db4objects.Db4o.Internal.Activation.ActivationContext4)">
+            <summary>
+            will be called during activation if the handled
+            object is already active
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.IFirstClassHandler.ReadCandidateHandler(Db4objects.Db4o.Internal.Marshall.QueryingReadContext)">
+            <summary>
+            will be called during querying to ask for the handler
+            to be used to collect children of the handled object
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.IFirstClassHandler.CollectIDs(Db4objects.Db4o.Internal.Marshall.QueryingReadContext)">
+            <summary>
+            will be called during querying to ask for IDs of member
+            objects of the handled object.
+            </summary>
+            <remarks>
+            will be called during querying to ask for IDs of member
+            objects of the handled object.
+            </remarks>
+            <param name="context"></param>
         </member>
         <member name="T:Db4objects.Db4o.Internal.IReadsObjectIds">
             <exclude></exclude>
@@ -8895,12 +8956,12 @@
             YapClassPrimitive
             </remarks>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.ClassMetadata.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+        <member name="M:Db4objects.Db4o.Internal.ClassMetadata.ReadIndexEntryFromObjectSlot(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.ClassMetadata.DefragClass(Db4objects.Db4o.Internal.DefragmentContextImpl,System.Int32)">
+        <member name="M:Db4objects.Db4o.Internal.ClassMetadata.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.IObjectIdContext)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.ClassMetadataIterator">
             <exclude>TODO: remove this class or make it private to ClassMetadataRepository</exclude>
@@ -9505,6 +9566,9 @@
         <member name="T:Db4objects.Db4o.Internal.Convert.ConversionStage">
             <exclude></exclude>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.Convert.Conversions.ClassAspects_7_4">
+            <exclude></exclude>
+        </member>
         <member name="T:Db4objects.Db4o.Internal.Convert.Conversions.ClassIndexesToBTrees_5_5">
             <exclude></exclude>
         </member>
@@ -9523,6 +9587,15 @@
         <member name="T:Db4objects.Db4o.Internal.DefragmentContextImpl">
             <exclude></exclude>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IMarshallingInfo">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IFieldListInfo">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IAspectVersionContext">
+            <exclude></exclude>
+        </member>
         <member name="M:Db4objects.Db4o.Internal.IDefragmentContext.CopySlotToNewMapped(System.Int32,System.Int32)">
             <exception cref="T:System.IO.IOException"></exception>
         </member>
@@ -9530,18 +9603,6 @@
             <exception cref="T:System.IO.IOException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Internal.IDefragmentContext.SourceBufferById(System.Int32)">
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.DefragmentContextImpl.ProcessCopy(Db4objects.Db4o.Internal.Mapping.IDefragmentServices,System.Int32,Db4objects.Db4o.Internal.ISlotCopyHandler)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.DefragmentContextImpl.ProcessCopy(Db4objects.Db4o.Internal.Mapping.IDefragmentServices,System.Int32,Db4objects.Db4o.Internal.ISlotCopyHandler,System.Boolean)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.DefragmentContextImpl.ProcessCopy(Db4objects.Db4o.Internal.Mapping.IDefragmentServices,System.Int32,Db4objects.Db4o.Internal.ISlotCopyHandler,System.Boolean,Db4objects.Db4o.Internal.ByteArrayBuffer)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:System.IO.IOException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Internal.DefragmentContextImpl.CopySlotToNewMapped(System.Int32,System.Int32)">
@@ -9564,7 +9625,50 @@
         <member name="T:Db4objects.Db4o.Internal.Delete.DeleteContextImpl">
             <exclude></exclude>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.ObjectHeaderContext">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.AbstractReadContext">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IInternalReadContext">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Marshall.IReadContext">
+            <summary>
+            this interface is passed to internal class com.db4o.internal.TypeHandler4
+            when instantiating objects.
+            </summary>
+            <remarks>
+            this interface is passed to internal class com.db4o.internal.TypeHandler4
+            when instantiating objects.
+            </remarks>
+        </member>
+        <member name="M:Db4objects.Db4o.Marshall.IReadContext.ReadObject">
+            <summary>
+            Interprets the current position in the context as
+            an ID and returns the object with this ID.
+            </summary>
+            <remarks>
+            Interprets the current position in the context as
+            an ID and returns the object with this ID.
+            </remarks>
+            <returns>the object</returns>
+        </member>
+        <member name="M:Db4objects.Db4o.Marshall.IReadContext.ReadObject(Db4objects.Db4o.Typehandlers.ITypeHandler4)">
+            <summary>
+            reads sub-objects, in cases where the TypeHandler4
+            is known.
+            </summary>
+            <remarks>
+            reads sub-objects, in cases where the TypeHandler4
+            is known.
+            </remarks>
+        </member>
         <member name="T:Db4objects.Db4o.Internal.Delete.IDeleteContext">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IObjectIdContext">
             <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Diagnostic.DiagnosticProcessor">
@@ -9585,23 +9689,21 @@
         <member name="T:Db4objects.Db4o.Internal.FieldMetadata">
             <exclude></exclude>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.StatefulBuffer,Db4objects.Db4o.Internal.Slots.Slot)">
-            <param name="classMetadata"></param>
-            <param name="oldSlot"></param>
+        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.ObjectIdContextImpl,Db4objects.Db4o.Internal.Slots.Slot)">
             <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.IObjectIdContext)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Internal.FieldMetadata.CollectIDs(Db4objects.Db4o.Internal.Marshall.CollectIdContext)">
             <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.Delete(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer,System.Boolean)">
+        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.Delete(Db4objects.Db4o.Internal.Delete.DeleteContextImpl,System.Boolean)">
             <param name="isUpdate"></param>
             <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.RemoveIndexEntry(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.RemoveIndexEntry(Db4objects.Db4o.Internal.Delete.DeleteContextImpl)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
@@ -9613,10 +9715,6 @@
             dirty hack for com.db4o.types some of them need to be set automatically
             TODO: Derive from YapField for Db4oTypes
             </summary>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.FieldMetadata.ReadVirtualAttribute(Db4objects.Db4o.Internal.Transaction,Db4objects.Db4o.Internal.ByteArrayBuffer,Db4objects.Db4o.Internal.ObjectReference)">
-            <param name="trans"></param>
-            <param name="@ref"></param>
         </member>
         <member name="M:Db4objects.Db4o.Internal.FieldMetadata.RefreshActivated">
             <summary>never called but keep for Rickie</summary>
@@ -9788,14 +9886,8 @@
             with own identity.
             </remarks>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.ICompositeTypeHandler">
+        <member name="T:Db4objects.Db4o.Internal.IVersionedTypeHandler">
             <exclude></exclude>
-        </member>
-        <member name="T:Db4objects.Db4o.Internal.ICollectIdHandler">
-            <summary>
-            allows collection of IDs if a query is executed on
-            a field node
-            </summary>
         </member>
         <member name="M:Db4objects.Db4o.Internal.Handlers.Array.ArrayHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
@@ -9858,8 +9950,12 @@
         <member name="M:Db4objects.Db4o.Internal.Handlers.PrimitiveHandler.Read1(Db4objects.Db4o.Internal.ByteArrayBuffer)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.Handlers.PrimitiveHandler.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+        <member name="M:Db4objects.Db4o.Internal.Handlers.PrimitiveHandler.ReadIndexEntryFromObjectSlot(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.Handlers.PrimitiveHandler.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.IObjectIdContext)">
+            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Handlers.DateHandler0">
             <exclude></exclude>
@@ -9886,10 +9982,16 @@
         <member name="T:Db4objects.Db4o.Internal.Handlers.FirstClassObjectHandler">
             <exclude></exclude>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.Handlers.IFieldAwareTypeHandler">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Handlers.IVirtualAttributeHandler">
+            <exclude></exclude>
+        </member>
         <member name="M:Db4objects.Db4o.Internal.Handlers.FirstClassObjectHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.Handlers.FirstClassObjectHandler.ReadCandidates(Db4objects.Db4o.Internal.Marshall.QueryingReadContext)">
+        <member name="M:Db4objects.Db4o.Internal.Handlers.FirstClassObjectHandler.CollectIDs(Db4objects.Db4o.Internal.Marshall.QueryingReadContext)">
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Handlers.FirstClassObjectHandler0">
@@ -9916,6 +10018,16 @@
         <member name="M:Db4objects.Db4o.Internal.Handlers.NetTypeHandler.Read1(Db4objects.Db4o.Internal.ByteArrayBuffer)">
             <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.Handlers.NullFieldAwareTypeHandler">
+            <exclude></exclude>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.Handlers.NullFieldAwareTypeHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Handlers.PlainObjectHandler">
+            <summary>Tyehandler for naked plain objects (java.lang.Object).</summary>
+            <remarks>Tyehandler for naked plain objects (java.lang.Object).</remarks>
+        </member>
         <member name="M:Db4objects.Db4o.Internal.Handlers.PlainObjectHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
@@ -9925,7 +10037,7 @@
         <member name="T:Db4objects.Db4o.Internal.ISecondClassTypeHandler">
             <summary>
             Marker interface for
-            <see cref="!:TypeHandle4">TypeHandle4</see>
+            <see cref="T:Db4objects.Db4o.Typehandlers.ITypeHandler4">ITypeHandler4</see>
             s for second class
             types.
             </summary>
@@ -9936,21 +10048,19 @@
         <member name="T:Db4objects.Db4o.Internal.Handlers.StringHandler">
             <exclude></exclude>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+        <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler.ReadIndexEntryFromObjectSlot(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
             <summary>This readIndexEntry method reads from the parent slot.</summary>
-            <remarks>
-            This readIndexEntry method reads from the parent slot.
-            TODO: Consider renaming methods in Indexable4 and Typhandler4 to make direction clear.
-            </remarks>
-            <exception cref="T:Db4objects.Db4o.CorruptionException">CorruptionException</exception>
+            <remarks>This readIndexEntry method reads from the parent slot.</remarks>
+            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.IObjectIdContext)">
+            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler.ReadIndexEntry(Db4objects.Db4o.Internal.ByteArrayBuffer)">
             <summary>This readIndexEntry method reads from the actual index in the file.</summary>
-            <remarks>
-            This readIndexEntry method reads from the actual index in the file.
-            TODO: Consider renaming methods in Indexable4 and Typhandler4 to make direction clear.
-            </remarks>
+            <remarks>This readIndexEntry method reads from the actual index in the file.</remarks>
         </member>
         <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler.Compare(Db4objects.Db4o.Internal.ByteArrayBuffer,Db4objects.Db4o.Internal.ByteArrayBuffer)">
             <summary>
@@ -9965,6 +10075,14 @@
         </member>
         <member name="T:Db4objects.Db4o.Internal.Handlers.StringHandler0">
             <exclude></exclude>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler0.ReadIndexEntryFromObjectSlot(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.StatefulBuffer)">
+            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.Handlers.StringHandler0.ReadIndexEntry(Db4objects.Db4o.Internal.Marshall.IObjectIdContext)">
+            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Handlers.TypeHandlerPredicatePair">
             <exclude></exclude>
@@ -10064,49 +10182,20 @@
         <member name="T:Db4objects.Db4o.Internal.Mapping.MappingNotFoundException">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.AbstractReadContext">
+        <member name="T:Db4objects.Db4o.Internal.Marshall.AbstractFieldMarshaller">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.IInternalReadContext">
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IFieldMarshaller">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Marshall.IReadContext">
-            <summary>
-            this interface is passed to internal class com.db4o.internal.TypeHandler4
-            when instantiating objects.
-            </summary>
-            <remarks>
-            this interface is passed to internal class com.db4o.internal.TypeHandler4
-            when instantiating objects.
-            </remarks>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.AspectType">
+            <exclude></exclude>
         </member>
-        <member name="M:Db4objects.Db4o.Marshall.IReadContext.ReadObject">
-            <summary>
-            Interprets the current position in the context as
-            an ID and returns the object with this ID.
-            </summary>
-            <remarks>
-            Interprets the current position in the context as
-            an ID and returns the object with this ID.
-            </remarks>
-            <returns>the object</returns>
-        </member>
-        <member name="M:Db4objects.Db4o.Marshall.IReadContext.ReadObject(Db4objects.Db4o.Internal.ITypeHandler4)">
-            <summary>
-            reads sub-objects, in cases where the TypeHandler4
-            is known.
-            </summary>
-            <remarks>
-            reads sub-objects, in cases where the TypeHandler4
-            is known.
-            </remarks>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.AspectVersionContextImpl">
+            <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.ClassMarshaller">
             <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.ClassMarshaller.Defrag(Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.LatinStringIO,Db4objects.Db4o.Internal.DefragmentContextImpl,System.Int32)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.ClassMarshaller0">
             <exclude></exclude>
@@ -10120,38 +10209,20 @@
         <member name="T:Db4objects.Db4o.Internal.Marshall.CollectIdContext">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.ObjectHeaderContext">
-            <exclude></exclude>
-        </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.IMarshallingInfo">
-            <exclude></exclude>
-        </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.IFieldListInfo">
-            <exclude></exclude>
-        </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.ContextState">
             <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.FieldMarshaller0">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.IFieldMarshaller">
-            <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.IFieldMarshaller.Defrag(Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.FieldMetadata,Db4objects.Db4o.Internal.LatinStringIO,Db4objects.Db4o.Internal.DefragmentContextImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.FieldMarshaller0.Defrag(Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.FieldMetadata,Db4objects.Db4o.Internal.LatinStringIO,Db4objects.Db4o.Internal.DefragmentContextImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
-        </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.FieldMarshaller1">
             <exclude></exclude>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.FieldMarshaller1.Defrag(Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.FieldMetadata,Db4objects.Db4o.Internal.LatinStringIO,Db4objects.Db4o.Internal.DefragmentContextImpl)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.IO.IOException"></exception>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.FieldMarshaller2">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.Marshall.IdObjectCollector">
+            <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.MarshallerFamily">
             <summary>
@@ -10197,7 +10268,7 @@
             </remarks>
             <param name="obj">the object to write.</param>
         </member>
-        <member name="M:Db4objects.Db4o.Marshall.IWriteContext.WriteObject(Db4objects.Db4o.Internal.ITypeHandler4,System.Object)">
+        <member name="M:Db4objects.Db4o.Marshall.IWriteContext.WriteObject(Db4objects.Db4o.Typehandlers.ITypeHandler4,System.Object)">
             <summary>
             writes sub-objects, in cases where the TypeHandler4
             is known.
@@ -10229,21 +10300,8 @@
         <member name="T:Db4objects.Db4o.Internal.Marshall.ObjectHeaderAttributes">
             <exclude></exclude>
         </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.ObjectMarshaller0">
+        <member name="T:Db4objects.Db4o.Internal.Marshall.ObjectIdContextImpl">
             <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.ObjectMarshaller0.MarshalledLength(Db4objects.Db4o.Internal.FieldMetadata,Db4objects.Db4o.Internal.ObjectReference)">
-            <param name="yf"></param>
-            <param name="yo"></param>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.ObjectMarshaller0.ReadIndexEntry(Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.Marshall.ObjectHeaderAttributes,Db4objects.Db4o.Internal.FieldMetadata,Db4objects.Db4o.Internal.StatefulBuffer)">
-            <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
-        </member>
-        <member name="T:Db4objects.Db4o.Internal.Marshall.ObjectMarshaller1">
-            <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.ObjectMarshaller1.ReadIndexEntry(Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.Marshall.ObjectHeaderAttributes,Db4objects.Db4o.Internal.FieldMetadata,Db4objects.Db4o.Internal.StatefulBuffer)">
-            <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.QueryingReadContext">
             <exclude></exclude>
@@ -10262,18 +10320,6 @@
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.SlotFormatCurrent">
             <exclude></exclude>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.StringMarshaller.ReadIndexEntry(Db4objects.Db4o.Internal.StatefulBuffer)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:System.ArgumentException"></exception>
-            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.StringMarshaller0.ReadIndexEntry(Db4objects.Db4o.Internal.StatefulBuffer)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
-            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
-        </member>
-        <member name="M:Db4objects.Db4o.Internal.Marshall.StringMarshaller1.ReadIndexEntry(Db4objects.Db4o.Internal.StatefulBuffer)">
-            <exception cref="T:Db4objects.Db4o.CorruptionException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.Marshall.UnmarshallingContext">
             <summary>Wraps the low-level details of reading a Buffer, which in turn is a glorified byte array.
@@ -10929,7 +10975,13 @@
         <member name="T:Db4objects.Db4o.Internal.TreeStringObject">
             <exclude></exclude>
         </member>
+        <member name="T:Db4objects.Db4o.Internal.TypeHandlerAspect">
+            <exclude></exclude>
+        </member>
         <member name="T:Db4objects.Db4o.Internal.TypeHandlerCloneContext">
+            <exclude></exclude>
+        </member>
+        <member name="T:Db4objects.Db4o.Internal.TypeHandlerConfiguration">
             <exclude></exclude>
         </member>
         <member name="T:Db4objects.Db4o.Internal.UUIDFieldMetadata">
@@ -10942,10 +10994,10 @@
             </summary>
             <exclude></exclude>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.VirtualFieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.StatefulBuffer,Db4objects.Db4o.Internal.Slots.Slot)">
+        <member name="M:Db4objects.Db4o.Internal.VirtualFieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.ObjectIdContextImpl,Db4objects.Db4o.Internal.Slots.Slot)">
             <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.UUIDFieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.MarshallerFamily,Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.StatefulBuffer,Db4objects.Db4o.Internal.Slots.Slot)">
+        <member name="M:Db4objects.Db4o.Internal.UUIDFieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.ObjectIdContextImpl,Db4objects.Db4o.Internal.Slots.Slot)">
             <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Internal.UUIDFieldMetadata.ReadDatabaseIdentityIDAndUUID(Db4objects.Db4o.Internal.ObjectContainerBase,Db4objects.Db4o.Internal.ClassMetadata,Db4objects.Db4o.Internal.Slots.Slot,System.Boolean)">
@@ -10960,7 +11012,7 @@
         <member name="M:Db4objects.Db4o.Internal.UntypedFieldHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.UntypedFieldHandler.SeekSecondaryOffset(Db4objects.Db4o.Marshall.IReadBuffer,Db4objects.Db4o.Internal.ITypeHandler4)">
+        <member name="M:Db4objects.Db4o.Internal.UntypedFieldHandler.SeekSecondaryOffset(Db4objects.Db4o.Marshall.IReadBuffer,Db4objects.Db4o.Typehandlers.ITypeHandler4)">
             <param name="buffer"></param>
             <param name="typeHandler"></param>
         </member>
@@ -10972,6 +11024,9 @@
         </member>
         <member name="T:Db4objects.Db4o.Internal.VersionFieldMetadata">
             <exclude></exclude>
+        </member>
+        <member name="M:Db4objects.Db4o.Internal.VersionFieldMetadata.AddFieldIndex(Db4objects.Db4o.Internal.Marshall.ObjectIdContextImpl,Db4objects.Db4o.Internal.Slots.Slot)">
+            <exception cref="T:Db4objects.Db4o.Internal.FieldIndexException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.VirtualAttributes">
             <exclude></exclude>
@@ -11657,27 +11712,47 @@
         <member name="T:Db4objects.Db4o.Typehandlers.ITypeHandlerPredicate">
             <summary>
             Predicate to be able to select if a specific TypeHandler is
-            applicable for a specific Type and version.
+            applicable for a specific Type.
             </summary>
             <remarks>
             Predicate to be able to select if a specific TypeHandler is
-            applicable for a specific Type and version.
+            applicable for a specific Type.
             </remarks>
         </member>
-        <member name="M:Db4objects.Db4o.Typehandlers.ITypeHandlerPredicate.Match(Db4objects.Db4o.Reflect.IReflectClass,System.Int32)">
+        <member name="M:Db4objects.Db4o.Typehandlers.ITypeHandlerPredicate.Match(Db4objects.Db4o.Reflect.IReflectClass)">
             <summary>
             return true if a TypeHandler is to be used for a specific
-            Type and version
+            Type
             </summary>
             <param name="classReflector">
             the Type passed by db4o that is to
             be tested by this predicate.
             </param>
-            <param name="version">the version</param>
             <returns>
             true if the TypeHandler is to be used for a specific
-            Type and version.
+            Type.
             </returns>
+        </member>
+        <member name="T:Db4objects.Db4o.Typehandlers.IgnoreFieldsTypeHandler">
+            <summary>Typehandler that ignores all fields on a class</summary>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.IgnoreFieldsTypeHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        </member>
+        <member name="T:Db4objects.Db4o.Typehandlers.ListTypeHandler">
+            <summary>TypeHandler for classes that implement java.util.List.<br /><br /></summary>
+            <decaf.ignore.jdk11></decaf.ignore.jdk11>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.ListTypeHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+        </member>
+        <member name="T:Db4objects.Db4o.Typehandlers.MapTypeHandler">
+            <summary>Typehandler for classes that implement java.util.Map.</summary>
+            <remarks>Typehandler for classes that implement java.util.Map.</remarks>
+            <decaf.ignore.jdk11></decaf.ignore.jdk11>
+        </member>
+        <member name="M:Db4objects.Db4o.Typehandlers.MapTypeHandler.Delete(Db4objects.Db4o.Internal.Delete.IDeleteContext)">
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Typehandlers.SingleClassTypeHandlerPredicate">
             <summary>allows installing a Typehandler for a single class.</summary>

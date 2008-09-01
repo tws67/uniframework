@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Db4objects.Db4o, Version=7.4.57.11456, Culture=neutral, PublicKeyToken=6199cd4f203aa8eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Db4objects.Db4o.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -77,6 +81,9 @@
     <Compile Include="Common\Exception.cs" />
     <Compile Include="Common\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
+    <Compile Include="Db4o\Db4oDatabase.cs" />
+    <Compile Include="Db4o\IDb4oDatabase.cs" />
+    <Compile Include="Db4o\IDb4oDatabaseService.cs" />
     <Compile Include="Net\DataBlock.cs" />
     <Compile Include="Net\Tcp\HeartBeatChecker.cs" />
     <Compile Include="Net\MessageBlock.cs" />

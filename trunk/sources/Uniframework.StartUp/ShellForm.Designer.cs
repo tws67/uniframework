@@ -241,7 +241,7 @@ namespace Uniframework.StartUp
             this.naviWorkspace.Location = new System.Drawing.Point(0, 85);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 460);
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 457);
             this.naviWorkspace.TabIndex = 6;
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
@@ -251,7 +251,7 @@ namespace Uniframework.StartUp
             this.SplitterControl.MinExtra = 80;
             this.SplitterControl.MinSize = 80;
             this.SplitterControl.Name = "SplitterControl";
-            this.SplitterControl.Size = new System.Drawing.Size(6, 460);
+            this.SplitterControl.Size = new System.Drawing.Size(6, 457);
             this.SplitterControl.TabIndex = 7;
             this.SplitterControl.TabStop = false;
             // 
@@ -259,7 +259,7 @@ namespace Uniframework.StartUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 573);
+            this.ClientSize = new System.Drawing.Size(792, 570);
             this.Controls.Add(this.SplitterControl);
             this.Controls.Add(this.naviWorkspace);
             this.Controls.Add(this.DeckWorkspace);

@@ -42,6 +42,10 @@ namespace Uniframework.StartUp
             InitializeEnvironment();
         }
 
+        private void AddClientServices()
+        {
+        }
+
         /// <summary>
         /// See <see cref="CabShellApplication{T,S}.AfterShellCreated"/>
         /// </summary>
@@ -53,7 +57,6 @@ namespace Uniframework.StartUp
             RootWorkItem.Items.Add(Shell, UIExtensionSiteNames.Shell);
 
             Program.SetInitialState("加载应用模块……");
-            //AddClientService();
             addInTree = new AddInTree();
             RootWorkItem.Services.Add<AddInTree>(addInTree);
             RootWorkItem.Services.Add<IContentMenuService>(new XtraContentMenuService(RootWorkItem, Shell.barManager));
@@ -74,6 +77,18 @@ namespace Uniframework.StartUp
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
 
+        /// <summary>
+        /// See <see cref="CabApplication{TWorkItem}.AddServices"/>
+        /// </summary>
+        protected override void AddServices()
+        {
+            base.AddServices();
+
+            string dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
+            IObjectDatabaseService databaseService = new db4oDatabaseService(dbPath);
+            RootWorkItem.Services.Add<IObjectDatabaseService>(databaseService);
+            
+        }
         /// <summary>
         /// Initializes the shell.
         /// </summary>
@@ -113,19 +128,6 @@ namespace Uniframework.StartUp
             builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
         }
 
-        /// <summary>
-        /// See <see cref="CabApplication{TWorkItem}.AddServices"/>
-        /// </summary>
-        protected override void AddServices()
-        {
-            base.AddServices();
-
-            string dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
-            IObjectDatabaseService databaseService = new db4oDatabaseService(dbPath);
-            RootWorkItem.Services.Add<IObjectDatabaseService>(databaseService);
-            //RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
-        }
-
         #region Assistant functions
 
         /// <summary>
@@ -152,6 +154,7 @@ namespace Uniframework.StartUp
             Program.IncreaseProgressBar(10);
             RootWorkItem.Services.Add<SmartClientEnvironment>(new SmartClientEnvironment());
             RootWorkItem.Services.Add<IImageService>(new ImageService());
+            RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
             RootWorkItem.Services.Add<IBuilderService>(new BuilderService(RootWorkItem));
 
             // 添加系统自定义的默认服务

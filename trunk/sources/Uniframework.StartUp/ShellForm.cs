@@ -15,19 +15,21 @@ using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.CompositeUI.Services;
 using Microsoft.Practices.ObjectBuilder;
 using Uniframework.Client;
+using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
 using Uniframework.Services;
+using Uniframework.SmartClient;
 using Uniframework.SmartClient.Constants;
+using Uniframework.StartUp.Properties;
 using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
-using Uniframework.StartUp.Properties;
-using Uniframework.Client.ConnectionManagement;
-using Uniframework.SmartClient;
 
 namespace Uniframework.StartUp
 {
     public partial class ShellForm : DevExpress.XtraEditors.XtraForm
     {
+        private readonly static string PROPERTY_LOCATION = "Shell.Property.Location";
+
         private bool online; // 与服务器的连接状态
         private readonly WorkItem workItem;
         private IWorkItemTypeCatalogService workItemTypeCatalog;
@@ -64,12 +66,12 @@ namespace Uniframework.StartUp
             tlabUser.Caption = ui.DispalyName;
         }
 
-        //[ServiceDependency]
-        //public PropertyService PropertyService
-        //{
-        //    get;
-        //    set;
-        //}
+        [ServiceDependency]
+        public IPropertyService PropertyService
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets or sets the current login user.
@@ -248,6 +250,7 @@ namespace Uniframework.StartUp
         private void ShellForm_Load(object sender, EventArgs e)
         {
             BarLocalizer.Active = new ChineseXtraBarsCustomizationLocalizer();
+            this.Activated +=new EventHandler(ShellForm_Activated);
 
             base.Activate();
             base.BringToFront();
@@ -265,8 +268,25 @@ namespace Uniframework.StartUp
 
         private void ShellForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //PropertyService.Set<Rectangle>("Shell.Bounds", Bounds);
+            FormLayout layout = new FormLayout { 
+                Location = this.Location,
+                Size = this.Size,
+                WindowState = this.WindowState
+            };
+            PropertyService.Set<FormLayout>(PROPERTY_LOCATION, layout);
         }
 
+        private void ShellForm_Activated(object sender, EventArgs e)
+        {
+
+            FormLayout layout = PropertyService.Get(PROPERTY_LOCATION) as FormLayout;
+            if (layout != null)
+            {
+                StartPosition = FormStartPosition.WindowsDefaultLocation;
+                this.Location = layout.Location;
+                this.Size = layout.Size;
+                this.WindowState = layout.WindowState;
+            }
+        }
     }
 }
