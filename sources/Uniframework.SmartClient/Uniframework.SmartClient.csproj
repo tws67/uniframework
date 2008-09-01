@@ -96,6 +96,7 @@
     <Compile Include="AddIns\ICondition.cs" />
     <Compile Include="AddIns\IConditionEvaluator.cs" />
     <Compile Include="Commands\CommandHandlers.cs" />
+    <Compile Include="Configuration\FormLayout.cs" />
     <Compile Include="Constants\UIExtensionSiteNames.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
     <Compile Include="Constants\EventNames.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
     <Compile Include="Services\Property\IPropertyService.cs" />
-    <Compile Include="Services\Property\Properties.cs" />
     <Compile Include="Services\Property\PropertyChangedEventArgs.cs" />
     <Compile Include="Services\Property\PropertyService.cs" />
     <Compile Include="Services\RemoteServiceRegister.cs" />

@@ -10,9 +10,7 @@ namespace Uniframework.SmartClient
     /// </summary>
     public class PropertyChangedEventArgs : EventArgs
     {
-        Properties properties;
-        string key;
-        object newValue;
+        Property property;
         object oldValue;
 
         #region Members
@@ -20,33 +18,11 @@ namespace Uniframework.SmartClient
         /// <returns>
         /// returns the changed property object
         /// </returns>
-        public Properties Properties
+        public Property Property
         {
             get
             {
-                return properties;
-            }
-        }
-
-        /// <returns>
-        /// The key of the changed property
-        /// </returns>
-        public string Key
-        {
-            get
-            {
-                return key;
-            }
-        }
-
-        /// <returns>
-        /// The new value of the property
-        /// </returns>
-        public object NewValue
-        {
-            get
-            {
-                return newValue;
+                return property;
             }
         }
 
@@ -70,12 +46,46 @@ namespace Uniframework.SmartClient
         /// <param name="key">The key.</param>
         /// <param name="oldValue">The old value.</param>
         /// <param name="newValue">The new value.</param>
-        public PropertyChangedEventArgs(Properties properties, string key, object oldValue, object newValue)
+        public PropertyChangedEventArgs(Property property, object oldValue)
         {
-            this.properties = properties;
-            this.key = key;
+            this.property = property;
             this.oldValue = oldValue;
-            this.newValue = newValue;
         }
     }
+
+        #region Inner class Property
+
+        /// <summary>
+        /// 系统保存的属性值
+        /// </summary>
+        public class Property
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Property"/> class.
+            /// </summary>
+            public Property()
+            { }
+
+            /// <summary>
+            /// Gets or sets the name.
+            /// </summary>
+            /// <value>The name.</value>
+            public string Name
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// Gets or sets the data.
+            /// </summary>
+            /// <value>The data.</value>
+            public object Data
+            {
+                get;
+                set;
+            }
+        }
+        
+        #endregion
 }
