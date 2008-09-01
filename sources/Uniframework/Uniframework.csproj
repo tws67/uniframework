@@ -45,6 +45,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
@@ -82,6 +83,8 @@
     <Compile Include="Common\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
     <Compile Include="Db4o\Db4oDatabase.cs" />
+    <Compile Include="Db4o\Db4oDatabaseService.cs" />
+    <Compile Include="Db4o\Db4oEnlist.cs" />
     <Compile Include="Db4o\IDb4oDatabase.cs" />
     <Compile Include="Db4o\IDb4oDatabaseService.cs" />
     <Compile Include="Net\DataBlock.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Transactions;
 
 using Db4objects.Db4o;
 
@@ -11,7 +12,7 @@ namespace Uniframework.Db4o
     /// <summary>
     /// db4o数据库
     /// </summary>
-    public sealed class Db4oDatabase : IDb4oDatabase, IDisposable
+    public class Db4oDatabase : IDb4oDatabase, IDisposable
     {
         private IObjectContainer container;
         private Mutex mutex;
@@ -35,7 +36,7 @@ namespace Uniframework.Db4o
         /// <value></value>
         public IObjectContainer Container
         {
-            get { throw new NotImplementedException(); }
+            get { return container; }
         }
 
         /// <summary>
@@ -44,7 +45,11 @@ namespace Uniframework.Db4o
         /// <param name="obj">待保存的数据对象</param>
         public void Save(object obj)
         {
-            throw new NotImplementedException();
+            Db4oEnlist enlist = new Db4oEnlist(container, obj);
+            bool inTransaction = Enlist(enlist);
+            container.Store(obj);
+            if (!inTransaction) container.Commit();
+            container.Commit();
         }
 
         /// <summary>
@@ -53,7 +58,11 @@ namespace Uniframework.Db4o
         /// <param name="obj">待删除的数据对象</param>
         public void Delete(object obj)
         {
-            throw new NotImplementedException();
+            Db4oEnlist enlist = new Db4oEnlist(container, obj);
+            bool inTransaction = Enlist(enlist);
+            container.Delete(obj);
+            if (!inTransaction) container.Commit();
+            container.Commit();
         }
 
         /// <summary>
@@ -64,7 +73,8 @@ namespace Uniframework.Db4o
         /// <returns>如果存在指定条件的对象返回相应的列表，否则为空</returns>
         public IList<T> Load<T>(Predicate<T> match) where T : class
         {
-            throw new NotImplementedException();
+            IList<T> list = new List<T>(container.Query<T>(match));
+            return list;
         }
 
         /// <summary>
@@ -75,7 +85,13 @@ namespace Uniframework.Db4o
         /// <returns>如果存在指定条件的对象返回相应的列表，否则为空</returns>
         public IList<T> Load<T>(T template) where T : class
         {
-            throw new NotImplementedException();
+            IObjectSet results = container.QueryByExample(template);
+            IList<T> list = new List<T>();
+            while (results.HasNext())
+            {
+                list.Add((T)results.Next());
+            }
+            return list;
         }
 
         /// <summary>
@@ -85,16 +101,51 @@ namespace Uniframework.Db4o
         /// <returns>如果存在指定类型的对象返回相应的列表，否则为空</returns>
         public IList<T> Load<T>() where T : class
         {
-            throw new NotImplementedException();
+            IObjectSet results = container.QueryByExample(typeof(T));
+            IList<T> list = new List<T>();
+            while (results.HasNext())
+            {
+                list.Add((T)results.Next());
+            }
+            return list;
         }
 
         #endregion
 
         #region IDisposable Members
 
+        private bool disposed;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed && disposing)
+            {
+                container.Close();
+                container = null;
+                mutex.ReleaseMutex();
+                mutex = null;
+                disposed = true;
+            }
+        }
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region Assistant functions
+
+        private bool Enlist(Db4oEnlist enlist)
+        {
+            System.Transactions.Transaction currentTx = System.Transactions.Transaction.Current;
+            if (currentTx != null)
+            {
+                currentTx.EnlistVolatile(enlist, EnlistmentOptions.None);
+                return true;
+            }
+            return false;
         }
 
         #endregion

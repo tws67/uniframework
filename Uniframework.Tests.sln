@@ -56,7 +56,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "5830"
+		VWDPort = "2300"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Tests", "tests\Uniframework.Tests\Uniframework.Tests.csproj", "{9ABD0D45-3CD5-4063-A4FA-4107347949C3}"
