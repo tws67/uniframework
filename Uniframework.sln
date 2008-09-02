@@ -84,8 +84,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.ScriptEngine",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.CSScript", "sources\Uniframework.CSScript\Uniframework.CSScript.csproj", "{96E7F253-2B00-4B19-B77E-49BF3D69F1FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.db4oService", "sources\Uniframework.db4oService\Uniframework.db4oService.csproj", "{58BE29D7-E254-4058-85E6-9A816A5A44E1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Services", "sources\Uniframework.Services\Uniframework.Services.csproj", "{AB560843-D1D0-4D14-AAED-42F87ED5D089}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Communication", "sources\Uniframework.Communication\Uniframework.Communication.csproj", "{54CEE371-BBD0-4C9E-80A6-A72BE01F9500}"
@@ -118,7 +116,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "2761"
+		VWDPort = "1104"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -174,10 +172,6 @@ Global
 		{96E7F253-2B00-4B19-B77E-49BF3D69F1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96E7F253-2B00-4B19-B77E-49BF3D69F1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96E7F253-2B00-4B19-B77E-49BF3D69F1FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58BE29D7-E254-4058-85E6-9A816A5A44E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58BE29D7-E254-4058-85E6-9A816A5A44E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58BE29D7-E254-4058-85E6-9A816A5A44E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58BE29D7-E254-4058-85E6-9A816A5A44E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB560843-D1D0-4D14-AAED-42F87ED5D089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AB560843-D1D0-4D14-AAED-42F87ED5D089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB560843-D1D0-4D14-AAED-42F87ED5D089}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -219,7 +213,6 @@ Global
 		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{ACDDB0B6-140E-41DD-BA88-02042B524A86} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{96E7F253-2B00-4B19-B77E-49BF3D69F1FC} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
-		{58BE29D7-E254-4058-85E6-9A816A5A44E1} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{AB560843-D1D0-4D14-AAED-42F87ED5D089} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{54CEE371-BBD0-4C9E-80A6-A72BE01F9500} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{7423F696-7D41-47A6-94C8-AD951FF9BF5B} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
