@@ -45,7 +45,7 @@ namespace Uniframework.XtraForms
         /// Gets the sorted skin names.
         /// </summary>
         /// <returns>the list of current skins.</returns>
-        private static List<string> GetSortedSkinNames()
+        private List<string> GetSortedSkinNames()
         {
             var skinNames = new List<string>(SkinManager.Default.Skins.Count);
 
@@ -61,7 +61,7 @@ namespace Uniframework.XtraForms
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="DevExpress.XtraBars.ItemClickEventArgs"/> instance containing the event data.</param>
-        private static void OnSwitchSkin(object sender, ItemClickEventArgs e)
+        private void OnSwitchSkin(object sender, ItemClickEventArgs e)
         {
             var item = e.Item as BarCheckItem;
             if (item == null) return;

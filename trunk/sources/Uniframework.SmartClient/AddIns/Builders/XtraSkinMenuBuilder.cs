@@ -62,6 +62,14 @@ namespace Uniframework.SmartClient
 
             XtraSkinMenu item = new XtraSkinMenu(bar);
             item.Caption = label;
+
+            item.Tag = false;
+            if (element.Configuration.Attributes["begingroup"] != null)
+            {
+                bool beginGroup = bool.Parse(element.Configuration.Attributes["begingroup"]);
+                item.Tag = beginGroup;
+            }
+
             if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
                 context.UIExtensionSites[element.Path].Add(item);
             return item;

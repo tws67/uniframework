@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Security;
 using System.Text;
 using System.Windows.Forms;
+
+using DevExpress.LookAndFeel;
+using DevExpress.Skins;
 using DevExpress.XtraEditors;
+
 using Uniframework.Client;
-using System.Security;
+using Uniframework.SmartClient;
 
 namespace Uniframework.StartUp
 {
     public partial class frmLogin : DevExpress.XtraEditors.XtraForm
     {
         private int PasswordTryCount = 0;
+        private readonly static string RECENT_USERS = "Shell.Property.RecentUsers";
 
         delegate void SetString(string text);
         delegate void SetProgress(int i);
@@ -112,7 +118,6 @@ namespace Uniframework.StartUp
                 {
                     CommunicateProxy.RegisterSession();
                 }
-                //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username, Password), null);
             }
             catch (SecurityException)
             {
@@ -146,13 +151,19 @@ namespace Uniframework.StartUp
                 Cancelled(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Handles the Activated event of the LoginForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void LoginForm_Activated(object sender, EventArgs e)
         {
-            txtUser.Focus();
-        }
+            using (PropertyService propertyService = new PropertyService()) {
+                string defaultSkin = propertyService.Get<string>("Shell.Property.DefaultSkin", "Blue");
+                UserLookAndFeel.Default.SetSkinStyle(defaultSkin);
+            } 
 
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
+            txtUser.Focus();
         }
     }
 }

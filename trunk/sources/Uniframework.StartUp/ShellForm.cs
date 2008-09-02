@@ -5,15 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
+using DevExpress.Skins;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Docking;
 using DevExpress.XtraBars.Localization;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTabbedMdi;
+
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.CompositeUI.Services;
 using Microsoft.Practices.ObjectBuilder;
+
 using Uniframework.Client;
 using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
@@ -23,14 +27,17 @@ using Uniframework.SmartClient.Constants;
 using Uniframework.StartUp.Properties;
 using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
+using DevExpress.LookAndFeel;
 
 namespace Uniframework.StartUp
 {
     public partial class ShellForm : DevExpress.XtraEditors.XtraForm
     {
         private readonly static string PROPERTY_LOCATION = "Shell.Property.Location";
+        private readonly static string PROPERTY_DEFAULTSKIN = "Shell.Property.DefaultSkin";
 
         private bool online; // 与服务器的连接状态
+        private bool loadedConfiguragion = false;
         private readonly WorkItem workItem;
         private IWorkItemTypeCatalogService workItemTypeCatalog;
         private readonly DockManagerWorkspace dockManagerWorkspace;
@@ -170,6 +177,12 @@ namespace Uniframework.StartUp
             ProgressBar.EditValue = e.Data;
         }
 
+        //[EventSubscription(EventNames.Shell_DefaultSkinChanged, Thread = ThreadOption.Background)]
+        //public void OnDefautSkinChanged(object sender, EventArgs<string> e)
+        //{
+        //    PropertyService.Set<string>(PROPERTY_DEFAULTSKIN, e.Data);
+        //}
+
         /// <summary>
         /// Called when [request queue changed].
         /// </summary>
@@ -274,18 +287,27 @@ namespace Uniframework.StartUp
                 WindowState = this.WindowState
             };
             PropertyService.Set<FormLayout>(PROPERTY_LOCATION, layout);
+            PropertyService.Set<string>(PROPERTY_DEFAULTSKIN, UserLookAndFeel.Default.ActiveSkinName);
         }
 
         private void ShellForm_Activated(object sender, EventArgs e)
         {
+            if (!loadedConfiguragion) {
+                // 设置窗口位置
+                FormLayout layout = PropertyService.Get(PROPERTY_LOCATION) as FormLayout;
+                if (layout != null)
+                {
+                    StartPosition = FormStartPosition.WindowsDefaultLocation;
+                    this.Location = layout.Location;
+                    this.Size = layout.Size;
+                    this.WindowState = layout.WindowState;
+                }
 
-            FormLayout layout = PropertyService.Get(PROPERTY_LOCATION) as FormLayout;
-            if (layout != null)
-            {
-                StartPosition = FormStartPosition.WindowsDefaultLocation;
-                this.Location = layout.Location;
-                this.Size = layout.Size;
-                this.WindowState = layout.WindowState;
+                // 设置系统皮肤
+                string defaultSkin = PropertyService.Get(PROPERTY_DEFAULTSKIN) as string;
+                if (!String.IsNullOrEmpty(defaultSkin))
+                    UserLookAndFeel.Default.SetSkinStyle(defaultSkin);
+                loadedConfiguragion = true;
             }
         }
     }

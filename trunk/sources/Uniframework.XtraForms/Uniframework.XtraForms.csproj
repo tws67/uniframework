@@ -66,6 +66,9 @@
     <Compile Include="Commands\RepositoryItemHyperLinkEditCommandAdapter.cs" />
     <Compile Include="Commands\RibbonPageGroupCommandAdapter.cs" />
     <Compile Include="ExceptionFactory.cs" />
+    <Compile Include="GUI\XtraBarListMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUI\WindowMenuUtility.cs" />
     <Compile Include="GUI\XtraSkinMenu.cs">
       <SubType>Component</SubType>
@@ -148,6 +151,10 @@
     <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uniframework\Uniframework.csproj">
+      <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
+      <Name>Uniframework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -79,6 +79,7 @@
     <Compile Include="AddIns\AuthorizationCondition.cs" />
     <Compile Include="AddIns\BuilderService.cs" />
     <Compile Include="AddIns\Builders\BuilderUtility.cs" />
+    <Compile Include="AddIns\Builders\XtraBarListItemBuilder.cs" />
     <Compile Include="AddIns\Builders\XtraButtonItemBuilder.cs" />
     <Compile Include="AddIns\Builders\XtraContentMenuBuilder.cs" />
     <Compile Include="AddIns\Builders\XtraNavBarGroupBuilder.cs" />

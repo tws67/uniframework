@@ -62,6 +62,7 @@
       <add name="XtraNavBarItem" type="Uniframework.SmartClient.XtraNavBarItemBuilder, Uniframework.SmartClient"/>
       <add name="XtraSkinMenu" type="Uniframework.SmartClient.XtraSkinMenuBuilder, Uniframework.SmartClient"/>
       <add name="XtraWindowMenu" type="Uniframework.SmartClient.XtraWindowMenuBuilder, Uniframework.SmartClient"/>
+      <add name="XtraBarListItem" type="Uniframework.SmartClient.XtraBarListItemBuilder, Uniframework.SmartClient"/>
     </UIBuilders>
   </Builders>
   
@@ -174,7 +175,8 @@
       <Item id="File" name="mmiFile" label="文件(&amp;F)" command="" classname="XtraButtonItem" register="true"/>
       <Item id="Edit" name="mmiEdit" label="编辑(&amp;E)" command="" classname="XtraButtonItem" register="true"/>
       <Item id="View" name="mmiView" label="视图(&amp;V)" command="" classname="XtraButtonItem" register="true">
-        <Item id="Skin" name="mmivSkin" label="系统界面皮肤(&amp;K)" command="" classname="XtraSkinMenu"/>
+        <Item id="ToolbarsList" name="mmivToolbarsList" label="工具栏(&amp;T)" command="" classname="XtraBarListItem"/>
+        <Item id="Skin" name="mmivSkin" label="系统界面皮肤(&amp;K)" command="" classname="XtraSkinMenu" begingroup="true"/>
       </Item>
       <Item id="Tool" name="mmiTool" label="工具(&amp;T)" command="" classname="XtraButtonItem" register="true"/>
       <Item id="Window" name="mmiWindow" label="窗口(&amp;W)" command="" classname="XtraWindowMenu" register="true"/>
