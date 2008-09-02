@@ -85,14 +85,19 @@ namespace Uniframework.SmartClient
         /// <param name="value">The value.</param>
         public void Set<T>(string property, T value)
         {
-            Property prop = Get(property) as Property;
-            object oldValue = (prop != null && prop.Data != null) ? prop.Data : null;
-            if (prop != null)
-                db.Delete(prop);
+            IList<Property> list = db.Load<Property>(delegate(Property prop) {
+                return prop.Name == property;
+            });
+            object oldValue = null;
+            if (list.Count > 0) {
+                oldValue = list[0].Data;
+                db.Delete(list[0]);
+            }
 
-            Property item = new Property();
-            item.Name = property;
-            item.Data = value;
+            Property item = new Property { 
+                Name = property,
+                Data = value
+            };
             db.Save(item);
             OnPropertyChanged(new PropertyChangedEventArgs(item, oldValue)); // 触发事件
         }
