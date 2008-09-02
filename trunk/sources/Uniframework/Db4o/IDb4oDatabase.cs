@@ -22,6 +22,11 @@ namespace Uniframework.Db4o
         /// <param name="obj">待保存的数据对象</param>
         void Save(object obj);
         /// <summary>
+        /// 保存列表到数据库中
+        /// </summary>
+        /// <param name="list">待保存的数据列表</param>
+        void Save(IList<object> list);
+        /// <summary>
         /// 删除数据库中指定的对象
         /// </summary>
         /// <param name="obj">待删除的数据对象</param>

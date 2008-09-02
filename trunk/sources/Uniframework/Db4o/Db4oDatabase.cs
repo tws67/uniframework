@@ -22,7 +22,7 @@ namespace Uniframework.Db4o
         /// </summary>
         /// <param name="dbName">Name of the db.</param>
         /// <param name="container">The container.</param>
-        internal Db4oDatabase(string dbName, IObjectContainer container) {
+        public Db4oDatabase(string dbName, IObjectContainer container) {
             this.container = container;
             this.mutex = new Mutex(false, this.ToString() + dbName.GetHashCode().ToString());
             this.mutex.WaitOne();
@@ -50,6 +50,21 @@ namespace Uniframework.Db4o
             container.Store(obj);
             if (!inTransaction) container.Commit();
             container.Commit();
+        }
+
+        /// <summary>
+        /// 保存列表到数据库中
+        /// </summary>
+        /// <param name="list">待保存的数据列表</param>
+        public void Save(IList<object> list)
+        {
+            using (TransactionScope scope = new TransactionScope()) {
+                foreach (object obj in list) {
+                    container.Store(obj);
+                }
+                container.Commit();
+                scope.Complete();
+            }
         }
 
         /// <summary>
@@ -119,8 +134,7 @@ namespace Uniframework.Db4o
         {
             if (!disposed && disposing)
             {
-                container.Close();
-                container = null;
+                container = null; // 其它用户可能也在使用此数据库
                 mutex.ReleaseMutex();
                 mutex = null;
                 disposed = true;

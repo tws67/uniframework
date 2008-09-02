@@ -20,8 +20,8 @@ using Microsoft.Practices.ObjectBuilder;
 using Uniframework.Client;
 using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
+using Uniframework.Db4o;
 using Uniframework.Services;
-using Uniframework.Services.db4oService;
 using Uniframework.SmartClient;
 using Uniframework.XtraForms;
 
@@ -84,10 +84,8 @@ namespace Uniframework.StartUp
         {
             base.AddServices();
 
-            string dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
-            IObjectDatabaseService databaseService = new db4oDatabaseService(dbPath);
-            RootWorkItem.Services.Add<IObjectDatabaseService>(databaseService);
-            
+            RootWorkItem.Services.Add<IDb4oDatabaseService>(new Db4oDatabaseService());
+            RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
         }
         /// <summary>
         /// Initializes the shell.
@@ -154,7 +152,6 @@ namespace Uniframework.StartUp
             Program.IncreaseProgressBar(10);
             RootWorkItem.Services.Add<SmartClientEnvironment>(new SmartClientEnvironment());
             RootWorkItem.Services.Add<IImageService>(new ImageService());
-            RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
             RootWorkItem.Services.Add<IBuilderService>(new BuilderService(RootWorkItem));
 
             // 添加系统自定义的默认服务

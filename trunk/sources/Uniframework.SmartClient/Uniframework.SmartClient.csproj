@@ -133,10 +133,6 @@
       <Project>{7423F696-7D41-47A6-94C8-AD951FF9BF5B}</Project>
       <Name>Uniframework.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Uniframework.db4oService\Uniframework.db4oService.csproj">
-      <Project>{58BE29D7-E254-4058-85E6-9A816A5A44E1}</Project>
-      <Name>Uniframework.db4oService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Uniframework.XtraForms\Uniframework.XtraForms.csproj">
       <Project>{E9CBA808-D476-4034-9FD7-ABBF69D13B2B}</Project>
       <Name>Uniframework.XtraForms</Name>

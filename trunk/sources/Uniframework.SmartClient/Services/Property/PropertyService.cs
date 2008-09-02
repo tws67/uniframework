@@ -8,8 +8,7 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.ObjectBuilder;
 
-using Uniframework.Services;
-using Uniframework.Services.db4oService;
+using Uniframework.Db4o;
 using Uniframework.SmartClient.Constants;
 
 namespace Uniframework.SmartClient
@@ -17,23 +16,33 @@ namespace Uniframework.SmartClient
     public class PropertyService : IPropertyService, IDisposable
     {
 
-        private static readonly string PROPERTY_DBFILE = "Uniframework.conf";
-        private IObjectDatabaseService dbService;
-        private IObjectDatabase db;
+        private static readonly string PROPERTY_DBFILE = "Uniframework.config";
+        private IDb4oDatabaseService dbService;
+        private IDb4oDatabase db;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyService"/> class.
         /// </summary>
         public PropertyService()
         {
-            string confPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Configuration";
-            if (!Directory.Exists(confPath))
-                Directory.CreateDirectory(confPath);
-            dbService = new db4oDatabaseService(confPath);
-            db = dbService.OpenDatabase(PROPERTY_DBFILE);
+            dbService = new Db4oDatabaseService();
+            db = dbService.Open(PROPERTY_DBFILE);
         }
 
         #region IPropertyService Members
+
+        /// <summary>
+        /// Deletes the specified property.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        public void Delete(string property)
+        {
+            IList<Property> objs = db.Load<Property>(delegate(Property prop) {
+                return prop.Name == property;
+            });
+            foreach (Property obj in objs)
+                db.Delete(obj);
+        }
 
         /// <summary>
         /// Gets the specified property.
@@ -42,10 +51,10 @@ namespace Uniframework.SmartClient
         /// <returns></returns>
         public object Get(string property)
         {
-            Property[] items = db.Load<Property>(delegate(Property prop) {
+            IList<Property> items = db.Load<Property>(delegate(Property prop) {
                 return prop.Name == property;
             });
-            return items.Length > 0 ? items[0].Data : null;
+            return items.Count > 0 ? items[0].Data : null;
         }
 
         /// <summary>
@@ -57,11 +66,11 @@ namespace Uniframework.SmartClient
         /// <returns></returns>
         public T Get<T>(string property, T defaultValue)
         {
-            Property[] items = db.Load<Property>(delegate(Property prop) {
+            IList<Property> items = db.Load<Property>(delegate(Property prop) {
                 return prop.Name == property;
             });
             try {
-                return items.Length > 0 ? (T)items[0].Data : defaultValue;
+                return items.Count > 0 ? (T)items[0].Data : defaultValue;
             }
             catch(InvalidCastException ex) {
                 throw ex;
@@ -106,7 +115,7 @@ namespace Uniframework.SmartClient
 
         public void Dispose()
         {
-            dbService.CloseDatabase(PROPERTY_DBFILE);
+            dbService.Close(PROPERTY_DBFILE);
         }
 
         #endregion
