@@ -11,6 +11,11 @@ namespace Uniframework.SmartClient
     public interface IPropertyService
     {
         /// <summary>
+        /// Deletes the specified property.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        void Delete(string property);
+        /// <summary>
         /// Gets the specified property.
         /// </summary>
         /// <param name="property">The property.</param>
