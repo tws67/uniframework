@@ -293,7 +293,6 @@ namespace Uniframework.StartUp
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLogin";
-            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.Activated += new System.EventHandler(this.LoginForm_Activated);
             this.pnlClient.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

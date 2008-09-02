@@ -13,6 +13,5 @@ namespace Uniframework.SmartClient.Constants
         public const string Shell_ProgressBarChanged  = "topic://Uniframework/Shell/ProgressBarChanged";
         public const string Shell_CustomPanel1Updated = "topic://Uniframework/Shell/CustomPanel1Updated";
         public const string Shell_CustomPanel2Updated = "topic://Uniframework/Shell/CustomPanel2Updated";
-
     }
 }
