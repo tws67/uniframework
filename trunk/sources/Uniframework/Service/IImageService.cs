@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Uniframework.SmartClient
+namespace Uniframework
 {
     /// <summary>
     /// 客户端图形及图标服务接口

@@ -63,6 +63,7 @@ namespace Uniframework.SmartClient
 
             XtraWindowMenu item = new XtraWindowMenu(bar, mdiManager, shell);
             item.Caption = label;
+            item.Name = element.Name;
 
             if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
                 context.UIExtensionSites[element.Path].Add(item);

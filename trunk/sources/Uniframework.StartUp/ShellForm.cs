@@ -33,7 +33,7 @@ namespace Uniframework.StartUp
 {
     public partial class ShellForm : DevExpress.XtraEditors.XtraForm
     {
-        private readonly static string PROPERTY_LOCATION = "Shell.Property.Location";
+        private readonly static string PROPERTY_LAYOUT = "Shell.Property.Layout";
         private readonly static string PROPERTY_DEFAULTSKIN = "Shell.Property.DefaultSkin";
 
         private bool online; // 与服务器的连接状态
@@ -279,28 +279,42 @@ namespace Uniframework.StartUp
             Online = Online ? false : true;
         }
 
+        /// <summary>
+        /// Handles the FormClosed event of the ShellForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Forms.FormClosedEventArgs"/> instance containing the event data.</param>
         private void ShellForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FormLayout layout = new FormLayout { 
+            ShellLayout layout = new ShellLayout { 
                 Location = this.Location,
                 Size = this.Size,
-                WindowState = this.WindowState
+                WindowState = this.WindowState,
+                NavPaneState = NaviWorkspace.OptionsNavPane.NavPaneState,
+                NavPaintStyleName = NaviWorkspace.PaintStyleName
             };
-            PropertyService.Set<FormLayout>(PROPERTY_LOCATION, layout);
+            PropertyService.Set<FormLayout>(PROPERTY_LAYOUT, layout);
             PropertyService.Set<string>(PROPERTY_DEFAULTSKIN, UserLookAndFeel.Default.ActiveSkinName);
         }
 
+        /// <summary>
+        /// Handles the Activated event of the ShellForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ShellForm_Activated(object sender, EventArgs e)
         {
             if (!loadedConfiguragion) {
                 // 设置窗口位置
-                FormLayout layout = PropertyService.Get(PROPERTY_LOCATION) as FormLayout;
+                ShellLayout layout = PropertyService.Get<ShellLayout>(PROPERTY_LAYOUT, null);
                 if (layout != null)
                 {
                     StartPosition = FormStartPosition.WindowsDefaultLocation;
                     this.Location = layout.Location;
                     this.Size = layout.Size;
                     this.WindowState = layout.WindowState;
+                    this.NaviWorkspace.OptionsNavPane.NavPaneState = layout.NavPaneState;
+                    this.NaviWorkspace.PaintStyleName = layout.NavPaintStyleName;
                 }
 
                 // 设置系统皮肤

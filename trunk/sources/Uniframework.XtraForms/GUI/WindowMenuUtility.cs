@@ -10,21 +10,6 @@ namespace Uniframework.XtraForms
     /// </summary>
     internal class WindowMenuUtility
     {
-        /// <summary>
-        /// 窗口布局模式
-        /// </summary>
-        public enum MdiMode
-        {
-            /// <summary>
-            /// 选项板
-            /// </summary>
-            Tabbed,
-            /// <summary>
-            /// MDI窗口
-            /// </summary>
-            Windowed
-        }
-
         private MdiMode mdiMode = MdiMode.Tabbed;
         private XtraTabbedMdiManager mdiManager;
         private Form shell;
@@ -56,6 +41,15 @@ namespace Uniframework.XtraForms
         {
             get { return shell; }
             set { shell = value; }
+        }
+
+        /// <summary>
+        /// Gets the MDI mode.
+        /// </summary>
+        /// <value>The MDI mode.</value>
+        public MdiMode MdiMode
+        {
+            get { return mdiMode; }
         }
 
         /// <summary>
@@ -118,5 +112,20 @@ namespace Uniframework.XtraForms
             MdiManager.MdiParent = null;
             Shell.LayoutMdi(layout);
         }
+    }
+
+    /// <summary>
+    /// 窗口布局模式
+    /// </summary>
+    public enum MdiMode
+    {
+        /// <summary>
+        /// 选项板
+        /// </summary>
+        Tabbed,
+        /// <summary>
+        /// MDI窗口
+        /// </summary>
+        Windowed
     }
 }

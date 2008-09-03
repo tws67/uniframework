@@ -83,6 +83,15 @@ namespace Uniframework.XtraForms.SmartPartInfos
             set { imageIndex = value; }
         }
 
+        [Category("Apperance")]
+        public string ImageFile
+        {
+            get { return imagefile; }
+            set { imagefile = value; }
+        }
+
+        private string imagefile;
+
         private int index = -1;
 
         ///<summary>

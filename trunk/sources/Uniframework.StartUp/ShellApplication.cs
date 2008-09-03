@@ -24,6 +24,7 @@ using Uniframework.Db4o;
 using Uniframework.Services;
 using Uniframework.SmartClient;
 using Uniframework.XtraForms;
+using Uniframework.XtraForms.Workspaces;
 
 namespace Uniframework.StartUp
 {
@@ -67,12 +68,12 @@ namespace Uniframework.StartUp
             RootWorkItem.Items.Add(Shell.BarManager, UIExtensionSiteNames.Shell_Manager_BarManager);
             RootWorkItem.Items.Add(Shell.DockManager, UIExtensionSiteNames.Shell_Manager_DockManager);
             RootWorkItem.Items.Add(Shell.TabbedMdiManager, UIExtensionSiteNames.Shell_Manager_TabbedMdiManager);
-            RootWorkItem.Items.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
-            RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
             RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane);
             
             RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
             RootWorkItem.Workspaces.Add(Shell.DeckWorkspace, UIExtensionSiteNames.Shell_Workspace_Deck);
+            RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
+            RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
 
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }

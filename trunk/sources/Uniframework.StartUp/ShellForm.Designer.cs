@@ -248,8 +248,6 @@ namespace Uniframework.StartUp
             // SplitterControl
             // 
             this.SplitterControl.Location = new System.Drawing.Point(169, 85);
-            this.SplitterControl.MinExtra = 80;
-            this.SplitterControl.MinSize = 80;
             this.SplitterControl.Name = "SplitterControl";
             this.SplitterControl.Size = new System.Drawing.Size(6, 457);
             this.SplitterControl.TabIndex = 7;
