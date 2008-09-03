@@ -52,40 +52,4 @@ namespace Uniframework.SmartClient
             this.oldValue = oldValue;
         }
     }
-
-        #region Inner class Property
-
-        /// <summary>
-        /// 系统保存的属性值
-        /// </summary>
-        public class Property
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Property"/> class.
-            /// </summary>
-            public Property()
-            { }
-
-            /// <summary>
-            /// Gets or sets the name.
-            /// </summary>
-            /// <value>The name.</value>
-            public string Name
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Gets or sets the data.
-            /// </summary>
-            /// <value>The data.</value>
-            public object Data
-            {
-                get;
-                set;
-            }
-        }
-        
-        #endregion
 }

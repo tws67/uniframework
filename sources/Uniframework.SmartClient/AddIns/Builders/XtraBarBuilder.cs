@@ -54,6 +54,7 @@ namespace Uniframework.SmartClient
                 throw new UniframeworkException("未定义框架外壳的工具条管理器。");
 
             Bar item = new Bar(barManager, label);
+            item.BarName = element.Name;
             item.DockStyle = BarDockStyle.Top; // 默认停靠在顶部
             if (element.Configuration.Attributes["dockstyle"] != null) {
                 string dockStyle = element.Configuration.Attributes["dockstyle"];

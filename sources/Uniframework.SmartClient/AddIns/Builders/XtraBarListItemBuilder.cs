@@ -6,6 +6,7 @@ using System.Text;
 using DevExpress.XtraBars;
 using Microsoft.Practices.CompositeUI;
 using Uniframework.XtraForms;
+using Uniframework.XtraForms.UIElements;
 
 namespace Uniframework.SmartClient
 {
@@ -62,12 +63,16 @@ namespace Uniframework.SmartClient
             item = new XtraBarListMenu(bar);
             item.Caption = label;
             item.Name = element.Name;
-            item.Tag = false;
+
+            BarItemExtend extend = new BarItemExtend();
             if (element.Configuration.Attributes["begingroup"] != null)
             {
                 bool beginGroup = bool.Parse(element.Configuration.Attributes["begingroup"]);
-                item.Tag = beginGroup;
+                extend.BeginGroup = beginGroup;
             }
+            if (element.Configuration.Attributes["insertbefore"] != null)
+                extend.InsertBefore = element.Configuration.Attributes["insertbefore"];
+            item.Tag = extend;
 
             // 添加插件单元到系统中
             if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))

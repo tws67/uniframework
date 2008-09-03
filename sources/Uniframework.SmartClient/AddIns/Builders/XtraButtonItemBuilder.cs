@@ -9,6 +9,7 @@ using DevExpress.XtraEditors;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using System.Windows.Forms;
+using Uniframework.XtraForms.UIElements;
 
 namespace Uniframework.SmartClient
 {
@@ -78,11 +79,15 @@ namespace Uniframework.SmartClient
                 string key = element.Configuration.Attributes["shortcut"];
                 item.ItemShortcut = new BarShortcut((Keys)Enum.Parse(typeof(Keys), key));
             }
-            item.Tag = false;
+
+            BarItemExtend extend = new BarItemExtend();
             if (element.Configuration.Attributes["begingroup"] != null) { 
                 bool beginGroup = bool.Parse(element.Configuration.Attributes["begingroup"]);
-                item.Tag = beginGroup;
+                extend.BeginGroup = beginGroup;
             }
+            if (element.Configuration.Attributes["insertbefore"] != null)
+                extend.InsertBefore = element.Configuration.Attributes["insertbefore"];
+            item.Tag = extend;
 
             // 设置菜单项/按钮为选择项
             if ((element.Configuration.Attributes["checked"] != null) && (item is BarButtonItem)) {

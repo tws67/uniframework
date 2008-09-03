@@ -55,15 +55,17 @@ namespace Uniframework.SmartClient
 
             if (element.Configuration.Attributes["tooltip"] != null)
                 item.Hint = element.Configuration.Attributes["tooltip"];
-            if (element.Configuration.Attributes["largeimage"] != null)
-            {
-                string largeImage = element.Configuration.Attributes["largeimage"];
-                item.LargeImage = BuilderUtility.GetBitmap(context, largeImage, 32, 32);
-            }
+            
+            // 设置分组栏显示的图像
             if (element.Configuration.Attributes["imagefile"] != null)
             {
                 string image = element.Configuration.Attributes["imagefile"];
                 item.SmallImage = BuilderUtility.GetBitmap(context, image, 16, 16);
+            }
+            if (element.Configuration.Attributes["largeimage"] != null)
+            {
+                string largeImage = element.Configuration.Attributes["largeimage"];
+                item.LargeImage = BuilderUtility.GetBitmap(context, largeImage, 32, 32);
             }
 
             if (element.Configuration.Attributes["register"] != null)

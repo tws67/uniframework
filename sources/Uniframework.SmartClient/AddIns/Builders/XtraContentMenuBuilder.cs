@@ -48,6 +48,7 @@ namespace Uniframework.SmartClient
                 throw new UniframeworkException(String.Format("未注册IContentMenuBarService无法创建上下文菜单 \"{0}\"。", element.Name));
 
             BarSubItem item = new BarSubItem();
+            item.Name = element.Name;
             item.Tag = element.Path;
             cmbService.RegisterContentMenu(item.Tag as string, item);
             if (!String.IsNullOrEmpty(element.Command))

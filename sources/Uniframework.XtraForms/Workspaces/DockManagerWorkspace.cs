@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.XtraBars.Docking;
+using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.CompositeUI.Utility;
 using Uniframework.XtraForms.SmartPartInfos;
@@ -16,17 +18,22 @@ namespace Uniframework.XtraForms.Workspaces
     {
         private readonly Dictionary<Control, DockPanel> dockPanelDictionary = new Dictionary<Control, DockPanel>();
         private readonly DockManager dockManager;
+        private ImageList imageList;
 
     	/// <summary>
         /// Initializes the workspace with no DockManager windows.
         /// </summary>
-        public DockManagerWorkspace() { }
+        public DockManagerWorkspace() { 
+            imageList = new ImageList();
+            imageList.ImageSize = new System.Drawing.Size(16, 16);
+        }
 
         /// <summary>
         /// Initializes the workspace with the DockManager which all new DockPanels are added to. 
         /// </summary>
         /// <param name="dockManager">The DockManager that new DockPanels are added to</param>
         public DockManagerWorkspace(DockManager dockManager)
+            : this()
         {
             this.dockManager = dockManager;
         }
@@ -38,6 +45,17 @@ namespace Uniframework.XtraForms.Workspaces
         public ReadOnlyDictionary<Control, DockPanel> DockPanels
         {
             get { return new ReadOnlyDictionary<Control, DockPanel>(dockPanelDictionary); }
+        }
+
+        /// <summary>
+        /// Gets or sets the image service.
+        /// </summary>
+        /// <value>The image service.</value>
+        [ServiceDependency]
+        public IImageService ImageService
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -87,7 +105,7 @@ namespace Uniframework.XtraForms.Workspaces
     	/// <summary>
 		/// Sets  <see cref="DockManagerSmartPartInfo"/> specific properties for the given DockPanel 
         /// </summary>
-        protected static void SetDockPanelProperties(DockPanel dockPanel, DockManagerSmartPartInfo info)
+        protected void SetDockPanelProperties(DockPanel dockPanel, DockManagerSmartPartInfo info)
         {
             if (string.IsNullOrEmpty(info.ParentPanelName))
                 dockPanel.Dock = info.Dock;
@@ -108,6 +126,17 @@ namespace Uniframework.XtraForms.Workspaces
             dockPanel.TabText = info.TabText;
             dockPanel.Text = info.Title;
             dockPanel.Name = info.Name;
+            
+
+            if (!String.IsNullOrEmpty(info.ImageFile)) {
+                if (!imageList.Images.ContainsKey(info.ImageFile)) {
+                    Icon icon = ImageService.GetIcon(info.ImageFile, new Size(16, 16));
+                    if (icon != null)
+                        imageList.Images.Add(info.ImageFile, icon);
+                }
+
+                dockPanel.ImageIndex = imageList.Images.IndexOfKey(info.ImageFile);
+            }
         }
 
         private void ControlDisposed(object sender, EventArgs e)
@@ -121,7 +150,7 @@ namespace Uniframework.XtraForms.Workspaces
             }
         }
 
-        private static void ShowDockPanel(DockPanel dockPanel, DockManagerSmartPartInfo smartPartInfo)
+        private void ShowDockPanel(DockPanel dockPanel, DockManagerSmartPartInfo smartPartInfo)
         {
             SetDockPanelProperties(dockPanel, smartPartInfo);
         }

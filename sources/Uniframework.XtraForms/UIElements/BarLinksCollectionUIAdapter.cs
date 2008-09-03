@@ -1,3 +1,4 @@
+using System;
 using DevExpress.XtraBars;
 using Microsoft.Practices.CompositeUI.UIElements;
 using Microsoft.Practices.CompositeUI.Utility;
@@ -32,9 +33,15 @@ namespace Uniframework.XtraForms.UIElements
 		protected override BarItem Add(BarItem uiElement)
 		{
 			itemCollection.Add(uiElement);
-			BarItemLink link = linkCollection.Insert(GetInsertingIndex(uiElement), uiElement);
-            if (link != null && uiElement != null && uiElement.Tag != null)
-                link.BeginGroup = (bool)uiElement.Tag ? true : false;
+            BarItemLink link = null;
+            BarItemExtend extend = uiElement.Tag as BarItemExtend;
+            if (extend != null && !String.IsNullOrEmpty(extend.InsertBefore)) {
+                link = linkCollection.Insert(GetInsertingIndex(extend.InsertBefore), uiElement);
+            }
+            else
+                link = linkCollection.Insert(GetInsertingIndex(uiElement), uiElement);
+            if (link != null && extend != null)
+                link.BeginGroup = extend.BeginGroup;
 			return uiElement;
 		}
 
@@ -56,6 +63,23 @@ namespace Uniframework.XtraForms.UIElements
 		{
 			return linkCollection.Count;
 		}
+
+        /// <summary>
+        /// Gets the index of the inserting.
+        /// </summary>
+        /// <param name="insertBefore">The insert before.</param>
+        /// <returns></returns>
+        private int GetInsertingIndex(string insertBefore)
+        {
+            int index = linkCollection.Count;
+            foreach (BarItemLink link in linkCollection) {
+                if (link.Item.Caption == insertBefore || link.Item.Name == insertBefore) {
+                    index = linkCollection.IndexOf(link);
+                    break;
+                }
+            }
+            return index;
+        }
 
 		/// <summary>
 		/// Returns the internal itemCollection managed by the <see cref="BarLinksCollectionUIAdapter"/>

@@ -108,10 +108,9 @@
     <Compile Include="Services\EventDispatcher\EventSubject.cs" />
     <Compile Include="Services\EventDispatcher\IEventService.cs" />
     <Compile Include="Services\EventDispatcher\ISubscripterRegister.cs" />
-    <Compile Include="Services\IImageService.cs" />
-    <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
     <Compile Include="Services\Property\IPropertyService.cs" />
+    <Compile Include="Services\Property\Property.cs" />
     <Compile Include="Services\Property\PropertyChangedEventArgs.cs" />
     <Compile Include="Services\Property\PropertyService.cs" />
     <Compile Include="Services\RemoteServiceRegister.cs" />
@@ -120,6 +119,13 @@
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
+    <Compile Include="WorkItems\Setting\SettingView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Setting\SettingView.Designer.cs">
+      <DependentUpon>SettingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Setting\SettingWorkItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
@@ -150,6 +156,12 @@
     <Content Include="AddIns\Sample.addin" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WorkItems\Setting\SettingView.resx">
+      <DependentUpon>SettingView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
     <Folder Include="Utility\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

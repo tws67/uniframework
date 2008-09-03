@@ -54,7 +54,7 @@ namespace Uniframework.SmartClient
             IList<Property> items = db.Load<Property>(delegate(Property prop) {
                 return prop.Name == property;
             });
-            return items.Count > 0 ? items[0].Data : null;
+            return items.Count > 0 ? items[0].Current : null;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Uniframework.SmartClient
                 return prop.Name == property;
             });
             try {
-                return items.Count > 0 ? (T)items[0].Data : defaultValue;
+                return items.Count > 0 ? (T)items[0].Current : defaultValue;
             }
             catch(InvalidCastException ex) {
                 throw ex;
@@ -90,13 +90,13 @@ namespace Uniframework.SmartClient
             });
             object oldValue = null;
             if (list.Count > 0) {
-                oldValue = list[0].Data;
+                oldValue = list[0].Current;
                 db.Delete(list[0]);
             }
 
             Property item = new Property { 
                 Name = property,
-                Data = value
+                Current = value
             };
             db.Save(item);
             OnPropertyChanged(new PropertyChangedEventArgs(item, oldValue)); // 触发事件
