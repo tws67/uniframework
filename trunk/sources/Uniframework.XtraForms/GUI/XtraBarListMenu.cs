@@ -30,7 +30,8 @@ namespace Uniframework.XtraForms
         /// </summary>
         private void AddSubItem()
         {
-            BarItem item = new BarToolbarsListItem();
+            BarToolbarsListItem item = new BarToolbarsListItem();
+            item.ShowDockPanels = true;
             AddItem(item);
         }
     }

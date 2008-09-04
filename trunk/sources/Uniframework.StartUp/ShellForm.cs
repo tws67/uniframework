@@ -23,7 +23,6 @@ using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
 using Uniframework.Services;
 using Uniframework.SmartClient;
-using Uniframework.SmartClient.Constants;
 using Uniframework.StartUp.Properties;
 using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
