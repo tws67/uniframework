@@ -75,6 +75,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
             RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
 
+            Program.SetInitialState("初始化用户使用界面……");
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
 

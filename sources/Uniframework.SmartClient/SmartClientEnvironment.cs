@@ -7,7 +7,6 @@ using DevExpress.UserSkins;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Uniframework.Services;
-using Uniframework.SmartClient.Constants;
 
 namespace Uniframework.SmartClient
 {

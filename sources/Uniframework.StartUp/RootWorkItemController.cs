@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 
 using Uniframework.Client;
+using Uniframework.SmartClient.WorkItems.Setting;
+using Uniframework.SmartClient;
 
 namespace Uniframework.StartUp
 {
@@ -25,6 +28,14 @@ namespace Uniframework.StartUp
             Program.IncreaseProgressBar(10);
             ServiceRepository.Instance.Start();
             Program.CloseLoginForm();
+        }
+
+        protected override void AddServices()
+        {
+            base.AddServices();
+
+            WorkItem settingWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<SettingController>>(WorkItemNames.Uniframework_Setting);
+            settingWorkItem.Run();
         }
     }
 }

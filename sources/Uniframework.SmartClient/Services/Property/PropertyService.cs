@@ -9,7 +9,6 @@ using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Db4o;
-using Uniframework.SmartClient.Constants;
 
 namespace Uniframework.SmartClient
 {

@@ -248,7 +248,6 @@ namespace Microsoft.Practices.CompositeUI.Commands
                 }
                 else
                     ExecuteAction(this, e);
-                ExecuteAction(this, e);
 			}
 		}
 

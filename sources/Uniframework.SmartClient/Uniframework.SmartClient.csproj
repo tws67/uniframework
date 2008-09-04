@@ -98,9 +98,11 @@
     <Compile Include="AddIns\IConditionEvaluator.cs" />
     <Compile Include="Commands\CommandHandlers.cs" />
     <Compile Include="Configuration\FormLayout.cs" />
+    <Compile Include="Constants\SmartPartNames.cs" />
     <Compile Include="Constants\UIExtensionSiteNames.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
     <Compile Include="Constants\EventNames.cs" />
+    <Compile Include="Constants\WorkItemNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
     <Compile Include="Services\EventDispatcher\EventDispatcher.cs" />
@@ -119,15 +121,23 @@
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
+    <Compile Include="WorkItems\Setting\ISetting.cs" />
+    <Compile Include="WorkItems\Setting\ISettingService.cs" />
+    <Compile Include="WorkItems\Setting\SettingPresenter.cs" />
+    <Compile Include="WorkItems\Setting\SettingService.cs" />
     <Compile Include="WorkItems\Setting\SettingView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkItems\Setting\SettingView.Designer.cs">
       <DependentUpon>SettingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkItems\Setting\SettingWorkItem.cs" />
+    <Compile Include="WorkItems\Setting\SettingController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
+      <Project>{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}</Project>
+      <Name>CompositeUI.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
       <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
       <Name>CompositeUI.WinForms</Name>
