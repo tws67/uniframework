@@ -6,6 +6,9 @@ using System.Text;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.CompositeUI.WinForms;
+using Microsoft.Practices.CompositeUI.Commands;
 
 namespace Uniframework.SmartClient.WorkItems.Setting
 {
@@ -24,7 +27,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         /// <value>The current.</value>
         public ISetting Current { get; private set; }
 
-        [EventSubscription(EventNames.Uniframework_ShowSettingView)]
+        [EventSubscription(EventNames.Uniframework_SettingViewChanged)]
         public void OnShowSettingView(object sender, EventArgs<ISetting> e)
         {
             if (e.Data != null) {
@@ -47,6 +50,27 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         {
             if (Current != null)
                 SettingService.LoadDefault(Current);
+        }
+
+        /// <summary>
+        /// 显示系统外壳样式设置面板
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_SHOW_SHELLL_AYOUTSETTING)]
+        public void OnShowShellLayoutSetting(object sender, EventArgs e)
+        {
+            ShellLayoutSettingView view = WorkItem.SmartParts.Get<ShellLayoutSettingView>(SmartPartNames.SmartPart_Shell_LayoutSettingView);
+            if (view == null)
+                view = WorkItem.SmartParts.AddNew<ShellLayoutSettingView>(SmartPartNames.SmartPart_Shell_LayoutSettingView);
+
+            IWorkspace wp = WorkItem.Workspaces.Get<DeckWorkspace>(UIExtensionSiteNames.Shell_Workspace_SettingDeck);
+            if (wp != null)
+            {
+                wp.Show(view);
+                view.BindingProperty();
+                SettingService.RaiseSettingViewChanged(view);
+            }
         }
     }
 }

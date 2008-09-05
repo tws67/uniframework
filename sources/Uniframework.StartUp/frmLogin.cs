@@ -159,8 +159,9 @@ namespace Uniframework.StartUp
         private void LoginForm_Activated(object sender, EventArgs e)
         {
             using (PropertyService propertyService = new PropertyService()) {
-                string defaultSkin = propertyService.Get<string>("Shell.Property.DefaultSkin", "Blue");
-                UserLookAndFeel.Default.SetSkinStyle(defaultSkin);
+                ShellLayout layout = propertyService.Get(UIExtensionSiteNames.Shell_Property_ShellLayout) as ShellLayout;
+                if (layout != null)
+                    UserLookAndFeel.Default.SetSkinStyle(layout.DefaultSkin);
             } 
 
             txtUser.Focus();

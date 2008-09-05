@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 
 using DevExpress.XtraTabbedMdi;
+using DevExpress.XtraBars;
 
 namespace Uniframework.XtraForms
 {
@@ -10,13 +11,13 @@ namespace Uniframework.XtraForms
     /// </summary>
     internal class WindowMenuUtility
     {
-        private MdiMode mdiMode = MdiMode.Tabbed;
+        private WindowLayoutMode layoutMode = WindowLayoutMode.Tabbed;
         private XtraTabbedMdiManager mdiManager;
         private Form shell;
 
-        internal WindowMenuUtility() { }
+        public WindowMenuUtility() { }
 
-        internal WindowMenuUtility(XtraTabbedMdiManager mdiManager, Form shell)
+        public WindowMenuUtility(XtraTabbedMdiManager mdiManager, Form shell)
             : this()
         {
             MdiManager = mdiManager;
@@ -47,9 +48,9 @@ namespace Uniframework.XtraForms
         /// Gets the MDI mode.
         /// </summary>
         /// <value>The MDI mode.</value>
-        public MdiMode MdiMode
+        public WindowLayoutMode LayoutMode
         {
-            get { return mdiMode; }
+            get { return layoutMode; }
         }
 
         /// <summary>
@@ -59,17 +60,18 @@ namespace Uniframework.XtraForms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void MdiChangeMode(object sender, EventArgs e)
         {
-            mdiMode = mdiMode == MdiMode.Tabbed ? MdiMode.Windowed : MdiMode.Tabbed; // Toggle
-            SetMdiMode(mdiMode);
+            bool tabbedLayout = mdiManager.MdiParent != null;
+            SetLayoutMode(tabbedLayout == true ? WindowLayoutMode.Windowed : WindowLayoutMode.Tabbed);
         }
 
         /// <summary>
         /// Sets the MDI mode.
         /// </summary>
         /// <param name="mode">The mode.</param>
-        private void SetMdiMode(MdiMode mode)
+        private void SetLayoutMode(WindowLayoutMode mode)
         {
-            MdiManager.MdiParent = mode == MdiMode.Tabbed ? Shell : null;
+            MdiManager.MdiParent = mode == WindowLayoutMode.Tabbed ? Shell : null;
+            layoutMode = mode;
         }
 
         /// <summary>
@@ -108,7 +110,7 @@ namespace Uniframework.XtraForms
         /// <param name="layout">The layout.</param>
         private void LayoutMdi(MdiLayout layout)
         {
-            SetMdiMode(MdiMode.Windowed);
+            SetLayoutMode(WindowLayoutMode.Windowed);
             MdiManager.MdiParent = null;
             Shell.LayoutMdi(layout);
         }
@@ -117,7 +119,7 @@ namespace Uniframework.XtraForms
     /// <summary>
     /// 窗口布局模式
     /// </summary>
-    public enum MdiMode
+    public enum WindowLayoutMode
     {
         /// <summary>
         /// 选项板

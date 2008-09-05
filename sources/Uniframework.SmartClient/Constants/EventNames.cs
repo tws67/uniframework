@@ -8,7 +8,7 @@ namespace Uniframework.SmartClient
     public static class EventNames
     {
         public const string Uniframework_PropertyChanged = "topic://Uniframework/PropertyChanged";
-        public const string Uniframework_ShowSettingView = "topic://Uniframework/ShowSettingView";
+        public const string Uniframework_SettingViewChanged = "topic://Uniframework/SettingViewChanged";
 
         public const string Shell_StatusUpdated       = "topic://Uniframework/Shell/StatusUpdate";
         public const string Shell_ProgressBarChanged  = "topic://Uniframework/Shell/ProgressBarChanged";

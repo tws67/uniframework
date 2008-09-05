@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
-using Uniframework.SmartClient.WorkItems.Setting;
+using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.CompositeUI.SmartParts;
-using Uniframework.XtraForms.Workspaces;
+using Uniframework.SmartClient.WorkItems.Setting;
 using Uniframework.XtraForms.SmartPartInfos;
+using Uniframework.XtraForms.Workspaces;
+using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Uniframework.SmartClient
 {
@@ -73,11 +74,15 @@ namespace Uniframework.SmartClient
             }
         }
 
+        #region Dependency services
+
         [ServiceDependency]
         public IImageService ImageService
         {
             get;
             set;
         }
+
+        #endregion
     }
 }

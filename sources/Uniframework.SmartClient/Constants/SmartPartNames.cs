@@ -10,6 +10,7 @@ namespace Uniframework.SmartClient
     /// </summary>
     public static class SmartPartNames
     {
-        public const string SmartPart_Shell_SettingView = "Shell.SettingView";
+        public const string SmartPart_Shell_SettingView       = "Shell.SettingView";
+        public const string SmartPart_Shell_LayoutSettingView = "Shell.LayoutSettingView";
     }
 }

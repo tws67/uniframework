@@ -30,6 +30,12 @@ namespace Uniframework.SmartClient
             set;
         }
 
+        public bool ShowStatusBar
+        {
+            get;
+            set;
+        }
+
         public FormWindowState WindowState
         {
             get;

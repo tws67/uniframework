@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
 
 namespace Uniframework.SmartClient.WorkItems.Setting
 {
     public class SettingService : ISettingService
     {
         private IDictionary<string, ISetting> settings = new Dictionary<string, ISetting>();
+
+        [EventPublication(EventNames.Uniframework_SettingViewChanged, PublicationScope.Global)]
+        public event EventHandler<EventArgs<ISetting>> SettingViewChanged;
 
         #region ISettingService Members
 
@@ -36,6 +40,16 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         {
             Guard.ArgumentNotNull(setting, "Setting to load default value must be set.");
             setting.LoadDefault();
+        }
+
+        /// <summary>
+        /// 触发当前设置面板改变事件
+        /// </summary>
+        /// <param name="setting">设置项</param>
+        public void RaiseSettingViewChanged(ISetting setting)
+        {
+            if (SettingViewChanged != null)
+                SettingViewChanged(this, new EventArgs<ISetting>(setting));
         }
 
         #endregion

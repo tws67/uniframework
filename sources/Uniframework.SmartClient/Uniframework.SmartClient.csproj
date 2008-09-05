@@ -98,6 +98,7 @@
     <Compile Include="AddIns\IConditionEvaluator.cs" />
     <Compile Include="Commands\CommandHandlers.cs" />
     <Compile Include="Configuration\FormLayout.cs" />
+    <Compile Include="Configuration\ShellLayout.cs" />
     <Compile Include="Constants\SmartPartNames.cs" />
     <Compile Include="Constants\UIExtensionSiteNames.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
@@ -132,6 +133,12 @@
       <DependentUpon>SettingView.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Setting\SettingController.cs" />
+    <Compile Include="WorkItems\Setting\ShellLayoutSettingView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Setting\ShellLayoutSettingView.Designer.cs">
+      <DependentUpon>ShellLayoutSettingView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
@@ -168,6 +175,9 @@
   <ItemGroup>
     <EmbeddedResource Include="WorkItems\Setting\SettingView.resx">
       <DependentUpon>SettingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Setting\ShellLayoutSettingView.resx">
+      <DependentUpon>ShellLayoutSettingView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

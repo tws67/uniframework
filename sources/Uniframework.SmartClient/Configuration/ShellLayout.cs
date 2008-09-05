@@ -5,8 +5,9 @@ using System.Text;
 
 using DevExpress.XtraNavBar;
 using Uniframework.SmartClient;
+using Uniframework.XtraForms;
 
-namespace Uniframework.StartUp
+namespace Uniframework.SmartClient
 {
     /// <summary>
     /// 框架外壳窗口布局属性类
@@ -24,6 +25,18 @@ namespace Uniframework.StartUp
         }
 
         public string NavPaintStyleName
+        {
+            get;
+            set;
+        }
+
+        public WindowLayoutMode WindowLayoutMode
+        {
+            get;
+            set;
+        }
+
+        public string DefaultSkin
         {
             get;
             set;

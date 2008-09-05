@@ -32,9 +32,6 @@ namespace Uniframework.StartUp
 {
     public partial class ShellForm : DevExpress.XtraEditors.XtraForm
     {
-        private readonly static string PROPERTY_LAYOUT = "Shell.Property.Layout";
-        private readonly static string PROPERTY_DEFAULTSKIN = "Shell.Property.DefaultSkin";
-
         private bool online; // 与服务器的连接状态
         private bool loadedConfiguragion = false;
         private readonly WorkItem workItem;
@@ -176,12 +173,6 @@ namespace Uniframework.StartUp
             ProgressBar.EditValue = e.Data;
         }
 
-        //[EventSubscription(EventNames.Shell_DefaultSkinChanged, Thread = ThreadOption.Background)]
-        //public void OnDefautSkinChanged(object sender, EventArgs<string> e)
-        //{
-        //    PropertyService.Set<string>(PROPERTY_DEFAULTSKIN, e.Data);
-        //}
-
         /// <summary>
         /// Called when [request queue changed].
         /// </summary>
@@ -290,10 +281,12 @@ namespace Uniframework.StartUp
                 Size = this.Size,
                 WindowState = this.WindowState,
                 NavPaneState = NaviWorkspace.OptionsNavPane.NavPaneState,
-                NavPaintStyleName = NaviWorkspace.PaintStyleName
+                NavPaintStyleName = NaviWorkspace.PaintStyleName,
+                DefaultSkin = UserLookAndFeel.Default.ActiveSkinName,
+                ShowStatusBar = StatusBar.Visible,
+                WindowLayoutMode = TabbedMdiManager.MdiParent == null ? WindowLayoutMode.Windowed : WindowLayoutMode.Tabbed
             };
-            PropertyService.Set<FormLayout>(PROPERTY_LAYOUT, layout);
-            PropertyService.Set<string>(PROPERTY_DEFAULTSKIN, UserLookAndFeel.Default.ActiveSkinName);
+            PropertyService.Set<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, layout);
         }
 
         /// <summary>
@@ -305,7 +298,7 @@ namespace Uniframework.StartUp
         {
             if (!loadedConfiguragion) {
                 // 设置窗口位置
-                ShellLayout layout = PropertyService.Get<ShellLayout>(PROPERTY_LAYOUT, null);
+                ShellLayout layout = PropertyService.Get<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, null);
                 if (layout != null)
                 {
                     StartPosition = FormStartPosition.WindowsDefaultLocation;
@@ -314,12 +307,10 @@ namespace Uniframework.StartUp
                     this.WindowState = layout.WindowState;
                     this.NaviWorkspace.OptionsNavPane.NavPaneState = layout.NavPaneState;
                     this.NaviWorkspace.PaintStyleName = layout.NavPaintStyleName;
+                    this.StatusBar.Visible = layout.ShowStatusBar;
+                    this.TabbedMdiManager.MdiParent = layout.WindowLayoutMode == WindowLayoutMode.Tabbed ? this : null;
+                    UserLookAndFeel.Default.SetSkinStyle(layout.DefaultSkin);
                 }
-
-                // 设置系统皮肤
-                string defaultSkin = PropertyService.Get(PROPERTY_DEFAULTSKIN) as string;
-                if (!String.IsNullOrEmpty(defaultSkin))
-                    UserLookAndFeel.Default.SetSkinStyle(defaultSkin);
                 loadedConfiguragion = true;
             }
         }

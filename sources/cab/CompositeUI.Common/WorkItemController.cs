@@ -30,8 +30,8 @@ namespace Microsoft.Practices.CompositeUI.Common
         public virtual void OnRunStarted()
         {
             AddServices();
-            AddUIElements();
             AddViews();
+            AddUIElements();
         }
 
         /// <summary>

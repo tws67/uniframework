@@ -73,7 +73,6 @@
     <Compile Include="..\UniframeworkInfo.cs">
       <Link>UniframeworkInfo.cs</Link>
     </Compile>
-    <Compile Include="Configuration\ShellLayout.cs" />
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +164,9 @@
     <Content Include="Uniframework.StartUp.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
