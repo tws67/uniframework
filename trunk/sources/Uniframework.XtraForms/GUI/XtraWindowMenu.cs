@@ -22,9 +22,10 @@ namespace Uniframework.XtraForms
         private readonly XtraTabbedMdiManager mdiManager;
         private readonly Form shell;
         private WindowMenuUtility utility;
-        private BarItem cascadeItem;
-        private BarItem horizontalItem;
-        private BarItem verticalItem;
+        private BarItem bbiCascade;
+        private BarItem bbiHorizontal;
+        private BarItem bbiVertical;
+        BarButtonItem bbiTabbed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XtraWindowMenu"/> class.
@@ -47,9 +48,10 @@ namespace Uniframework.XtraForms
 
         private void XtraWindowMenu_Popup(object sender, EventArgs e)
         {
-            cascadeItem.Enabled = utility.MdiMode == MdiMode.Windowed;
-            horizontalItem.Enabled = utility.MdiMode == MdiMode.Windowed;
-            verticalItem.Enabled = utility.MdiMode == MdiMode.Windowed;
+            bbiTabbed.Down = mdiManager.MdiParent != null;
+            bbiCascade.Enabled = mdiManager.MdiParent == null;
+            bbiHorizontal.Enabled = mdiManager.MdiParent == null;
+            bbiVertical.Enabled = mdiManager.MdiParent == null;
         }
 
         /// <summary>
@@ -57,13 +59,12 @@ namespace Uniframework.XtraForms
         /// </summary>
         private void AddAllMenuItems()
         {
-            BarButtonItem bbiTabbed = AddBarItem("选项卡式窗口布局(&T)", null, null, utility.MdiChangeMode, false);
+            bbiTabbed = AddBarItem("选项卡式窗口布局(&T)", null, null, utility.MdiChangeMode, false);
             bbiTabbed.ButtonStyle = BarButtonStyle.Check;
-            bbiTabbed.Down = true;
 
-            cascadeItem = AddBarItem("层叠(&C)", Resource.windows, null, utility.MdiLayoutCascade, true);
-            horizontalItem =  AddBarItem("水表排列(&H)", Resource.window_split_hor, null, utility.MdiLayoutTileHorizontal, false);
-            verticalItem = AddBarItem("垂直排列(&V)", Resource.window_split_ver, null, utility.MdiLayoutTileVertical, false);
+            bbiCascade = AddBarItem("层叠(&C)", Resource.windows, null, utility.MdiLayoutCascade, true);
+            bbiHorizontal =  AddBarItem("水表排列(&H)", Resource.window_split_hor, null, utility.MdiLayoutTileHorizontal, false);
+            bbiVertical = AddBarItem("垂直排列(&V)", Resource.window_split_ver, null, utility.MdiLayoutTileVertical, false);
 
             BarSubItem bsiWindows = new BarSubItem(Manager, "所有窗口(&W)");
             BarItemLink link = AddItem(bsiWindows);

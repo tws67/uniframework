@@ -22,6 +22,11 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         Property Property { get; }
 
         /// <summary>
+        /// Bindings the property.
+        /// </summary>
+        void BindingProperty();
+        
+        /// <summary>
         /// Saves this instance.
         /// </summary>
         void Save();

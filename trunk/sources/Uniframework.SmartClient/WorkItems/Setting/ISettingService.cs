@@ -24,5 +24,11 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         /// </summary>
         /// <param name="setting">设置项</param>
         void LoadDefault(ISetting setting);
+        /// <summary>
+        /// 触发当前设置面板改变事件
+        /// </summary>
+        /// <param name="setting">设置项</param>
+        void RaiseSettingViewChanged(ISetting setting);
+
     }
 }

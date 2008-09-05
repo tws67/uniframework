@@ -99,7 +99,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             // 
             this.deckWorkspace.Location = new System.Drawing.Point(186, 12);
             this.deckWorkspace.Name = "deckWorkspace";
-            this.deckWorkspace.Size = new System.Drawing.Size(438, 270);
+            this.deckWorkspace.Size = new System.Drawing.Size(440, 270);
             this.deckWorkspace.TabIndex = 3;
             // 
             // labelControl1
