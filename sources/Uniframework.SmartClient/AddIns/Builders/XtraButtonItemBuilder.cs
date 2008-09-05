@@ -77,7 +77,7 @@ namespace Uniframework.SmartClient
             }
             if (element.Configuration.Attributes["shortcut"] != null) {
                 string key = element.Configuration.Attributes["shortcut"];
-                item.ItemShortcut = new BarShortcut((Keys)Enum.Parse(typeof(Keys), key));
+                item.ItemShortcut = new BarShortcut((Shortcut)Enum.Parse(typeof(Shortcut), key));
             }
 
             BarItemExtend extend = new BarItemExtend();
@@ -97,14 +97,6 @@ namespace Uniframework.SmartClient
                 if (element.Configuration.Attributes["optiongroup"] != null)
                     ((BarButtonItem)item).GroupIndex = int.Parse(element.Configuration.Attributes["optiongroup"]);
             }
-
-            //if (element.Configuration.Attributes["shortcut"] != null) {
-            //    string key = element.Configuration.Attributes["shortcut"];
-            //    try {
-            //        item.ItemShortcut = new BarShortcut((Shortcut)Enum.Parse(typeof(Shortcut), key));
-            //    }
-            //    catch { }
-            //}
 
             // 添加插件单元到系统中
             if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
