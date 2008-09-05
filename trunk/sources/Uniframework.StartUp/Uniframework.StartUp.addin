@@ -199,11 +199,12 @@
       
       <Item id="Setting" 
             name="mmivSetting" 
-            label="系统选项(&amp;O)" 
+            label="选项(&amp;O)" 
             command="Uniframework.Setting" 
             classname="XtraButtonItem" 
             imagefile="${preferences}" 
-            begingroup="true"/>
+            begingroup="true"
+            shortcut="CtrlO"/>
     </Path>
     
   </AddIns>

@@ -30,81 +30,42 @@ namespace Uniframework.StartUp
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.bkWorker = new System.ComponentModel.BackgroundWorker();
-            this.pnlClient = new System.Windows.Forms.Panel();
-            this.pnlBottom = new System.Windows.Forms.Panel();
-            this.lblServer = new System.Windows.Forms.Label();
             this.linkClose = new System.Windows.Forms.LinkLabel();
-            this.pnlTop = new System.Windows.Forms.Panel();
-            this.CenterPanel = new DevExpress.XtraEditors.PanelControl();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.pbProgress = new DevExpress.XtraEditors.ProgressBarControl();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.btnLogin = new DevExpress.XtraEditors.SimpleButton();
             this.txtPassword = new DevExpress.XtraEditors.TextEdit();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtUser = new DevExpress.XtraEditors.MRUEdit();
+            this.bkWorker = new System.ComponentModel.BackgroundWorker();
+            this.pnlClient = new System.Windows.Forms.Panel();
+            this.CenterPanel = new DevExpress.XtraEditors.PanelControl();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pnlBottom = new System.Windows.Forms.Panel();
+            this.lblServer = new System.Windows.Forms.Label();
+            this.pnlTop = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.pbProgress.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).BeginInit();
             this.pnlClient.SuspendLayout();
-            this.pnlBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CenterPanel)).BeginInit();
             this.CenterPanel.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProgress.Properties)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).BeginInit();
             this.pnlLeft.SuspendLayout();
+            this.pnlBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip
             // 
             this.toolTip.IsBalloon = true;
             this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            // 
-            // bkWorker
-            // 
-            this.bkWorker.WorkerReportsProgress = true;
-            // 
-            // pnlClient
-            // 
-            this.pnlClient.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Middle;
-            this.pnlClient.Controls.Add(this.CenterPanel);
-            this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlClient.Location = new System.Drawing.Point(0, 60);
-            this.pnlClient.Name = "pnlClient";
-            this.pnlClient.Size = new System.Drawing.Size(560, 200);
-            this.pnlClient.TabIndex = 3;
-            // 
-            // pnlBottom
-            // 
-            this.pnlBottom.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Bottom;
-            this.pnlBottom.Controls.Add(this.lblServer);
-            this.pnlBottom.Controls.Add(this.linkClose);
-            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 260);
-            this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(560, 60);
-            this.pnlBottom.TabIndex = 2;
-            // 
-            // lblServer
-            // 
-            this.lblServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblServer.BackColor = System.Drawing.Color.Transparent;
-            this.lblServer.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblServer.ForeColor = System.Drawing.Color.White;
-            this.lblServer.Location = new System.Drawing.Point(8, 43);
-            this.lblServer.Name = "lblServer";
-            this.lblServer.Size = new System.Drawing.Size(547, 12);
-            this.lblServer.TabIndex = 5;
-            this.lblServer.Text = "Server";
-            this.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblServer.Visible = false;
             // 
             // linkClose
             // 
@@ -128,14 +89,62 @@ namespace Uniframework.StartUp
             this.linkClose.UseCompatibleTextRendering = true;
             this.linkClose.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkClose_LinkClicked);
             // 
-            // pnlTop
+            // pbProgress
             // 
-            this.pnlTop.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Top;
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(560, 60);
-            this.pnlTop.TabIndex = 1;
+            this.pbProgress.EditValue = 20;
+            this.pbProgress.Location = new System.Drawing.Point(8, 149);
+            this.pbProgress.Name = "pbProgress";
+            this.pbProgress.Properties.ProgressViewStyle = DevExpress.XtraEditors.Controls.ProgressViewStyle.Solid;
+            this.pbProgress.Properties.Step = 1;
+            this.pbProgress.Size = new System.Drawing.Size(239, 16);
+            this.pbProgress.TabIndex = 21;
+            this.toolTip.SetToolTip(this.pbProgress, "系统加载进度条");
+            this.pbProgress.Visible = false;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(50, 65);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 12;
+            this.btnLogin.Text = "登录(&L)";
+            this.toolTip.SetToolTip(this.btnLogin, "开始工作了，不然老板会有意见D：）");
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.EnterMoveNextControl = true;
+            this.txtPassword.Location = new System.Drawing.Point(50, 38);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Properties.PasswordChar = '●';
+            this.txtPassword.Size = new System.Drawing.Size(176, 21);
+            this.txtPassword.TabIndex = 11;
+            this.toolTip.SetToolTip(this.txtPassword, "看看背后是否有人在偷窥哟");
+            // 
+            // txtUser
+            // 
+            this.txtUser.EnterMoveNextControl = true;
+            this.txtUser.Location = new System.Drawing.Point(50, 5);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.txtUser.Size = new System.Drawing.Size(176, 21);
+            this.txtUser.TabIndex = 9;
+            this.toolTip.SetToolTip(this.txtUser, "进入系统的用户名称");
+            // 
+            // bkWorker
+            // 
+            this.bkWorker.WorkerReportsProgress = true;
+            // 
+            // pnlClient
+            // 
+            this.pnlClient.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Middle;
+            this.pnlClient.Controls.Add(this.CenterPanel);
+            this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlClient.Location = new System.Drawing.Point(0, 60);
+            this.pnlClient.Name = "pnlClient";
+            this.pnlClient.Size = new System.Drawing.Size(560, 200);
+            this.pnlClient.TabIndex = 3;
             // 
             // CenterPanel
             // 
@@ -159,18 +168,6 @@ namespace Uniframework.StartUp
             this.panel1.Size = new System.Drawing.Size(261, 200);
             this.panel1.TabIndex = 7;
             // 
-            // pbProgress
-            // 
-            this.pbProgress.EditValue = 20;
-            this.pbProgress.Location = new System.Drawing.Point(8, 149);
-            this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Properties.ProgressViewStyle = DevExpress.XtraEditors.Controls.ProgressViewStyle.Solid;
-            this.pbProgress.Properties.Step = 1;
-            this.pbProgress.Size = new System.Drawing.Size(239, 16);
-            this.pbProgress.TabIndex = 21;
-            this.toolTip.SetToolTip(this.pbProgress, "系统加载进度条");
-            this.pbProgress.Visible = false;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
@@ -184,26 +181,6 @@ namespace Uniframework.StartUp
             this.panel2.Size = new System.Drawing.Size(239, 98);
             this.panel2.TabIndex = 5;
             // 
-            // btnLogin
-            // 
-            this.btnLogin.Location = new System.Drawing.Point(50, 65);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 12;
-            this.btnLogin.Text = "登录(&L)";
-            this.toolTip.SetToolTip(this.btnLogin, "开始工作了，不然老板会有意见D：）");
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.EnterMoveNextControl = true;
-            this.txtPassword.Location = new System.Drawing.Point(50, 38);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Properties.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(176, 21);
-            this.txtPassword.TabIndex = 11;
-            this.toolTip.SetToolTip(this.txtPassword, "看看背后是否有人在偷窥哟");
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -216,17 +193,6 @@ namespace Uniframework.StartUp
             this.label4.TabIndex = 10;
             this.label4.Text = "密码";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txtUser
-            // 
-            this.txtUser.EnterMoveNextControl = true;
-            this.txtUser.Location = new System.Drawing.Point(50, 5);
-            this.txtUser.Name = "txtUser";
-            this.txtUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtUser.Size = new System.Drawing.Size(176, 21);
-            this.txtUser.TabIndex = 9;
-            this.toolTip.SetToolTip(this.txtUser, "进入系统的用户名称");
             // 
             // label3
             // 
@@ -277,7 +243,7 @@ namespace Uniframework.StartUp
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label2.Location = new System.Drawing.Point(20, 49);
+            this.label2.Location = new System.Drawing.Point(21, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(209, 18);
             this.label2.TabIndex = 9;
@@ -290,12 +256,46 @@ namespace Uniframework.StartUp
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(8, 9);
+            this.label1.Location = new System.Drawing.Point(2, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(222, 30);
+            this.label1.Size = new System.Drawing.Size(230, 30);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Uniframework 2.0";
+            this.label1.Text = "Based on Uniframework 2.0";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pnlBottom
+            // 
+            this.pnlBottom.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Bottom;
+            this.pnlBottom.Controls.Add(this.lblServer);
+            this.pnlBottom.Controls.Add(this.linkClose);
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBottom.Location = new System.Drawing.Point(0, 260);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.Size = new System.Drawing.Size(560, 60);
+            this.pnlBottom.TabIndex = 2;
+            // 
+            // lblServer
+            // 
+            this.lblServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblServer.BackColor = System.Drawing.Color.Transparent;
+            this.lblServer.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblServer.ForeColor = System.Drawing.Color.White;
+            this.lblServer.Location = new System.Drawing.Point(8, 43);
+            this.lblServer.Name = "lblServer";
+            this.lblServer.Size = new System.Drawing.Size(547, 12);
+            this.lblServer.TabIndex = 5;
+            this.lblServer.Text = "Server";
+            this.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblServer.Visible = false;
+            // 
+            // pnlTop
+            // 
+            this.pnlTop.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Top;
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(560, 60);
+            this.pnlTop.TabIndex = 1;
             // 
             // frmLogin
             // 
@@ -311,18 +311,18 @@ namespace Uniframework.StartUp
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLogin";
             this.Activated += new System.EventHandler(this.LoginForm_Activated);
+            ((System.ComponentModel.ISupportInitialize)(this.pbProgress.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).EndInit();
             this.pnlClient.ResumeLayout(false);
-            this.pnlBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CenterPanel)).EndInit();
             this.CenterPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbProgress.Properties)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).EndInit();
             this.pnlLeft.ResumeLayout(false);
+            this.pnlBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
