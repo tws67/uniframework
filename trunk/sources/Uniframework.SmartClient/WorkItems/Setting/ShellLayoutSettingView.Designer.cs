@@ -33,9 +33,9 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.gcNaviPane = new DevExpress.XtraEditors.GroupControl();
             this.rgNaviPane = new DevExpress.XtraEditors.RadioGroup();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.cbeSkin = new DevExpress.XtraEditors.ComboBoxEdit();
             this.chkShowStatusBar = new DevExpress.XtraEditors.CheckEdit();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gcWindowLayout)).BeginInit();
             this.gcWindowLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rgLayout.Properties)).BeginInit();
@@ -97,15 +97,6 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.labelControl1.TabIndex = 2;
             this.labelControl1.Text = "系统界面皮肤(&K)";
             // 
-            // labelControl2
-            // 
-            this.labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
-            this.labelControl2.Location = new System.Drawing.Point(112, 175);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(328, 2);
-            this.labelControl2.TabIndex = 3;
-            // 
             // cbeSkin
             // 
             this.cbeSkin.Location = new System.Drawing.Point(5, 187);
@@ -125,13 +116,21 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.chkShowStatusBar.Size = new System.Drawing.Size(138, 19);
             this.chkShowStatusBar.TabIndex = 5;
             // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(113, 174);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(327, 2);
+            this.label1.TabIndex = 14;
+            // 
             // ShellLayoutSettingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chkShowStatusBar);
             this.Controls.Add(this.cbeSkin);
-            this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.gcNaviPane);
             this.Controls.Add(this.gcWindowLayout);
@@ -158,8 +157,8 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         private DevExpress.XtraEditors.GroupControl gcNaviPane;
         private DevExpress.XtraEditors.RadioGroup rgNaviPane;
         private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.ComboBoxEdit cbeSkin;
         private DevExpress.XtraEditors.CheckEdit chkShowStatusBar;
+        private System.Windows.Forms.Label label1;
     }
 }
