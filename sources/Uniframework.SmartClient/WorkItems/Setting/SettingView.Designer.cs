@@ -35,7 +35,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.deckWorkspace = new Microsoft.Practices.CompositeUI.WinForms.DeckWorkspace();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.naviWorkspace)).BeginInit();
@@ -102,20 +102,19 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.deckWorkspace.Size = new System.Drawing.Size(440, 270);
             this.deckWorkspace.TabIndex = 3;
             // 
-            // labelControl1
+            // label1
             // 
-            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
-            this.labelControl1.Location = new System.Drawing.Point(186, 291);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(441, 2);
-            this.labelControl1.TabIndex = 7;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(185, 291);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(443, 2);
+            this.label1.TabIndex = 8;
             // 
             // SettingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelControl1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.deckWorkspace);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -140,7 +139,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         private DevExpress.XtraEditors.SimpleButton btnOK;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private Microsoft.Practices.CompositeUI.WinForms.DeckWorkspace deckWorkspace;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.Label label1;
 
     }
 }

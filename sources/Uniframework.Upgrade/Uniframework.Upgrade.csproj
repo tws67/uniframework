@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EF391648-B893-45D2-ACE0-12981EB53525}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Uniframework.Upgrade</RootNamespace>
+    <AssemblyName>Uniframework.Upgrade</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files\Developer Express .NET v8.2\\Sources\DevExpress.DLL\DevExpress.XtraBars.v8.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Program Files\Developer Express .NET v8.2\\Sources\DevExpress.DLL\DevExpress.XtraLayout.v8.2.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandHandlers.cs" />
+    <Compile Include="Constants\CommandHandlerNames.cs" />
+    <Compile Include="Constants\SmartPartNames.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ILiveUpgradeService.cs" />
+    <Compile Include="Services\LiveUpgradeService.cs" />
+    <Compile Include="UpgradeController.cs" />
+    <Compile Include="UpgradeProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpgradeProcess.Designer.cs">
+      <DependentUpon>UpgradeProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpgradeBuilderPresenter.cs" />
+    <Compile Include="Views\UpgradeBuilderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UpgradeBuilderView.Designer.cs">
+      <DependentUpon>UpgradeBuilderView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
+      <Project>{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}</Project>
+      <Name>CompositeUI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uniframework.SmartClient\Uniframework.SmartClient.csproj">
+      <Project>{3A800ABE-8658-460C-A471-D1C14FADF408}</Project>
+      <Name>Uniframework.SmartClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uniframework.XtraForms\Uniframework.XtraForms.csproj">
+      <Project>{E9CBA808-D476-4034-9FD7-ABBF69D13B2B}</Project>
+      <Name>Uniframework.XtraForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uniframework\Uniframework.csproj">
+      <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
+      <Name>Uniframework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpgradeProcess.resx">
+      <DependentUpon>UpgradeProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UpgradeBuilderView.resx">
+      <DependentUpon>UpgradeBuilderView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LiveUpgrade.PNG" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

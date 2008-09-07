@@ -199,7 +199,7 @@
       
       <Item id="Setting" 
             name="mmivSetting" 
-            label="选项(&amp;O)" 
+            label="选项(&amp;O)..." 
             command="Uniframework.Setting" 
             classname="XtraButtonItem" 
             imagefile="${preferences}" 
