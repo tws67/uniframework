@@ -53,6 +53,8 @@
     <Compile Include="Services\IWorkspaceLocatorService.cs" />
     <Compile Include="Services\WorkspaceLocatorService.cs" />
     <Compile Include="WorkItemController.cs" />
+    <Compile Include="Workspaces\MdiWorkspace.cs" />
+    <Compile Include="Workspaces\WindowWorkspace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
