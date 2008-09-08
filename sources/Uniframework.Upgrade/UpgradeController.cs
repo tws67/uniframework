@@ -22,12 +22,15 @@ namespace Uniframework.Upgrade
             WorkItem.Items.AddNew<CommandHandlers>("CommandHandlers");
         }
 
+        /// <summary>
+        /// 添加菜单项到系统中
+        /// </summary>
         protected override void AddUIElements()
         {
             base.AddUIElements();
 
             BarButtonItem item = new BarButtonItem();
-            item.Caption = "创建系统升级项目(&B)...";
+            item.Caption = "创建升级包(&B)";
             BarItemExtend extend = new BarItemExtend();
             extend.BeginGroup = true;
             extend.InsertBefore = "选项(&O)...";
@@ -36,7 +39,8 @@ namespace Uniframework.Upgrade
             Command cmd = WorkItem.Commands[CommandHandlerNames.ShowUpgradeBuilder];
             if (cmd != null)
                 cmd.AddInvoker(item, "ItemClick");
-            WorkItem.UIExtensionSites[UIExtensionSiteNames.Shell_UI_Mainmenu_View].Add(item);
+            if (WorkItem.UIExtensionSites.Contains(UIExtensionSiteNames.Shell_UI_Mainmenu_View))
+                WorkItem.UIExtensionSites[UIExtensionSiteNames.Shell_UI_Mainmenu_View].Add(item);
         }
 
         #region Dependendcy services

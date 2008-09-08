@@ -87,6 +87,12 @@
     <Compile Include="UpgradeProcess.Designer.cs">
       <DependentUpon>UpgradeProcess.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\NewUpgradeBuilderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NewUpgradeBuilderView.Designer.cs">
+      <DependentUpon>NewUpgradeBuilderView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UpgradeBuilderPresenter.cs" />
     <Compile Include="Views\UpgradeBuilderView.cs">
       <SubType>UserControl</SubType>
@@ -99,14 +105,6 @@
     <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
       <Project>{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}</Project>
       <Name>CompositeUI.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
-      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
-      <Name>CompositeUI.WinForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
-      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
-      <Name>CompositeUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.SmartClient\Uniframework.SmartClient.csproj">
       <Project>{3A800ABE-8658-460C-A471-D1C14FADF408}</Project>
@@ -128,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UpgradeProcess.resx">
       <DependentUpon>UpgradeProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NewUpgradeBuilderView.resx">
+      <DependentUpon>NewUpgradeBuilderView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UpgradeBuilderView.resx">
       <DependentUpon>UpgradeBuilderView.cs</DependentUpon>
