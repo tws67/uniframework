@@ -88,14 +88,19 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="SmartPartInfos\DockManagerSmartPartInfo.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraImageSmartPartInfo.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraNavBarGroupSmartPartInfo.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraTabSmartPartInfo.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraWindowSmartPartInfo.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="UIElementsDynamic\BarLinksCollectionDynamicUIAdapter.cs" />
     <Compile Include="UIElementsDynamic\DynamicCommandEventLink.cs" />
@@ -144,6 +149,14 @@
     <Compile Include="XtraFormApplicationBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cab\CompositeUI.WinForms\CompositeUI.WinForms.csproj">
+      <Project>{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0}</Project>
+      <Name>CompositeUI.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
+      <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
+      <Name>CompositeUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Uniframework\Uniframework.csproj">
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
       <Name>Uniframework</Name>
