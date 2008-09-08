@@ -87,12 +87,6 @@
     <Compile Include="UpgradeProcess.Designer.cs">
       <DependentUpon>UpgradeProcess.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\NewUpgradeBuilderView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\NewUpgradeBuilderView.Designer.cs">
-      <DependentUpon>NewUpgradeBuilderView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\UpgradeBuilderPresenter.cs" />
     <Compile Include="Views\UpgradeBuilderView.cs">
       <SubType>UserControl</SubType>
@@ -134,9 +128,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UpgradeProcess.resx">
       <DependentUpon>UpgradeProcess.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\NewUpgradeBuilderView.resx">
-      <DependentUpon>NewUpgradeBuilderView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UpgradeBuilderView.resx">
       <DependentUpon>UpgradeBuilderView.cs</DependentUpon>

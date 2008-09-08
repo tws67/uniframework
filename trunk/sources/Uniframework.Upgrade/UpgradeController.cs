@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Microsoft.Practices.CompositeUI;
-using Microsoft.Practices.CompositeUI.Common;
 using DevExpress.XtraBars;
-using Uniframework.XtraForms.UIElements;
+using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
+using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.SmartParts;
 using Uniframework.SmartClient;
+using Uniframework.XtraForms.UIElements;
+using Uniframework.Upgrade.Views;
+using Microsoft.Practices.CompositeUI.Common.Workspaces;
 
 namespace Uniframework.Upgrade
 {
@@ -20,6 +23,21 @@ namespace Uniframework.Upgrade
 
             WorkItem.Services.Add<ILiveUpgradeService>(new LiveUpgradeService());
             WorkItem.Items.AddNew<CommandHandlers>("CommandHandlers");
+
+            WindowWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Main) as WindowWorkspace;
+            if (wp != null)
+            {
+                wp.SmartPartClosed += new EventHandler<Microsoft.Practices.CompositeUI.SmartParts.WorkspaceEventArgs>(wp_SmartPartClosed);
+            }
+        }
+
+        private void wp_SmartPartClosed(object sender, WorkspaceEventArgs e)
+        {
+            if (e.SmartPart is UpgradeBuilderView)
+            {
+                if (WorkItem.SmartParts.Contains(SmartPartNames.SmartPart_Upgrade_UpgradeBuilderView))
+                    WorkItem.SmartParts.Remove(e.SmartPart);
+            }
         }
 
         /// <summary>

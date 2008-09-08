@@ -12,9 +12,10 @@ using DevExpress.XtraEditors;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.Common.Workspaces;
 using Microsoft.Practices.CompositeUI.Services;
 using Microsoft.Practices.CompositeUI.UIElements;
-using Microsoft.Practices.CompositeUI.WinForms;
+//using Microsoft.Practices.CompositeUI.WinForms;
 using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Client;
