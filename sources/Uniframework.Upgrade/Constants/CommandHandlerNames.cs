@@ -9,5 +9,6 @@ namespace Uniframework.Upgrade
     {
         public const string ShowUpgradeBuilder = "Uniframework.Upgrade.ShowUpgradeBuilder";
         public const string CheckUpgrade = "Uniframework.Upgrade.CheckUpgrade";
+        public const string ShowUpgradeSettingView = "Uniframework.Upgrade.ShowUpgradeSettingView";
     }
 }

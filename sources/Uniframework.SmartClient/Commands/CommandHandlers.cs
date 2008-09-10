@@ -53,25 +53,22 @@ namespace Uniframework.SmartClient
         [CommandHandler(CommandHandlerNames.CMD_SETTING)]
         public void OnUnframeworkSetting(object sender, EventArgs e)
         {
-            WorkItem workItem = WorkItem.WorkItems.Get(WorkItemNames.Uniframework_Setting);
-            if (workItem != null) {
-                SettingView view = workItem.SmartParts.Get<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
-                if (view == null)
-                    view = workItem.SmartParts.AddNew<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
+            SettingView view = WorkItem.SmartParts.Get<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
+            if (view == null)
+                view = WorkItem.SmartParts.AddNew<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
 
-                XtraWindowSmartPartInfo spi = new XtraWindowSmartPartInfo
-                {
-                    Title = "选项",
-                    MaximizeBox = false,
-                    MinimizeBox = false,
-                    StartPosition = FormStartPosition.CenterParent,
-                    FormBorderStyle = FormBorderStyle.FixedDialog,
-                    Modal = true,
-                    Icon = ImageService.GetIcon("preferences", new System.Drawing.Size(16, 16))
-                };
-                IWorkspace wp = new XtraWindowWorkspace();
-                wp.Show(view, spi);
-            }
+            XtraWindowSmartPartInfo spi = new XtraWindowSmartPartInfo
+            {
+                Title = "选项",
+                MaximizeBox = false,
+                MinimizeBox = false,
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Modal = true,
+                Icon = ImageService.GetIcon("preferences", new System.Drawing.Size(16, 16))
+            };
+            IWorkspace wp = new XtraWindowWorkspace();
+            wp.Show(view, spi);
         }
 
         #region Dependency services

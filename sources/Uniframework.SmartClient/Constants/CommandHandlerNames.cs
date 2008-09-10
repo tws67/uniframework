@@ -13,6 +13,6 @@ namespace Uniframework.SmartClient
         public const string CMD_CLICKME = "Uniframework.ClickMe";
         public const string CMD_EXIT = "Uniframework.Exit";
         public const string CMD_SETTING = "Uniframework.Setting";
-        public const string CMD_SHOW_SHELLL_AYOUTSETTING = "Uniframework.Show.ShellLayoutSetting";
+        public const string CMD_SHOW_SHELLL_LAYOUTSETTING = "Uniframework.Show.ShellLayoutSetting";
     }
 }

@@ -29,7 +29,13 @@ namespace Uniframework.Upgrade.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpgradeBuilderView));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.lvItems = new System.Windows.Forms.ListView();
+            this.lvGroups = new System.Windows.Forms.ListView();
+            this.txtTarget = new DevExpress.XtraEditors.TextEdit();
+            this.txtGroupName = new DevExpress.XtraEditors.TextEdit();
+            this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.btnUpload = new DevExpress.XtraEditors.SimpleButton();
             this.txtDescription = new DevExpress.XtraEditors.MemoEdit();
@@ -46,17 +52,28 @@ namespace Uniframework.Upgrade.Views
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.barManager = new DevExpress.XtraBars.BarManager(this.components);
-            this.bar1 = new DevExpress.XtraBars.Bar();
+            this.GroupBar = new DevExpress.XtraBars.Bar();
+            this.btngAdd = new DevExpress.XtraBars.BarButtonItem();
+            this.btngDelete = new DevExpress.XtraBars.BarButtonItem();
+            this.btngRefresh = new DevExpress.XtraBars.BarButtonItem();
+            this.ItemBar = new DevExpress.XtraBars.Bar();
+            this.btniAdd = new DevExpress.XtraBars.BarButtonItem();
+            this.btniDelete = new DevExpress.XtraBars.BarButtonItem();
+            this.btniRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.ilBar = new System.Windows.Forms.ImageList(this.components);
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
@@ -64,8 +81,12 @@ namespace Uniframework.Upgrade.Views
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTarget.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtGroupName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDescription.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVersion.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProduct.Properties)).BeginInit();
@@ -80,9 +101,12 @@ namespace Uniframework.Upgrade.Views
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
@@ -90,6 +114,11 @@ namespace Uniframework.Upgrade.Views
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.lvItems);
+            this.layoutControl1.Controls.Add(this.lvGroups);
+            this.layoutControl1.Controls.Add(this.txtTarget);
+            this.layoutControl1.Controls.Add(this.txtGroupName);
+            this.layoutControl1.Controls.Add(this.standaloneBarDockControl2);
             this.layoutControl1.Controls.Add(this.standaloneBarDockControl1);
             this.layoutControl1.Controls.Add(this.btnUpload);
             this.layoutControl1.Controls.Add(this.txtDescription);
@@ -104,6 +133,54 @@ namespace Uniframework.Upgrade.Views
             this.layoutControl1.Size = new System.Drawing.Size(765, 484);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // lvItems
+            // 
+            this.lvItems.FullRowSelect = true;
+            this.lvItems.Location = new System.Drawing.Point(326, 360);
+            this.lvItems.Name = "lvItems";
+            this.lvItems.Size = new System.Drawing.Size(430, 115);
+            this.lvItems.TabIndex = 24;
+            this.lvItems.UseCompatibleStateImageBehavior = false;
+            this.lvItems.View = System.Windows.Forms.View.List;
+            this.lvItems.SelectedIndexChanged += new System.EventHandler(this.lvItems_SelectedIndexChanged);
+            // 
+            // lvGroups
+            // 
+            this.lvGroups.FullRowSelect = true;
+            this.lvGroups.Location = new System.Drawing.Point(10, 296);
+            this.lvGroups.Name = "lvGroups";
+            this.lvGroups.Size = new System.Drawing.Size(305, 179);
+            this.lvGroups.TabIndex = 23;
+            this.lvGroups.UseCompatibleStateImageBehavior = false;
+            this.lvGroups.View = System.Windows.Forms.View.List;
+            this.lvGroups.SelectedIndexChanged += new System.EventHandler(this.lvGroups_SelectedIndexChanged);
+            // 
+            // txtTarget
+            // 
+            this.txtTarget.EnterMoveNextControl = true;
+            this.txtTarget.Location = new System.Drawing.Point(419, 328);
+            this.txtTarget.Name = "txtTarget";
+            this.txtTarget.Size = new System.Drawing.Size(337, 21);
+            this.txtTarget.StyleController = this.layoutControl1;
+            this.txtTarget.TabIndex = 20;
+            // 
+            // txtGroupName
+            // 
+            this.txtGroupName.EnterMoveNextControl = true;
+            this.txtGroupName.Location = new System.Drawing.Point(419, 296);
+            this.txtGroupName.Name = "txtGroupName";
+            this.txtGroupName.Size = new System.Drawing.Size(337, 21);
+            this.txtGroupName.StyleController = this.layoutControl1;
+            this.txtGroupName.TabIndex = 19;
+            // 
+            // standaloneBarDockControl2
+            // 
+            this.standaloneBarDockControl2.AutoSizeInLayoutControl = true;
+            this.standaloneBarDockControl2.Location = new System.Drawing.Point(326, 261);
+            this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(430, 24);
+            this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
             // 
             // standaloneBarDockControl1
             // 
@@ -121,6 +198,7 @@ namespace Uniframework.Upgrade.Views
             this.btnUpload.StyleController = this.layoutControl1;
             this.btnUpload.TabIndex = 10;
             this.btnUpload.Text = "上传升级项目(&U)";
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // txtDescription
             // 
@@ -132,6 +210,7 @@ namespace Uniframework.Upgrade.Views
             // 
             // txtVersion
             // 
+            this.txtVersion.EnterMoveNextControl = true;
             this.txtVersion.Location = new System.Drawing.Point(420, 93);
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.Size = new System.Drawing.Size(92, 21);
@@ -140,6 +219,7 @@ namespace Uniframework.Upgrade.Views
             // 
             // txtProduct
             // 
+            this.txtProduct.EnterMoveNextControl = true;
             this.txtProduct.Location = new System.Drawing.Point(103, 93);
             this.txtProduct.Name = "txtProduct";
             this.txtProduct.Size = new System.Drawing.Size(213, 21);
@@ -148,6 +228,7 @@ namespace Uniframework.Upgrade.Views
             // 
             // txtUpgradeUrl
             // 
+            this.txtUpgradeUrl.EnterMoveNextControl = true;
             this.txtUpgradeUrl.Location = new System.Drawing.Point(103, 61);
             this.txtUpgradeUrl.Name = "txtUpgradeUrl";
             this.txtUpgradeUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -158,6 +239,7 @@ namespace Uniframework.Upgrade.Views
             // 
             // txtStartUpApp
             // 
+            this.txtStartUpApp.EnterMoveNextControl = true;
             this.txtStartUpApp.Location = new System.Drawing.Point(103, 29);
             this.txtStartUpApp.Name = "txtStartUpApp";
             this.txtStartUpApp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -165,6 +247,7 @@ namespace Uniframework.Upgrade.Views
             this.txtStartUpApp.Size = new System.Drawing.Size(653, 21);
             this.txtStartUpApp.StyleController = this.layoutControl1;
             this.txtStartUpApp.TabIndex = 4;
+            this.txtStartUpApp.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.txtStartUpApp_ButtonClick);
             // 
             // layoutControlGroup1
             // 
@@ -273,31 +356,16 @@ namespace Uniframework.Upgrade.Views
             // 
             this.layoutControlGroup3.CustomizationFormText = "升级项目分组信息";
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem1,
-            this.emptySpaceItem5,
-            this.layoutControlItem7});
+            this.layoutControlItem7,
+            this.layoutControlItem9,
+            this.layoutControlItem11,
+            this.layoutControlItem12,
+            this.layoutControlItem13,
+            this.layoutControlItem8});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 232);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.Size = new System.Drawing.Size(763, 250);
             this.layoutControlGroup3.Text = "升级项目分组信息";
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(316, 0);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(441, 225);
-            this.emptySpaceItem1.Text = "emptySpaceItem1";
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // emptySpaceItem5
-            // 
-            this.emptySpaceItem5.CustomizationFormText = "emptySpaceItem5";
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 35);
-            this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(316, 190);
-            this.emptySpaceItem5.Text = "emptySpaceItem5";
-            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
             // 
@@ -314,6 +382,70 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextToControlDistance = 0;
             this.layoutControlItem7.TextVisible = false;
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.standaloneBarDockControl2;
+            this.layoutControlItem9.CustomizationFormText = "layoutControlItem9";
+            this.layoutControlItem9.Location = new System.Drawing.Point(316, 0);
+            this.layoutControlItem9.MaxSize = new System.Drawing.Size(441, 35);
+            this.layoutControlItem9.MinSize = new System.Drawing.Size(441, 35);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(441, 35);
+            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem9.Text = "layoutControlItem9";
+            this.layoutControlItem9.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextToControlDistance = 0;
+            this.layoutControlItem9.TextVisible = false;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.txtGroupName;
+            this.layoutControlItem11.CustomizationFormText = "分组名称:";
+            this.layoutControlItem11.Location = new System.Drawing.Point(316, 35);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(441, 32);
+            this.layoutControlItem11.Text = "分组名称:";
+            this.layoutControlItem11.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(88, 20);
+            // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.txtTarget;
+            this.layoutControlItem12.CustomizationFormText = "复制目标文件夹:";
+            this.layoutControlItem12.Location = new System.Drawing.Point(316, 67);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(441, 32);
+            this.layoutControlItem12.Text = "复制目标文件夹:";
+            this.layoutControlItem12.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(88, 20);
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.Control = this.lvGroups;
+            this.layoutControlItem13.CustomizationFormText = "layoutControlItem13";
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 35);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(316, 190);
+            this.layoutControlItem13.Text = "layoutControlItem13";
+            this.layoutControlItem13.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem13.TextToControlDistance = 0;
+            this.layoutControlItem13.TextVisible = false;
+            // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.lvItems;
+            this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
+            this.layoutControlItem8.Location = new System.Drawing.Point(316, 99);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(441, 126);
+            this.layoutControlItem8.Text = "layoutControlItem8";
+            this.layoutControlItem8.TextLocation = DevExpress.Utils.Locations.Left;
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem8.TextToControlDistance = 0;
+            this.layoutControlItem8.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
@@ -343,13 +475,16 @@ namespace Uniframework.Upgrade.Views
             // barManager
             // 
             this.barManager.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
-            this.bar1});
+            this.GroupBar,
+            this.ItemBar});
             this.barManager.DockControls.Add(this.barDockControlTop);
             this.barManager.DockControls.Add(this.barDockControlBottom);
             this.barManager.DockControls.Add(this.barDockControlLeft);
             this.barManager.DockControls.Add(this.barDockControlRight);
             this.barManager.DockControls.Add(this.standaloneBarDockControl1);
+            this.barManager.DockControls.Add(this.standaloneBarDockControl2);
             this.barManager.Form = this;
+            this.barManager.Images = this.ilBar;
             this.barManager.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.barButtonItem1,
             this.barButtonItem2,
@@ -357,18 +492,109 @@ namespace Uniframework.Upgrade.Views
             this.barButtonItem4,
             this.barButtonItem5,
             this.barButtonItem6,
-            this.barButtonItem7});
-            this.barManager.MaxItemId = 9;
+            this.barButtonItem7,
+            this.barButtonItem8,
+            this.barButtonItem9,
+            this.btngAdd,
+            this.btngDelete,
+            this.btngRefresh,
+            this.btniAdd,
+            this.btniDelete,
+            this.btniRefresh});
+            this.barManager.MaxItemId = 17;
             // 
-            // bar1
+            // GroupBar
             // 
-            this.bar1.BarName = "Custom 2";
-            this.bar1.DockCol = 0;
-            this.bar1.DockRow = 0;
-            this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
-            this.bar1.FloatLocation = new System.Drawing.Point(93, 378);
-            this.bar1.StandaloneBarDockControl = this.standaloneBarDockControl1;
-            this.bar1.Text = "Custom 2";
+            this.GroupBar.BarName = "GroupBar";
+            this.GroupBar.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Standalone;
+            this.GroupBar.DockCol = 0;
+            this.GroupBar.DockRow = 0;
+            this.GroupBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.GroupBar.FloatLocation = new System.Drawing.Point(93, 378);
+            this.GroupBar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.btngAdd),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btngDelete),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btngRefresh, true)});
+            this.GroupBar.StandaloneBarDockControl = this.standaloneBarDockControl1;
+            this.GroupBar.Text = "升级包分组";
+            // 
+            // btngAdd
+            // 
+            this.btngAdd.Caption = "增加分组";
+            this.btngAdd.Description = "增加分组";
+            this.btngAdd.Id = 11;
+            this.btngAdd.ImageIndex = 0;
+            this.btngAdd.Name = "btngAdd";
+            this.btngAdd.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btngAdd_ItemClick);
+            // 
+            // btngDelete
+            // 
+            this.btngDelete.Caption = "删除分组";
+            this.btngDelete.Description = "删除分组";
+            this.btngDelete.Id = 12;
+            this.btngDelete.ImageIndex = 1;
+            this.btngDelete.Name = "btngDelete";
+            this.btngDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btngDelete_ItemClick);
+            // 
+            // btngRefresh
+            // 
+            this.btngRefresh.Caption = "刷新分组";
+            this.btngRefresh.Id = 13;
+            this.btngRefresh.ImageIndex = 2;
+            this.btngRefresh.Name = "btngRefresh";
+            this.btngRefresh.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
+            // ItemBar
+            // 
+            this.ItemBar.BarName = "ItemBar";
+            this.ItemBar.DockCol = 0;
+            this.ItemBar.DockRow = 0;
+            this.ItemBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Standalone;
+            this.ItemBar.FloatLocation = new System.Drawing.Point(391, 417);
+            this.ItemBar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.btniAdd),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btniDelete),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btniRefresh, true)});
+            this.ItemBar.StandaloneBarDockControl = this.standaloneBarDockControl2;
+            this.ItemBar.Text = "升级包项目";
+            // 
+            // btniAdd
+            // 
+            this.btniAdd.Caption = "增加升级项目";
+            this.btniAdd.Description = "增加升级项目";
+            this.btniAdd.Id = 14;
+            this.btniAdd.ImageIndex = 3;
+            this.btniAdd.Name = "btniAdd";
+            this.btniAdd.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btniAdd_ItemClick);
+            // 
+            // btniDelete
+            // 
+            this.btniDelete.Caption = "删除升级项目";
+            this.btniDelete.Description = "删除升级项目";
+            this.btniDelete.Id = 15;
+            this.btniDelete.ImageIndex = 4;
+            this.btniDelete.Name = "btniDelete";
+            this.btniDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btniDelete_ItemClick);
+            // 
+            // btniRefresh
+            // 
+            this.btniRefresh.Caption = "刷新升级项目";
+            this.btniRefresh.Description = "刷新升级项目";
+            this.btniRefresh.Id = 16;
+            this.btniRefresh.ImageIndex = 5;
+            this.btniRefresh.Name = "btniRefresh";
+            this.btniRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btniRefresh_ItemClick);
+            // 
+            // ilBar
+            // 
+            this.ilBar.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilBar.ImageStream")));
+            this.ilBar.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilBar.Images.SetKeyName(0, "index_add.ico");
+            this.ilBar.Images.SetKeyName(1, "index_delete.ico");
+            this.ilBar.Images.SetKeyName(2, "index_refresh.ico");
+            this.ilBar.Images.SetKeyName(3, "gear_add.ico");
+            this.ilBar.Images.SetKeyName(4, "gear_delete.ico");
+            this.ilBar.Images.SetKeyName(5, "gear_refresh.ico");
             // 
             // barButtonItem1
             // 
@@ -412,6 +638,17 @@ namespace Uniframework.Upgrade.Views
             this.barButtonItem7.Id = 6;
             this.barButtonItem7.Name = "barButtonItem7";
             // 
+            // barButtonItem8
+            // 
+            this.barButtonItem8.Id = 9;
+            this.barButtonItem8.Name = "barButtonItem8";
+            // 
+            // barButtonItem9
+            // 
+            this.barButtonItem9.Caption = "barBu";
+            this.barButtonItem9.Id = 10;
+            this.barButtonItem9.Name = "barButtonItem9";
+            // 
             // UpgradeBuilderView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -425,6 +662,8 @@ namespace Uniframework.Upgrade.Views
             this.Size = new System.Drawing.Size(765, 484);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtTarget.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtGroupName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDescription.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVersion.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProduct.Properties)).EndInit();
@@ -439,9 +678,12 @@ namespace Uniframework.Upgrade.Views
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
@@ -478,14 +720,32 @@ namespace Uniframework.Upgrade.Views
         private DevExpress.XtraBars.BarButtonItem barButtonItem7;
         private DevExpress.XtraBars.BarButtonItem barButtonItem4;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraEditors.SimpleButton btnUpload;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraBars.StandaloneBarDockControl standaloneBarDockControl1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private DevExpress.XtraBars.Bar bar1;
+        private DevExpress.XtraBars.StandaloneBarDockControl standaloneBarDockControl2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        public DevExpress.XtraBars.Bar GroupBar;
+        public DevExpress.XtraBars.Bar ItemBar;
+        private DevExpress.XtraEditors.TextEdit txtGroupName;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraEditors.TextEdit txtTarget;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
+        private System.Windows.Forms.ImageList ilBar;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem8;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem9;
+        private DevExpress.XtraBars.BarButtonItem btngAdd;
+        private DevExpress.XtraBars.BarButtonItem btngDelete;
+        private DevExpress.XtraBars.BarButtonItem btngRefresh;
+        private DevExpress.XtraBars.BarButtonItem btniAdd;
+        private DevExpress.XtraBars.BarButtonItem btniDelete;
+        private DevExpress.XtraBars.BarButtonItem btniRefresh;
+        private System.Windows.Forms.ListView lvGroups;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
+        private System.Windows.Forms.ListView lvItems;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
 
     }
 }

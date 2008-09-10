@@ -57,6 +57,45 @@ namespace Microsoft.Practices.CompositeUI.Common
         }
 
         /// <summary>
+        /// Creates and shows a smart part on the specified workspace.
+        /// </summary>
+        /// <typeparam name="TView">The type of the smart part to create and show.</typeparam>
+        /// <param name="workspaceName">The name of the workspace in which to show the smart part.</param>
+        /// <returns>The new smart part instance.</returns>
+        protected virtual TView ShowViewInWorkspace<TView>(string workspaceName)
+        {
+            TView view = WorkItem.SmartParts.AddNew<TView>();
+            WorkItem.Workspaces[workspaceName].Show(view);
+            return view;
+        }
+
+        /// <summary>
+        /// Shows a specific smart part in the workspace. If a smart part with the specified id
+        /// is not found in the <see cref="WorkItem.SmartParts"/> collection, a new instance
+        /// will be created; otherwise, the existing instance will be re used.
+        /// </summary>
+        /// <typeparam name="TView">The type of the smart part to show.</typeparam>
+        /// <param name="viewId">The id of the smart part in the <see cref="WorkItem.SmartParts"/> collection.</param>
+        /// <param name="workspaceName">The name of the workspace in which to show the smart part.</param>
+        /// <returns>The smart part instance.</returns>
+        protected virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName)
+        {
+            TView view = default(TView);
+            if (WorkItem.SmartParts.Contains(viewId))
+            {
+                view = WorkItem.SmartParts.Get<TView>(viewId);
+            }
+            else
+            {
+                view = WorkItem.SmartParts.AddNew<TView>();
+            }
+
+            WorkItem.Workspaces[workspaceName].Show(view);
+
+            return view;
+        }
+
+        /// <summary>
         /// Ðé¹¹º¯Êý
         /// </summary>
         ~Presenter()
