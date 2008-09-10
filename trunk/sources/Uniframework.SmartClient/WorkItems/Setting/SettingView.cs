@@ -42,7 +42,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
 
         public XtraNavBarWorkspace SettingNaviWorkspace
         {
-            get { return naviWorkspace; }
+            get { return navWorkspace; }
         }
 
         public DeckWorkspace SettingDeckWorkspace

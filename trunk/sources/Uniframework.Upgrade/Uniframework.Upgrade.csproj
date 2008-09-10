@@ -42,6 +42,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files\Developer Express .NET v8.2\\Sources\DevExpress.DLL\DevExpress.XtraLayout.v8.2.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\log4net.dll</HintPath>
@@ -68,6 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\UniframeworkInfo.cs">
+      <Link>UniframeworkInfo.cs</Link>
+    </Compile>
     <Compile Include="CommandHandlers.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
     <Compile Include="Constants\SmartPartNames.cs" />
@@ -93,6 +97,12 @@
     </Compile>
     <Compile Include="Views\UpgradeBuilderView.Designer.cs">
       <DependentUpon>UpgradeBuilderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpgradeSettingView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UpgradeSettingView.Designer.cs">
+      <DependentUpon>UpgradeSettingView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +142,15 @@
     <EmbeddedResource Include="Views\UpgradeBuilderView.resx">
       <DependentUpon>UpgradeBuilderView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\UpgradeSettingView.resx">
+      <DependentUpon>UpgradeSettingView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LiveUpgrade.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

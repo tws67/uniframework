@@ -46,5 +46,6 @@ namespace Uniframework.SmartClient
         public const string Shell_UI_NaviPane_DefaultSetting         = "/Shell/UI/NaviPane/DefaultSetting";
 
         public const string Shell_Property_ShellLayout               = "/Shell/Property/ShellLayout";
+        public const string Shell_Property_Upgrade                   = "/Shell/Property/Upgrade";
     }
 }

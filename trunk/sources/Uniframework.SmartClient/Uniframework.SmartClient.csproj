@@ -99,6 +99,7 @@
     <Compile Include="Commands\CommandHandlers.cs" />
     <Compile Include="Configuration\FormLayout.cs" />
     <Compile Include="Configuration\ShellLayout.cs" />
+    <Compile Include="Configuration\UpgradeSetting.cs" />
     <Compile Include="Constants\SmartPartNames.cs" />
     <Compile Include="Constants\UIExtensionSiteNames.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
@@ -132,7 +133,6 @@
     <Compile Include="WorkItems\Setting\SettingView.Designer.cs">
       <DependentUpon>SettingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkItems\Setting\SettingController.cs" />
     <Compile Include="WorkItems\Setting\ShellLayoutSettingView.cs">
       <SubType>UserControl</SubType>
     </Compile>

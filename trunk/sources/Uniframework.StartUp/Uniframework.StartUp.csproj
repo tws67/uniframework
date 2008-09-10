@@ -86,7 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RootWorkItemController.cs" />
+    <Compile Include="RootController.cs" />
     <Compile Include="ShellApplication.cs" />
     <Compile Include="ShellForm.cs">
       <SubType>Form</SubType>

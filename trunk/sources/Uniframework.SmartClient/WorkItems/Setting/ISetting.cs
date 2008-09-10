@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Uniframework.SmartClient.WorkItems.Setting
+namespace Uniframework.SmartClient
 {
     /// <summary>
     /// 系统设置接口

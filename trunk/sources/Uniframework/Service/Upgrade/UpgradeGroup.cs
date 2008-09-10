@@ -62,5 +62,10 @@ namespace Uniframework.Services
                 return size;
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

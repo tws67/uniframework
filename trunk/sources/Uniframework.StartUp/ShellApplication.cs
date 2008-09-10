@@ -26,10 +26,12 @@ using Uniframework.Services;
 using Uniframework.SmartClient;
 using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
+using Uniframework.SmartClient.WorkItems.Setting;
+using DevExpress.XtraNavBar;
 
 namespace Uniframework.StartUp
 {
-    public class ShellApplication : XtraFormApplicationBase<ControlledWorkItem<RootWorkItemController>, ShellForm>
+    public class ShellApplication : XtraFormApplicationBase<ControlledWorkItem<RootController>, ShellForm>
     {
         //private bool multiMainWorksapce;
         private AddInTree addInTree;
@@ -62,7 +64,7 @@ namespace Uniframework.StartUp
             addInTree = new AddInTree();
             RootWorkItem.Services.Add<AddInTree>(addInTree);
             RootWorkItem.Services.Add<IContentMenuService>(new XtraContentMenuService(RootWorkItem, Shell.barManager));
-            RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandlers"); // 创建框架通用的命令处理器
+            
             RootWorkItem.Items.Add(Shell.BarManager, UIExtensionSiteNames.Shell_Bar_Manager);
             RootWorkItem.Items.Add(Shell.BarManager.MainMenu, UIExtensionSiteNames.Shell_Bar_Mainmenu);
             RootWorkItem.Items.Add(Shell.BarManager.StatusBar, UIExtensionSiteNames.Shell_Bar_Status);
@@ -77,8 +79,15 @@ namespace Uniframework.StartUp
             RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
 
             Program.SetInitialState("正在初始化用户使用界面……");
+            RegisterCommandHandler();
+            RegisterViews();
+            RegisterUIElements();
             RegisterUISite(); // 构建用户界面并添加UI构建服务
         }
+
+
+
+
 
         /// <summary>
         /// See <see cref="CabApplication{TWorkItem}.AddServices"/>
@@ -89,24 +98,7 @@ namespace Uniframework.StartUp
 
             RootWorkItem.Services.Add<IDb4oDatabaseService>(new Db4oDatabaseService());
             RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
-        }
-        /// <summary>
-        /// Initializes the shell.
-        /// </summary>
-        private void InitializeShell()
-        {
-            ServiceRepository.Instance.RequestQueueChanged += new RequestQueueChangedEventHandler(Shell.OnRequestQueueChanged);
-            ServiceRepository.Instance.ConnectionStateChanged += new ConnectionStateChangedEventHandler(Shell.OnConnectionStateChanged);
-
-            Shell.Text = ConfigurationManager.AppSettings["ShellCaption"];
-            string iconFile = ConfigurationManager.AppSettings["ShellIcon"];
-            iconFile = File.Exists(iconFile) ? iconFile : Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory) + @"\Resources\" + iconFile;
-            if (File.Exists(iconFile))
-                Shell.Icon = new Icon(iconFile);
-
-            // 注册系统主菜单及状态栏
-            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Mainmenu, Shell.BarManager.MainMenu);
-            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Status, Shell.BarManager.StatusBar);
+            RootWorkItem.Services.Add<ISettingService>(new SettingService());
         }
 
         /// <summary>
@@ -151,7 +143,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.Add<IAuthorizationService>(authorizationService);
 
             // 注册自定义的UI组件
-            Program.SetInitialState("注册自定义的UI组件……");
+            Program.SetInitialState("注册自定义UI组件构建服务……");
             Program.IncreaseProgressBar(10);
             RootWorkItem.Services.Add<SmartClientEnvironment>(new SmartClientEnvironment());
             RootWorkItem.Services.Add<IImageService>(new ImageService());
@@ -169,7 +161,6 @@ namespace Uniframework.StartUp
             Program.IncreaseProgressBar(10);
             WebServiceModuleEnumerator ws = new WebServiceModuleEnumerator();
             ws.Load();
-            //multiMainWorksapce = ws.HasMultiMainWorkspace;
 
             RootWorkItem.Services.Add<IModuleEnumerator>(ws);
             Program.IncreaseProgressBar(10);
@@ -197,6 +188,67 @@ namespace Uniframework.StartUp
                 {
                     scEnvironment.CurrentUser = user;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Initializes the shell.
+        /// </summary>
+        private void InitializeShell()
+        {
+            ServiceRepository.Instance.RequestQueueChanged += new RequestQueueChangedEventHandler(Shell.OnRequestQueueChanged);
+            ServiceRepository.Instance.ConnectionStateChanged += new ConnectionStateChangedEventHandler(Shell.OnConnectionStateChanged);
+
+            Shell.Text = ConfigurationManager.AppSettings["ShellCaption"];
+            string iconFile = ConfigurationManager.AppSettings["ShellIcon"];
+            iconFile = File.Exists(iconFile) ? iconFile : Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory) + @"\Resources\" + iconFile;
+            if (File.Exists(iconFile))
+                Shell.Icon = new Icon(iconFile);
+
+            // 注册系统主菜单及状态栏
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Mainmenu, Shell.BarManager.MainMenu);
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Status, Shell.BarManager.StatusBar);
+        }
+
+        /// <summary>
+        /// 注册系统默认的命令处理器
+        /// </summary>
+        private void RegisterCommandHandler()
+        {
+            RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandler");
+        }
+
+        /// <summary>
+        /// 注册框架默认的视图
+        /// </summary>
+        private void RegisterViews()
+        {
+            SettingView view = RootWorkItem.SmartParts.AddNew<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
+            RootWorkItem.Workspaces.Add(view.SettingDeckWorkspace, UIExtensionSiteNames.Shell_Workspace_SettingDeck);
+            RootWorkItem.Workspaces.Add(view.SettingNaviWorkspace, UIExtensionSiteNames.Shell_Workspace_SettingNavi);
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_UI_NaviPane_DefaultSetting, view.DefaultSettingGroup);
+
+            ShellLayoutSettingView layoutView = RootWorkItem.SmartParts.AddNew<ShellLayoutSettingView>(SmartPartNames.SmartPart_Shell_LayoutSettingView);
+            ISettingService settingService = RootWorkItem.Services.Get<ISettingService>();
+            if (settingService != null)
+                settingService.RegisterSetting(layoutView);
+        }
+
+        /// <summary>
+        /// 注册系统默认的UI组件
+        /// </summary>
+        private void RegisterUIElements()
+        {
+            IImageService imageService = RootWorkItem.Services.Get<IImageService>();
+            if (imageService != null) {
+                NavBarItem item = new NavBarItem("系统外观");
+                item.LargeImage = imageService.GetBitmap("cubes", new System.Drawing.Size(32, 32));
+                item.SmallImage = imageService.GetBitmap("cubes", new System.Drawing.Size(16, 16));
+                RootWorkItem.UIExtensionSites[UIExtensionSiteNames.Shell_UI_NaviPane_DefaultSetting].Add(item);
+                Microsoft.Practices.CompositeUI.Commands.Command cmd = RootWorkItem.Commands[CommandHandlerNames.CMD_SHOW_SHELLL_LAYOUTSETTING];
+                if (cmd != null)
+                    cmd.AddInvoker(item, "LinkClicked");
+                cmd.Execute();
             }
         }
 

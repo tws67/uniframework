@@ -13,6 +13,7 @@ using Microsoft.Practices.CompositeUI;
 
 using Uniframework.Services;
 using DevExpress.XtraEditors;
+using Uniframework.SmartClient;
 
 namespace Uniframework.Upgrade
 {
@@ -23,12 +24,12 @@ namespace Uniframework.Upgrade
     {
         private readonly static string UPGRADELAUNCH_FILE = "UpgradeLaunch.exe";
         private readonly static string LIVEUPGRADE_SECTION = "LiveUpgrade";
-        private readonly static int UPGRADE_INTERVAL = 300000;
 
         private WorkItem workItem;
         private IUpgradeService upgradeService;
         private Thread thread;
         private bool abort = false;
+        private int UPGRADE_INTERVAL = 1800;
 
         public LiveUpgradeService()
         {
@@ -40,6 +41,8 @@ namespace Uniframework.Upgrade
                 thread.Start();
             }
         }
+
+        #region Dependency services
 
         [ServiceDependency]
         public WorkItem WorkItem
@@ -54,6 +57,15 @@ namespace Uniframework.Upgrade
             get { return upgradeService; }
             set { upgradeService = value; }
         }
+
+        [ServiceDependency]
+        public IPropertyService PropertyService
+        {
+            get;
+            set;
+        }
+
+        #endregion
 
         #region ILiveUpgradeService Members
 
@@ -97,8 +109,8 @@ namespace Uniframework.Upgrade
         [EventSubscriber("TOPIC://Upgrade/UpgradeProjectCreated")]
         public void OnUpgradeProjectCreated(object sender, EventArgs<UpgradeProject> e)
         {
-            UpgradeNotify(e.Data);
-            //ShowUpgradeBalloon(project, upgradeUrl);
+            if (UpgradeSetting.ReciveUpgradeMessage)
+                UpgradeNotify(e.Data);
         }
 
         #endregion
@@ -168,6 +180,13 @@ namespace Uniframework.Upgrade
             catch
             {
 
+            }
+        }
+
+        private UpgradeSetting UpgradeSetting
+        {
+            get {
+                return PropertyService.Get<UpgradeSetting>(UIExtensionSiteNames.Shell_Property_Upgrade, new UpgradeSetting());
             }
         }
 

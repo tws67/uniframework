@@ -53,7 +53,7 @@ namespace Uniframework.Upgrade
             // 
             // labCurrent
             // 
-            this.labCurrent.Location = new System.Drawing.Point(89, 30);
+            this.labCurrent.Location = new System.Drawing.Point(96, 30);
             this.labCurrent.Name = "labCurrent";
             this.labCurrent.Size = new System.Drawing.Size(52, 14);
             this.labCurrent.TabIndex = 8;
@@ -61,15 +61,15 @@ namespace Uniframework.Upgrade
             // 
             // pbCurrent
             // 
-            this.pbCurrent.Location = new System.Drawing.Point(89, 50);
+            this.pbCurrent.Location = new System.Drawing.Point(96, 50);
             this.pbCurrent.Name = "pbCurrent";
             this.pbCurrent.Properties.Step = 1;
-            this.pbCurrent.Size = new System.Drawing.Size(368, 16);
+            this.pbCurrent.Size = new System.Drawing.Size(361, 16);
             this.pbCurrent.TabIndex = 9;
             // 
             // labTotal
             // 
-            this.labTotal.Location = new System.Drawing.Point(89, 72);
+            this.labTotal.Location = new System.Drawing.Point(96, 72);
             this.labTotal.Name = "labTotal";
             this.labTotal.Size = new System.Drawing.Size(36, 14);
             this.labTotal.TabIndex = 10;
@@ -77,10 +77,10 @@ namespace Uniframework.Upgrade
             // 
             // pbTotal
             // 
-            this.pbTotal.Location = new System.Drawing.Point(89, 92);
+            this.pbTotal.Location = new System.Drawing.Point(96, 92);
             this.pbTotal.Name = "pbTotal";
             this.pbTotal.Properties.Step = 1;
-            this.pbTotal.Size = new System.Drawing.Size(368, 16);
+            this.pbTotal.Size = new System.Drawing.Size(361, 16);
             this.pbTotal.TabIndex = 11;
             // 
             // label1

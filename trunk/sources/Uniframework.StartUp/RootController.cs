@@ -5,21 +5,25 @@ using System.Text;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.Commands;
 
 using Uniframework.Client;
 using Uniframework.SmartClient.WorkItems.Setting;
 using Uniframework.SmartClient;
+using DevExpress.XtraNavBar;
+using Uniframework.Services;
 
 namespace Uniframework.StartUp
 {
-    public class RootWorkItemController : WorkItemController
+    public class RootController : WorkItemController
     {
         public override void OnRunStarted()
         {
             WorkItem.Activated += new EventHandler(WorkItem_Activated);
             base.OnRunStarted();
-            WorkItem.Activate();
         }
+
+        #region Assistant functions
 
         private void WorkItem_Activated(object sender, EventArgs e)
         {
@@ -30,12 +34,7 @@ namespace Uniframework.StartUp
             Program.CloseLoginForm();
         }
 
-        protected override void AddServices()
-        {
-            base.AddServices();
+        #endregion
 
-            WorkItem settingWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<SettingController>>(WorkItemNames.Uniframework_Setting);
-            settingWorkItem.Run();
-        }
     }
 }

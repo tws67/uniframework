@@ -29,7 +29,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         private void InitializeComponent()
         {
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.naviWorkspace = new Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace();
+            this.navWorkspace = new Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace();
             this.defaultGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.btnDefault = new DevExpress.XtraEditors.SimpleButton();
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
@@ -38,30 +38,30 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.naviWorkspace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.navWorkspace)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
             // 
-            this.panelControl1.Controls.Add(this.naviWorkspace);
+            this.panelControl1.Controls.Add(this.navWorkspace);
             this.panelControl1.Location = new System.Drawing.Point(11, 12);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(169, 281);
             this.panelControl1.TabIndex = 0;
             // 
-            // naviWorkspace
+            // navWorkspace
             // 
-            this.naviWorkspace.ActiveGroup = this.defaultGroup;
-            this.naviWorkspace.ContentButtonHint = null;
-            this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.naviWorkspace.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
+            this.navWorkspace.ActiveGroup = this.defaultGroup;
+            this.navWorkspace.ContentButtonHint = null;
+            this.navWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navWorkspace.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
             this.defaultGroup});
-            this.naviWorkspace.Location = new System.Drawing.Point(2, 2);
-            this.naviWorkspace.Name = "naviWorkspace";
-            this.naviWorkspace.OptionsNavPane.ExpandedWidth = 165;
-            this.naviWorkspace.Size = new System.Drawing.Size(165, 277);
-            this.naviWorkspace.TabIndex = 2;
-            this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinExplorerBarViewInfoRegistrator();
+            this.navWorkspace.Location = new System.Drawing.Point(2, 2);
+            this.navWorkspace.Name = "navWorkspace";
+            this.navWorkspace.OptionsNavPane.ExpandedWidth = 165;
+            this.navWorkspace.Size = new System.Drawing.Size(165, 277);
+            this.navWorkspace.TabIndex = 2;
+            this.navWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinExplorerBarViewInfoRegistrator();
             // 
             // defaultGroup
             // 
@@ -125,7 +125,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             this.Load += new System.EventHandler(this.SettingView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.naviWorkspace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.navWorkspace)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -133,7 +133,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         #endregion
 
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace naviWorkspace;
+        private Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace navWorkspace;
         private DevExpress.XtraNavBar.NavBarGroup defaultGroup;
         private DevExpress.XtraEditors.SimpleButton btnDefault;
         private DevExpress.XtraEditors.SimpleButton btnOK;
