@@ -12,6 +12,7 @@ using Uniframework.SmartClient.WorkItems.Setting;
 using Uniframework.XtraForms.SmartPartInfos;
 using Uniframework.XtraForms.Workspaces;
 using Microsoft.Practices.CompositeUI.WinForms;
+using Uniframework.SmartClient.Views;
 
 namespace Uniframework.SmartClient
 {
@@ -26,7 +27,7 @@ namespace Uniframework.SmartClient
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_CLICKME)]
-        public void OnCommandClick(object sender, EventArgs e)
+        public void OnUniframeworkClickMe(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Command name " + ((Command)sender).Name);
@@ -40,9 +41,22 @@ namespace Uniframework.SmartClient
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_EXIT)]
-        public void OnUnframeworkExit(object sender, EventArgs e)
+        public void OnUniframeworkExit(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        /// <summary>
+        /// 显示关于窗口
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_ABOUT)]
+        public void OnUniframeworkAbout(object sender, EventArgs e)
+        {
+            frmAbout form = WorkItem.SmartParts.AddNew<frmAbout>();
+            form.ShowDialog();
+            WorkItem.SmartParts.Remove(form);
         }
 
         /// <summary>
@@ -51,7 +65,7 @@ namespace Uniframework.SmartClient
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_SETTING)]
-        public void OnUnframeworkSetting(object sender, EventArgs e)
+        public void OnUniframeworkSetting(object sender, EventArgs e)
         {
             SettingView view = WorkItem.SmartParts.Get<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
             if (view == null)
