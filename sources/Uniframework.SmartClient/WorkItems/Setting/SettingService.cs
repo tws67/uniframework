@@ -11,8 +11,10 @@ namespace Uniframework.SmartClient.WorkItems.Setting
     {
         private IDictionary<string, ISetting> settings = new Dictionary<string, ISetting>();
 
-        [EventPublication(EventNames.Uniframework_SettingViewChanged, PublicationScope.Global)]
+        [EventPublication(EventNames.Shell_SettingViewChanged, PublicationScope.Global)]
         public event EventHandler<EventArgs<ISetting>> SettingViewChanged;
+        [EventPublication(EventNames.Shell_SettingSaved, PublicationScope.Global)]
+        public event EventHandler<EventArgs<ISetting>> SettingSaved;
 
         #region ISettingService Members
 
@@ -33,6 +35,8 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         {
             foreach (KeyValuePair<string, ISetting> kv in settings) {
                 kv.Value.Save();
+                if (SettingSaved != null)
+                    SettingSaved(this, new EventArgs<ISetting>(kv.Value));
             }
         }
 

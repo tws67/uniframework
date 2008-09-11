@@ -25,7 +25,7 @@ namespace Uniframework.Upgrade
         {
             base.AddServices();
 
-            WorkItem.Services.Add<ILiveUpgradeService>(new LiveUpgradeService());
+            WorkItem.Services.AddNew<LiveUpgradeService, ILiveUpgradeService>();
             WorkItem.Items.AddNew<CommandHandlers>("CommandHandlers");
         }
 
@@ -50,7 +50,7 @@ namespace Uniframework.Upgrade
             extend.InsertBefore = "选项(&O)...";
             item.Tag = extend;
 
-            Command cmd = WorkItem.Commands[CommandHandlerNames.ShowUpgradeBuilder];
+            Command cmd = WorkItem.Commands[CommandHandlerNames.CMD_SHOWUPGRADEBUILDER];
             if (cmd != null)
                 cmd.AddInvoker(item, "ItemClick");
             if (WorkItem.UIExtensionSites.Contains(UIExtensionSiteNames.Shell_UI_Mainmenu_Tool))
@@ -83,7 +83,7 @@ namespace Uniframework.Upgrade
             settingItem.LargeImage = ImageService.GetBitmap("download", new System.Drawing.Size(32, 32));
             settingItem.SmallImage = ImageService.GetBitmap("download", new System.Drawing.Size(16, 16));
             WorkItem.UIExtensionSites[UIExtensionSiteNames.Shell_UI_NaviPane_DefaultSetting].Add(settingItem);
-            Command cmd = WorkItem.Commands[CommandHandlerNames.ShowUpgradeSettingView];
+            Command cmd = WorkItem.Commands[CommandHandlerNames.CMD_SHOWUPGRADESETTINGVIEW];
             if (cmd != null)
                 cmd.AddInvoker(settingItem, "LinkClicked");
         }

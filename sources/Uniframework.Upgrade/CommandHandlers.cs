@@ -19,7 +19,7 @@ namespace Uniframework.Upgrade
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.ShowUpgradeBuilder)]
+        [CommandHandler(CommandHandlerNames.CMD_SHOWUPGRADEBUILDER)]
         public void OnShowUpgradeBuilder(object sender, EventArgs e)
         {
             UpgradeBuilderView view = WorkItem.SmartParts.AddNew<UpgradeBuilderView>();
@@ -38,7 +38,7 @@ namespace Uniframework.Upgrade
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.ShowUpgradeSettingView)]
+        [CommandHandler(CommandHandlerNames.CMD_SHOWUPGRADESETTINGVIEW)]
         public void OnShowUpgradeSettingView(object sender, EventArgs e)
         {
             UpgradeSettingView view = WorkItem.SmartParts.Get<UpgradeSettingView>("UpgradeSettingView");
@@ -57,7 +57,7 @@ namespace Uniframework.Upgrade
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.CheckUpgrade)]
+        [CommandHandler(CommandHandlerNames.CMD_CHECKUPGRADE)]
         public void OnCheckUpgrade(object sender, EventArgs e)
         {
             ILiveUpgradeService upgradeService = WorkItem.Services.Get<ILiveUpgradeService>();

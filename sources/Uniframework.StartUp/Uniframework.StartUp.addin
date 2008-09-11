@@ -181,7 +181,12 @@
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/File" label="文件菜单" buildstartup="true">
-      <Item id="Exit" name="mmifExit" label="退出(&amp;X)" command="Uniframework.Exit" classname="XtraButtonItem" imagefile="${exit}"/>
+      <Item id="Exit" 
+            name="mmifExit" 
+            label="退出(&amp;X)" 
+            command="/Shell/Module/Foundation/Exit" 
+            classname="XtraButtonItem" 
+            imagefile="${exit}"/>
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
@@ -200,7 +205,7 @@
       <Item id="Setting" 
             name="mmivSetting" 
             label="选项(&amp;O)..." 
-            command="Uniframework.Setting" 
+            command="/Shell/Module/Foundation/Setting" 
             classname="XtraButtonItem" 
             imagefile="${preferences}" 
             begingroup="true"
@@ -208,72 +213,4 @@
     </Path>
     
   </AddIns>
-  <!--<AddIns>
-    <Path name="/SHELL" label="LightweightCTi" buildstartup="true">
-      <Item id="Mainmenu" name="MainmenuBar" label="主菜单" command="" classname="Bar" register="true" show="true"/>
-    </Path>
-
-    <Path name="/SHELL/Mainmenu" label="主菜单" buildstartup="true">
-      <Item id="File" name="mmFile" label="文件(&amp;F)" classname="ButtonItem" command="" register="true">
-        <Item id="FileNew" name="mmifNew" label="新建(&amp;N)..." classname="ButtonItem" command="LightweightCTI.ClickMe" shortcut="CtrlN"/>
-        <Item id="FileOpen" name="mmifOpen" label="打开(&amp;O)..." classname="ButtonItem" command="" shortcut="CtrlO"/>
-        <Item id="FileSave" name="mmifSave" label="保存(&amp;S)" classname="ButtonItem" command="" shortcut="F2"/>
-        <Item id="FileSaveAs" name="mmifSaveAs" label="另存为(&amp;A)..." classname="ButtonItem" command="" shortcut="CtrlS"/>
-        <Item id="FilePrit" name="mmifPrint" label="打印(&amp;P)..." classname="ButtonItem" command="" shortcut="CtrlP" begingroup="true"/>
-        <Item id="FileQuickPrint" name="mmifQuickPrint" label="快速打印(&amp;Q)" classname="ButtonItem" command="" shortcut="F9"/>
-        <Item id="FilePreview" name="mmifPreviewFile" label="打印预览(&amp;V)" classname="ButtonItem" command=""/>
-        <Item id="FileImport" name="mmifImport" label="导入(&amp;I)..." classname="ButtonItem" command="" shortcut="CtrlI" begingroup="true"/>
-        <Item id="FileExport" name="mmifExport" label="导出(&amp;E)..." classname="ButtonItem" command="" shortcut="CtrlE"/>
-        <Item id="FileExit" name="mmifExit" label="退出(&amp;X)..." classname="ButtonItem" command="" begingroup="true" imagefile="${Icons.16X16.Exit}"/>
-      </Item>
-      <Item id="Edit" name="mmEdit" label="编辑(&amp;E)" classname="ButtonItem" command="" register="true">
-        <Item id="EitRedo" name="mmieRedo" label="重做(&amp;R)" classname="ButtonItem" command="" shortcut="CtrlShiftZ"/>
-        <Item id="EitUndo" name="mmieUndo" label="撤销(&amp;O)" classname="ButtonItem" command="" shortcut="CtrlZ"/>
-        <Item id="EitCopy" name="mmieCopy" label="复制(&amp;C)" classname="ButtonItem" command="" shortcut="CtrlC" begingroup="true"/>
-        <Item id="EitCut" name="mmieCut" label="剪切(&amp;T)" classname="ButtonItem" command="" shortcut="CtrlX"/>
-        <Item id="EitPaste" name="mmiePaste" label="粘帖(&amp;P)" classname="ButtonItem" command="" shortcut="CtrlV"/>
-        <Item id="EitSelectAll" name="mmieSelectAll" label="全部选择(&amp;A)" classname="ButtonItem" command="" shortcut="CtrlA" begingroup="true"/>
-        <Item id="EitSearch" name="mmieSearch" label="查询(&amp;S)..." classname="ButtonItem" command="" shortcut="CtrlF" begingroup="true"/>
-      </Item>
-      <Item id="View" name="mmivView" label="视图(&amp;V)" classname="ButtonItem" command="" register="true">
-        <Item id="ViewToolbar" name="mmivToolbar" label="工具栏(&amp;T)" classname="ButtonItem" command=""/>
-        <Item id="ViewNavigationPane" name="mmivNavigationPane" label="导航栏(&amp;N)" classname="ButtonItem" command=""/>
-        <Item id="ViewStatusbar" name="mmivStatusbar" label="状态栏(&amp;S)" classname="ButtonItem" command=""/>
-        <Item id="ViewShowNetworkStatus" name="mmivShowNetworkStatus" label="显示网络连接状态(&amp;W)" classname="ButtonItem" command="LightweightCTI.ClickMe" begingroup="true" checked="true" imagefile="${Icons.16X16.Security}"/>
-      </Item>
-      <Item id="Help" name="mmHelp" label="帮助(&amp;H)" classname="ButtonItem" command="" register="true">
-        <Item id="HelpIndex" name="mmihIndex" label="索引(&amp;I)" classname="ButtonItem" command="" shortcut="F1"/>
-        <Item id="HelpContent" name="mmihContent" label="目录(&amp;C)" classname="ButtonItem" command=""/>
-        <Item id="HelpTutorial" name="mmihTutorial" label="入门指南(&amp;L)" classname="ButtonItem" command=""/>
-        <Item id="HelpTips" name="mmihTips" label="每日一帖(&amp;T)..." classname="ButtonItem" command="" shortcut="CtrlShiftT"/>
-        <Item id="HelpRegister" name="mmihRegister" label="注册本产品(&amp;R)..." classname="ButtonItem" command="" begingroup="true"/>
-        <Item id="HelpUpgrade" name="mmihUpgrade" label="在线更新(&amp;U)" classname="ButtonItem" command="" begingroup="true"/>
-        <Item id="HelpHomepage" name="mmihHomepage" label="访问产品主页(&amp;H)" classname="ButtonItem" command=""/>
-        <Item id="HelpContact" name="mmihContact" label="联系作者(&amp;O)" classname="ButtonItem" command=""/>
-        <Item id="HelpAbout" name="mmihAbout" label="关于(&amp;A)..." classname="ButtonItem" command="" begingroup="true"/>
-      </Item>
-    </Path>
-
-    <Path name="/SHELL" buildstartup="true">
-      <Item id="NaviPane" name="NaviPaneWorkspace" label="导航栏" classname="NavigationPaneWorkspace">
-        <Item id="Configuration" name="ConfigurationItemPanel" label="系统设置管理" classname="ItemPanel" imagefile="${Icons.32X32.Setup}" workspace="NaviPane"/>
-        <Item id="MyWorkspace" name="MyWorkspace" label="我的工作区" classname="ItemPanel" imagefile="${Icons.32X32.Folderlin}" workspace="NaviPane">
-          <Item id="ABC" name="ABC" label="我的日历项目" classname="ButtonItem" command="LightweightCTI.ClickMe" imagefile="${Icons.32X32.Date}" imageposition="Top"/>
-          <Item id="ABD" name="ABD" label="我的待办任务" classname="ButtonItem" command="LightweightCTI.ClickMe" imagefile="${Icons.32X32.Setup}" imageposition="Top"/>
-          <Item id="ABE" name="ABE" label="我的工作邮件" classname="ButtonItem" command="LightweightCTI.ClickMe" imagefile="Icons.32X32.Date.png" imageposition="Top"/>
-          <Item id="ABF" name="ABF" label="企业联系对象" classname="ButtonItem" command="LightweightCTI.ClickMe" imagefile="${Icons.32X32.Refresh}" imageposition="Top"/>
-        </Item>
-      </Item>
-    </Path>
-    
-    <Path name="/SHELL/Workspace" buildstartup="true">
-      <Item id="Dockable" name="DockableWorkspace" Label="导航栏" classname="DockableWindowWorkspace" alias="Siderbar">
-        --><!--<Item id="UserView0" name="UserView0" label="UserView0" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Right" show="true"/>
-        <Item id="UserView3" name="UserView3" label="UserView3" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Right" show="true"/>
-        <Item id="UserView4" name="UserView4" label="UserView4" classname="SmartPart" type="SmartClient.UserView, SmartClient" imagefile="Icons.16X16.Setup" workspace="DockableWorkspace" dockside="Bottom" show="true"/>--><!--
-      </Item>
-      <Item id="Document" name="DocumentWorkspace" label="工作区" classname="TabbedDocumentWorkspace" alias="Main">
-      </Item>
-    </Path>
-  </AddIns>-->
 </configuration>

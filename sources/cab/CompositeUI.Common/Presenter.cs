@@ -36,6 +36,11 @@ namespace Microsoft.Practices.CompositeUI.Common
         }
 
         /// <summary>
+        /// 视图准备好方法用于在Presenter中初始化视图
+        /// </summary>
+        public virtual void OnViewReady() { }
+
+        /// <summary>
         /// 设置视图
         /// </summary>
         /// <param name="view">视图实例</param>

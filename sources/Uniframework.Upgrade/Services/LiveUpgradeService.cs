@@ -10,6 +10,8 @@ using System.Threading;
 using System.Windows.Forms;
 
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
+using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Services;
 using DevExpress.XtraEditors;
@@ -20,49 +22,62 @@ namespace Uniframework.Upgrade
     /// <summary>
     /// 本地更新服务
     /// </summary>
+    [Service]
     public class LiveUpgradeService : ILiveUpgradeService, IDisposable
     {
         private readonly static string UPGRADELAUNCH_FILE = "UpgradeLaunch.exe";
         private readonly static string LIVEUPGRADE_SECTION = "LiveUpgrade";
 
         private WorkItem workItem;
+        private IPropertyService propertyService;
         private IUpgradeService upgradeService;
-        private Thread thread;
-        private bool abort = false;
-        private int UPGRADE_INTERVAL = 1800;
+        private UpgradeDetecter detecter;
 
-        public LiveUpgradeService()
+        [InjectionConstructor]
+        public LiveUpgradeService([ServiceDependency]WorkItem workItem, [ServiceDependency]IPropertyService propertyService)
         {
+            this.workItem = workItem;
+            this.propertyService = propertyService;
+
             LiveUpgradeConfigurationSection cs = ConfigurationManager.GetSection(LIVEUPGRADE_SECTION) as LiveUpgradeConfigurationSection;
-            if (cs != null)
+            UpgradeSetting setting = GetSetting();
+            if (cs != null && setting != null)
             {
-                thread = new Thread(new ThreadStart(StartUpgradeDetect));
-                thread.IsBackground = true;
-                thread.Start();
+                detecter = new UpgradeDetecter(this);
+                if (setting.CheckInterval > 0) {
+                    detecter.CheckInterval = setting.CheckInterval;
+                    detecter.Start();
+                }
             }
         }
 
-        #region Dependency services
-
-        [ServiceDependency]
-        public WorkItem WorkItem
+        /// <summary>
+        /// 接收系统配置项改变事件并做出相应的反映
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Uniframework.SmartClient.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        [EventSubscription(EventNames.Shell_PropertyChanged, ThreadOption.Background)]
+        public void OnUpgradeSettingChanged(object sender, Uniframework.SmartClient.PropertyChangedEventArgs e)
         {
-            get { return workItem; }
-            set { workItem = value; }
+            UpgradeSetting setting = e.Property.Current as UpgradeSetting;
+            if (setting != null && detecter != null) {
+                if (setting.CheckInterval > 0) {
+                    detecter.CheckInterval = setting.CheckInterval;
+                    if (detecter.IsRun != true)
+                        detecter.Start();
+                }
+                else
+                    detecter.Stop();
+            }
         }
+        
+        #region Dependency services
 
         [ServiceDependency]
         public IUpgradeService UpgradeService
         {
             get { return upgradeService; }
             set { upgradeService = value; }
-        }
-
-        [ServiceDependency]
-        public IPropertyService PropertyService
-        {
-            get;
-            set;
         }
 
         #endregion
@@ -102,33 +117,6 @@ namespace Uniframework.Upgrade
         }
 
         /// <summary>
-        /// 服务器端系统升级更新订阅程序
-        /// </summary>
-        /// <param name="sender">事件触发者</param>
-        /// <param name="e">事件参数</param>
-        [EventSubscriber("TOPIC://Upgrade/UpgradeProjectCreated")]
-        public void OnUpgradeProjectCreated(object sender, EventArgs<UpgradeProject> e)
-        {
-            if (UpgradeSetting.ReciveUpgradeMessage)
-                UpgradeNotify(e.Data);
-        }
-
-        #endregion
-
-        #region Assistant functions
-
-        private void StartUpgradeDetect()
-        {
-            while (!abort)
-            {
-                Thread.Sleep(UPGRADE_INTERVAL);
-                UpgradeProject proj = GetValidUpgradeProject();
-                if (proj != null)
-                    UpgradeNotify(proj);
-            }
-        }
-
-        /// <summary>
         /// 系统升级提示
         /// </summary>
         /// <param name="project"></param>
@@ -146,6 +134,23 @@ namespace Uniframework.Upgrade
                 }
             }
         }
+
+        /// <summary>
+        /// 服务器端系统升级更新订阅程序
+        /// </summary>
+        /// <param name="sender">事件触发者</param>
+        /// <param name="e">事件参数</param>
+        [EventSubscriber("TOPIC://Upgrade/UpgradeProjectCreated")]
+        public void OnUpgradeProjectCreated(object sender, EventArgs<UpgradeProject> e)
+        {
+            UpgradeSetting setting = GetSetting();
+            if (setting != null && setting.ReciveUpgradeMessage)
+                UpgradeNotify(e.Data);
+        }
+
+        #endregion
+
+        #region Assistant functions
 
         /// <summary>
         /// 重启程序
@@ -177,17 +182,16 @@ namespace Uniframework.Upgrade
                 fs.Write(buffer, 0, buffer.Length);
                 fs.Close();
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
-        private UpgradeSetting UpgradeSetting
+        private UpgradeSetting GetSetting()
         {
-            get {
-                return PropertyService.Get<UpgradeSetting>(UIExtensionSiteNames.Shell_Property_Upgrade, new UpgradeSetting());
+            IPropertyService service = workItem.Services.Get<IPropertyService>();
+            if (service != null) {
+                return service.Get<UpgradeSetting>(UIExtensionSiteNames.Shell_Property_Upgrade, new UpgradeSetting());
             }
+            return new UpgradeSetting();
         }
 
         #endregion
@@ -196,7 +200,7 @@ namespace Uniframework.Upgrade
 
         public void Dispose()
         {
-            abort = true;
+            detecter.Stop();
         }
 
         #endregion

@@ -53,7 +53,7 @@ namespace Uniframework.StartUp
         static void Main()
         {
             BonusSkins.Register();
-            OfficeSkins.Register();
+            //OfficeSkins.Register();
             SkinManager.EnableFormSkins();
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-CN");
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");

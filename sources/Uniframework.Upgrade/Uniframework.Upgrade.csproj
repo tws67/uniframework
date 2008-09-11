@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Services\ILiveUpgradeService.cs" />
     <Compile Include="Services\LiveUpgradeService.cs" />
+    <Compile Include="Services\UpgradeDetecter.cs" />
     <Compile Include="UpgradeController.cs" />
     <Compile Include="UpgradeProcess.cs">
       <SubType>Form</SubType>

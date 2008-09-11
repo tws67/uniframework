@@ -32,7 +32,9 @@ namespace Uniframework.Upgrade.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpgradeBuilderView));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.lvItems = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.lvGroups = new System.Windows.Forms.ListView();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.txtTarget = new DevExpress.XtraEditors.TextEdit();
             this.txtGroupName = new DevExpress.XtraEditors.TextEdit();
             this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
@@ -130,47 +132,61 @@ namespace Uniframework.Upgrade.Views
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(765, 484);
+            this.layoutControl1.Size = new System.Drawing.Size(681, 484);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // lvItems
             // 
+            this.lvItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.lvItems.FullRowSelect = true;
-            this.lvItems.Location = new System.Drawing.Point(326, 360);
+            this.lvItems.Location = new System.Drawing.Point(326, 363);
             this.lvItems.Name = "lvItems";
-            this.lvItems.Size = new System.Drawing.Size(430, 115);
+            this.lvItems.Size = new System.Drawing.Size(346, 112);
             this.lvItems.TabIndex = 24;
             this.lvItems.UseCompatibleStateImageBehavior = false;
-            this.lvItems.View = System.Windows.Forms.View.List;
+            this.lvItems.View = System.Windows.Forms.View.Details;
             this.lvItems.SelectedIndexChanged += new System.EventHandler(this.lvItems_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "项目名称";
+            this.columnHeader1.Width = 316;
             // 
             // lvGroups
             // 
+            this.lvGroups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
             this.lvGroups.FullRowSelect = true;
-            this.lvGroups.Location = new System.Drawing.Point(10, 296);
+            this.lvGroups.Location = new System.Drawing.Point(10, 299);
             this.lvGroups.Name = "lvGroups";
-            this.lvGroups.Size = new System.Drawing.Size(305, 179);
+            this.lvGroups.Size = new System.Drawing.Size(305, 176);
             this.lvGroups.TabIndex = 23;
             this.lvGroups.UseCompatibleStateImageBehavior = false;
-            this.lvGroups.View = System.Windows.Forms.View.List;
+            this.lvGroups.View = System.Windows.Forms.View.Details;
             this.lvGroups.SelectedIndexChanged += new System.EventHandler(this.lvGroups_SelectedIndexChanged);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "升级组";
+            this.columnHeader2.Width = 274;
             // 
             // txtTarget
             // 
             this.txtTarget.EnterMoveNextControl = true;
-            this.txtTarget.Location = new System.Drawing.Point(419, 328);
+            this.txtTarget.Location = new System.Drawing.Point(419, 331);
             this.txtTarget.Name = "txtTarget";
-            this.txtTarget.Size = new System.Drawing.Size(337, 21);
+            this.txtTarget.Size = new System.Drawing.Size(253, 21);
             this.txtTarget.StyleController = this.layoutControl1;
             this.txtTarget.TabIndex = 20;
             // 
             // txtGroupName
             // 
             this.txtGroupName.EnterMoveNextControl = true;
-            this.txtGroupName.Location = new System.Drawing.Point(419, 296);
+            this.txtGroupName.Location = new System.Drawing.Point(419, 299);
             this.txtGroupName.Name = "txtGroupName";
-            this.txtGroupName.Size = new System.Drawing.Size(337, 21);
+            this.txtGroupName.Size = new System.Drawing.Size(253, 21);
             this.txtGroupName.StyleController = this.layoutControl1;
             this.txtGroupName.TabIndex = 19;
             // 
@@ -179,7 +195,7 @@ namespace Uniframework.Upgrade.Views
             this.standaloneBarDockControl2.AutoSizeInLayoutControl = true;
             this.standaloneBarDockControl2.Location = new System.Drawing.Point(326, 261);
             this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
-            this.standaloneBarDockControl2.Size = new System.Drawing.Size(430, 24);
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(141, 27);
             this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
             // 
             // standaloneBarDockControl1
@@ -192,7 +208,7 @@ namespace Uniframework.Upgrade.Views
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(648, 205);
+            this.btnUpload.Location = new System.Drawing.Point(564, 205);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(111, 23);
             this.btnUpload.StyleController = this.layoutControl1;
@@ -204,7 +220,7 @@ namespace Uniframework.Upgrade.Views
             // 
             this.txtDescription.Location = new System.Drawing.Point(103, 125);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(653, 66);
+            this.txtDescription.Size = new System.Drawing.Size(569, 66);
             this.txtDescription.StyleController = this.layoutControl1;
             this.txtDescription.TabIndex = 9;
             // 
@@ -233,7 +249,7 @@ namespace Uniframework.Upgrade.Views
             this.txtUpgradeUrl.Name = "txtUpgradeUrl";
             this.txtUpgradeUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtUpgradeUrl.Size = new System.Drawing.Size(653, 21);
+            this.txtUpgradeUrl.Size = new System.Drawing.Size(569, 21);
             this.txtUpgradeUrl.StyleController = this.layoutControl1;
             this.txtUpgradeUrl.TabIndex = 5;
             // 
@@ -244,7 +260,7 @@ namespace Uniframework.Upgrade.Views
             this.txtStartUpApp.Name = "txtStartUpApp";
             this.txtStartUpApp.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.txtStartUpApp.Size = new System.Drawing.Size(653, 21);
+            this.txtStartUpApp.Size = new System.Drawing.Size(569, 21);
             this.txtStartUpApp.StyleController = this.layoutControl1;
             this.txtStartUpApp.TabIndex = 4;
             this.txtStartUpApp.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.txtStartUpApp_ButtonClick);
@@ -259,7 +275,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem6});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(765, 484);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(681, 484);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -276,7 +292,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem3});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(763, 198);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(679, 198);
             this.layoutControlGroup2.Text = "升级项目基本信息";
             // 
             // layoutControlItem1
@@ -285,7 +301,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem1.CustomizationFormText = "项目主程序:";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(757, 32);
+            this.layoutControlItem1.Size = new System.Drawing.Size(673, 32);
             this.layoutControlItem1.Text = "项目主程序:";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(88, 20);
@@ -296,7 +312,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem2.CustomizationFormText = "升级服务器地址:";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 32);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(757, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(673, 32);
             this.layoutControlItem2.Text = "升级服务器地址:";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(88, 20);
@@ -334,7 +350,7 @@ namespace Uniframework.Upgrade.Views
             this.emptySpaceItem3.CustomizationFormText = "emptySpaceItem3";
             this.emptySpaceItem3.Location = new System.Drawing.Point(513, 64);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(244, 32);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(160, 32);
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -346,7 +362,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem3.MaxSize = new System.Drawing.Size(0, 77);
             this.layoutControlItem3.MinSize = new System.Drawing.Size(114, 77);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(757, 77);
+            this.layoutControlItem3.Size = new System.Drawing.Size(673, 77);
             this.layoutControlItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem3.Text = "说明:";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
@@ -364,7 +380,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem8});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 232);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(763, 250);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(679, 250);
             this.layoutControlGroup3.Text = "升级项目分组信息";
             // 
             // layoutControlItem7
@@ -375,7 +391,7 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem7.MaxSize = new System.Drawing.Size(316, 35);
             this.layoutControlItem7.MinSize = new System.Drawing.Size(316, 35);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(316, 35);
+            this.layoutControlItem7.Size = new System.Drawing.Size(316, 38);
             this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem7.Text = "layoutControlItem7";
             this.layoutControlItem7.TextLocation = DevExpress.Utils.Locations.Left;
@@ -388,11 +404,8 @@ namespace Uniframework.Upgrade.Views
             this.layoutControlItem9.Control = this.standaloneBarDockControl2;
             this.layoutControlItem9.CustomizationFormText = "layoutControlItem9";
             this.layoutControlItem9.Location = new System.Drawing.Point(316, 0);
-            this.layoutControlItem9.MaxSize = new System.Drawing.Size(441, 35);
-            this.layoutControlItem9.MinSize = new System.Drawing.Size(441, 35);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(441, 35);
-            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem9.Size = new System.Drawing.Size(357, 38);
             this.layoutControlItem9.Text = "layoutControlItem9";
             this.layoutControlItem9.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
@@ -403,9 +416,9 @@ namespace Uniframework.Upgrade.Views
             // 
             this.layoutControlItem11.Control = this.txtGroupName;
             this.layoutControlItem11.CustomizationFormText = "分组名称:";
-            this.layoutControlItem11.Location = new System.Drawing.Point(316, 35);
+            this.layoutControlItem11.Location = new System.Drawing.Point(316, 38);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(441, 32);
+            this.layoutControlItem11.Size = new System.Drawing.Size(357, 32);
             this.layoutControlItem11.Text = "分组名称:";
             this.layoutControlItem11.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem11.TextSize = new System.Drawing.Size(88, 20);
@@ -414,9 +427,9 @@ namespace Uniframework.Upgrade.Views
             // 
             this.layoutControlItem12.Control = this.txtTarget;
             this.layoutControlItem12.CustomizationFormText = "复制目标文件夹:";
-            this.layoutControlItem12.Location = new System.Drawing.Point(316, 67);
+            this.layoutControlItem12.Location = new System.Drawing.Point(316, 70);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(441, 32);
+            this.layoutControlItem12.Size = new System.Drawing.Size(357, 32);
             this.layoutControlItem12.Text = "复制目标文件夹:";
             this.layoutControlItem12.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem12.TextSize = new System.Drawing.Size(88, 20);
@@ -425,9 +438,9 @@ namespace Uniframework.Upgrade.Views
             // 
             this.layoutControlItem13.Control = this.lvGroups;
             this.layoutControlItem13.CustomizationFormText = "layoutControlItem13";
-            this.layoutControlItem13.Location = new System.Drawing.Point(0, 35);
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 38);
             this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(316, 190);
+            this.layoutControlItem13.Size = new System.Drawing.Size(316, 187);
             this.layoutControlItem13.Text = "layoutControlItem13";
             this.layoutControlItem13.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem13.TextSize = new System.Drawing.Size(0, 0);
@@ -438,9 +451,9 @@ namespace Uniframework.Upgrade.Views
             // 
             this.layoutControlItem8.Control = this.lvItems;
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
-            this.layoutControlItem8.Location = new System.Drawing.Point(316, 99);
+            this.layoutControlItem8.Location = new System.Drawing.Point(316, 102);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(441, 126);
+            this.layoutControlItem8.Size = new System.Drawing.Size(357, 123);
             this.layoutControlItem8.Text = "layoutControlItem8";
             this.layoutControlItem8.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
@@ -452,7 +465,7 @@ namespace Uniframework.Upgrade.Views
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 198);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(641, 34);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(557, 34);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -460,7 +473,7 @@ namespace Uniframework.Upgrade.Views
             // 
             this.layoutControlItem6.Control = this.btnUpload;
             this.layoutControlItem6.CustomizationFormText = "layoutControlItem6";
-            this.layoutControlItem6.Location = new System.Drawing.Point(641, 198);
+            this.layoutControlItem6.Location = new System.Drawing.Point(557, 198);
             this.layoutControlItem6.MaxSize = new System.Drawing.Size(122, 34);
             this.layoutControlItem6.MinSize = new System.Drawing.Size(122, 34);
             this.layoutControlItem6.Name = "layoutControlItem6";
@@ -659,7 +672,7 @@ namespace Uniframework.Upgrade.Views
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.Name = "UpgradeBuilderView";
-            this.Size = new System.Drawing.Size(765, 484);
+            this.Size = new System.Drawing.Size(681, 484);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtTarget.Properties)).EndInit();
@@ -746,6 +759,8 @@ namespace Uniframework.Upgrade.Views
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         private System.Windows.Forms.ListView lvItems;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
 
     }
 }
