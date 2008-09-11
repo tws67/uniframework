@@ -48,7 +48,7 @@ namespace Uniframework.Upgrade.Views
 
         #region ISetting Members
 
-        public event EventHandler SettingChanged;
+        public event EventHandler<EventArgs<object>> SettingChanged;
 
         /// <summary>
         /// Gets the property.
@@ -87,6 +87,8 @@ namespace Uniframework.Upgrade.Views
             };
             property.Current = setting;
             PropertyService.Set<UpgradeSetting>(UIExtensionSiteNames.Shell_Property_Upgrade, setting);
+            if (SettingChanged != null)
+                SettingChanged(this, new EventArgs<object>(setting)); // ´¥·¢ÊÂ¼þ
         }
 
         /// <summary>
@@ -96,9 +98,6 @@ namespace Uniframework.Upgrade.Views
         {
             property.SetDefault();
             BindingProperty();
-
-            if (SettingChanged != null)
-                SettingChanged(this, new EventArgs());
         }
 
         #endregion

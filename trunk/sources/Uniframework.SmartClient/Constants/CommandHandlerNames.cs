@@ -10,9 +10,9 @@ namespace Uniframework.SmartClient
     /// </summary>
     public static class CommandHandlerNames
     {
-        public const string CMD_CLICKME = "Uniframework.ClickMe";
-        public const string CMD_EXIT = "Uniframework.Exit";
-        public const string CMD_SETTING = "Uniframework.Setting";
-        public const string CMD_SHOW_SHELLL_LAYOUTSETTING = "Uniframework.Show.ShellLayoutSetting";
+        public const string CMD_CLICKME                   = "/Shell/Module/Foundation/ClickMe";
+        public const string CMD_EXIT                      = "/Shell/Module/Foundation/Exit";
+        public const string CMD_SETTING                   = "/Shell/Module/Foundation/Setting";
+        public const string CMD_SHOW_SHELLL_LAYOUTSETTING = "/Shell/Module/Foundation/Setting/ShellLayout";
     }
 }

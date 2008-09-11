@@ -57,7 +57,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
 
         #region ISetting Members
 
-        public event EventHandler SettingChanged;
+        public event EventHandler<EventArgs<object>> SettingChanged;
 
         /// <summary>
         /// Gets the property.
@@ -138,6 +138,8 @@ namespace Uniframework.SmartClient.WorkItems.Setting
                 ApplySetting(layout); // 应用当前设置
                 Property.Current = layout;
                 PropertyService.Set<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, layout);
+                if (SettingChanged != null)
+                    SettingChanged(this, new EventArgs<object>(layout)); // 触发事件
             }
         }
 
@@ -146,9 +148,6 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             rgLayout.SelectedIndex = 0;
             rgNaviPane.SelectedIndex = 0;
             chkShowStatusBar.Checked = true;
-
-            if (SettingChanged != null)
-                SettingChanged(this, new EventArgs());
         }
 
         #endregion
@@ -190,9 +189,6 @@ namespace Uniframework.SmartClient.WorkItems.Setting
             }
 
             UserLookAndFeel.Default.SetSkinStyle(layout.DefaultSkin);
-
-            if (SettingChanged != null)
-                SettingChanged(this, new EventArgs());
         }
 
         private Form Shell

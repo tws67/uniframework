@@ -33,7 +33,6 @@ namespace Uniframework.StartUp
     public partial class ShellForm : DevExpress.XtraEditors.XtraForm
     {
         private bool online; // 与服务器的连接状态
-        private bool loadedConfiguragion = false;
         private readonly WorkItem workItem;
         private IWorkItemTypeCatalogService workItemTypeCatalog;
         private readonly DockManagerWorkspace dockManagerWorkspace;
@@ -69,11 +68,58 @@ namespace Uniframework.StartUp
             tlabUser.Caption = ui.DispalyName;
         }
 
+        #region Shell form members
+
+        #region Dependency services
+
         [ServiceDependency]
         public IPropertyService PropertyService
         {
             get;
             set;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Called when [request queue changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RequestQueueEventArgs"/> instance containing the event data.</param>
+        public void OnRequestQueueChanged(object sender, RequestQueueEventArgs e)
+        {
+            ChangeRequestQueueSize(e.QueueSize);
+        }
+
+        /// <summary>
+        /// Called when [connection state changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="ConnectionStateChangedEventArgs"/> instance containing the event data.</param>
+        public void OnConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            online = e.CurrentState == Uniframework.Client.ConnectionState.Online;
+            if (e.CurrentState == Uniframework.Client.ConnectionState.Online)
+            {
+                this.Invoke(new EventHandler(delegate
+                {
+                    tbtnNetworkStatus.Glyph = Resources.link;
+                    tbtnNetworkStatus.Hint = "当前状态 - 在线（双击鼠标强制系统离线）";
+                }));
+
+                // 重新注册事件，防止服务器重启丢失挂接的客户端事件
+                ClientEventDispatcher.Instance.RereregisterAllEvent();
+            }
+            else
+            {
+                this.Invoke(new EventHandler(delegate
+                {
+                    tbtnNetworkStatus.Glyph = Resources.link_delete;
+                    tbtnNetworkStatus.Hint = "当前状态 - 离线（双击鼠标强制系统在线）";
+                }));
+            }
+            if (ConnectionStateChanged != null && (e.CurrentState != e.OriginalState))
+                ConnectionStateChanged(e.CurrentState);
         }
 
         /// <summary>
@@ -85,8 +131,6 @@ namespace Uniframework.StartUp
             get { return tlabUser.Caption; }
             set { tlabUser.Caption = value; }
         }
-
-        #region Shell form members
 
         public BarManager BarManager
         {
@@ -125,6 +169,8 @@ namespace Uniframework.StartUp
         }
 
         #endregion
+
+        #region Event brokers
 
         /// <summary>
         /// Called when [status updated].
@@ -173,15 +219,12 @@ namespace Uniframework.StartUp
             ProgressBar.EditValue = e.Data;
         }
 
-        /// <summary>
-        /// Called when [request queue changed].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RequestQueueEventArgs"/> instance containing the event data.</param>
-        public void OnRequestQueueChanged(object sender, RequestQueueEventArgs e)
-        {
-            ChangeRequestQueueSize(e.QueueSize);
-        }
+        [EventPublication(EventNames.Shell_ShellClosing, PublicationScope.Global)]
+        public event EventHandler<CancelEventArgs> ShellClosing;
+
+        #endregion
+
+        #region Assistant functions 
 
         /// <summary>
         /// Changes the size of the request queue.
@@ -215,35 +258,45 @@ namespace Uniframework.StartUp
         }
 
         /// <summary>
-        /// Called when [connection state changed].
+        /// Stores the configuration.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="ConnectionStateChangedEventArgs"/> instance containing the event data.</param>
-        public void OnConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private void StoreConfiguration()
         {
-            online = e.CurrentState == Uniframework.Client.ConnectionState.Online;
-            if (e.CurrentState == Uniframework.Client.ConnectionState.Online)
+            ShellLayout layout = new ShellLayout
             {
-                this.Invoke(new EventHandler(delegate
-                {
-                    tbtnNetworkStatus.Glyph = Resources.link;
-                    tbtnNetworkStatus.Hint = "当前状态 - 在线（双击鼠标强制系统离线）";
-                }));
-
-                // 重新注册事件，防止服务器重启丢失挂接的客户端事件
-                ClientEventDispatcher.Instance.RereregisterAllEvent();
-            }
-            else
-            {
-                this.Invoke(new EventHandler(delegate
-                {
-                    tbtnNetworkStatus.Glyph = Resources.link_delete;
-                    tbtnNetworkStatus.Hint = "当前状态 - 离线（双击鼠标强制系统在线）";
-                }));
-            }
-            if (ConnectionStateChanged != null && (e.CurrentState != e.OriginalState))
-                ConnectionStateChanged(e.CurrentState);
+                Location = this.Location,
+                Size = this.Size,
+                WindowState = this.WindowState,
+                NavPaneState = NaviWorkspace.OptionsNavPane.NavPaneState,
+                NavPaintStyleName = NaviWorkspace.PaintStyleName,
+                DefaultSkin = UserLookAndFeel.Default.ActiveSkinName,
+                ShowStatusBar = StatusBar.Visible,
+                WindowLayoutMode = TabbedMdiManager.MdiParent == null ? WindowLayoutMode.Windowed : WindowLayoutMode.Tabbed
+            };
+            PropertyService.Set<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, layout);
         }
+
+        /// <summary>
+        /// Restores the configuration.
+        /// </summary>
+        private void RestoreConfiguration()
+        {
+            // 设置窗口位置
+            ShellLayout layout = PropertyService.Get<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, null);
+            if (layout != null) {
+                StartPosition = FormStartPosition.WindowsDefaultLocation;
+                this.Location = layout.Location;
+                this.Size = layout.Size;
+                this.WindowState = layout.WindowState;
+                this.NaviWorkspace.OptionsNavPane.NavPaneState = layout.NavPaneState;
+                this.NaviWorkspace.PaintStyleName = layout.NavPaintStyleName;
+                this.StatusBar.Visible = layout.ShowStatusBar;
+                this.TabbedMdiManager.MdiParent = layout.WindowLayoutMode == WindowLayoutMode.Tabbed ? this : null;
+                UserLookAndFeel.Default.SetSkinStyle(layout.DefaultSkin);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Handles the Load event of the ShellForm control.
@@ -253,7 +306,7 @@ namespace Uniframework.StartUp
         private void ShellForm_Load(object sender, EventArgs e)
         {
             BarLocalizer.Active = new ChineseXtraBarsCustomizationLocalizer();
-            this.Activated +=new EventHandler(ShellForm_Activated);
+            RestoreConfiguration();
 
             base.Activate();
             base.BringToFront();
@@ -276,42 +329,20 @@ namespace Uniframework.StartUp
         /// <param name="e">The <see cref="System.Windows.Forms.FormClosedEventArgs"/> instance containing the event data.</param>
         private void ShellForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ShellLayout layout = new ShellLayout { 
-                Location = this.Location,
-                Size = this.Size,
-                WindowState = this.WindowState,
-                NavPaneState = NaviWorkspace.OptionsNavPane.NavPaneState,
-                NavPaintStyleName = NaviWorkspace.PaintStyleName,
-                DefaultSkin = UserLookAndFeel.Default.ActiveSkinName,
-                ShowStatusBar = StatusBar.Visible,
-                WindowLayoutMode = TabbedMdiManager.MdiParent == null ? WindowLayoutMode.Windowed : WindowLayoutMode.Tabbed
-            };
-            PropertyService.Set<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, layout);
+            StoreConfiguration();
         }
 
         /// <summary>
-        /// Handles the Activated event of the ShellForm control.
+        /// Handles the FormClosing event of the ShellForm control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ShellForm_Activated(object sender, EventArgs e)
+        /// <param name="e">The <see cref="System.Windows.Forms.FormClosingEventArgs"/> instance containing the event data.</param>
+        private void ShellForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!loadedConfiguragion) {
-                // 设置窗口位置
-                ShellLayout layout = PropertyService.Get<ShellLayout>(UIExtensionSiteNames.Shell_Property_ShellLayout, null);
-                if (layout != null)
-                {
-                    StartPosition = FormStartPosition.WindowsDefaultLocation;
-                    this.Location = layout.Location;
-                    this.Size = layout.Size;
-                    this.WindowState = layout.WindowState;
-                    this.NaviWorkspace.OptionsNavPane.NavPaneState = layout.NavPaneState;
-                    this.NaviWorkspace.PaintStyleName = layout.NavPaintStyleName;
-                    this.StatusBar.Visible = layout.ShowStatusBar;
-                    this.TabbedMdiManager.MdiParent = layout.WindowLayoutMode == WindowLayoutMode.Tabbed ? this : null;
-                    UserLookAndFeel.Default.SetSkinStyle(layout.DefaultSkin);
-                }
-                loadedConfiguragion = true;
+            if (ShellClosing != null) {
+                CancelEventArgs eventArgs = new CancelEventArgs();
+                ShellClosing(this, eventArgs);
+                e.Cancel = eventArgs.Cancel;
             }
         }
     }

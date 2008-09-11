@@ -27,7 +27,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         /// <value>The current.</value>
         public ISetting Current { get; private set; }
 
-        [EventSubscription(EventNames.Uniframework_SettingViewChanged)]
+        [EventSubscription(EventNames.Shell_SettingViewChanged)]
         public void OnShowSettingView(object sender, EventArgs<ISetting> e)
         {
             if (e.Data != null) {

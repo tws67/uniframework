@@ -13,7 +13,7 @@ namespace Uniframework.SmartClient
         /// <summary>
         /// Occurs when [setting changed].
         /// </summary>
-        event EventHandler SettingChanged;
+        event EventHandler<EventArgs<object>> SettingChanged;
 
         /// <summary>
         /// Gets the property.

@@ -104,7 +104,7 @@ namespace Uniframework.SmartClient
         /// <summary>
         /// Occurs when [property changed].
         /// </summary>
-        [EventPublication(EventNames.Uniframework_PropertyChanged, PublicationScope.Global)]
+        [EventPublication(EventNames.Shell_PropertyChanged, PublicationScope.Global)]
         public event EventHandler<PropertyChangedEventArgs> PropertyChanged;
 
         protected void OnPropertyChanged(PropertyChangedEventArgs e)

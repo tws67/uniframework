@@ -123,6 +123,13 @@
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
+    <Compile Include="Views\AboutPresenter.cs" />
+    <Compile Include="Views\frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Setting\ISetting.cs" />
     <Compile Include="WorkItems\Setting\ISettingService.cs" />
     <Compile Include="WorkItems\Setting\SettingPresenter.cs" />
@@ -173,6 +180,9 @@
     <Content Include="AddIns\Sample.addin" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Setting\SettingView.resx">
       <DependentUpon>SettingView.cs</DependentUpon>
     </EmbeddedResource>
