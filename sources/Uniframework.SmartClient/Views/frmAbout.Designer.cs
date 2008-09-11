@@ -91,7 +91,7 @@ namespace Uniframework.SmartClient.Views
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(269, 66);
+            this.labelControl3.Location = new System.Drawing.Point(274, 66);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(91, 14);
             this.labelControl3.TabIndex = 5;
@@ -99,7 +99,7 @@ namespace Uniframework.SmartClient.Views
             // 
             // labNetVersion
             // 
-            this.labNetVersion.Location = new System.Drawing.Point(366, 66);
+            this.labNetVersion.Location = new System.Drawing.Point(371, 66);
             this.labNetVersion.Name = "labNetVersion";
             this.labNetVersion.Size = new System.Drawing.Size(89, 14);
             this.labNetVersion.TabIndex = 6;
@@ -112,6 +112,7 @@ namespace Uniframework.SmartClient.Views
             this.btnCopyInfo.Size = new System.Drawing.Size(75, 23);
             this.btnCopyInfo.TabIndex = 8;
             this.btnCopyInfo.Text = "复制(&C)";
+            this.btnCopyInfo.Click += new System.EventHandler(this.btnCopyInfo_Click);
             // 
             // labelControl4
             // 
@@ -151,8 +152,9 @@ namespace Uniframework.SmartClient.Views
             this.btnOK.Location = new System.Drawing.Point(465, 226);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 13;
+            this.btnOK.TabIndex = 0;
             this.btnOK.Text = "确定(&O)";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnSysInfo
             // 
@@ -161,6 +163,7 @@ namespace Uniframework.SmartClient.Views
             this.btnSysInfo.Size = new System.Drawing.Size(75, 23);
             this.btnSysInfo.TabIndex = 14;
             this.btnSysInfo.Text = "系统信息(&S)";
+            this.btnSysInfo.Click += new System.EventHandler(this.btnSysInfo_Click);
             // 
             // labWarning
             // 
@@ -176,16 +179,18 @@ namespace Uniframework.SmartClient.Views
             this.lvModules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.lvModules.FullRowSelect = true;
             this.lvModules.Location = new System.Drawing.Point(10, 106);
             this.lvModules.Name = "lvModules";
             this.lvModules.Size = new System.Drawing.Size(449, 86);
             this.lvModules.TabIndex = 16;
+            this.lvModules.TabStop = false;
             this.lvModules.UseCompatibleStateImageBehavior = false;
             this.lvModules.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "模块名称";
+            this.columnHeader1.Text = "已加载的插件";
             this.columnHeader1.Width = 308;
             // 
             // columnHeader2
@@ -195,6 +200,7 @@ namespace Uniframework.SmartClient.Views
             // 
             // frmAbout
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 290);
@@ -221,6 +227,7 @@ namespace Uniframework.SmartClient.Views
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "关于";
+            this.Load += new System.EventHandler(this.frmAbout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TopPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

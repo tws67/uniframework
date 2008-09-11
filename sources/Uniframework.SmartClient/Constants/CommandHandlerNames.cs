@@ -12,6 +12,7 @@ namespace Uniframework.SmartClient
     {
         public const string CMD_CLICKME                   = "/Shell/Module/Foundation/ClickMe";
         public const string CMD_EXIT                      = "/Shell/Module/Foundation/Exit";
+        public const string CMD_ABOUT                     = "/Shell/Module/Foundation/About";
         public const string CMD_SETTING                   = "/Shell/Module/Foundation/Setting";
         public const string CMD_SHOW_SHELLL_LAYOUTSETTING = "/Shell/Module/Foundation/Setting/ShellLayout";
     }

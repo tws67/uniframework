@@ -211,6 +211,13 @@
             begingroup="true"
             shortcut="CtrlO"/>
     </Path>
-    
+
+    <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">
+      <Item id="About"
+            name="mmihShowAbout"
+            label="关于本框架(&amp;A)..."
+            command="/Shell/Module/Foundation/About"
+            classname="XtraButtonItem"/>
+    </Path>
   </AddIns>
 </configuration>
