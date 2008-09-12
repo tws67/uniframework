@@ -245,7 +245,7 @@ namespace Uniframework.StartUp
                 item.LargeImage = imageService.GetBitmap("cubes", new System.Drawing.Size(32, 32));
                 item.SmallImage = imageService.GetBitmap("cubes", new System.Drawing.Size(16, 16));
                 RootWorkItem.UIExtensionSites[UIExtensionSiteNames.Shell_UI_NaviPane_DefaultSetting].Add(item);
-                Microsoft.Practices.CompositeUI.Commands.Command cmd = RootWorkItem.Commands[CommandHandlerNames.CMD_SHOW_SHELLL_LAYOUTSETTING];
+                Microsoft.Practices.CompositeUI.Commands.Command cmd = RootWorkItem.Commands[CommandHandlerNames.CMD_SHOW_LAYOUTSETTING];
                 if (cmd != null)
                     cmd.AddInvoker(item, "LinkClicked");
                 cmd.Execute();

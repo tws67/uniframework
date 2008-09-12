@@ -213,11 +213,18 @@
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">
+      <Item id="DynamicHelp"
+            name="mmihShowDynamicHelp"
+            label="动态帮助(&amp;D)"
+            command="/Shell/Module/Foundation/ShowDynamicHelp"
+            classname="XtraButtonItem"/>
+      
       <Item id="About"
             name="mmihShowAbout"
             label="关于本框架(&amp;A)..."
             command="/Shell/Module/Foundation/About"
-            classname="XtraButtonItem"/>
+            classname="XtraButtonItem"
+            begingroup="true"/>
     </Path>
   </AddIns>
 </configuration>

@@ -57,7 +57,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.CMD_SHOW_SHELLL_LAYOUTSETTING)]
+        [CommandHandler(CommandHandlerNames.CMD_SHOW_DYNAMICHELP)]
         public void OnShowShellLayoutSetting(object sender, EventArgs e)
         {
             ShellLayoutSettingView view = WorkItem.SmartParts.Get<ShellLayoutSettingView>(SmartPartNames.SmartPart_Shell_LayoutSettingView);

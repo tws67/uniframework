@@ -23,6 +23,14 @@ namespace Uniframework.StartUp
             base.OnRunStarted();
         }
 
+        protected override void AddServices()
+        {
+            base.AddServices();
+
+            ControlledWorkItem<DynamicHelpController> dynamicWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<DynamicHelpController>>();
+            dynamicWorkItem.Run();
+        }
+
         #region Assistant functions
 
         private void WorkItem_Activated(object sender, EventArgs e)

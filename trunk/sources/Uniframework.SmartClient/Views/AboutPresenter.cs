@@ -9,6 +9,8 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.Configuration;
 using Microsoft.Practices.CompositeUI.Services;
+using System.Drawing;
+using System.Configuration;
 
 namespace Uniframework.SmartClient.Views
 {
@@ -21,6 +23,13 @@ namespace Uniframework.SmartClient.Views
         {
             set { moduleEnumerator = value; }
             get { return moduleEnumerator; }
+        }
+
+        [ServiceDependency]
+        public IImageService ImageService
+        {
+            get;
+            set;
         }
 
         public string NetFrameworkVersion
@@ -46,6 +55,12 @@ namespace Uniframework.SmartClient.Views
                 AssemblyName assemblyName = Assembly.ReflectionOnlyLoadFrom(info.AssemblyFile).GetName();
                 View.AddModule(assemblyName.Name, assemblyName.Version.ToString());
             }
+
+            View.Text = "关于 " + ConfigurationManager.AppSettings["ShellCaption"];
+            Bitmap bitmap = ImageService.GetBitmap(ConfigurationManager.AppSettings["SplashTop"]);
+            View.TopPanel.BackgroundImage = bitmap;
+            bitmap = ImageService.GetBitmap(ConfigurationManager.AppSettings["ShellIcon"], new Size(32, 32));
+            View.IconPanel.BackgroundImage = bitmap;
         }
 
         public void CopyInfo()

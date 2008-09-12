@@ -28,7 +28,6 @@ namespace Uniframework.SmartClient.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.TopPanel = new DevExpress.XtraEditors.PanelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.labProduct = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -46,16 +45,14 @@ namespace Uniframework.SmartClient.Views
             this.lvModules = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            ((System.ComponentModel.ISupportInitialize)(this.TopPanel)).BeginInit();
+            this.TopPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.IconPanel = new System.Windows.Forms.Panel();
+            this.TopPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TopPanel
-            // 
-            this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TopPanel.Location = new System.Drawing.Point(0, 0);
-            this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(552, 60);
-            this.TopPanel.TabIndex = 0;
             // 
             // labelControl1
             // 
@@ -91,7 +88,7 @@ namespace Uniframework.SmartClient.Views
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(274, 66);
+            this.labelControl3.Location = new System.Drawing.Point(271, 66);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(91, 14);
             this.labelControl3.TabIndex = 5;
@@ -99,7 +96,7 @@ namespace Uniframework.SmartClient.Views
             // 
             // labNetVersion
             // 
-            this.labNetVersion.Location = new System.Drawing.Point(371, 66);
+            this.labNetVersion.Location = new System.Drawing.Point(368, 66);
             this.labNetVersion.Name = "labNetVersion";
             this.labNetVersion.Size = new System.Drawing.Size(89, 14);
             this.labNetVersion.TabIndex = 6;
@@ -111,7 +108,7 @@ namespace Uniframework.SmartClient.Views
             this.btnCopyInfo.Name = "btnCopyInfo";
             this.btnCopyInfo.Size = new System.Drawing.Size(75, 23);
             this.btnCopyInfo.TabIndex = 8;
-            this.btnCopyInfo.Text = "复制(&C)";
+            this.btnCopyInfo.Text = "复制信息(&C)";
             this.btnCopyInfo.Click += new System.EventHandler(this.btnCopyInfo_Click);
             // 
             // labelControl4
@@ -182,7 +179,7 @@ namespace Uniframework.SmartClient.Views
             this.lvModules.FullRowSelect = true;
             this.lvModules.Location = new System.Drawing.Point(10, 106);
             this.lvModules.Name = "lvModules";
-            this.lvModules.Size = new System.Drawing.Size(449, 86);
+            this.lvModules.Size = new System.Drawing.Size(446, 86);
             this.lvModules.TabIndex = 16;
             this.lvModules.TabStop = false;
             this.lvModules.UseCompatibleStateImageBehavior = false;
@@ -191,12 +188,48 @@ namespace Uniframework.SmartClient.Views
             // columnHeader1
             // 
             this.columnHeader1.Text = "已加载的插件";
-            this.columnHeader1.Width = 308;
+            this.columnHeader1.Width = 314;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "版本";
-            this.columnHeader2.Width = 96;
+            this.columnHeader2.Width = 112;
+            // 
+            // TopPanel
+            // 
+            this.TopPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.TopPanel.Controls.Add(this.panelControl1);
+            this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TopPanel.Location = new System.Drawing.Point(0, 0);
+            this.TopPanel.Name = "TopPanel";
+            this.TopPanel.Size = new System.Drawing.Size(552, 60);
+            this.TopPanel.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 60);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(552, 2);
+            this.label1.TabIndex = 18;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Controls.Add(this.IconPanel);
+            this.panelControl1.Location = new System.Drawing.Point(12, 10);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(40, 40);
+            this.panelControl1.TabIndex = 0;
+            // 
+            // IconPanel
+            // 
+            this.IconPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.IconPanel.Location = new System.Drawing.Point(5, 5);
+            this.IconPanel.Name = "IconPanel";
+            this.IconPanel.Size = new System.Drawing.Size(30, 30);
+            this.IconPanel.TabIndex = 1;
             // 
             // frmAbout
             // 
@@ -204,6 +237,8 @@ namespace Uniframework.SmartClient.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 290);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.lvModules);
             this.Controls.Add(this.labWarning);
             this.Controls.Add(this.btnSysInfo);
@@ -219,7 +254,6 @@ namespace Uniframework.SmartClient.Views
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labProduct);
             this.Controls.Add(this.labelControl1);
-            this.Controls.Add(this.TopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -228,7 +262,9 @@ namespace Uniframework.SmartClient.Views
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "关于";
             this.Load += new System.EventHandler(this.frmAbout_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.TopPanel)).EndInit();
+            this.TopPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,7 +272,6 @@ namespace Uniframework.SmartClient.Views
 
         #endregion
 
-        private DevExpress.XtraEditors.PanelControl TopPanel;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labProduct;
         private DevExpress.XtraEditors.LabelControl labelControl2;
@@ -254,5 +289,9 @@ namespace Uniframework.SmartClient.Views
         private System.Windows.Forms.ListView lvModules;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        public System.Windows.Forms.Panel TopPanel;
+        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        public System.Windows.Forms.Panel IconPanel;
     }
 }

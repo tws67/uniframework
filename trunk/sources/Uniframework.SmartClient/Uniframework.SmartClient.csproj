@@ -112,6 +112,8 @@
     <Compile Include="Services\EventDispatcher\EventSubject.cs" />
     <Compile Include="Services\EventDispatcher\IEventService.cs" />
     <Compile Include="Services\EventDispatcher\ISubscripterRegister.cs" />
+    <Compile Include="Services\Help\DynamicHelpService.cs" />
+    <Compile Include="Services\Help\IDynamicHelp.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
     <Compile Include="Services\Property\IPropertyService.cs" />
     <Compile Include="Services\Property\Property.cs" />
@@ -124,12 +126,21 @@
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Views\AboutPresenter.cs" />
+    <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
+    <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
+    <Compile Include="WorkItems\Help\DynamicHelpView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Help\DynamicHelpView.Designer.cs">
+      <DependentUpon>DynamicHelpView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\Help\IDynamicHelpView.cs" />
     <Compile Include="WorkItems\Setting\ISetting.cs" />
     <Compile Include="WorkItems\Setting\ISettingService.cs" />
     <Compile Include="WorkItems\Setting\SettingPresenter.cs" />
@@ -180,6 +191,9 @@
     <Content Include="AddIns\Sample.addin" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WorkItems\Help\DynamicHelpView.resx">
+      <DependentUpon>DynamicHelpView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>

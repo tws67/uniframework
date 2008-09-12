@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,6 +14,8 @@ using DevExpress.XtraEditors;
 
 using Uniframework.Client;
 using Uniframework.SmartClient;
+using System.IO;
+using Uniframework.StartUp.Properties;
 
 namespace Uniframework.StartUp
 {
@@ -166,5 +169,23 @@ namespace Uniframework.StartUp
 
             txtUser.Focus();
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            IImageService imageService = new ImageService();
+            Bitmap bitmap = imageService.GetBitmap(ConfigurationManager.AppSettings["SplashTop"]);
+            if (bitmap != null)
+                pnlTop.BackgroundImage = bitmap;
+            else
+                pnlTop.BackgroundImage = Resources.Top;
+
+            bitmap = imageService.GetBitmap(ConfigurationManager.AppSettings["SplashBottom"]);
+            if (bitmap != null)
+                pnlBottom.BackgroundImage = bitmap;
+            else
+                pnlBottom.BackgroundImage = Resources.Bottom;
+        }
+
+        
     }
 }
