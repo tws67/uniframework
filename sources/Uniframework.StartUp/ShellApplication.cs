@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 using System.Windows.Forms;
 
 using DevExpress.XtraEditors;
+using DevExpress.XtraNavBar;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
@@ -15,7 +17,7 @@ using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.Common.Workspaces;
 using Microsoft.Practices.CompositeUI.Services;
 using Microsoft.Practices.CompositeUI.UIElements;
-//using Microsoft.Practices.CompositeUI.WinForms;
+using Microsoft.Practices.CompositeUI.Utility;
 using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Client;
@@ -27,13 +29,11 @@ using Uniframework.SmartClient;
 using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
 using Uniframework.SmartClient.WorkItems.Setting;
-using DevExpress.XtraNavBar;
 
 namespace Uniframework.StartUp
 {
     public class ShellApplication : XtraFormApplicationBase<ControlledWorkItem<RootController>, ShellForm>
     {
-        //private bool multiMainWorksapce;
         private AddInTree addInTree;
 
         /// <summary>
@@ -83,11 +83,9 @@ namespace Uniframework.StartUp
             RegisterViews();
             RegisterUIElements();
             RegisterUISite(); // 构建用户界面并添加UI构建服务
+
+            Program.CloseLoginForm();
         }
-
-
-
-
 
         /// <summary>
         /// See <see cref="CabApplication{TWorkItem}.AddServices"/>
@@ -162,8 +160,34 @@ namespace Uniframework.StartUp
             WebServiceModuleEnumerator ws = new WebServiceModuleEnumerator();
             ws.Load();
 
+            IModuleLoaderService mls = RootWorkItem.Services.Get<IModuleLoaderService>();
+            if (mls != null) {
+                mls.ModuleLoaded += new EventHandler<DataEventArgs<LoadedModuleInfo>>(ModuleLoaderService_ModuleLoaded);
+            }
+
             RootWorkItem.Services.Add<IModuleEnumerator>(ws);
             Program.IncreaseProgressBar(10);
+        }
+
+        /// <summary>
+        /// 解释加载插件描述文件
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="Microsoft.Practices.CompositeUI.Utility.DataEventArgs&lt;Microsoft.Practices.CompositeUI.Services.LoadedModuleInfo&gt;"/> instance containing the event data.</param>
+        private void ModuleLoaderService_ModuleLoaded(object sender, DataEventArgs<LoadedModuleInfo> e)
+        {
+            string addInfile = e.Data.Name.Split(',')[0] + ".addin";
+            if (File.Exists(addInfile)) {
+                AddIn addIn = new AddIn(addInfile, RootWorkItem);
+                addInTree.InsertAddIn(addIn);
+            }
+            else {
+                List<string> files = FileUtility.SearchDirectory(FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\AddIns\", addInfile);
+                if (files.Count > 0) {
+                    AddIn addIn = new AddIn(files[0], RootWorkItem);
+                    addInTree.InsertAddIn(addIn);
+                }
+            }
         }
 
         /// <summary>

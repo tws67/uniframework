@@ -72,7 +72,6 @@
     <Compile Include="..\UniframeworkInfo.cs">
       <Link>UniframeworkInfo.cs</Link>
     </Compile>
-    <Compile Include="CommandHandlers.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
     <Compile Include="Constants\SmartPartNames.cs" />
     <Compile Include="Module.cs" />
@@ -149,6 +148,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LiveUpgrade.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Uniframework.Upgrade.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />

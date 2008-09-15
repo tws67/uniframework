@@ -16,6 +16,7 @@ using Microsoft.Practices.CompositeUI.Common.Workspaces;
 using DevExpress.XtraNavBar;
 using Uniframework.SmartClient.WorkItems.Setting;
 using Uniframework.Services;
+using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Uniframework.Upgrade
 {
@@ -26,7 +27,6 @@ namespace Uniframework.Upgrade
             base.AddServices();
 
             WorkItem.Services.AddNew<LiveUpgradeService, ILiveUpgradeService>();
-            WorkItem.Items.AddNew<CommandHandlers>("CommandHandlers");
         }
 
         protected override void AddViews()
@@ -42,22 +42,69 @@ namespace Uniframework.Upgrade
         protected override void AddUIElements()
         {
             base.AddUIElements();
-
-            BarButtonItem item = new BarButtonItem();
-            item.Caption = "创建升级包(&B)";
-            BarItemExtend extend = new BarItemExtend();
-            extend.BeginGroup = true;
-            extend.InsertBefore = "选项(&O)...";
-            item.Tag = extend;
-
-            Command cmd = WorkItem.Commands[CommandHandlerNames.CMD_SHOWUPGRADEBUILDER];
-            if (cmd != null)
-                cmd.AddInvoker(item, "ItemClick");
-            if (WorkItem.UIExtensionSites.Contains(UIExtensionSiteNames.Shell_UI_Mainmenu_Tool))
-                WorkItem.UIExtensionSites[UIExtensionSiteNames.Shell_UI_Mainmenu_Tool].Add(item);
-
             AddSettingItem();
         }
+
+        #region Command handlers
+
+        /// <summary>
+        /// 显示系统升级项目创建视图
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_SHOWUPGRADEBUILDER)]
+        public void OnShowUpgradeBuilder(object sender, EventArgs e)
+        {
+            UpgradeBuilderView view = WorkItem.SmartParts.AddNew<UpgradeBuilderView>();
+            IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Main);
+            if (wp != null)
+            {
+                WindowSmartPartInfo spi = new WindowSmartPartInfo();
+                spi.Title = "创建升级包　";
+                view.Dock = System.Windows.Forms.DockStyle.Fill;
+
+                wp.Show(view, spi);
+            }
+        }
+
+        /// <summary>
+        /// 显示系统更新设置面板
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_SHOWUPGRADESETTINGVIEW)]
+        public void OnShowUpgradeSettingView(object sender, EventArgs e)
+        {
+            UpgradeSettingView view = WorkItem.SmartParts.Get<UpgradeSettingView>("UpgradeSettingView");
+            if (view == null)
+                view = WorkItem.SmartParts.AddNew<UpgradeSettingView>("UpgradeSettingView");
+
+            IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_SettingDeck);
+            if (wp != null)
+            {
+                wp.Show(view);
+                view.BindingProperty();
+            }
+        }
+
+        /// <summary>
+        /// 检查服务端是否有新的更新
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(Uniframework.SmartClient.CommandHandlerNames.CMD_HELP_CHECKUPGRADE)]
+        public void OnCheckUpgrade(object sender, EventArgs e)
+        {
+            ILiveUpgradeService upgradeService = WorkItem.Services.Get<ILiveUpgradeService>();
+            if (upgradeService != null)
+                using (WaitCursor cursor = new WaitCursor(true)) {
+                    UpgradeProject proj = upgradeService.GetValidUpgradeProject();
+                    if (proj != null)
+                        upgradeService.UpgradeNotify(proj);
+                }
+        }
+
+        #endregion
 
         #region Dependendcy services
 

@@ -190,7 +190,7 @@ namespace Uniframework.SmartClient
 
         public override string ToString()
         {
-            return String.Format("AddInElement: id[{0}], name[{1}], command[{2}], addin[{3}]", id, name, command, addIn.FileName);
+            return String.Format("AddInElement: id[{0}], name[{1}], command[{2}], classname[{3}]", id, name, command, className);
         }
     }
 }

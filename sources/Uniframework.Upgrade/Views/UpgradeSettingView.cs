@@ -85,6 +85,7 @@ namespace Uniframework.Upgrade.Views
                 ReciveUpgradeMessage = chkReciveMessage.Checked,
                 UpgradeUrl = txtUpgradeUrl.Text
             };
+
             property.Current = setting;
             PropertyService.Set<UpgradeSetting>(UIExtensionSiteNames.Shell_Property_Upgrade, setting);
             if (SettingChanged != null)
@@ -101,5 +102,10 @@ namespace Uniframework.Upgrade.Views
         }
 
         #endregion
+
+        private void UpgradeSettingView_Load(object sender, EventArgs e)
+        {
+            BindingProperty();
+        }
     }
 }

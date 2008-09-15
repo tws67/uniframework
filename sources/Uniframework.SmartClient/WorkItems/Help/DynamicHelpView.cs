@@ -56,11 +56,6 @@ namespace Uniframework.SmartClient
 
         private void DynamicHelpView_Load(object sender, EventArgs e)
         {
-            btnBack.Glyph = ImageService.GetBitmap("nav_left_green", new Size(16, 16));
-            btnForward.Glyph = ImageService.GetBitmap("nav_right_green", new Size(16, 16));
-            btnHome.Glyph = ImageService.GetBitmap("nav_plain_green", new Size(16, 16));
-            btnRefresh.Glyph = ImageService.GetBitmap("refresh", new Size(16, 16));
-
             webBrowser.CanGoBackChanged +=new EventHandler(WebBrowserChanged);
             webBrowser.CanGoForwardChanged +=new EventHandler(WebBrowserChanged);
         }

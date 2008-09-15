@@ -106,12 +106,23 @@
     <Compile Include="Constants\EventNames.cs" />
     <Compile Include="Constants\WorkItemNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
+    <Compile Include="Services\Foundation\EditableService.cs" />
+    <Compile Include="Services\Foundation\IEditHandler.cs" />
+    <Compile Include="Services\Foundation\IEditableService.cs" />
     <Compile Include="Services\EventDispatcher\EventDispatcher.cs" />
     <Compile Include="Services\EventDispatcher\EventService.cs" />
     <Compile Include="Services\EventDispatcher\EventSubject.cs" />
     <Compile Include="Services\EventDispatcher\IEventService.cs" />
     <Compile Include="Services\EventDispatcher\ISubscripterRegister.cs" />
+    <Compile Include="Services\Foundation\IPrintableService.cs" />
+    <Compile Include="Services\Foundation\IPrintHandler.cs" />
+    <Compile Include="Services\Foundation\PrintableService.cs" />
     <Compile Include="Services\Help\DynamicHelpService.cs" />
     <Compile Include="Services\Help\IDynamicHelp.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
@@ -189,8 +200,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddIns\Sample.addin" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\nav_right_green.png" />
+    <None Include="Resources\nav_plain_green.png" />
+    <None Include="Resources\nav_left_green.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\disk_blue_window.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Help\DynamicHelpView.resx">
       <DependentUpon>DynamicHelpView.cs</DependentUpon>
     </EmbeddedResource>

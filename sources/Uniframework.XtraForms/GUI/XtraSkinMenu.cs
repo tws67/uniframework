@@ -31,7 +31,7 @@ namespace Uniframework.XtraForms
         private void AddAllMenuItems()
         {
             Caption = "系统界面皮肤(&K)";
-            Glyph = Resource.window_colors;
+            Glyph = Resource.colors;
 
             foreach (string skinName in GetSortedSkinNames())
             {
