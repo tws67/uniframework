@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Uniframework.XtraForms.Properties {
+namespace Uniframework.SmartClient.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Uniframework.XtraForms.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resource() {
+        internal Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Uniframework.XtraForms.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Uniframework.XtraForms.Properties.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Uniframework.SmartClient.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,37 +60,44 @@ namespace Uniframework.XtraForms.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap colors {
+        internal static System.Drawing.Bitmap disk_blue_window {
             get {
-                object obj = ResourceManager.GetObject("colors", resourceCulture);
+                object obj = ResourceManager.GetObject("disk_blue_window", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap window_colors {
+        internal static System.Drawing.Bitmap help {
             get {
-                object obj = ResourceManager.GetObject("window_colors", resourceCulture);
+                object obj = ResourceManager.GetObject("help", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap window_split_hor {
+        internal static System.Drawing.Bitmap nav_left_green {
             get {
-                object obj = ResourceManager.GetObject("window_split_hor", resourceCulture);
+                object obj = ResourceManager.GetObject("nav_left_green", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap window_split_ver {
+        internal static System.Drawing.Bitmap nav_plain_green {
             get {
-                object obj = ResourceManager.GetObject("window_split_ver", resourceCulture);
+                object obj = ResourceManager.GetObject("nav_plain_green", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap windows {
+        internal static System.Drawing.Bitmap nav_right_green {
             get {
-                object obj = ResourceManager.GetObject("windows", resourceCulture);
+                object obj = ResourceManager.GetObject("nav_right_green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

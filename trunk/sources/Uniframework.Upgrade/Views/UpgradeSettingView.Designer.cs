@@ -113,6 +113,7 @@ namespace Uniframework.Upgrade.Views
             this.Controls.Add(this.labelControl1);
             this.Name = "UpgradeSettingView";
             this.Size = new System.Drawing.Size(440, 270);
+            this.Load += new System.EventHandler(this.UpgradeSettingView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtUpgradeUrl.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkReciveMessage.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkCheckUpgrade.Properties)).EndInit();

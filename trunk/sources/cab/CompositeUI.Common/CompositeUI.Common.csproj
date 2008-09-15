@@ -46,7 +46,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AdapterFactoryCatalog.cs" />
     <Compile Include="ControlledWorkItem.cs" />
+    <Compile Include="IAdapterFactory.cs" />
+    <Compile Include="IAdapterFactoryCatalog.cs" />
     <Compile Include="IWorkItemController.cs" />
     <Compile Include="Presenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

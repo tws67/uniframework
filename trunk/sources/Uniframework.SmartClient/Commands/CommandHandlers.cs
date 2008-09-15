@@ -13,6 +13,7 @@ using Uniframework.XtraForms.SmartPartInfos;
 using Uniframework.XtraForms.Workspaces;
 using Microsoft.Practices.CompositeUI.WinForms;
 using Uniframework.SmartClient.Views;
+using DevExpress.XtraEditors;
 
 namespace Uniframework.SmartClient
 {
@@ -32,7 +33,7 @@ namespace Uniframework.SmartClient
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Command name " + ((Command)sender).Name);
             sb.AppendLine("Hi, " + Thread.CurrentPrincipal.Identity.Name + " you click me at " + DateTime.Now.ToLocalTime());
-            MessageBox.Show(sb.ToString());
+            XtraMessageBox.Show(sb.ToString());
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.CMD_EXIT)]
+        [CommandHandler(CommandHandlerNames.CMD_FILE_EXIT)]
         public void OnUniframeworkExit(object sender, EventArgs e)
         {
             Application.Exit();
@@ -51,7 +52,7 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.CMD_ABOUT)]
+        [CommandHandler(CommandHandlerNames.CMD_HELP_ABOUT)]
         public void OnUniframeworkAbout(object sender, EventArgs e)
         {
             frmAbout form = WorkItem.SmartParts.AddNew<frmAbout>();
@@ -64,7 +65,7 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        [CommandHandler(CommandHandlerNames.CMD_SETTING)]
+        [CommandHandler(CommandHandlerNames.CMD_VIEW_SETTING)]
         public void OnUniframeworkSetting(object sender, EventArgs e)
         {
             SettingView view = WorkItem.SmartParts.Get<SettingView>(SmartPartNames.SmartPart_Shell_SettingView);
@@ -83,6 +84,30 @@ namespace Uniframework.SmartClient
             };
             IWorkspace wp = new XtraWindowWorkspace();
             wp.Show(view, spi);
+        }
+
+        /// <summary>
+        /// 显示动态帮助视图
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_HELP_DYNAMICHELP)]
+        public void OnShowDynamicHelp(object sender, EventArgs e)
+        {
+            DynamicHelpView view = WorkItem.SmartParts.Get<DynamicHelpView>(SmartPartNames.SmartPart_Shell_DynamicHelp);
+            if (view == null)
+                view = WorkItem.SmartParts.AddNew<DynamicHelpView>(SmartPartNames.SmartPart_Shell_DynamicHelp);
+
+            IWorkspace wp = WorkItem.Workspaces[UIExtensionSiteNames.Shell_Workspace_Dockable];
+            if (wp != null)
+            {
+                DockManagerSmartPartInfo spi = new DockManagerSmartPartInfo();
+                spi.Title = "动态帮助";
+                spi.ImageFile = "${help}";
+                spi.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+
+                wp.Show(view, spi);
+            }
         }
 
         #region Dependency services

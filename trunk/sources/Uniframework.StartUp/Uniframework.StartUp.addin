@@ -164,27 +164,72 @@
     </Path>
 
     <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
-      <Item id="MyWorkspace" name="naviMyWorkspace" label="快速启动栏" command="" classname="XtraNavBarGroup" largeimage="${magic-wand}" register="true">
-        <Item id="Desktop" name="naviiDesktop" label="我的桌面" command="" classname="XtraNavBarItem" largeimage="${window}" imagefile="${window}"/>
-        <Item id="ChangePassword" name="naviiChangeMyPassword" label="修改我的密码" command="" classname="XtraNavBarItem" largeimage="${key1}" imagefile="${key1}"/>
-      </Item>
-      <Item id="DGGS" name="DGGS" label="营业收费系统" command="" classname="XtraNavBarGroup" largeimage="${money}" register="true"/>
+      <Item id="MyWorkspace" 
+            name="naviMyWorkspace" 
+            label="快速启动栏" 
+            command="" 
+            classname="XtraNavBarGroup" 
+            largeimage="${magic-wand}" 
+            register="true"/>
+      
+      <Item id="DGGS" 
+            name="DGGS" 
+            label="营业收费系统" 
+            command="" 
+            classname="XtraNavBarGroup" 
+            largeimage="${money}" 
+            register="true"/>
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu" label="主菜单" buildstartup="true">
-      <Item id="File" name="mmiFile" label="文件(&amp;F)" command="" classname="XtraButtonItem" register="true"/>
-      <Item id="Edit" name="mmiEdit" label="编辑(&amp;E)" command="" classname="XtraButtonItem" register="true"/>
-      <Item id="View" name="mmiView" label="视图(&amp;V)" command="" classname="XtraButtonItem" register="true"/>
-      <Item id="Tool" name="mmiTool" label="工具(&amp;T)" command="" classname="XtraButtonItem" register="true"/>
-      <Item id="Window" name="mmiWindow" label="窗口(&amp;W)" command="" classname="XtraWindowMenu" register="true"/>
-      <Item id="Help" name="mmiHelp" label="帮助(&amp;H)" command="" classname="XtraButtonItem" register="true"/>
+      <Item id="File" 
+            name="mmiFile" 
+            label="文件(&amp;F)" 
+            command="" 
+            classname="XtraButtonItem" 
+            register="true"/>
+      
+      <Item id="Edit" 
+            name="mmiEdit" 
+            label="编辑(&amp;E)" 
+            command="" 
+            classname="XtraButtonItem" 
+            register="true"/>
+      
+      <Item id="View" 
+            name="mmiView" 
+            label="视图(&amp;V)" 
+            command="" 
+            classname="XtraButtonItem" 
+            register="true"/>
+      
+      <Item id="Tool" 
+            name="mmiTool" 
+            label="工具(&amp;T)" 
+            command="" 
+            classname="XtraButtonItem" 
+            register="true"/>
+      
+      <Item id="Window" 
+            name="mmiWindow" 
+            label="窗口(&amp;W)" 
+            command="" 
+            classname="XtraWindowMenu" 
+            register="true"/>
+      
+      <Item id="Help" 
+            name="mmiHelp" 
+            label="帮助(&amp;H)" 
+            command="" 
+            classname="XtraButtonItem" 
+            register="true"/>
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/File" label="文件菜单" buildstartup="true">
       <Item id="Exit" 
             name="mmifExit" 
             label="退出(&amp;X)" 
-            command="/Shell/Module/Foundation/Exit" 
+            command="/Shell/Module/Foundation/File/Exit" 
             classname="XtraButtonItem" 
             imagefile="${exit}"/>
     </Path>
@@ -205,7 +250,7 @@
       <Item id="Setting" 
             name="mmivSetting" 
             label="选项(&amp;O)..." 
-            command="/Shell/Module/Foundation/Setting" 
+            command="/Shell/Module/Foundation/View/Setting" 
             classname="XtraButtonItem" 
             imagefile="${preferences}" 
             begingroup="true"
@@ -213,16 +258,25 @@
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">
+      <Item id="Content"
+            name="mmihContent"
+            label="获取帮助(&amp;H)..."
+            command="/Shell/Module/Foundation/ClickMe"
+            classname="XtraButtonItem"
+            imagefile="${book_blue_view}"
+            shortcut="F1"/>
+      
       <Item id="DynamicHelp"
             name="mmihShowDynamicHelp"
-            label="动态帮助(&amp;D)"
-            command="/Shell/Module/Foundation/ShowDynamicHelp"
-            classname="XtraButtonItem"/>
-      
+            label="显示动态帮助窗口(&amp;D)"
+            command="/Shell/Module/Foundation/Help/ShowDynamicHelp"
+            classname="XtraButtonItem"
+            shortcut="CtrlF1"/>
+
       <Item id="About"
             name="mmihShowAbout"
             label="关于本框架(&amp;A)..."
-            command="/Shell/Module/Foundation/About"
+            command="/Shell/Module/Foundation/Help/About"
             classname="XtraButtonItem"
             begingroup="true"/>
     </Path>

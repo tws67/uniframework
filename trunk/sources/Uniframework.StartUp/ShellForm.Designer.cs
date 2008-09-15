@@ -103,7 +103,7 @@ namespace Uniframework.StartUp
             // 
             // StatusBar
             // 
-            this.StatusBar.BarName = "Status bar";
+            this.StatusBar.BarName = "StatusBar";
             this.StatusBar.CanDockStyle = DevExpress.XtraBars.BarCanDockStyle.Bottom;
             this.StatusBar.DockCol = 0;
             this.StatusBar.DockRow = 0;
@@ -231,11 +231,11 @@ namespace Uniframework.StartUp
             this.DeckWorkspace.Name = "DeckWorkspace";
             this.DeckWorkspace.Size = new System.Drawing.Size(792, 60);
             this.DeckWorkspace.TabIndex = 5;
+            this.DeckWorkspace.Visible = false;
             // 
             // naviWorkspace
             // 
             this.naviWorkspace.ActiveGroup = null;
-            this.naviWorkspace.AllowSelectedLink = true;
             this.naviWorkspace.ContentButtonHint = null;
             this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Left;
             this.naviWorkspace.Location = new System.Drawing.Point(0, 85);

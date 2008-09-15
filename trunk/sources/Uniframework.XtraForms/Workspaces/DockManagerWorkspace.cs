@@ -36,6 +36,7 @@ namespace Uniframework.XtraForms.Workspaces
             : this()
         {
             this.dockManager = dockManager;
+            this.dockManager.Images = imageList;
         }
 
         /// <summary>

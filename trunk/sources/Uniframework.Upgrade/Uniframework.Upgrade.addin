@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration name = "Uniframework.Upgrade.addin"
+               author = "东成西就"
+               copyright = "Copyright by Sjteksoft"
+               url = "http://www.lightweightcti.cn"
+               description = "系统更新插件描述文件"
+               hideninmanager = "true">
+
+  <AddIns>
+    <Path name="/Shell/Bar/Mainmenu/Tool" label="工具菜单" buildstartup="true">
+      <Item id="UpgradeBuilder"
+            name="mmitUpgradeBuilder"
+            label="创建升级包(&amp;B)"
+            command="/Shell/Module/Foundation/ShowUpgradeBuilder"
+            classname="XtraButtonItem"/>
+
+    </Path>
+
+    <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">
+      <Item id="CheckUpgrade"
+            name="mmihCheckUpgrade"
+            label="检查更新(&amp;C)"
+            command="/Shell/Module/Foundation/Help/CheckUpgrade"
+            classname="XtraButtonItem"
+            imagefile="${earth_connection}"
+            begingroup="true"
+            insertbefore="mmihShowAbout"/>
+
+    </Path>
+  </AddIns>
+</configuration>
