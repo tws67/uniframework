@@ -13,7 +13,7 @@ namespace Uniframework.SmartClient
     /// <summary>
     /// 动太帮助服务
     /// </summary>
-    public class DynamicHelpService : IDynamicHelp
+    public class DynamicHelpService : IDynamicHelpService
     {
         [ServiceDependency]
         public WorkItem WorkItem
@@ -22,7 +22,7 @@ namespace Uniframework.SmartClient
             set;
         }
 
-        #region IDynamicHelp Members
+        #region IDynamicHelpService Members
 
         public void ShowHelp(Assembly assembly, string helpUrl)
         {

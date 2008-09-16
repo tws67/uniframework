@@ -16,7 +16,7 @@ namespace Uniframework.XtraForms.Workspaces
     /// </summary>
     public class DockManagerWorkspace : Workspace<Control, DockManagerSmartPartInfo>
     {
-        private readonly Dictionary<Control, DockPanel> dockPanelDictionary = new Dictionary<Control, DockPanel>();
+        private readonly Dictionary<Control, DockPanel> dockPanels = new Dictionary<Control, DockPanel>();
         private readonly DockManager dockManager;
         private ImageList imageList;
 
@@ -45,7 +45,7 @@ namespace Uniframework.XtraForms.Workspaces
         [Browsable(false)]
         public ReadOnlyDictionary<Control, DockPanel> DockPanels
         {
-            get { return new ReadOnlyDictionary<Control, DockPanel>(dockPanelDictionary); }
+            get { return new ReadOnlyDictionary<Control, DockPanel>(dockPanels); }
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace Uniframework.XtraForms.Workspaces
         protected DockPanel GetOrCreateDockPanel(Control control, DockManagerSmartPartInfo smartPartInfo)
         {
             DockPanel dockPanel = null;
-            if (dockPanelDictionary.ContainsKey(control))
+            if (dockPanels.ContainsKey(control))
             {
-                dockPanel = dockPanelDictionary[control];
+                dockPanel = dockPanels[control];
             }
 			else
             {	
@@ -98,7 +98,7 @@ namespace Uniframework.XtraForms.Workspaces
     		}
 
     		control.Dock = DockStyle.Fill;
-    		dockPanelDictionary.Add(control, dockPanel);
+    		dockPanels.Add(control, dockPanel);
     		dockPanel.Controls.Add(control);
     		return dockPanel;
     	}
@@ -127,7 +127,6 @@ namespace Uniframework.XtraForms.Workspaces
             dockPanel.TabText = info.TabText;
             dockPanel.Text = info.Title;
             dockPanel.Name = info.Name;
-            
 
             if (!String.IsNullOrEmpty(info.ImageFile)) {
                 if (!imageList.Images.ContainsKey(info.ImageFile)) {
@@ -146,8 +145,8 @@ namespace Uniframework.XtraForms.Workspaces
             if (control != null && SmartParts.Contains(sender))
             {
                 CloseInternal(control);
-                dockPanelDictionary[control].Close();
-                dockPanelDictionary.Remove(control);
+                dockPanels[control].Close();
+                dockPanels.Remove(control);
             }
         }
 
@@ -161,7 +160,7 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnActivate(Control smartPart)
         {
-        	DockPanel dockPanel = dockPanelDictionary[smartPart];
+        	DockPanel dockPanel = dockPanels[smartPart];
         	dockPanel.BringToFront();
         	dockPanel.Show();
         }
@@ -171,7 +170,7 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnApplySmartPartInfo(Control smartPart, DockManagerSmartPartInfo smartPartInfo)
         {
-            DockPanel dockPanel = dockPanelDictionary[smartPart];
+            DockPanel dockPanel = dockPanels[smartPart];
             SetDockPanelProperties(dockPanel, smartPartInfo);
         }
 
@@ -190,7 +189,7 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnHide(Control smartPart)
         {
-        	dockPanelDictionary[smartPart].Hide();
+        	dockPanels[smartPart].Hide();
         }
 
         /// <summary>
@@ -198,12 +197,12 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnClose(Control smartPart)
         {
-            DockPanel dockPanel = dockPanelDictionary[smartPart];
+            DockPanel dockPanel = dockPanels[smartPart];
             smartPart.Disposed -= ControlDisposed;
 
 			dockPanel.Controls.Remove(smartPart);	// Remove the smartPart from the DockPanel to avoid disposing it
 			dockManager.RemovePanel(dockPanel);		// changed from dockPanel.Close() but not unit tested
-            dockPanelDictionary.Remove(smartPart);
+            dockPanels.Remove(smartPart);
         }
     }
 }
