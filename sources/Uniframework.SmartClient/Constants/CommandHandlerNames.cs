@@ -18,6 +18,7 @@ namespace Uniframework.SmartClient
         public const string CMD_FILE_OPEN          = "/Shell/Module/Foundation/File/Open";
         public const string CMD_FILE_SAVE          = "/Shell/Module/Foundation/File/Save";
         public const string CMD_FILE_SAVEAS        = "/Shell/Module/Foundation/File/SaveAs";
+        public const string CMD_FILE_SAVEALL       = "/Shell/Module/Foundation/File/SaveAll";
         public const string CMD_FILE_CLOSE         = "/Shell/Module/Foundation/File/Close";
         public const string CMD_FILE_CLOSEALL      = "/Shell/Module/Foundation/File/CloseAll";
         public const string CMD_FILE_PRINT         = "/Shell/Module/Foundation/File/Print";
