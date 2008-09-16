@@ -59,6 +59,8 @@ namespace Uniframework.SmartClient
         public const string CMD_HELP_CONTENT       = "/Shell/Module/Foundation/Help/Content";
         public const string CMD_HELP_INDEX         = "/Shell/Module/Foundation/Help/Index";
         public const string CMD_HELP_DYNAMICHELP   = "/Shell/Module/Foundation/Help/ShowDynamicHelp";
+        public const string CMD_HELP_DAYTIPS       = "/Shell/Module/Foundation/Help/Daytips";
+        public const string CMD_HELP_REGISTER      = "/Shell/Module/Foundation/Help/Register";
         public const string CMD_HELP_HOMEPAGE      = "/Shell/Module/Foundation/Help/HomePage";
         public const string CMD_HELP_CONTACTAUTHOR = "/Shell/Module/Foundation/Help/ContactAuthor";
         public const string CMD_HELP_SUBMITREPORT  = "/Shell/Module/Foundation/Help/SubmitReport";

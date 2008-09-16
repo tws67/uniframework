@@ -226,14 +226,180 @@
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/File" label="文件菜单" buildstartup="true">
+      <Item id="New"
+            name="mmifNew"
+            label="新建(&amp;N)..."
+            command=""
+            classname="XtraButtonItem"
+            register="true"
+            shortcut="CtrlN"
+            imagefile="${document}"/>
+
+      <Item id="Open"
+            name="mmifOpen"
+            label="打开(&amp;O)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlO"
+            imagefile="${folder}"/>
+
+      <Item id="Save"
+            name="mmifSave"
+            label="保存(&amp;S)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="F2"
+            imagefile="${disk_blue}"
+            begingroup="true"/>
+
+      <Item id="SaveAll"
+            name="mmifSaveAll"
+            label="全部保存(&amp;L)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlShiftS"
+            imagefile="${disks}"/>
+      
+      <Item id="SaveAs"
+            name="mmifSaveAs"
+            label="另存为(&amp;A)..."
+            command=""
+            classname="XtraButtonItem"/>
+
+      <Item id="Import"
+            name="mmifImport"
+            label="导入(&amp;I)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlI"
+            imagefile="${import1}"
+            begingroup="true"/>
+
+      <Item id="Export"
+            name="mmifExport"
+            label="导出(&amp;E)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlE"
+            imagefile="${export1}"/>
+
+      <Item id="Print"
+            name="mmifPrint"
+            label="打印(&amp;P)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlP"
+            begingroup="true"/>
+
+      <Item id="QuickPrint"
+            name="mmifQuickPrint"
+            label="快速打印(&amp;Q)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="F9"/>
+
+      <Item id="Preview"
+            name="mmifPreview"
+            label="预览(&amp;P)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="F8"
+            imagefile="${document_view}"/>
+
+      <Item id="PageSetup"
+            name="mmifPageSetup"
+            label="页面设置(&amp;T)..."
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${document_gear}"/>
+      
       <Item id="Exit" 
             name="mmifExit" 
             label="退出(&amp;X)" 
             command="/Shell/Module/Foundation/File/Exit" 
             classname="XtraButtonItem" 
-            imagefile="${exit}"/>
+            imagefile="${exit}"
+            begingroup="true"/>
     </Path>
 
+    <Path name="/Shell/Bar/Mainmenu/Edit" lable="编辑菜单" buildstartup="true">
+      <Item id="Undo"
+            name="mmieUndo"
+            label="撤销(&amp;Z)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${Undo}"
+            shortcut="CtrlZ"/>
+
+      <Item id="Cut"
+            name="mmieCut"
+            label="剪切(&amp;T)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${Cut}"
+            shortcut="CtrlX"
+            begingroup="true"/>
+
+      <Item id="Copy"
+            name="mmieCopy"
+            label="复制(&amp;C)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${Copy}"
+            shortcut="CtrlC"/>
+
+      <Item id="Paste"
+            name="mmiePaste"
+            label="粘贴(&amp;P)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${Paste}"
+            shortcut="CtrlP"/>
+
+      <Item id="Delete"
+            name="mmieDelete"
+            label="删除(&amp;D)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${delete2}"
+            shortcut="Del"
+            begingroup="true"/>
+
+      <Item id="SelectAll"
+            name="mmieSelectAll"
+            label="全部选择(&amp;A)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlA"
+            begingroup="true"/>
+
+      <Item id="Filter"
+            name="mmieFilter"
+            label="过滤(&amp;F)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlShiftF"
+            imagefile="${funnel}"
+            begingroup="true"/>
+
+      <Item id="Search"
+            name="mmieSearch"
+            label="查找(&amp;S)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlF"
+            imagefile="${find}"/>
+
+      <Item id="Replace"
+            name="mmieReplace"
+            label="替换(&amp;R)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlH"
+            imagefile="${replace}"/>
+      
+    </Path>
+    
     <Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
       <Item id="ToolbarsList" 
             name="mmivToolbarsList" 
@@ -258,21 +424,76 @@
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">
-      <Item id="Content"
-            name="mmihContent"
+      <Item id="GetHelp"
+            name="mmihGetHelp"
             label="获取帮助(&amp;H)..."
             command="/Shell/Module/Foundation/ClickMe"
             classname="XtraButtonItem"
-            imagefile="${book_blue_view}"
+            imagefile="${help_earth}"
             shortcut="F1"/>
-      
+
+      <Item id="Content"
+            name="mmihContent"
+            label="目录(&amp;C)"
+            command=""
+            classname="XtraButtonItem"/>
+
+      <Item id="Index"
+            name="mmihIndex"
+            label="索引(&amp;I)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${book_blue_view}"/>
+
       <Item id="DynamicHelp"
             name="mmihShowDynamicHelp"
             label="显示动态帮助窗口(&amp;D)"
             command="/Shell/Module/Foundation/Help/ShowDynamicHelp"
             classname="XtraButtonItem"
-            shortcut="CtrlF1"/>
+            shortcut="CtrlF1"
+            imagefile="${help}"/>
 
+      <Item id="Daytips"
+            name="mmihDaytips"
+            label="每日一帖(&amp;T)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlShiftT"
+            imagefile="${lightbulb_on}"/>
+
+      <Item id="Register"
+            name="mmihRegister"
+            label="注册本产品(&amp;R)..."
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${certificate}"
+            begingroup="true"/>
+
+      <Item id="HomePage"
+            name="mmihHomePage"
+            label="产品主页(&amp;U)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlShiftH"
+            imagefile="${home}"
+            begingroup="true"/>
+
+      <Item id="Contact"
+            name="mmihContact"
+            label="联系作者(&amp;O)..."
+            command=""
+            classname="XtraButtonItem"
+            shortcut="CtrlShiftC"
+            imagefile="${mail}"/>
+
+      <Item id="SubmitReport"
+            name="mmihSubmitReport"
+            label="提交报告(&amp;S)..."
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${contract}"
+            begingroup="true"/>
+      
       <Item id="About"
             name="mmihShowAbout"
             label="关于本框架(&amp;A)..."
