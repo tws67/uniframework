@@ -16,7 +16,7 @@ namespace Uniframework.SmartClient
         {
             base.AddServices();
 
-            WorkItem.RootWorkItem.Services.AddNew<DynamicHelpService, IDynamicHelp>();
+            WorkItem.RootWorkItem.Services.AddNew<DynamicHelpService, IDynamicHelpService>();
         }
     }
 }

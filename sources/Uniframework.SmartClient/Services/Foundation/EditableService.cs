@@ -45,7 +45,7 @@ namespace Uniframework.SmartClient
             Application.Idle += new EventHandler(ApplicationIdle);
         }
 
-        #region IEditorManager Members
+        #region IEditableService Members
 
         /// <summary>
         /// Register an EditHandler.

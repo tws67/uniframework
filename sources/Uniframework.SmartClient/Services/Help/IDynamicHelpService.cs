@@ -9,7 +9,7 @@ namespace Uniframework.SmartClient
     /// <summary>
     /// 系统动态帮助接口
     /// </summary>
-    public interface IDynamicHelp
+    public interface IDynamicHelpService
     {
         /// <summary>
         /// 显示帮助信息
