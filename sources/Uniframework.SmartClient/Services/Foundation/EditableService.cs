@@ -11,7 +11,7 @@ namespace Uniframework.SmartClient
 {
     public class EditableService : IEditableService
     {
-        private IEditHandler activeHandler;
+        private IEditHandler activeHandler = null;
         private Dictionary<object, IEditHandler> handlers = new Dictionary<object,IEditHandler>();
 
         private WorkItem workItem;
@@ -22,6 +22,7 @@ namespace Uniframework.SmartClient
         [ServiceDependency]
         public WorkItem WorkItem
         {
+            get { return workItem; }
             set 
             { 
                 workItem = value;
@@ -115,9 +116,11 @@ namespace Uniframework.SmartClient
             SetCommandStatus(CommandHandlerNames.CMD_EDIT_REPLACE, enabled && activeHandler.CanReplace);
         }
 
-        private void SetCommandStatus(string commandName, bool enabled)
+        private void SetCommandStatus(string command, bool enabled)
         {
-            workItem.Commands[commandName].Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
+            Command cmd = BuilderUtility.GetCommand(WorkItem, command);
+            if(cmd != null)
+            cmd.Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
         }
 
         #endregion
