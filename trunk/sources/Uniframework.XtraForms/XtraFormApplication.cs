@@ -17,7 +17,6 @@ namespace Uniframework.XtraForms
 		/// </summary>
 		protected override void Start()
 		{
-			Application.Run(Shell);
 		}
 	}
 }

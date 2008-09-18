@@ -112,7 +112,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
+    <Compile Include="Services\Foundation\DocumentService.cs" />
     <Compile Include="Services\Foundation\EditableService.cs" />
+    <Compile Include="Services\Foundation\IDocumentService.cs" />
     <Compile Include="Services\Foundation\IEditHandler.cs" />
     <Compile Include="Services\Foundation\IEditableService.cs" />
     <Compile Include="Services\EventDispatcher\EventDispatcher.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Services\WebServiceModuleEnumerator.cs" />
     <Compile Include="Services\XtraContentMenuService.cs" />
     <Compile Include="SmartClientEnvironment.cs" />
+    <Compile Include="SmartFormApplication.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Views\AboutPresenter.cs" />

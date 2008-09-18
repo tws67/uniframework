@@ -32,7 +32,7 @@ using Uniframework.SmartClient.WorkItems.Setting;
 
 namespace Uniframework.StartUp
 {
-    public class ShellApplication : XtraFormApplicationBase<ControlledWorkItem<RootController>, ShellForm>
+    public class ShellApplication : SmartFormApplication<ControlledWorkItem<RootController>, ShellForm>
     {
         private AddInTree addInTree;
 
@@ -94,9 +94,7 @@ namespace Uniframework.StartUp
         {
             base.AddServices();
 
-            RootWorkItem.Services.Add<IDb4oDatabaseService>(new Db4oDatabaseService());
-            RootWorkItem.Services.Add<IPropertyService>(new PropertyService());
-            RootWorkItem.Services.Add<ISettingService>(new SettingService());
+            
         }
 
         /// <summary>
@@ -144,7 +142,6 @@ namespace Uniframework.StartUp
             Program.SetInitialState("注册自定义UI组件构建服务……");
             Program.IncreaseProgressBar(10);
             RootWorkItem.Services.Add<SmartClientEnvironment>(new SmartClientEnvironment());
-            RootWorkItem.Services.Add<IImageService>(new ImageService());
             RootWorkItem.Services.Add<IBuilderService>(new BuilderService(RootWorkItem));
 
             // 添加系统自定义的默认服务
@@ -240,6 +237,9 @@ namespace Uniframework.StartUp
         private void RegisterCommandHandler()
         {
             RootWorkItem.Items.AddNew<CommandHandlers>("DefaultCommandHandler");
+
+            RootWorkItem.Services.AddNew<EditableService, IEditableService>();
+            RootWorkItem.Services.AddNew<DocumentService, IDocumentService>();
         }
 
         /// <summary>

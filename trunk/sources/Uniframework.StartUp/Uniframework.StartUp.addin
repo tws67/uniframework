@@ -65,99 +65,7 @@
       <add name="XtraBarListItem" type="Uniframework.SmartClient.XtraBarListItemBuilder, Uniframework.SmartClient"/>
     </UIBuilders>
   </Builders>
-  
-  <!--用户界面元素配置项，在完成相关适配器、构建器的注册工作后便可以向系统中插入相关的UI元素啦，UIBuilderService服务会扫描每一
-      个UI配置项并通过其构建相关的UI元素，目前框架支持的UI项有：
-      　1、Bar　对应于Toolbar、Statusbar、Menubar等工具条，可供使用的属性有：
-          name 工具条名称
-          label 显示的标题
-          command 命令名称（此项可空）
-          uiclass UI组件类型名称对应于Bar
-          site 添加的路径名称（此项可空）
-          register 是否注册路径以供附加子项目，可以为true或者false
-          registersite 注册的路径名称，为了便于进行管理建议以"/"分隔每一层路径，如/Shell/MainmenuBar
-          
-        2、ButtonItem 对应于菜单项、工具条按钮、导航栏按钮等UI元素，可用于菜单、工具条、ExplorerBar的相关按钮或菜单项，主要属性
-        有：
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的处理程序
-          uiclass UI组件类型名称对应于ButtonItem
-          site 添加的路径名称（此项可空）
-          register 是否注册路径以供附加子项目，可以为true或者false
-          registersite 注册的路径名称，为了便于进行管理建议以"/"分隔每一层路径，如/Shell/MainmenuBar
-          imagefile 为菜单项、按钮设置的图标文件名称
-          begingroup 设置菜单项、按钮是否开始新的分组，可为为true或者false
-          imageposition 指示图标显示的位置，可用的值为Left、Right、Top、Buttom
-          shortcut 菜单项、按钮的快捷访问键，可用的值为AltBksp AltF1..AltF12 AltLeft AltRight AltUp AltDown CtrlA..CtrlZ CtrlDel
-            CtrlF1..CtrlF12 CtrlIns CtrlShiftA..CtrlShiftZ CtrlShiftF1..CtrlShiftF12 CtrlLeft CtrlRight CtrlUp CtrlDown Del F1..F12   
-            Ins None ShiftDel ShiftF1..ShiftF12 ShiftIns ShiftAltA..ShiftAltZ ShiftAltF1..ShiftAltF12 AltEnter 
-          
-        3、LabelItem对应于标签项，可用于ExplorerBar的分组条中标签
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的单击处理程序
-          uiclass UI组件类型名称对应于LabelItem
-          site 添加的路径名称（此项可空）
-        
-        4、CheckboxItem对应于选择框，可用于ExplorerBar的分组条中
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的单击处理程序
-          uiclass UI组件类型名称对应于LabelItem
-          site 添加的路径名称（此项可空）
 
-        5、ComboBoxItem组合框，可用于菜单条、工具条及ExplorBar中
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的单击处理程序
-          uiclass UI组件类型名称对应于LabelItem
-          site 添加的路径名称（此项可空）
-          register 是否注册路径以供附加子项目
-          registersite 注册的路径名称
-          
-        6、ExplorerBarGroupItem分组条带，可用于ExplorerBar中
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的单击处理程序
-          uiclass UI组件类型名称对应于LabelItem
-          site 添加的路径名称（此项可空）
-          register 是否注册路径以供附加子项目
-          registersite 注册的路径名称
-          imagefile 显示的图标文件
-          
-        7、ProgressBarItem进度条，可用于菜单条、工具条及ExplorerBar中
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的单击处理程序
-          uiclass UI组件类型名称对应于LabelItem
-          site 添加的路径名称（此项可空）
-          register 是否注册路径以供附加子项目
-          registersite 注册的路径名称
-          
-        8、ContentMenu右键菜单，可用于右键菜单的创建
-          name 名称
-          label 显示的标题
-          command 命令名称（此项可空），如果非空则表示其单击事件对应的单击处理程序
-          uiclass UI组件类型名称对应于LabelItem
-          site 添加的路径名称（此项可空）
-          path 右键菜单的路径，只有SmartPart项目可以通过Path来创建自定义的右键菜单，Path值必须与Control控件的Tag值一样
-          register 是否注册路径以供附加子项目
-          registersite 注册的路径名称
-        
-  　　-->
-  <!--
-    系统预定义的路径名称说明：
-    
-    /SHELL 插件根路径
-    /SHELL/Mainmenu 主菜单
-    /SHELL/Toolbars 工具条其下跟具体的工具条路径如：/SHELL/Toolbars/Standard等
-    /SHELL/NaviPane 导航条路径，对应于系统左侧的导航区的功能，具体的导航栏可以在其下添加如：/SHELL/NaviPane/Configation、/SHELL/NaviPane/HRS
-    /SHELL/Workspace 定义系统工作区路径，工作区分为主工作区及可依靠工作区：/SHELL/Workspace/Document(/SHELL/Workspace/Main)、/SHELL/Workspace/Dockable
-    /SHELL/NaviPane/XXX/Views 子系统的视图路径，具体视图可为：/SHELL/NaviPane/HRS/Views/Customer
-    /SHELL/NaviPane/XXX/Views/XXX/Contents 子系统对应视图下的右键菜单路径，例如：/SHELL/NaviPane/HRS/Views/Customer/Contents/BrowserGrid、/SHELL/NaviPane/HRS/Views/Customer/Contents/TreeView
-    /SHELL/NaviPane/XXX/Views/XXX/Toolbars 子系统对应视图下的工具条的路径，例如：/SHELL/NaviPane/HRS/Views/Customer/Toolbars/Formart、/SHELL/NaviPane/HRS/Views/Customer/Toolbars/Styles
-  -->
   <AddIns>
     <Path name="/Shell" label="Uniframework" buildstartup="true">
         <!--<Item id="Bar/Standard" name="Standard_toolBar" label="工具栏" command="" classname="XtraBar" dockstyle="Top"/>-->
@@ -229,7 +137,7 @@
       <Item id="New"
             name="mmifNew"
             label="新建(&amp;N)..."
-            command=""
+            command="/Shell/Module/Foundation/File/New"
             classname="XtraButtonItem"
             register="true"
             shortcut="CtrlN"
@@ -238,7 +146,7 @@
       <Item id="Open"
             name="mmifOpen"
             label="打开(&amp;O)"
-            command=""
+            command="/Shell/Module/Foundation/File/Open"
             classname="XtraButtonItem"
             shortcut="CtrlO"
             imagefile="${folder}"/>
@@ -246,7 +154,7 @@
       <Item id="Save"
             name="mmifSave"
             label="保存(&amp;S)"
-            command=""
+            command="/Shell/Module/Foundation/File/Save"
             classname="XtraButtonItem"
             shortcut="CtrlS"
             imagefile="${disk_blue}"
@@ -263,7 +171,7 @@
       <Item id="SaveAs"
             name="mmifSaveAs"
             label="另存为(&amp;A)..."
-            command=""
+            command="/Shell/Module/Foundation/File/SaveAs"
             classname="XtraButtonItem"
             shortcut="F2"/>
 
@@ -327,7 +235,7 @@
       <Item id="Undo"
             name="mmieUndo"
             label="撤销(&amp;Z)"
-            command=""
+            command="/Shell/Module/Foundation/Edit/Undo"
             classname="XtraButtonItem"
             imagefile="${Undo}"
             shortcut="CtrlZ"/>
@@ -335,7 +243,7 @@
       <Item id="Cut"
             name="mmieCut"
             label="剪切(&amp;T)"
-            command=""
+            command="/Shell/Module/Foundation/Edit/Cut"
             classname="XtraButtonItem"
             imagefile="${Cut}"
             shortcut="CtrlX"
@@ -344,7 +252,7 @@
       <Item id="Copy"
             name="mmieCopy"
             label="复制(&amp;C)"
-            command=""
+            command="/Shell/Module/Foundation/Edit/Copy"
             classname="XtraButtonItem"
             imagefile="${Copy}"
             shortcut="CtrlC"/>
@@ -352,7 +260,7 @@
       <Item id="Paste"
             name="mmiePaste"
             label="粘贴(&amp;P)"
-            command=""
+            command="/Shell/Module/Foundation/Edit/Paste"
             classname="XtraButtonItem"
             imagefile="${Paste}"
             shortcut="CtrlP"/>
@@ -360,7 +268,7 @@
       <Item id="Delete"
             name="mmieDelete"
             label="删除(&amp;D)"
-            command=""
+            command="/Shell/Module/Foundation/Edit/Delete"
             classname="XtraButtonItem"
             imagefile="${delete2}"
             shortcut="Del"
@@ -369,7 +277,7 @@
       <Item id="SelectAll"
             name="mmieSelectAll"
             label="全部选择(&amp;A)"
-            command=""
+            command="/Shell/Module/Foundation/Edit/SelectAll"
             classname="XtraButtonItem"
             shortcut="CtrlA"
             begingroup="true"/>
@@ -377,7 +285,7 @@
       <Item id="Filter"
             name="mmieFilter"
             label="过滤(&amp;F)..."
-            command=""
+            command="/Shell/Module/Foundation/Edit/Filter"
             classname="XtraButtonItem"
             shortcut="CtrlShiftF"
             imagefile="${funnel}"
@@ -386,7 +294,7 @@
       <Item id="Search"
             name="mmieSearch"
             label="查找(&amp;S)..."
-            command=""
+            command="/Shell/Module/Foundation/Edit/Search"
             classname="XtraButtonItem"
             shortcut="CtrlF"
             imagefile="${find}"/>
@@ -394,7 +302,7 @@
       <Item id="Replace"
             name="mmieReplace"
             label="替换(&amp;R)..."
-            command=""
+            command="/Shell/Module/Foundation/Edit/Replace"
             classname="XtraButtonItem"
             shortcut="CtrlH"
             imagefile="${replace}"/>
