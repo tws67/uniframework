@@ -248,7 +248,7 @@
             label="保存(&amp;S)"
             command=""
             classname="XtraButtonItem"
-            shortcut="F2"
+            shortcut="CtrlS"
             imagefile="${disk_blue}"
             begingroup="true"/>
 
@@ -264,7 +264,8 @@
             name="mmifSaveAs"
             label="另存为(&amp;A)..."
             command=""
-            classname="XtraButtonItem"/>
+            classname="XtraButtonItem"
+            shortcut="F2"/>
 
       <Item id="Import"
             name="mmifImport"
@@ -420,7 +421,7 @@
             classname="XtraButtonItem" 
             imagefile="${preferences}" 
             begingroup="true"
-            shortcut="CtrlO"/>
+            shortcut="CtrlShiftO"/>
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">

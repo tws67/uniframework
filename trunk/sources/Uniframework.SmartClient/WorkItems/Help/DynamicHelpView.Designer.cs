@@ -97,7 +97,7 @@ namespace Uniframework.SmartClient
             // btnHome
             // 
             this.btnHome.Caption = "ึ๗าณ(&H)";
-            this.btnHome.Glyph = global::Uniframework.SmartClient.Properties.Resources.nav_plain_green;
+            this.btnHome.Glyph = global::Uniframework.SmartClient.Properties.Resources.home;
             this.btnHome.Hint = "ึ๗าณ";
             this.btnHome.Id = 7;
             this.btnHome.Name = "btnHome";

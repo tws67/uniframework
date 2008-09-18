@@ -74,6 +74,13 @@ namespace Uniframework.SmartClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap home {
+            get {
+                object obj = ResourceManager.GetObject("home", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap nav_left_green {
             get {
                 object obj = ResourceManager.GetObject("nav_left_green", resourceCulture);
