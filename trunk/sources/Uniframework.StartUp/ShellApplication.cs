@@ -46,10 +46,6 @@ namespace Uniframework.StartUp
             InitializeEnvironment();
         }
 
-        private void AddClientServices()
-        {
-        }
-
         /// <summary>
         /// See <see cref="CabShellApplication{T,S}.AfterShellCreated"/>
         /// </summary>

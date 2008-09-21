@@ -8,19 +8,22 @@ using System.Windows.Forms;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
+using log4net;
 
 namespace Uniframework.SmartClient
 {
     /// <summary>
     /// 文档服务
     /// </summary>
+    [Service]
     public class DocumentService : IDocumentService, IDisposable
     {
         private Dictionary<string, IDocumentFactory> documentFactories;
-        private IDocument activeDocument;
+        private IDocument activeDocument = null;
         private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
         private WorkItem workItem;
+        private ILog logger;
 
         public DocumentService()
         {
@@ -35,12 +38,17 @@ namespace Uniframework.SmartClient
         public WorkItem WorkItem
         {
             get { return workItem; }
-            set
-            {
+            set {
                 workItem = value;
                 ActiveDocument = null;
                 workItem.Commands[CommandHandlerNames.CMD_FILE_OPEN].Status = CommandStatus.Disabled;
             }
+        }
+
+        [ServiceDependency]
+        public ILog Logger
+        {
+            set { logger = value; }
         }
 
         #endregion
@@ -74,18 +82,20 @@ namespace Uniframework.SmartClient
         {
             IDocumentFactory factory = (IDocumentFactory)documentType;
             IDocument document = factory.New();
-            if (document != null) { InitializeDocument(document); }
+            if (document != null) { 
+                InitializeDocument(document); 
+            }
         }
 
         private IDocument ActiveDocument
         {
             get { return activeDocument; }
-            set
-            {
+            set {
                 activeDocument = value;
 
                 CommandStatus status = CommandStatus.Disabled;
-                if (activeDocument != null) { status = CommandStatus.Enabled; }
+                if (activeDocument != null) 
+                    status = CommandStatus.Enabled;
 
                 WorkItem.Commands[CommandHandlerNames.CMD_FILE_SAVE].Status = status;
                 WorkItem.Commands[CommandHandlerNames.CMD_FILE_SAVEAS].Status = status;
@@ -102,7 +112,7 @@ namespace Uniframework.SmartClient
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_FILE_OPEN)]
-        public void Open(object sender, EventArgs e)
+        public void OnOpen(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -111,7 +121,9 @@ namespace Uniframework.SmartClient
                 IDocumentFactory documentFactory = documentFactories[extension];
                 IDocument document = documentFactory.Open(openFileDialog.FileName);
 
-                if (document != null) { InitializeDocument(document); }
+                if (document != null) { 
+                    InitializeDocument(document); 
+                }
             }
         }
 
@@ -121,7 +133,7 @@ namespace Uniframework.SmartClient
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_FILE_SAVE)]
-        public void Save(object sender, EventArgs e)
+        public void OnSave(object sender, EventArgs e)
         {
             Save(ActiveDocument.FileName);
         }
@@ -132,7 +144,7 @@ namespace Uniframework.SmartClient
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_FILE_SAVEAS)]
-        public void SaveAs(object sender, EventArgs e)
+        public void OnSaveAs(object sender, EventArgs e)
         {
             Save(null);
         }
@@ -140,6 +152,16 @@ namespace Uniframework.SmartClient
         #endregion
 
         #region Assistant functions
+
+        private void SetCommandStatus(string command, bool enabled)
+        {
+            Command cmd = BuilderUtility.GetCommand(WorkItem, command);
+            if (cmd != null)
+            {
+                logger.Debug("设置菜单项 " + command + " 的状态");
+                cmd.Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
+            }
+        }
 
         private static string AppendFilter(string filter, IDocumentType extension)
         {
