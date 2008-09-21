@@ -9,6 +9,9 @@ using Microsoft.Practices.CompositeUI.Common;
 
 namespace Uniframework.SmartClient
 {
+    /// <summary>
+    /// 编辑服务
+    /// </summary>
     public class EditableService : IEditableService
     {
         private IEditHandler activeHandler = null;
