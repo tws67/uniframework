@@ -42,6 +42,7 @@
     <Reference Include="DevExpress.XtraNavBar.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichTextEdit.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
     <Reference Include="DevExpress.XtraTreeList.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -57,6 +58,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -155,6 +157,14 @@
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Help\IDynamicHelpView.cs" />
+    <Compile Include="WorkItems\RichTextEditor\DocumentController.cs" />
+    <Compile Include="WorkItems\RichTextEditor\EditorController.cs" />
+    <Compile Include="WorkItems\RichTextEditor\RichEditorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\RichTextEditor\RichEditorView.Designer.cs">
+      <DependentUpon>RichEditorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Setting\ISetting.cs" />
     <Compile Include="WorkItems\Setting\ISettingService.cs" />
     <Compile Include="WorkItems\Setting\SettingPresenter.cs" />
@@ -221,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\RichTextEditor\RichEditorView.resx">
+      <DependentUpon>RichEditorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Setting\SettingView.resx">
       <DependentUpon>SettingView.cs</DependentUpon>
