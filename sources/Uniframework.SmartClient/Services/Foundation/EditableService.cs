@@ -36,6 +36,7 @@ namespace Uniframework.SmartClient
         [ServiceDependency]
         public IAdapterFactoryCatalog<IEditHandler> FactoryCatalog
         {
+            get { return factoryCatalog; }
             set { factoryCatalog = value; }
         }
 
@@ -46,7 +47,7 @@ namespace Uniframework.SmartClient
         /// </summary>
         public EditableService()
         {
-            Application.Idle += new EventHandler(ApplicationIdle);
+            Application.Idle += new EventHandler(Application_Idle);
         }
 
         #region IEditableService Members
@@ -57,7 +58,7 @@ namespace Uniframework.SmartClient
         /// <param name="editHandler"></param>
         public void Register(IEditHandler handler)
         {
-            Guard.ArgumentNotNull(handler, "editHandler");
+            Guard.ArgumentNotNull(handler, "EditHandler");
             handler.Enter += new EventHandler(EditEnter);
             handler.Leave += new EventHandler(EditLeave);
         }
@@ -68,7 +69,7 @@ namespace Uniframework.SmartClient
         /// <param name="uiElement"></param>
         public void Register(object uiElement)
         {
-            IEditHandler handler = factoryCatalog.GetFactory(uiElement).GetAdapter(uiElement);
+            IEditHandler handler = FactoryCatalog.GetFactory(uiElement).GetAdapter(uiElement);
             handlers.Add(uiElement, handler);
             Register(handler);
         }
@@ -80,7 +81,7 @@ namespace Uniframework.SmartClient
         /// <param name="editHandler"></param>
         public void UnRegister(IEditHandler handler)
         {
-            Guard.ArgumentNotNull(handler, "editHandler");
+            Guard.ArgumentNotNull(handler, "EditHandler");
             handler.Enter -= EditEnter;
             handler.Leave -= EditLeave;
         }
@@ -92,8 +93,7 @@ namespace Uniframework.SmartClient
         /// <param name="uiElement"></param>
         public void UnRegister(object uiElement)
         {
-            if (handlers.ContainsKey(uiElement))
-            {
+            if (handlers.ContainsKey(uiElement)) {
                 UnRegister(handlers[uiElement]);
                 handlers.Remove(uiElement);
             }
@@ -144,67 +144,67 @@ namespace Uniframework.SmartClient
             UpdateCommandStatus();
         }
 
-        private void ApplicationIdle(object sender, EventArgs e)
+        private void Application_Idle(object sender, EventArgs e)
         {
             UpdateCommandStatus();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_UNDO)]
-        public void Undo(object sender, EventArgs e)
+        public void OnUndo(object sender, EventArgs e)
         {
             activeHandler.Undo();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_REDO)]
-        public void Redo(object sender, EventArgs e)
+        public void OnRedo(object sender, EventArgs e)
         {
             activeHandler.Redo();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_CUT)]
-        public void Cut(object sender, EventArgs e)
+        public void OnCut(object sender, EventArgs e)
         {
             activeHandler.Cut();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_COPY)]
-        public void Copy(object sender, EventArgs e)
+        public void OnCopy(object sender, EventArgs e)
         {
             activeHandler.Copy();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_PASTE)]
-        public void Paste(object sender, EventArgs e)
+        public void OnPaste(object sender, EventArgs e)
         {
             activeHandler.Paste();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_DELETE)]
-        public void Delete(object sender, EventArgs e)
+        public void OnDelete(object sender, EventArgs e)
         {
             activeHandler.Delete();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_SELECTALL)]
-        public void SelectAll(object sender, EventArgs e)
+        public void OnSelectAll(object sender, EventArgs e)
         {
             activeHandler.SelectAll();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_FILTER)]
-        public void Filter(object sender, EventArgs e)
+        public void OnFilter(object sender, EventArgs e)
         {
             activeHandler.Filter();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_SEARCH)]
-        public void Search(object sender, EventArgs e)
+        public void OnSearch(object sender, EventArgs e)
         {
             activeHandler.Search();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_REPLACE)]
-        public void Replace(object sender, EventArgs e)
+        public void OnReplace(object sender, EventArgs e)
         {
             activeHandler.Replace();
         }
