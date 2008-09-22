@@ -37,6 +37,7 @@ namespace Uniframework.SmartClient
             base.AddServices();
 
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IEditHandler>, IAdapterFactoryCatalog<IEditHandler>>();
+            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IPrintHandler>, IAdapterFactoryCatalog<IPrintHandler>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
             RootWorkItem.Services.AddOnDemand<Db4oDatabaseService, IDb4oDatabaseService>();
             RootWorkItem.Services.AddOnDemand<PropertyService, IPropertyService>();

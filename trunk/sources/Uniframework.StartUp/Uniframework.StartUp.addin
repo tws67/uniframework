@@ -178,7 +178,7 @@
       <Item id="Import"
             name="mmifImport"
             label="导入(&amp;I)..."
-            command=""
+            command="/Shell/Module/Foundation/File/Import"
             classname="XtraButtonItem"
             shortcut="CtrlI"
             imagefile="${import1}"
@@ -187,7 +187,7 @@
       <Item id="Export"
             name="mmifExport"
             label="导出(&amp;E)..."
-            command=""
+            command="/Shell/Module/Foundation/File/Export"
             classname="XtraButtonItem"
             shortcut="CtrlE"
             imagefile="${export1}"/>
@@ -195,7 +195,7 @@
       <Item id="Print"
             name="mmifPrint"
             label="打印(&amp;P)..."
-            command=""
+            command="/Shell/Module/Foundation/File/Print"
             classname="XtraButtonItem"
             shortcut="CtrlP"
             begingroup="true"/>
@@ -203,14 +203,14 @@
       <Item id="QuickPrint"
             name="mmifQuickPrint"
             label="快速打印(&amp;Q)"
-            command=""
+            command="/Shell/Module/Foundation/File/QuickPrint"
             classname="XtraButtonItem"
             shortcut="F9"/>
 
       <Item id="Preview"
             name="mmifPreview"
             label="预览(&amp;P)"
-            command=""
+            command="/Shell/Module/Foundation/File/Preview"
             classname="XtraButtonItem"
             shortcut="F8"
             imagefile="${document_view}"/>
@@ -218,7 +218,7 @@
       <Item id="PageSetup"
             name="mmifPageSetup"
             label="页面设置(&amp;T)..."
-            command=""
+            command="/Shell/Module/Foundation/File/PageSetup"
             classname="XtraButtonItem"
             imagefile="${document_gear}"/>
       

@@ -236,6 +236,7 @@ namespace Uniframework.StartUp
 
             RootWorkItem.Services.AddNew<EditableService, IEditableService>();
             RootWorkItem.Services.AddNew<DocumentService, IDocumentService>();
+            RootWorkItem.Services.AddNew<PrintableService, IPrintableService>();
         }
 
         /// <summary>

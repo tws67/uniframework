@@ -11,6 +11,15 @@ namespace Uniframework.SmartClient
     public interface IPrintHandler
     {
         /// <summary>
+        /// Occurs when [enter].
+        /// </summary>
+        event EventHandler Enter;
+        /// <summary>
+        /// Occurs when [leave].
+        /// </summary>
+        event EventHandler Leave;
+
+        /// <summary>
         /// Gets a value indicating whether this instance can print.
         /// </summary>
         /// <value><c>true</c> if this instance can print; otherwise, <c>false</c>.</value>

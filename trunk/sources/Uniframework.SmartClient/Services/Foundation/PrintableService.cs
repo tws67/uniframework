@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
@@ -13,6 +15,14 @@ namespace Uniframework.SmartClient
         private IPrintHandler activeHandler = null;
         private Dictionary<object, IPrintHandler> handlers = new Dictionary<object, IPrintHandler>();
         private WorkItem workItem;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PrintableService"/> class.
+        /// </summary>
+        public PrintableService()
+        {
+            Application.Idle +=new EventHandler(Application_Idle);
+        }
 
         #region Dependency services
 
@@ -40,22 +50,33 @@ namespace Uniframework.SmartClient
 
         public void Register(IPrintHandler handler)
         {
-            throw new NotImplementedException();
+            Guard.ArgumentNotNull(handler, "PrintHandler");
+
+            handler.Enter += new EventHandler(OnEnter);
+            handler.Leave += new EventHandler(OnLeave);
         }
 
         public void Register(object uiElement)
         {
-            throw new NotImplementedException();
+            IPrintHandler handler = FactoryCatalog.GetFactory(uiElement).GetAdapter(uiElement);
+            handlers.Add(uiElement, handler);
+            Register(handler);
         }
 
         public void UnRegister(IPrintHandler handler)
         {
-            throw new NotImplementedException();
+            Guard.ArgumentNotNull(handler, "PrintHandler");
+
+            handler.Enter -= OnEnter;
+            handler.Leave -= OnLeave;
         }
 
         public void UnRegister(object uiElement)
         {
-            throw new NotImplementedException();
+            if (handlers.ContainsKey(uiElement)) {
+                UnRegister(handlers[uiElement]);
+                handlers.Remove(uiElement);
+            }
         }
 
         #endregion
@@ -121,12 +142,31 @@ namespace Uniframework.SmartClient
 
         #region Assistant functions
 
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            UpdateCommandStatus();
+        }
+
+        private void OnEnter(object sender, EventArgs e)
+        {
+            Microsoft.Practices.CompositeUI.Utility.Guard.TypeIsAssignableFromType(sender.GetType(), typeof(IPrintHandler), "sender");
+
+            activeHandler = (IPrintHandler)sender;
+            UpdateCommandStatus();
+        }
+
+        private void OnLeave(object sender, EventArgs e)
+        {
+            activeHandler = null;
+            UpdateCommandStatus();
+        }
+
         /// <summary>
         /// 更新命令处理器的状态
         /// </summary>
         private void UpdateCommandStatus()
         {
-            bool enabled = activeHandler != null;
+            bool enabled = (activeHandler != null);
 
             SetCommandStatus(CommandHandlerNames.CMD_FILE_PRINT, enabled && activeHandler.CanPrint);
             SetCommandStatus(CommandHandlerNames.CMD_FILE_QUICKPRINT, enabled && activeHandler.CanQuickPrint);

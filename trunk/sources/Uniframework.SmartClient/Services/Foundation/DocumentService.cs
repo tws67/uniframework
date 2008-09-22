@@ -30,6 +30,8 @@ namespace Uniframework.SmartClient
             documentFactories = new Dictionary<string, IDocumentFactory>();
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
+
+            Application.Idle += new EventHandler(Application_Idle);
         }
 
         #region Dependency services
@@ -92,13 +94,7 @@ namespace Uniframework.SmartClient
             get { return activeDocument; }
             set {
                 activeDocument = value;
-
-                CommandStatus status = CommandStatus.Disabled;
-                if (activeDocument != null) 
-                    status = CommandStatus.Enabled;
-
-                WorkItem.Commands[CommandHandlerNames.CMD_FILE_SAVE].Status = status;
-                WorkItem.Commands[CommandHandlerNames.CMD_FILE_SAVEAS].Status = status;
+                UpdateCommandStatus();
             }
         }
 
@@ -149,16 +145,59 @@ namespace Uniframework.SmartClient
             Save(null);
         }
 
+        /// <summary>
+        /// 导入文件
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_FILE_IMPORT)]
+        public void OnImport(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                ActiveDocument.Import(openFileDialog.FileName);
+            }
+        }
+
+        /// <summary>
+        /// 导出文件
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_FILE_EXPORT)]
+        public void OnExport(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                ActiveDocument.Export(saveFileDialog.FileName);
+            }
+        }
+
         #endregion
 
         #region Assistant functions
 
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            UpdateCommandStatus();
+        }
+
+        /// <summary>
+        /// Updates the command status.
+        /// </summary>
+        private void UpdateCommandStatus()
+        {
+            bool enabled = (activeDocument != null);
+
+            SetCommandStatus(CommandHandlerNames.CMD_FILE_OPEN, documentFactories.Count >= 1);
+            SetCommandStatus(CommandHandlerNames.CMD_FILE_SAVE, enabled && ActiveDocument.CanSave);
+            SetCommandStatus(CommandHandlerNames.CMD_FILE_SAVEAS, enabled && ActiveDocument.CanSave);
+            SetCommandStatus(CommandHandlerNames.CMD_FILE_IMPORT, enabled && ActiveDocument.CanImport);
+            SetCommandStatus(CommandHandlerNames.CMD_FILE_EXPORT, enabled && ActiveDocument.CanExport);
+        }
+
         private void SetCommandStatus(string command, bool enabled)
         {
             Command cmd = BuilderUtility.GetCommand(WorkItem, command);
-            if (cmd != null)
-            {
-                logger.Debug("设置菜单项 " + command + " 的状态");
+            if (cmd != null) {
                 cmd.Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
             }
         }
