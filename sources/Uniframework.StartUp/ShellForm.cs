@@ -288,8 +288,8 @@ namespace Uniframework.StartUp
                 this.Location = layout.Location;
                 this.Size = layout.Size;
                 this.WindowState = layout.WindowState;
-                this.NaviWorkspace.OptionsNavPane.NavPaneState = layout.NavPaneState;
                 this.NaviWorkspace.PaintStyleName = layout.NavPaintStyleName;
+                this.NaviWorkspace.OptionsNavPane.NavPaneState = layout.NavPaneState;
                 this.StatusBar.Visible = layout.ShowStatusBar;
                 this.TabbedMdiManager.MdiParent = layout.WindowLayoutMode == WindowLayoutMode.Tabbed ? this : null;
                 UserLookAndFeel.Default.SetSkinStyle(layout.DefaultSkin);
