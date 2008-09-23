@@ -46,9 +46,9 @@ namespace Uniframework.SmartClient.Views
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.TopPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.IconPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -202,18 +202,8 @@ namespace Uniframework.SmartClient.Views
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(552, 60);
+            this.TopPanel.Size = new System.Drawing.Size(554, 60);
             this.TopPanel.TabIndex = 17;
-            // 
-            // label1
-            // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 60);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(552, 2);
-            this.label1.TabIndex = 18;
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panelControl1
             // 
@@ -231,12 +221,22 @@ namespace Uniframework.SmartClient.Views
             this.IconPanel.Size = new System.Drawing.Size(30, 30);
             this.IconPanel.TabIndex = 1;
             // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 60);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(554, 2);
+            this.label1.TabIndex = 18;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // frmAbout
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 290);
+            this.ClientSize = new System.Drawing.Size(554, 292);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.lvModules);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
@@ -49,9 +50,12 @@ namespace Microsoft.Practices.CompositeUI.Common.Workspaces
         /// <returns></returns>
         protected new Form GetOrCreateForm(Control smartPart)
         {
+            bool resizeRequired = !Windows.ContainsKey(smartPart);
             Form form = base.GetOrCreateForm(smartPart);
             form.ShowInTaskbar = (owner == null);
             form.FormClosing += new FormClosingEventHandler(form_FormClosing);
+            if (resizeRequired)
+                form.ClientSize = smartPart.Size;
 
             return form;
         }

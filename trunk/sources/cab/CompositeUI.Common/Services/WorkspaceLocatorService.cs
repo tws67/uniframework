@@ -12,13 +12,12 @@ namespace Microsoft.Practices.CompositeUI.Common.Services
 
         public IWorkspace FindContainingWorkspace(WorkItem workItem, object smartPart)
         {
-                        while (workItem != null)
-            {
-                foreach (KeyValuePair<string, IWorkspace> wks in workItem.Workspaces)
-                {
-                    if (wks.Value.SmartParts.Contains(smartPart))
-                        return wks.Value;
+            while (workItem != null) {
+                foreach (KeyValuePair<string, IWorkspace> namedWorkspace in workItem.Workspaces) {
+                    if (namedWorkspace.Value.SmartParts.Contains(smartPart))
+                        return namedWorkspace.Value;
                 }
+                workItem = workItem.Parent;
             }
             return null;
         }

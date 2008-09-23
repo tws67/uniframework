@@ -54,12 +54,14 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1108"
+		VWDPort = "1820"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Tests", "tests\Uniframework.Tests\Uniframework.Tests.csproj", "{9ABD0D45-3CD5-4063-A4FA-4107347949C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.SmartClient.Tests", "tests\Uniframework.SmartClient.Tests\Uniframework.SmartClient.Tests.csproj", "{D2894FD8-8C5C-41C6-BBE5-F38A4EFE40BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Tests.Base", "tests\Uniframework.Tests.Base\Uniframework.Tests.Base.csproj", "{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{D2894FD8-8C5C-41C6-BBE5-F38A4EFE40BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2894FD8-8C5C-41C6-BBE5-F38A4EFE40BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2894FD8-8C5C-41C6-BBE5-F38A4EFE40BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +159,7 @@ Global
 		{E9CBA808-D476-4034-9FD7-ABBF69D13B2B} = {98A47012-EFC9-44A3-BA2E-FBC0BDF9B86F}
 		{9ABD0D45-3CD5-4063-A4FA-4107347949C3} = {FE8A6B54-BD43-4AD0-A43E-46CD35C2284C}
 		{D2894FD8-8C5C-41C6-BBE5-F38A4EFE40BF} = {FE8A6B54-BD43-4AD0-A43E-46CD35C2284C}
+		{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6} = {FE8A6B54-BD43-4AD0-A43E-46CD35C2284C}
 		{2AE49F19-392B-4C50-A13C-F49B2579849D} = {F72A86A2-C9BF-4390-BC41-DD5DA5DB5B36}
 		{C478E40B-A05E-4C69-9AB3-7A3BB374243F} = {F72A86A2-C9BF-4390-BC41-DD5DA5DB5B36}
 		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C} = {F72A86A2-C9BF-4390-BC41-DD5DA5DB5B36}

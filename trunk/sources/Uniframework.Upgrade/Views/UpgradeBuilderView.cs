@@ -203,8 +203,8 @@ namespace Uniframework.Upgrade.Views
                 BindingUpgradeGroup(group);
 
                 try {
-                    Assembly assembly = Assembly.Load(opendlg.FileName);
-                    txtVersion.Text = assembly.GetName().Version.ToString();
+                    AssemblyName assemblyName = Assembly.ReflectionOnlyLoadFrom(opendlg.FileName).GetName();
+                    txtVersion.Text = assemblyName.Version.ToString();
                 }
                 catch {
                     UpgradeProject proj = Presenter.UpgradeService.GetUpgradeProject(txtProduct.Text.Trim()); // 从服务器升级数据库中获取新的版本号
@@ -300,6 +300,7 @@ namespace Uniframework.Upgrade.Views
         {
             UpdateUpgradeGroup();
             ClearUpgradeGroupDetail();
+            txtTarget.Text = "${RootPath}";
         }
 
         private void btngDelete_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

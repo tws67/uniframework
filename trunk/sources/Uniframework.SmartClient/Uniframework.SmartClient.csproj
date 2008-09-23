@@ -33,7 +33,6 @@
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.OfficeSkins.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.2.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
@@ -205,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddIns\Sample.addin" />
+    <None Include="Resources\action_info.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\nav_right_green.png" />
