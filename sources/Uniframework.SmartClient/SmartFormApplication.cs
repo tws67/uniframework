@@ -5,11 +5,13 @@ using System.Text;
 using System.Windows.Forms;
 
 using Microsoft.Practices.CompositeUI;
-using Uniframework.XtraForms;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.Common.Services;
 using Microsoft.Practices.CompositeUI.Services;
+
 using Uniframework.Db4o;
 using Uniframework.SmartClient.WorkItems.Setting;
+using Uniframework.XtraForms;
 
 namespace Uniframework.SmartClient
 {
@@ -30,7 +32,7 @@ namespace Uniframework.SmartClient
         }
 
         /// <summary>
-        /// See <see cref="CabApplication{TWorkItem}.AddServices"/>
+        /// 添加自定义服务，请参考 <see cref="CabApplication{TWorkItem}.AddServices"/>
         /// </summary>
         protected override void AddServices()
         {
@@ -42,6 +44,9 @@ namespace Uniframework.SmartClient
             RootWorkItem.Services.AddOnDemand<Db4oDatabaseService, IDb4oDatabaseService>();
             RootWorkItem.Services.AddOnDemand<PropertyService, IPropertyService>();
             RootWorkItem.Services.AddOnDemand<SettingService, ISettingService>();
+            RootWorkItem.Services.AddOnDemand<EntityTranslatorService, IEntityTranslatorService>();
+            RootWorkItem.Services.AddOnDemand<WorkspaceLocatorService, IWorkspaceLocatorService>();
+
         }
     }
 }
