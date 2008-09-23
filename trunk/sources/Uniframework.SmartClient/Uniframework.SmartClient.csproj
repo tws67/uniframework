@@ -157,14 +157,6 @@
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Help\IDynamicHelpView.cs" />
-    <Compile Include="WorkItems\RichTextEditor\DocumentController.cs" />
-    <Compile Include="WorkItems\RichTextEditor\EditorController.cs" />
-    <Compile Include="WorkItems\RichTextEditor\RichEditorView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WorkItems\RichTextEditor\RichEditorView.Designer.cs">
-      <DependentUpon>RichEditorView.cs</DependentUpon>
-    </Compile>
     <Compile Include="WorkItems\Setting\ISetting.cs" />
     <Compile Include="WorkItems\Setting\ISettingService.cs" />
     <Compile Include="WorkItems\Setting\SettingPresenter.cs" />
@@ -231,9 +223,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WorkItems\RichTextEditor\RichEditorView.resx">
-      <DependentUpon>RichEditorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Setting\SettingView.resx">
       <DependentUpon>SettingView.cs</DependentUpon>
