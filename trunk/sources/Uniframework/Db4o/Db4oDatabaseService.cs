@@ -138,8 +138,13 @@ namespace Uniframework.Db4o
         /// <returns></returns>
         private IObjectContainer OpenDatabase(string dbName, IConfiguration config)
         {
-            string filename = String.IsNullOrEmpty(Path.GetExtension(dbName)) ? Path.Combine(dbPath, dbName + DB_EXT) : Path.Combine(dbPath, dbName);
-            return Db4oFactory.OpenFile(config, filename);
+            try {
+                string filename = String.IsNullOrEmpty(Path.GetExtension(dbName)) ? Path.Combine(dbPath, dbName + DB_EXT) : Path.Combine(dbPath, dbName);
+                return Db4oFactory.OpenFile(config, filename);
+            }
+            catch { 
+            }
+            return null;
         }
 
         #endregion
