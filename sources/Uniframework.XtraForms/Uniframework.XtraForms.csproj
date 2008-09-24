@@ -38,10 +38,6 @@
     <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraNavBar.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -156,6 +152,10 @@
     <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cab\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework\Uniframework.csproj">
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>

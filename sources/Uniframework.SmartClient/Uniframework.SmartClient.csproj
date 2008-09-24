@@ -40,17 +40,13 @@
     <Reference Include="DevExpress.XtraLayout.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraNavBar.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v8.2.Core, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
-<Reference Include="DevExpress.XtraPivotGrid.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraRichTextEdit.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5" />
     <Reference Include="DevExpress.XtraTreeList.v8.2, Version=8.2.4.0, Culture=neutral, PublicKeyToken=49d90c14d24271b5, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -186,6 +182,10 @@
     <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cab\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.Client\Uniframework.Client.csproj">
       <Project>{7423F696-7D41-47A6-94C8-AD951FF9BF5B}</Project>
