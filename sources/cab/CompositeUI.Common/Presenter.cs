@@ -86,17 +86,14 @@ namespace Microsoft.Practices.CompositeUI.Common
         protected virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName)
         {
             TView view = default(TView);
-            if (WorkItem.SmartParts.Contains(viewId))
-            {
+            if (WorkItem.SmartParts.Contains(viewId)) {
                 view = WorkItem.SmartParts.Get<TView>(viewId);
             }
-            else
-            {
+            else {
                 view = WorkItem.SmartParts.AddNew<TView>();
             }
 
             WorkItem.Workspaces[workspaceName].Show(view);
-
             return view;
         }
 
