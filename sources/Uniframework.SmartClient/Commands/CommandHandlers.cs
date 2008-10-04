@@ -32,7 +32,7 @@ namespace Uniframework.SmartClient
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Command name " + ((Command)sender).Name);
-            sb.AppendLine("Hi, " + Thread.CurrentPrincipal.Identity.Name + " you click me at " + DateTime.Now.ToLocalTime());
+            sb.AppendLine("Hi, " + Thread.CurrentPrincipal.Identity.Name + " you click me at " + DateTime.Now.ToLocalTime() + " !!!");
             XtraMessageBox.Show(sb.ToString());
         }
 
@@ -104,6 +104,31 @@ namespace Uniframework.SmartClient
                 DockManagerSmartPartInfo spi = new DockManagerSmartPartInfo();
                 spi.Title = "动态帮助";
                 spi.ImageFile = "${help}";
+                spi.Tabbed = true;
+                spi.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+
+                wp.Show(view, spi);
+            }
+        }
+
+        /// <summary>
+        /// 显示快速链接视图
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_VIEW_TASKBAR)]
+        public void OnShowTaskbar(object sender, EventArgs e)
+        {
+            TaskbarView view = WorkItem.SmartParts.Get<TaskbarView>(SmartPartNames.SmartPart_Shell_TaskbarView);
+            if (view == null)
+                view = WorkItem.SmartParts.AddNew<TaskbarView>(SmartPartNames.SmartPart_Shell_TaskbarView);
+
+            IWorkspace wp = WorkItem.Workspaces[UIExtensionSiteNames.Shell_Workspace_Dockable];
+            if (wp != null) {
+                DockManagerSmartPartInfo spi = new DockManagerSmartPartInfo();
+                spi.Title = "关联任务";
+                spi.ImageFile = "${magic-wand}";
+                spi.Tabbed = true;
                 spi.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
 
                 wp.Show(view, spi);
@@ -114,6 +139,20 @@ namespace Uniframework.SmartClient
 
         [ServiceDependency]
         public IImageService ImageService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public IUIExtensionService UIExtensionService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public ITaskbarService TaskbarService
         {
             get;
             set;

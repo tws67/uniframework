@@ -44,11 +44,15 @@ namespace Uniframework.SmartClient
             if (element.Configuration.Attributes["label"] == null)
                 throw new AddInException(String.Format("没有为类型为 \"{0}\" 的插件单元{1}提供label属性。",
                     element.ClassName, element.Id));
+            if(element.Configuration.Attributes["navipane"] == null)
+                throw new AddInException(String.Format("没有为类型为 \"{0}\" 的插件单元{1}提供navipane属性。",
+                    element.ClassName, element.Id));
 
             string label = element.Configuration.Attributes["label"];
+            string navipane = element.Configuration.Attributes["navipane"];
             NavBarGroup item = new NavBarGroup(label);
             item.GroupStyle = NavBarGroupStyle.LargeIconsText;
-            NavBarControl naviPane = context.Items.Get<NavBarControl>(UIExtensionSiteNames.Shell_NaviPane);
+            NavBarControl naviPane = context.Items.Get<NavBarControl>(navipane);
             if (naviPane == null)
                 throw new UniframeworkException("未定义框架外壳的导航栏管理器。");
             naviPane.Groups.Add(item); // 添加分组条到导航栏

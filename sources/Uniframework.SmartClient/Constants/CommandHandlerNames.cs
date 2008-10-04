@@ -46,6 +46,7 @@ namespace Uniframework.SmartClient
         public const string CMD_EDIT_REPLACE       = "/Shell/Module/Foundation/Edit/Replace";
 
         // 视图菜单命令
+        public const string CMD_VIEW_TASKBAR       = "/Shell/Module/Foundation/View/ShowTaskbarView";
         public const string CMD_VIEW_SETTING       = "/Shell/Module/Foundation/View/Setting";
         public const string CMD_VIEW_FULLSCREEN    = "/Shell/Module/Foundation/View/FullScreen";
         public const string CMD_VIEW_HIDEN         = "/Shell/Module/Foundation/View/Hiden";
@@ -67,5 +68,15 @@ namespace Uniframework.SmartClient
         public const string CMD_HELP_SUBMITREPORT  = "/Shell/Module/Foundation/Help/SubmitReport";
         public const string CMD_HELP_CHECKUPGRADE  = "/Shell/Module/Foundation/Help/CheckUpgrade";
         public const string CMD_HELP_ABOUT         = "/Shell/Module/Foundation/Help/About";
+        
+        // 表格控件右键菜单命令
+        public const string CMD_GRIDCONTENT_INSERT = "/Shell/Module/Foundation/Grid/Content/Insert";
+        public const string CMD_GRIDCONTENT_EDIT = "/Shell/Module/Foundation/Grid/Content/Edit";
+        public const string CMD_GRIDCONTENT_DELETE = "/Shell/Module/Foundation/Grid/Content/Delete";
+        public const string CMD_GRIDCONTENT_EXPAND = "/Shell/Module/Foundation/Grid/Content/Expand";
+        public const string CMD_GRIDCONTENT_COLLAPSE = "/Shell/Module/Foundation/Grid/Content/Collapse";
+        public const string CMD_GRIDCONTENT_SETDETAILVIEW = "/Shell/Module/Foundation/Grid/Content/SetDetailView";
+        public const string CMD_GRIDCONTENT_SETLAYOUTVIEW = "/Shell/Module/Foundation/Grid/Content/SetLayoutView";
+        public const string CMD_GRIDCONTENT_SELECTLAYOUTVIEW = "/Shell/Module/Foundation/Grid/Content/SelectLayoutView";
     }
 }

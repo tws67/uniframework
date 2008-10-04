@@ -67,7 +67,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Items.Add(Shell.BarManager, UIExtensionSiteNames.Shell_Manager_BarManager);
             RootWorkItem.Items.Add(Shell.DockManager, UIExtensionSiteNames.Shell_Manager_DockManager);
             RootWorkItem.Items.Add(Shell.TabbedMdiManager, UIExtensionSiteNames.Shell_Manager_TabbedMdiManager);
-            RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane);
+            RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane_Navibar);
             
             RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
             RootWorkItem.Workspaces.Add(Shell.DeckWorkspace, UIExtensionSiteNames.Shell_Workspace_Deck);
@@ -295,7 +295,7 @@ namespace Uniframework.StartUp
             Exception ex = e.ExceptionObject as Exception;
             if (ex != null)
             {
-                MessageBox.Show(BuildExceptionString(ex));
+                XtraMessageBox.Show(BuildExceptionString(ex));
             }
             else
             {

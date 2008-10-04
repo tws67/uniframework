@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
 using DevExpress.XtraBars.Docking;
+
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.CompositeUI.Utility;
+
 using Uniframework.XtraForms.SmartPartInfos;
 
 namespace Uniframework.XtraForms.Workspaces
@@ -76,26 +79,42 @@ namespace Uniframework.XtraForms.Workspaces
             return dockPanel;
         }
 
-    	private DockPanel CreateDockPanel(Control control, DockManagerSmartPartInfo smartPartInfo, DockPanel dockPanel)
+    	private DockPanel CreateDockPanel(Control control, DockManagerSmartPartInfo spi, DockPanel dockPanel)
     	{
-    		if (string.IsNullOrEmpty(smartPartInfo.ParentPanelName))
-    		{
-    			dockPanel = dockManager.AddPanel(smartPartInfo.Dock);
-    		}
-    		else
-    		{
-    			foreach (DockPanel dockRootPanel in dockManager.RootPanels)
-    			{
-    				if (dockRootPanel.Name != smartPartInfo.ParentPanelName) continue;
+            if (spi.Tabbed == true)
+            {
+                foreach (DockPanel dockRootPanel in dockManager.RootPanels)
+                {
+                    if (dockRootPanel.Dock != spi.Dock) continue;
 
-    				dockPanel = dockManager.AddPanel(smartPartInfo.Dock);
-    				dockPanel.DockAsTab(dockRootPanel);
-    				break;
-    			}
+                    dockPanel = dockManager.AddPanel(spi.Dock);
+                    dockPanel.DockAsTab(dockRootPanel);
+                    break;
+                }
 
-    			if (dockPanel == null)
-    				dockPanel = dockManager.AddPanel(smartPartInfo.Dock); //If the panel is not found, just create one
-    		}
+                if (dockPanel == null)
+                    dockPanel = dockManager.AddPanel(spi.Dock);
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(spi.ParentPanelName)) {
+                    dockPanel = dockManager.AddPanel(spi.Dock);
+                }
+                else
+                {
+                    foreach (DockPanel dockRootPanel in dockManager.RootPanels) {
+                        if (dockRootPanel.Name != spi.ParentPanelName)
+                            continue;
+
+                        dockPanel = dockManager.AddPanel(spi.Dock);
+                        dockPanel.DockAsTab(dockRootPanel);
+                        break;
+                    }
+
+                    if (dockPanel == null)
+                        dockPanel = dockManager.AddPanel(spi.Dock); // If the panel is not found, just create one
+                }
+            }
 
     		control.Dock = DockStyle.Fill;
     		dockPanels.Add(control, dockPanel);
@@ -108,7 +127,7 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected void SetDockPanelProperties(DockPanel dockPanel, DockManagerSmartPartInfo info)
         {
-            if (string.IsNullOrEmpty(info.ParentPanelName))
+            if (String.IsNullOrEmpty(info.ParentPanelName))
                 dockPanel.Dock = info.Dock;
 
             dockPanel.FloatLocation = info.FloatLocation;

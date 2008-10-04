@@ -46,7 +46,22 @@ namespace Uniframework.SmartClient
             RootWorkItem.Services.AddOnDemand<SettingService, ISettingService>();
             RootWorkItem.Services.AddOnDemand<EntityTranslatorService, IEntityTranslatorService>();
             RootWorkItem.Services.AddOnDemand<WorkspaceLocatorService, IWorkspaceLocatorService>();
+            RootWorkItem.Services.AddOnDemand<UIExtensionService, IUIExtensionService>();
 
+            AddCustomWorkItem(); // 加载自定义的工作项
         }
+
+        #region Assistant function
+
+        /// <summary>
+        /// Adds the custom work item.
+        /// </summary>
+        private void AddCustomWorkItem()
+        {
+            ControlledWorkItem<TaskbarController> taskbarWorkItem = RootWorkItem.WorkItems.AddNew<ControlledWorkItem<TaskbarController>>();
+            taskbarWorkItem.Run();
+        }
+
+        #endregion
     }
 }

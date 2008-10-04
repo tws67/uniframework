@@ -76,7 +76,7 @@ namespace Uniframework.XtraForms.SmartPartInfos
         [DefaultValue(-1)]
         [Category("Appearance")]
         [ImageList("Images")]
-        [Editor("DevExpress.Utils.Design.ImageIndexesEditor, DevExpress.Utils.v8.1", typeof(UITypeEditor))]
+        [Editor("DevExpress.Utils.Design.ImageIndexesEditor, DevExpress.Utils.v8.2", typeof(UITypeEditor))]
         public int ImageIndex
         {
             get { return imageIndex; }
@@ -101,7 +101,7 @@ namespace Uniframework.XtraForms.SmartPartInfos
         [DefaultValue(-1)]
         [Category("Appearance")]
         [ImageList("Images")]
-        [Editor("DevExpress.Utils.Design.ImageIndexesEditor, DevExpress.Utils.v8.1", typeof(UITypeEditor))]
+        [Editor("DevExpress.Utils.Design.ImageIndexesEditor, DevExpress.Utils.v8.2", typeof(UITypeEditor))]
         public int Index
         {
             get { return index; }

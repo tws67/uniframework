@@ -133,11 +133,13 @@
     <Compile Include="Services\Help\DynamicHelpService.cs" />
     <Compile Include="Services\Help\IDynamicHelpService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
+    <Compile Include="Services\IUIExtensionService.cs" />
     <Compile Include="Services\Property\IPropertyService.cs" />
     <Compile Include="Services\Property\Property.cs" />
     <Compile Include="Services\Property\PropertyChangedEventArgs.cs" />
     <Compile Include="Services\Property\PropertyService.cs" />
     <Compile Include="Services\RemoteServiceRegister.cs" />
+    <Compile Include="Services\UIExtensionService.cs" />
     <Compile Include="Services\WebServiceModuleEnumerator.cs" />
     <Compile Include="Services\XtraContentMenuService.cs" />
     <Compile Include="SmartClientEnvironment.cs" />
@@ -175,6 +177,16 @@
     </Compile>
     <Compile Include="WorkItems\Setting\ShellLayoutSettingView.Designer.cs">
       <DependentUpon>ShellLayoutSettingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Taskbar\ITaskbarService.cs" />
+    <Compile Include="WorkItems\Taskbar\TaskbarController.cs" />
+    <Compile Include="WorkItems\Taskbar\TaskbarPresenter.cs" />
+    <Compile Include="WorkItems\Taskbar\TaskbarService.cs" />
+    <Compile Include="WorkItems\Taskbar\TaskbarView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Taskbar\TaskbarView.Designer.cs">
+      <DependentUpon>TaskbarView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Setting\ShellLayoutSettingView.resx">
       <DependentUpon>ShellLayoutSettingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Taskbar\TaskbarView.resx">
+      <DependentUpon>TaskbarView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

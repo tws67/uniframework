@@ -11,11 +11,12 @@ namespace Uniframework.SmartClient
     public static class UIExtensionSiteNames
     {
         public const string Shell                                    = "/Shell";
-        public const string Shell_NaviPane                           = "/Shell/NaviPane";
         public const string Shell_Bar_Manager                        = "/Shell/Bar/Manager";
         public const string Shell_Bar_Mainmenu                       = "/Shell/Bar/Mainmenu";
         public const string Shell_Bar_Standard                       = "/Shell/Bar/Standard";
         public const string Shell_Bar_Status                         = "/Shell/Bar/Status";
+        public const string Shell_NaviPane_Navibar                   = "/Shell/NaviPane/Navibar";
+        public const string Shell_NaviPane_Taskbar                   = "/Shell/NaviPane/Taskbar";
 
         public const string Shell_Manager_TabbedMdiManager           = "/Shell/Manager/TabbedMdiManager";
         public const string Shell_Manager_BarManager                 = "/Shell/Manager/BarManager";
@@ -29,6 +30,7 @@ namespace Uniframework.SmartClient
         public const string Shell_Workspace_Main                     = "/Shell/Workspace/Content";
         public const string Shell_Workspace_SettingDeck              = "/Shell/Workspace/SettingDeck";
         public const string Shell_Workspace_SettingNavi              = "/Shell/Workspace/SettingNavi";
+        public const string Shell_Workspace_Taskbar                  = "/Shell/Workspace/Taskbar";
 
         public const string Shell_Module                             = "/Shell/Module";
         public const string Shell_Module_Common                      = "/Shell/Module/Common";

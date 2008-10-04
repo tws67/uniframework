@@ -71,8 +71,8 @@ namespace Uniframework.SmartClient
             this.bar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.btnBack),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnForward),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnHome),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnRefresh, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnRefresh),
+            new DevExpress.XtraBars.LinkPersistInfo(this.btnHome, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.btnSaveAs, true)});
             this.bar1.Text = "Navibar";
             // 
