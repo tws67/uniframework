@@ -177,7 +177,7 @@ namespace Uniframework.StartUp
 
         private static void CheckRunning()
         {
-            bool newMutexCreated = true;
+            bool newMutexCreated = false;
             using (new Mutex(true, Assembly.GetExecutingAssembly().FullName, out newMutexCreated))
             {
                 if (!newMutexCreated)

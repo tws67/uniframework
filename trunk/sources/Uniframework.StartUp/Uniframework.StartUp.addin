@@ -77,6 +77,7 @@
             label="快速启动栏" 
             command="" 
             classname="XtraNavBarGroup" 
+            navipane="/Shell/NaviPane/Navibar"
             largeimage="${magic-wand}" 
             register="true"/>
       
@@ -85,6 +86,7 @@
             label="营业收费系统" 
             command="" 
             classname="XtraNavBarGroup" 
+            navipane="/Shell/NaviPane/Navibar"
             largeimage="${money}" 
             register="true"/>
     </Path>
@@ -315,6 +317,14 @@
             label="工具栏(&amp;T)" 
             command="" 
             classname="XtraBarListItem"/>
+
+      <Item id="ShowTaskbarView"
+            name="mmivShowTaskbarView"
+            label="关联任务视图(&amp;L)"
+            command="/Shell/Module/Foundation/View/ShowTaskbarView"
+            classname="XtraButtonItem"
+            shortcut="F7"
+            imagefile="${magic-wand}"/>
       
       <Item id="Skin" 
             name="mmivSkin" 

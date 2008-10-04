@@ -92,7 +92,7 @@ namespace Uniframework.SmartClient.WorkItems.Setting
                 rgLayout.SelectedIndex = mdiManager.MdiParent != null ? 0 : 1;
             }
 
-            XtraNavBarWorkspace naviPane = WorkItem.RootWorkItem.Items.Get<XtraNavBarWorkspace>(UIExtensionSiteNames.Shell_NaviPane);
+            XtraNavBarWorkspace naviPane = WorkItem.RootWorkItem.Items.Get<XtraNavBarWorkspace>(UIExtensionSiteNames.Shell_Workspace_NaviPane);
             if (naviPane != null) {
                 switch (naviPane.PaintStyleName) {
                     case NAVIBAR_OUTLOOKSTYLE :
@@ -171,14 +171,14 @@ namespace Uniframework.SmartClient.WorkItems.Setting
         /// <param name="layout">The layout.</param>
         private void ApplySetting(ShellLayout layout)
         {
-            BarManager barManager = WorkItem.RootWorkItem.Items.Get(UIExtensionSiteNames.Shell_Bar_Manager) as BarManager;
+            BarManager barManager = WorkItem.RootWorkItem.Items.Get<BarManager>(UIExtensionSiteNames.Shell_Bar_Manager);
             if (barManager != null) {
                 Bar bar = barManager.Bars["StatusBar"];
                 if (bar != null)
                     bar.Visible = layout.ShowStatusBar;
             }
 
-            XtraNavBarWorkspace naviPane = WorkItem.RootWorkItem.Items.Get<XtraNavBarWorkspace>(UIExtensionSiteNames.Shell_NaviPane);
+            XtraNavBarWorkspace naviPane = WorkItem.RootWorkItem.Items.Get<XtraNavBarWorkspace>(UIExtensionSiteNames.Shell_Workspace_NaviPane);
             if (naviPane != null) {
                 naviPane.PaintStyleName = layout.NavPaintStyleName;
             }
