@@ -46,9 +46,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Design", "Design", "{F303106C-C535-47B7-9192-29326C64AA72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{AD2ADB89-32C4-4535-9678-39D45604F9FF}"
-	ProjectSection(SolutionItems) = preProject
-		sources\UniframeworkInfo.cs = sources\UniframeworkInfo.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B1174DAB-27C1-496D-B691-676323EA5B37}"
 EndProject
@@ -110,7 +107,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1219"
+		VWDPort = "1082"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

@@ -117,8 +117,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
+    <Compile Include="Services\Foundation\DataGridViewService.cs" />
     <Compile Include="Services\Foundation\DocumentService.cs" />
     <Compile Include="Services\Foundation\EditableService.cs" />
+    <Compile Include="Services\Foundation\IDataGridViewHandler.cs" />
+    <Compile Include="Services\Foundation\IDataGridViewService.cs" />
     <Compile Include="Services\Foundation\IDocumentService.cs" />
     <Compile Include="Services\Foundation\IEditHandler.cs" />
     <Compile Include="Services\Foundation\IEditableService.cs" />

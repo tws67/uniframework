@@ -114,7 +114,6 @@ namespace Uniframework.SmartClient
             SetCommandStatus(CommandHandlerNames.CMD_EDIT_PASTE, enabled && activeHandler.CanPaste);
             SetCommandStatus(CommandHandlerNames.CMD_EDIT_DELETE, enabled && activeHandler.CanDelete);
             SetCommandStatus(CommandHandlerNames.CMD_EDIT_SELECTALL, enabled && activeHandler.CanSelectAll);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_FILTER, enabled && activeHandler.CanFilter);
             SetCommandStatus(CommandHandlerNames.CMD_EDIT_SEARCH, enabled && activeHandler.CanSearch);
             SetCommandStatus(CommandHandlerNames.CMD_EDIT_REPLACE, enabled && activeHandler.CanReplace);
         }
@@ -189,12 +188,6 @@ namespace Uniframework.SmartClient
         public void OnSelectAll(object sender, EventArgs e)
         {
             activeHandler.SelectAll();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_EDIT_FILTER)]
-        public void OnFilter(object sender, EventArgs e)
-        {
-            activeHandler.Filter();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_EDIT_SEARCH)]
