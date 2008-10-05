@@ -92,19 +92,6 @@ namespace Uniframework.SmartClient
         void SelectAll();
 
         /// <summary>
-        /// Gets a value indicating whether this instance can filter.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can filter; otherwise, <c>false</c>.
-        /// </value>
-        bool CanFilter { get; }
-
-        /// <summary>
-        /// Filters this instance.
-        /// </summary>
-        void Filter();
-
-        /// <summary>
         /// Gets a value indicating whether this instance can search.
         /// </summary>
         /// <value>
