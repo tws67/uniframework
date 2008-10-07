@@ -1,18 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
+using DevExpress.XtraBars;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
-using System.Drawing;
 
 namespace Uniframework.SmartClient
 {
     public class BuilderUtility
     {
         private static readonly string ResourcePath = @"\Resources\";
-        private static readonly string DEFAULT_IMAGE = "${gear}"; 
+        private static readonly string DEFAULT_IMAGE = "${gear}";
+
+        /// <summary>
+        /// 获取工具条管理器
+        /// </summary>
+        /// <param name="workItem">工作项</param>
+        /// <returns>返回系统外壳定义的工具条管理器</returns>
+        public static BarManager GetBarManager(WorkItem workItem)
+        {
+            Guard.ArgumentNotNull(workItem, "workItem");
+
+            BarManager barManager = workItem.Items.Get<BarManager>(UIExtensionSiteNames.Shell_Bar_Manager);
+            return barManager;
+        }
 
         /// <summary>
         /// 获取指定名称的Command组件

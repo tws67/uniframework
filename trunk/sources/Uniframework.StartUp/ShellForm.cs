@@ -30,7 +30,7 @@ using DevExpress.LookAndFeel;
 
 namespace Uniframework.StartUp
 {
-    public partial class ShellForm : DevExpress.XtraEditors.XtraForm
+    public partial class ShellForm : DevExpress.XtraEditors.XtraForm, ISmartClient
     {
         private bool online; // 与服务器的连接状态
         private readonly WorkItem workItem;
@@ -61,6 +61,7 @@ namespace Uniframework.StartUp
         {
             this.workItem = workItem;
             this.workItemTypeCatalog = workItemTypeCatalog;
+            this.workItem.Services.Add<ISmartClient>(this); // 添加智能客户端服务
             InitialNetworkState();
 
             IInitializeService initialService = ServiceRepository.Instance.GetService(typeof(IInitializeService)) as IInitializeService;
@@ -80,6 +81,11 @@ namespace Uniframework.StartUp
         }
 
         #endregion
+
+        protected WorkItem WorkItem
+        {
+            get { return workItem; }
+        }
 
         /// <summary>
         /// Called when [request queue changed].
@@ -219,8 +225,61 @@ namespace Uniframework.StartUp
             ProgressBar.EditValue = e.Data;
         }
 
+        /// <summary>
+        /// 地址内容变化事件
+        /// </summary>
+        [EventPublication(EventNames.Shell_AddressUriChanged, PublicationScope.Global)]
+        public event EventHandler<EventArgs<string>> AddressUriChanged;
+
+        /// <summary>
+        /// 系统外壳关闭事件
+        /// </summary>
         [EventPublication(EventNames.Shell_ShellClosing, PublicationScope.Global)]
         public event EventHandler<CancelEventArgs> ShellClosing;
+
+        #endregion
+
+        #region ISmartClient Members
+
+
+        /// <summary>
+        /// 显示状态栏的帮助信息.
+        /// </summary>
+        /// <param name="info">信息</param>
+        public void ShowHint(string info)
+        {
+            tlabStatus.Caption = info;
+        }
+
+        /// <summary>
+        /// 显示自定义面板1信息.
+        /// </summary>
+        /// <param name="info">信息</param>
+        public void ShowCustomPanel1(string info)
+        {
+            tlabCustomPanel1.Visibility = String.IsNullOrEmpty(info) ? BarItemVisibility.Never : BarItemVisibility.Always;
+            tlabCustomPanel1.Caption = info;
+        }
+
+        /// <summary>
+        /// 显示自定义面板2信息
+        /// </summary>
+        /// <param name="info">信息</param>
+        public void ShowCustomPanel2(string info)
+        {
+            tlabCustomPanel2.Visibility = String.IsNullOrEmpty(info) ? BarItemVisibility.Never : BarItemVisibility.Always;
+            tlabCustomPanel2.Caption = info;
+        }
+
+        /// <summary>
+        /// 显示进度条
+        /// </summary>
+        /// <param name="position">进度</param>
+        public void ChangeProgress(int position)
+        {
+            ProgressBar.Visibility = (position <= 0) && (position > 100) ? BarItemVisibility.Never : BarItemVisibility.Always;
+            ProgressBar.EditValue = position;
+        }
 
         #endregion
 
@@ -345,5 +404,19 @@ namespace Uniframework.StartUp
                 e.Cancel = eventArgs.Cancel;
             }
         }
+
+        /// <summary>
+        /// Handles the EditValueChanged event of the edtAddress control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void edtAddress_EditValueChanged(object sender, EventArgs e)
+        {
+            if (AddressUriChanged != null) {
+                EventArgs<string> args = new EventArgs<string>(edtAddress.EditValue.ToString());
+                AddressUriChanged(this, args);
+            }
+        }
+
     }
 }

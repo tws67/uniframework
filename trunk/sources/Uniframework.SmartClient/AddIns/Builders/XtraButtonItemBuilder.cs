@@ -63,6 +63,10 @@ namespace Uniframework.SmartClient
                 item = new BarButtonItem();
             item.Caption = label;
             item.Name = element.Name;
+            BarManager barManager = BuilderUtility.GetBarManager(context);
+            if (barManager != null)
+                item.Id = barManager.GetNewItemId(); // 为BarItem设置Id方便正确的保存和恢复其状态
+
             if (element.Configuration.Attributes["tooltip"] != null)
                 item.Hint = element.Configuration.Attributes["tooltip"];
             else

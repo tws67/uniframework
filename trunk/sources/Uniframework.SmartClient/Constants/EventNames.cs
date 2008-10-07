@@ -17,5 +17,6 @@ namespace Uniframework.SmartClient
         public const string Shell_ProgressBarChanged  = "topic://Shell/ProgressBarChanged";
         public const string Shell_CustomPanel1Updated = "topic://Shell/CustomPanel1Updated";
         public const string Shell_CustomPanel2Updated = "topic://Shell/CustomPanel2Updated";
+        public const string Shell_AddressUriChanged   = "topic://Shell/AddressUriChanged";
     }
 }

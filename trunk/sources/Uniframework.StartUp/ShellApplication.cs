@@ -70,7 +70,6 @@ namespace Uniframework.StartUp
             RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane_Navibar);
             
             RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
-            RootWorkItem.Workspaces.Add(Shell.DeckWorkspace, UIExtensionSiteNames.Shell_Workspace_Deck);
             RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
             RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
 
@@ -223,7 +222,9 @@ namespace Uniframework.StartUp
                 Shell.Icon = new Icon(iconFile);
 
             // 注册系统主菜单及状态栏
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Manager, Shell.BarManager);
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Mainmenu, Shell.BarManager.MainMenu);
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Navigate, Shell.NavigateBar);
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Status, Shell.BarManager.StatusBar);
         }
 
@@ -237,7 +238,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.AddNew<EditableService, IEditableService>();
             RootWorkItem.Services.AddNew<DocumentService, IDocumentService>();
             RootWorkItem.Services.AddNew<PrintableService, IPrintableService>();
-            RootWorkItem.Services.AddNew<DataGridViewService, IDataGridViewService>();
+            RootWorkItem.Services.AddNew<DataGridViewService, IDataListViewService>();
         }
 
         /// <summary>
@@ -261,8 +262,6 @@ namespace Uniframework.StartUp
         /// </summary>
         private void RegisterUIElements()
         {
-            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_UI_BarManager, Shell.BarManager);
-
             IImageService imageService = RootWorkItem.Services.Get<IImageService>();
             if (imageService != null) {
                 NavBarItem item = new NavBarItem("系统外观");

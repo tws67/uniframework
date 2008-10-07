@@ -62,8 +62,11 @@ namespace Uniframework.SmartClient
 
             item = new XtraBarListMenu(bar);
             item.Caption = label;
-            item.Name = element.Name;
-
+            item.Name = element.Name; 
+            BarManager barManager = BuilderUtility.GetBarManager(context);
+            if (barManager != null)
+                item.Id = barManager.GetNewItemId(); // 为BarItem设置Id方便正确的保存和恢复其状态
+            
             BarItemExtend extend = new BarItemExtend();
             if (element.Configuration.Attributes["begingroup"] != null)
             {

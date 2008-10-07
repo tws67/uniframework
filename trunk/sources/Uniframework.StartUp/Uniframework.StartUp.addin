@@ -135,6 +135,62 @@
             register="true"/>
     </Path>
 
+    <Path name="/Shell/Bar/Navigate" label="地址栏" buildstartup="true">
+      <Item id="Back"
+            name="mminBack"
+            label="后退(&amp;B)"
+            command=""
+            classname="XtraButtonItem"
+            tooltip="转到上一页面或视图"
+            imagefile="${nav_left_green}"
+            insertbefore="edtAddress"/>
+
+      <Item id="Forward"
+            name="mminForward"
+            label="前进(&amp;F)"
+            command=""
+            classname="XtraButtonItem"
+            tooltip="转到下一页面或视图"
+            imagefile="${nav_right_green}"
+            insertbefore="edtAddress"/>
+
+      <Item id="Stop"
+            name="mminStop"
+            label="停止(&amp;S)"
+            command=""
+            classname="XtraButtonItem"
+            tooltip="停止转入当前页面"
+            imagefile="${delete}"
+            insertbefore="edtAddress"/>
+
+      <Item id="Home"
+            name="mminHome"
+            label="主页(&amp;H)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${home}"
+            insertbefore="edtAddress"/>
+
+      <Item id="Refresh"
+            name="mminRefresh"
+            label="刷新(&amp;R)"
+            command=""
+            classname="XtraButtonItem"
+            tooltip="重新载入当前页面或视图"
+            imagefile="${refresh}"
+            begingroup="true"
+            insertbefore="edtAddress"/>
+
+      <!--<Item id="Goto"
+            name="mminGoto"
+            label="转到(&amp;G)"
+            command=""
+            classname="XtraButtonItem"
+            tooltip="转到地址栏所指向的位置"
+            imagefile="${nav_right_blue}"/>-->
+      
+    </Path>
+    
     <Path name="/Shell/Bar/Mainmenu/File" label="文件菜单" buildstartup="true">
       <Item id="New"
             name="mmifNew"
