@@ -39,6 +39,7 @@ namespace Microsoft.Practices.CompositeUI.Common.Workspaces
         {
             Form mdiChild = this.GetOrCreateForm(smartPart);
             mdiChild.MdiParent = parentMdiForm;
+            mdiChild.WindowState = FormWindowState.Maximized;
 
             this.SetWindowProperties(mdiChild, smartPartInfo);
             mdiChild.Show();

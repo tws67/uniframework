@@ -261,6 +261,8 @@ namespace Uniframework.StartUp
         /// </summary>
         private void RegisterUIElements()
         {
+            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_UI_BarManager, Shell.BarManager);
+
             IImageService imageService = RootWorkItem.Services.Get<IImageService>();
             if (imageService != null) {
                 NavBarItem item = new NavBarItem("系统外观");
