@@ -14,6 +14,7 @@ namespace Uniframework.SmartClient
         public const string Shell_Bar_Manager                        = "/Shell/Bar/Manager";
         public const string Shell_Bar_Mainmenu                       = "/Shell/Bar/Mainmenu";
         public const string Shell_Bar_Standard                       = "/Shell/Bar/Standard";
+        public const string Shell_Bar_Navigate                       = "/Shell/Bar/Navigate";
         public const string Shell_Bar_Status                         = "/Shell/Bar/Status";
         public const string Shell_NaviPane_Navibar                   = "/Shell/NaviPane/Navibar";
         public const string Shell_NaviPane_Taskbar                   = "/Shell/NaviPane/Taskbar";
@@ -37,9 +38,6 @@ namespace Uniframework.SmartClient
         public const string Shell_Module_Foundation                  = "/Shell/Module/Foundation";
         public const string Shell_Module_Foundation_StartUp          = "/Shell/Module/Foundation/StartUp";
 
-        public const string Shell_UI_BarManager                      = "/Shell/BarManager";
-        public const string Shell_UI_Mainmenu                        = "/Shell/Bar/Mainmenu";
-        public const string Shell_UI_Statusbar                       = "/Shell/Bar/Statusbar";
         public const string Shell_UI_Mainmenu_File                   = "/Shell/Bar/Mainmenu/File";
         public const string Shell_UI_Mainmenu_Edit                   = "/Shell/Bar/Mainmenu/Edit";
         public const string Shell_UI_Mainmenu_View                   = "/Shell/Bar/Mainmenu/View";

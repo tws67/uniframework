@@ -42,20 +42,25 @@ namespace Uniframework.StartUp
             this.tlabRequestSize = new DevExpress.XtraBars.BarStaticItem();
             this.ZoomBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
+            this.NavigateBar = new DevExpress.XtraBars.Bar();
+            this.edtAddress = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemMRUEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMRUEdit();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.DockManager = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.tabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.DeckWorkspace = new Microsoft.Practices.CompositeUI.WinForms.DeckWorkspace();
             this.naviWorkspace = new Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace();
             this.SplitterControl = new DevExpress.XtraEditors.SplitterControl();
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMRUEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DockManager)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedMdiManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.naviWorkspace)).BeginInit();
             this.SuspendLayout();
@@ -64,13 +69,13 @@ namespace Uniframework.StartUp
             // 
             this.barManager.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
             this.MenuBar,
-            this.StatusBar});
+            this.StatusBar,
+            this.NavigateBar});
             this.barManager.DockControls.Add(this.barDockControlTop);
             this.barManager.DockControls.Add(this.barDockControlBottom);
             this.barManager.DockControls.Add(this.barDockControlLeft);
             this.barManager.DockControls.Add(this.barDockControlRight);
             this.barManager.DockManager = this.DockManager;
-            this.barManager.DockWindowTabFont = new System.Drawing.Font("SimSun", 9F);
             this.barManager.Form = this;
             this.barManager.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.tlabStatus,
@@ -81,17 +86,20 @@ namespace Uniframework.StartUp
             this.ProgressBar,
             this.tlabRequestSize,
             this.ZoomBar,
-            this.tbtnNetworkStatus});
+            this.tbtnNetworkStatus,
+            this.edtAddress});
             this.barManager.MainMenu = this.MenuBar;
-            this.barManager.MaxItemId = 9;
+            this.barManager.MaxItemId = 11;
             this.barManager.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemProgressBar1,
-            this.repositoryItemZoomTrackBar1});
+            this.repositoryItemZoomTrackBar1,
+            this.repositoryItemMRUEdit1,
+            this.repositoryItemButtonEdit1});
             this.barManager.StatusBar = this.StatusBar;
             // 
             // MenuBar
             // 
-            this.MenuBar.BarName = "Main menu";
+            this.MenuBar.BarName = "MenuBar";
             this.MenuBar.DockCol = 0;
             this.MenuBar.DockRow = 0;
             this.MenuBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
@@ -120,7 +128,7 @@ namespace Uniframework.StartUp
             this.StatusBar.OptionsBar.AllowQuickCustomization = false;
             this.StatusBar.OptionsBar.DrawDragBorder = false;
             this.StatusBar.OptionsBar.UseWholeRow = true;
-            this.StatusBar.Text = "×´Ì¬À¸";
+            this.StatusBar.Text = "×´Ì¬À¸(&S)";
             // 
             // tlabStatus
             // 
@@ -204,6 +212,37 @@ namespace Uniframework.StartUp
             this.repositoryItemZoomTrackBar1.Name = "repositoryItemZoomTrackBar1";
             this.repositoryItemZoomTrackBar1.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
             // 
+            // NavigateBar
+            // 
+            this.NavigateBar.BarName = "NavigateBar";
+            this.NavigateBar.CanDockStyle = ((DevExpress.XtraBars.BarCanDockStyle)((((DevExpress.XtraBars.BarCanDockStyle.Floating | DevExpress.XtraBars.BarCanDockStyle.Top)
+                        | DevExpress.XtraBars.BarCanDockStyle.Bottom)
+                        | DevExpress.XtraBars.BarCanDockStyle.Standalone)));
+            this.NavigateBar.DockCol = 0;
+            this.NavigateBar.DockRow = 1;
+            this.NavigateBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.NavigateBar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.edtAddress, "", true, true, true, 373, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            this.NavigateBar.OptionsBar.UseWholeRow = true;
+            this.NavigateBar.Text = "µ¼º½¹¤¾ßÀ¸(&N)";
+            // 
+            // edtAddress
+            // 
+            this.edtAddress.AutoFillWidth = true;
+            this.edtAddress.Caption = "µØÖ·(&D):";
+            this.edtAddress.Edit = this.repositoryItemMRUEdit1;
+            this.edtAddress.Id = 9;
+            this.edtAddress.IEBehavior = true;
+            this.edtAddress.Name = "edtAddress";
+            this.edtAddress.EditValueChanged += new System.EventHandler(this.edtAddress_EditValueChanged);
+            // 
+            // repositoryItemMRUEdit1
+            // 
+            this.repositoryItemMRUEdit1.AutoHeight = false;
+            this.repositoryItemMRUEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemMRUEdit1.Name = "repositoryItemMRUEdit1";
+            // 
             // DockManager
             // 
             this.DockManager.Form = this;
@@ -220,36 +259,36 @@ namespace Uniframework.StartUp
             this.barStaticItem1.Name = "barStaticItem1";
             this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
+            // repositoryItemButtonEdit1
+            // 
+            this.repositoryItemButtonEdit1.AutoHeight = false;
+            this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Down),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Right)});
+            this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
+            // 
             // tabbedMdiManager
             // 
             this.tabbedMdiManager.MdiParent = this;
-            // 
-            // DeckWorkspace
-            // 
-            this.DeckWorkspace.Dock = System.Windows.Forms.DockStyle.Top;
-            this.DeckWorkspace.Location = new System.Drawing.Point(0, 25);
-            this.DeckWorkspace.Name = "DeckWorkspace";
-            this.DeckWorkspace.Size = new System.Drawing.Size(792, 60);
-            this.DeckWorkspace.TabIndex = 5;
-            this.DeckWorkspace.Visible = false;
             // 
             // naviWorkspace
             // 
             this.naviWorkspace.ActiveGroup = null;
             this.naviWorkspace.ContentButtonHint = null;
             this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Left;
-            this.naviWorkspace.Location = new System.Drawing.Point(0, 85);
+            this.naviWorkspace.Location = new System.Drawing.Point(0, 51);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 457);
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 491);
             this.naviWorkspace.TabIndex = 6;
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
             // SplitterControl
             // 
-            this.SplitterControl.Location = new System.Drawing.Point(169, 85);
+            this.SplitterControl.Location = new System.Drawing.Point(169, 51);
             this.SplitterControl.Name = "SplitterControl";
-            this.SplitterControl.Size = new System.Drawing.Size(6, 457);
+            this.SplitterControl.Size = new System.Drawing.Size(6, 491);
             this.SplitterControl.TabIndex = 7;
             this.SplitterControl.TabStop = false;
             // 
@@ -260,7 +299,6 @@ namespace Uniframework.StartUp
             this.ClientSize = new System.Drawing.Size(792, 570);
             this.Controls.Add(this.SplitterControl);
             this.Controls.Add(this.naviWorkspace);
-            this.Controls.Add(this.DeckWorkspace);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
@@ -275,7 +313,9 @@ namespace Uniframework.StartUp
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMRUEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DockManager)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedMdiManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.naviWorkspace)).EndInit();
             this.ResumeLayout(false);
@@ -284,8 +324,6 @@ namespace Uniframework.StartUp
 
         #endregion
 
-        private DevExpress.XtraBars.Bar MenuBar;
-        private DevExpress.XtraBars.Bar StatusBar;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
@@ -306,6 +344,11 @@ namespace Uniframework.StartUp
         private DevExpress.XtraBars.BarButtonItem tbtnNetworkStatus;
         private Uniframework.XtraForms.Workspaces.XtraNavBarWorkspace naviWorkspace;
         private DevExpress.XtraEditors.SplitterControl SplitterControl;
-        public Microsoft.Practices.CompositeUI.WinForms.DeckWorkspace DeckWorkspace;
+        private DevExpress.XtraBars.BarEditItem edtAddress;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMRUEdit repositoryItemMRUEdit1;
+        private DevExpress.XtraBars.Bar StatusBar;
+        private DevExpress.XtraBars.Bar MenuBar;
+        public DevExpress.XtraBars.Bar NavigateBar;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
     }
 }

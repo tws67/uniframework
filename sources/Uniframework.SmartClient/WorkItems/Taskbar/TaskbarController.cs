@@ -5,7 +5,9 @@ using System.Text;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.EventBroker;
 using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
 
 namespace Uniframework.SmartClient
 {
@@ -39,7 +41,6 @@ namespace Uniframework.SmartClient
         protected override void AddUIElements()
         {
             base.AddUIElements();
-
         }
-    }
+   }
 }

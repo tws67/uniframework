@@ -6,9 +6,9 @@ using System.Text;
 namespace Uniframework.SmartClient
 {
     /// <summary>
-    /// 数据表格处理器接口
+    /// 数据列表处理器接口
     /// </summary>
-    public interface IDataGridViewHandler
+    public interface IDataListViewHandler
     {
         /// <summary>
         /// Occurs when [data grid actived].

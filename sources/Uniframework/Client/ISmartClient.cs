@@ -38,5 +38,26 @@ namespace Uniframework.Client
         /// 连接状态变化事件
         /// </summary>
         event ConnectionStateChangeHandler ConnectionStateChanged;
+
+        /// <summary>
+        /// 显示状态栏的帮助信息.
+        /// </summary>
+        /// <param name="info">信息</param>
+        void ShowHint(string info);
+        /// <summary>
+        /// 显示自定义面板1信息.
+        /// </summary>
+        /// <param name="info">信息</param>
+        void ShowCustomPanel1(string info);
+        /// <summary>
+        /// 显示自定义面板2信息
+        /// </summary>
+        /// <param name="info">信息</param>
+        void ShowCustomPanel2(string info);
+        /// <summary>
+        /// 显示进度条
+        /// </summary>
+        /// <param name="position">进度</param>
+        void ChangeProgress(int position);
     }
 }
