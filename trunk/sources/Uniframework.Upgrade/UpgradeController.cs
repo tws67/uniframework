@@ -60,7 +60,7 @@ namespace Uniframework.Upgrade
             if (wp != null)
             {
                 WindowSmartPartInfo spi = new WindowSmartPartInfo();
-                spi.Title = "创建升级包　";
+                spi.Title = "创建升级包";
                 view.Dock = System.Windows.Forms.DockStyle.Fill;
 
                 wp.Show(view, spi);

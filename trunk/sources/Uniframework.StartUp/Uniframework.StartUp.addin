@@ -284,20 +284,12 @@
             shortcut="CtrlA"
             begingroup="true"/>
 
-      <Item id="Filter"
-            name="mmieFilter"
-            label="过滤(&amp;F)..."
-            command="/Shell/Module/Foundation/Edit/Filter"
-            classname="XtraButtonItem"
-            shortcut="CtrlShiftF"
-            imagefile="${funnel}"
-            begingroup="true"/>
-
       <Item id="Search"
             name="mmieSearch"
             label="查找(&amp;S)..."
             command="/Shell/Module/Foundation/Edit/Search"
             classname="XtraButtonItem"
+            begingroup="true"
             shortcut="CtrlF"
             imagefile="${find}"/>
 
@@ -331,15 +323,48 @@
             label="系统界面皮肤(&amp;K)" 
             command="" 
             classname="XtraSkinMenu"/>
+
+      <Item id="Back"
+            name="mmivBack"
+            label="后退(&amp;B)"
+            command=""
+            classname="XtraButtonItem"
+            begingroup="true"
+            imagefile="${nav_left_green}"
+            shortcut="AltLeftArrow"/>
+            
+      <Item id="Forward"
+            name="mmivForward"
+            label="前进(&amp;F)"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${nav_right_green}"
+            shortcut="AltRightArrow"/>
+
+      <Item id="Stop"
+            name="mmivStop"
+            label="停止(&amp;S)"
+            command=""
+            classname="XtraButtonItem"/>
+
+      <Item id="Refresh"
+            name="mmivRefresh"
+            label="刷新(&amp;R)"
+            command=""
+            classname="XtraButtonItem"
+            begingroup="true"
+            imagefile="${refresh}"
+            shortcut="F5"/>
       
-      <Item id="Setting" 
-            name="mmivSetting" 
-            label="选项(&amp;O)..." 
-            command="/Shell/Module/Foundation/View/Setting" 
-            classname="XtraButtonItem" 
-            imagefile="${preferences}" 
+      <Item id="Setting"
+            name="mmivSetting"
+            label="选项(&amp;O)..."
+            command="/Shell/Module/Foundation/View/Setting"
+            classname="XtraButtonItem"
+            imagefile="${preferences}"
             begingroup="true"
             shortcut="CtrlShiftO"/>
+
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu/Help" label="帮助菜单" buildstartup="true">

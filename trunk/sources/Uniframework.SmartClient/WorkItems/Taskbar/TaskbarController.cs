@@ -5,6 +5,7 @@ using System.Text;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
+using DevExpress.XtraBars;
 
 namespace Uniframework.SmartClient
 {
@@ -33,6 +34,12 @@ namespace Uniframework.SmartClient
             TaskbarView view = WorkItem.SmartParts.AddNew<TaskbarView>(SmartPartNames.SmartPart_Shell_TaskbarView);
             WorkItem.RootWorkItem.Items.Add(view.TaskbarWorkspace, UIExtensionSiteNames.Shell_NaviPane_Taskbar);
             WorkItem.RootWorkItem.Workspaces.Add(view.TaskbarWorkspace, UIExtensionSiteNames.Shell_Workspace_Taskbar);
+        }
+
+        protected override void AddUIElements()
+        {
+            base.AddUIElements();
+
         }
     }
 }
