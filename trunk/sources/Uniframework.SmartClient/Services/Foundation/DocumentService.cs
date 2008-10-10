@@ -187,19 +187,11 @@ namespace Uniframework.SmartClient
         {
             bool enabled = (activeDocument != null);
 
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_OPEN, documentFactories.Count >= 1);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_SAVE, enabled && ActiveDocument.CanSave);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_SAVEAS, enabled && ActiveDocument.CanSave);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_IMPORT, enabled && ActiveDocument.CanImport);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_EXPORT, enabled && ActiveDocument.CanExport);
-        }
-
-        private void SetCommandStatus(string command, bool enabled)
-        {
-            Command cmd = BuilderUtility.GetCommand(WorkItem, command);
-            if (cmd != null) {
-                cmd.Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
-            }
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_OPEN, documentFactories.Count >= 1);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_SAVE, enabled && ActiveDocument.CanSave);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_SAVEAS, enabled && ActiveDocument.CanSave);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_IMPORT, enabled && ActiveDocument.CanImport);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_EXPORT, enabled && ActiveDocument.CanExport);
         }
 
         private static string AppendFilter(string filter, IDocumentType extension)

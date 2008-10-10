@@ -168,24 +168,11 @@ namespace Uniframework.SmartClient
         {
             bool enabled = (activeHandler != null);
 
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_PRINT, enabled && activeHandler.CanPrint);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_QUICKPRINT, enabled && activeHandler.CanQuickPrint);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_PREVIEW, enabled && activeHandler.CanPreview);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_PAGESETUP, enabled && activeHandler.CanPageSetup);
-            SetCommandStatus(CommandHandlerNames.CMD_FILE_DESIGN, enabled && activeHandler.CanDesign);
-        }
-
-        /// <summary>
-        /// Sets the command status.
-        /// </summary>
-        /// <param name="cmd">The CMD.</param>
-        /// <param name="enabled">if set to <c>true</c> [enabled].</param>
-        private void SetCommandStatus(string cmd, bool enabled)
-        {
-            Command command = BuilderUtility.GetCommand(WorkItem, cmd);
-            if (command != null) {
-                command.Status = enabled ? CommandStatus.Enabled : CommandStatus.Disabled;
-            }
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PRINT, enabled && activeHandler.CanPrint);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_QUICKPRINT, enabled && activeHandler.CanQuickPrint);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PREVIEW, enabled && activeHandler.CanPreview);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PAGESETUP, enabled && activeHandler.CanPageSetup);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_DESIGN, enabled && activeHandler.CanDesign);
         }
 
         #endregion

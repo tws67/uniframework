@@ -239,6 +239,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.AddNew<DocumentService, IDocumentService>();
             RootWorkItem.Services.AddNew<PrintableService, IPrintableService>();
             RootWorkItem.Services.AddNew<DataGridViewService, IDataListViewService>();
+            RootWorkItem.Services.AddNew<BrowserService, IBrowserService>();
         }
 
         /// <summary>

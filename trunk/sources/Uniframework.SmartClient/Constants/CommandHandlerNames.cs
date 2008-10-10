@@ -49,8 +49,8 @@ namespace Uniframework.SmartClient
         public const string CMD_VIEW_SETTING                  = "/Shell/Module/Foundation/View/Setting";
         public const string CMD_VIEW_FULLSCREEN               = "/Shell/Module/Foundation/View/FullScreen";
         public const string CMD_VIEW_HIDEN                    = "/Shell/Module/Foundation/View/Hiden";
-        public const string CMD_VIEW_FORWARD                  = "/Shell/Module/Foundation/View/Forward";
         public const string CMD_VIEW_BACK                     = "/Shell/Module/Foundation/View/Back";
+        public const string CMD_VIEW_FORWARD                  = "/Shell/Module/Foundation/View/Forward";
         public const string CMD_VIEW_STOP                     = "/Shell/Module/Foundation/View/Stop";
         public const string CMD_VIEW_REFRESH                  = "/Shell/Module/Foundation/View/Refresh";
         public const string CMD_VIEW_HOME                     = "/Shell/Module/Foundation/View/Home";
