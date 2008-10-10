@@ -50,6 +50,19 @@ namespace Uniframework.SmartClient
         }
 
         /// <summary>
+        /// 设置命令状态
+        /// </summary>
+        /// <param name="workItem">工作项</param>
+        /// <param name="command">命令的名称</param>
+        /// <param name="enabled">如果enabled为true则设置其状态为可用，否则为不可用</param>
+        public static void SetCommandStatus(WorkItem workItem, string command, bool enabled)
+        {
+            Command cmd = GetCommand(workItem, command);
+            if (cmd != null)
+                cmd.Status = enabled ? CommandStatus.Enabled : CommandStatus.Disabled;
+        }
+
+        /// <summary>
         /// 返回系统资源存放路径
         /// </summary>
         /// <returns></returns>

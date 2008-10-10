@@ -117,9 +117,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
+    <Compile Include="Services\Foundation\BrowserService.cs" />
     <Compile Include="Services\Foundation\DataGridViewService.cs" />
     <Compile Include="Services\Foundation\DocumentService.cs" />
     <Compile Include="Services\Foundation\EditableService.cs" />
+    <Compile Include="Services\Foundation\IBrowserService.cs" />
     <Compile Include="Services\Foundation\IDataGridListHandler.cs" />
     <Compile Include="Services\Foundation\IDataGridListService.cs" />
     <Compile Include="Services\Foundation\IDocumentService.cs" />
@@ -150,6 +152,13 @@
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Views\AboutPresenter.cs" />
+    <Compile Include="Views\BrowserPresenter.cs" />
+    <Compile Include="Views\BrowserView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\BrowserView.Designer.cs">
+      <DependentUpon>BrowserView.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpView.cs">
@@ -243,6 +252,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BrowserView.resx">
+      <DependentUpon>BrowserView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Help\DynamicHelpView.resx">
       <DependentUpon>DynamicHelpView.cs</DependentUpon>

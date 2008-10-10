@@ -107,22 +107,15 @@ namespace Uniframework.SmartClient
         {
             bool enabled = (activeHandler != null);
 
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_UNDO, enabled && activeHandler.CanUndo);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_REDO, enabled && activeHandler.CanRedo);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_CUT, enabled && activeHandler.CanCut);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_COPY, enabled && activeHandler.CanCopy);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_PASTE, enabled && activeHandler.CanPaste);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_DELETE, enabled && activeHandler.CanDelete);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_SELECTALL, enabled && activeHandler.CanSelectAll);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_SEARCH, enabled && activeHandler.CanSearch);
-            SetCommandStatus(CommandHandlerNames.CMD_EDIT_REPLACE, enabled && activeHandler.CanReplace);
-        }
-
-        private void SetCommandStatus(string command, bool enabled)
-        {
-            Command cmd = BuilderUtility.GetCommand(WorkItem, command);
-            if(cmd != null)
-            cmd.Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_UNDO, enabled && activeHandler.CanUndo);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_REDO, enabled && activeHandler.CanRedo);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_CUT, enabled && activeHandler.CanCut);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_COPY, enabled && activeHandler.CanCopy);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_PASTE, enabled && activeHandler.CanPaste);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_DELETE, enabled && activeHandler.CanDelete);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_SELECTALL, enabled && activeHandler.CanSelectAll);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_SEARCH, enabled && activeHandler.CanSearch);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_REPLACE, enabled && activeHandler.CanReplace);
         }
 
         #endregion

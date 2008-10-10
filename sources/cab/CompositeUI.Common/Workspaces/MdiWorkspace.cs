@@ -8,7 +8,7 @@ using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Microsoft.Practices.CompositeUI.Common.Workspaces
 {
-    public class MdiWorkspace : WindowWorkspace
+    public class MdiWorkspace : Microsoft.Practices.CompositeUI.Common.Workspaces.WindowWorkspace
     {
         private Form parentMdiForm;
 
