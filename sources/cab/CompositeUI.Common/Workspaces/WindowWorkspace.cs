@@ -32,6 +32,18 @@ namespace Microsoft.Practices.CompositeUI.Common.Workspaces
             this.owner = owner;
         }
 
+        protected override void OnActivate(Control smartPart)
+        {
+            Form host = Windows[smartPart];
+            host.Show();
+            base.OnActivate(smartPart);
+        }
+        protected override void OnClose(Control smartPart)
+        {
+            Form host = Windows[smartPart];
+            host.Hide();
+            base.OnClose(smartPart);
+        }
         /// <summary>
         /// Called when [show].
         /// </summary>
