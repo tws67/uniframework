@@ -116,8 +116,8 @@ namespace Microsoft.Practices.CompositeUI.WinForms
 			if (control != null && base.SmartParts.Contains(sender))
 			{
 				CloseInternal(control);
-				//this.windowDictionary[control].Close();
-				//this.windowDictionary.Remove(control);
+                //this.windowDictionary[control].Close();
+                //this.windowDictionary.Remove(control);
 			}
 		}
 

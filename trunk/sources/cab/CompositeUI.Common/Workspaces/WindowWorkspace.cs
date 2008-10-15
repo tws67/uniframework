@@ -8,7 +8,7 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.CompositeUI.WinForms;
 
-namespace Microsoft.Practices.CompositeUI.Common.Workspaces
+namespace Microsoft.Practices.CompositeUI.Common
 {
     public class WindowWorkspace : Microsoft.Practices.CompositeUI.WinForms.WindowWorkspace
     {
@@ -41,7 +41,7 @@ namespace Microsoft.Practices.CompositeUI.Common.Workspaces
         protected override void OnClose(Control smartPart)
         {
             Form host = Windows[smartPart];
-            host.Hide();
+            host.Close();
             base.OnClose(smartPart);
         }
         /// <summary>
