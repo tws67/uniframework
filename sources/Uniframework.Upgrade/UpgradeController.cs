@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 
 using DevExpress.XtraBars;
+using DevExpress.XtraNavBar;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.SmartParts;
-using Uniframework.SmartClient;
-using Uniframework.XtraForms.UIElements;
-using Uniframework.Upgrade.Views;
-using Microsoft.Practices.CompositeUI.Common.Workspaces;
-using DevExpress.XtraNavBar;
-using Uniframework.SmartClient.WorkItems.Setting;
-using Uniframework.Services;
 using Microsoft.Practices.CompositeUI.WinForms;
+
+using Uniframework.Services;
+using Uniframework.SmartClient;
+using Uniframework.SmartClient.WorkItems.Setting;
+using Uniframework.Upgrade.Views;
+using Uniframework.XtraForms.UIElements;
 
 namespace Uniframework.Upgrade
 {

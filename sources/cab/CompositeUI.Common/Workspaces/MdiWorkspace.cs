@@ -6,9 +6,9 @@ using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.CompositeUI.WinForms;
 
-namespace Microsoft.Practices.CompositeUI.Common.Workspaces
+namespace Microsoft.Practices.CompositeUI.Common
 {
-    public class MdiWorkspace : Microsoft.Practices.CompositeUI.Common.Workspaces.WindowWorkspace
+    public class MdiWorkspace : Microsoft.Practices.CompositeUI.Common.WindowWorkspace
     {
         private Form parentMdiForm;
 
@@ -37,14 +37,14 @@ namespace Microsoft.Practices.CompositeUI.Common.Workspaces
         /// <param name="smartPartInfo">The information to use to show the smart part.</param>
         protected override void OnShow(Control smartPart, WindowSmartPartInfo smartPartInfo)
         {
-            Form mdiChild = this.GetOrCreateForm(smartPart);
-            mdiChild.MdiParent = parentMdiForm;
-            mdiChild.WindowState = FormWindowState.Maximized;
+            Form child = GetOrCreateForm(smartPart);
+            child.MdiParent = parentMdiForm;
+            //mdiChild.WindowState = FormWindowState.Maximized;
 
-            this.SetWindowProperties(mdiChild, smartPartInfo);
-            mdiChild.Show();
-            this.SetWindowLocation(mdiChild, smartPartInfo);
-            mdiChild.BringToFront();
+            SetWindowProperties(child, smartPartInfo);
+            child.Show();
+            SetWindowLocation(child, smartPartInfo);
+            child.BringToFront();
         }
     }
 }
