@@ -8,7 +8,7 @@ using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Microsoft.Practices.CompositeUI.Common
 {
-    public class MdiWorkspace : Microsoft.Practices.CompositeUI.Common.WindowWorkspace
+    public class MdiWorkspace : WindowWorkspace
     {
         private Form parentMdiForm;
 
@@ -39,7 +39,6 @@ namespace Microsoft.Practices.CompositeUI.Common
         {
             Form child = GetOrCreateForm(smartPart);
             child.MdiParent = parentMdiForm;
-            //mdiChild.WindowState = FormWindowState.Maximized;
 
             SetWindowProperties(child, smartPartInfo);
             child.Show();

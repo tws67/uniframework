@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.SmartParts;
+using Microsoft.Practices.CompositeUI.Utility;
 using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Microsoft.Practices.CompositeUI.Common
 {
-    public class WindowWorkspace : Microsoft.Practices.CompositeUI.WinForms.WindowWorkspace
+    public class WindowWorkspace : Workspace<Control, WindowSmartPartInfo>
     {
-        IWin32Window owner;
+        private IWin32Window owner;
+        private bool fireActivatedFromForm = true;
+        private Dictionary<Control, Form> windows = new Dictionary<Control, Form>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowWorkspace"/> class.
@@ -27,88 +31,250 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// </summary>
         /// <param name="owner">The owner.</param>
         public WindowWorkspace(IWin32Window owner)
-            : base(owner)
         {
             this.owner = owner;
         }
 
+        public ReadOnlyDictionary<Control, Form> Windows
+        {
+            get { return new ReadOnlyDictionary<Control, Form>(windows); }
+        }
+
+        #region Protected methods
+
         protected override void OnActivate(Control smartPart)
         {
-            Form host = Windows[smartPart];
-            host.Show();
-            base.OnActivate(smartPart);
+            try {
+                fireActivatedFromForm = false;	// Prevent double firing from composer Workspace class and form
+                Form form = windows[smartPart];
+                form.BringToFront();
+                form.Show();
+            }
+            finally {
+                fireActivatedFromForm = true;
+            }
         }
-        protected override void OnClose(Control smartPart)
+
+        protected override void OnApplySmartPartInfo(Control smartPart, WindowSmartPartInfo smartPartInfo)
         {
-            Form host = Windows[smartPart];
-            host.Close();
-            base.OnClose(smartPart);
+            Form form = windows[smartPart];
+            SetWindowProperties(form, smartPartInfo);
+            SetWindowLocation(form, smartPartInfo);
         }
-        /// <summary>
-        /// Called when [show].
-        /// </summary>
-        /// <param name="smartPart">The smart part.</param>
-        /// <param name="smartPartInfo">The smart part info.</param>
+
         protected override void OnShow(Control smartPart, WindowSmartPartInfo smartPartInfo)
         {
-            GetOrCreateForm(smartPart);
-            base.OnShow(smartPart, smartPartInfo);
+            Form form = GetOrCreateForm(smartPart);
+            smartPart.Show();
+            ShowForm(form, smartPartInfo);
+        }
+
+        protected override void OnHide(Control smartPart)
+        {
+            Form form = windows[smartPart];
+            form.Hide();
+        }
+
+        protected override void OnClose(Control smartPart)
+        {
+            Form form = windows[smartPart];
+            smartPart.Disposed -= ControlDisposed;
+
+            form.Controls.Remove(smartPart);	// Remove the smartPart from the form to avoid disposing it.
+
+            form.Close();
+            windows.Remove(smartPart);
         }
 
         /// <summary>
-        /// Gets the or create form.
+        /// 获取或创建SmartPart需要的窗体
         /// </summary>
-        /// <param name="smartPart">The smart part.</param>
+        /// <param name="control">Smart part control.</param>
         /// <returns></returns>
-        protected new Form GetOrCreateForm(Control smartPart)
+        protected Form GetOrCreateForm(Control control)
         {
-            bool resizeRequired = !Windows.ContainsKey(smartPart);
-            Form form = base.GetOrCreateForm(smartPart);
-            form.ShowInTaskbar = (owner == null);
-            form.FormClosing += new FormClosingEventHandler(form_FormClosing);
-            if (resizeRequired)
-                form.ClientSize = smartPart.Size;
+            WindowForm form = null;
+            if (windows.ContainsKey(control)) {
+                form = windows[control] as WindowForm;
+            }
+            else {
+                form = new WindowForm();
+                windows.Add(control, form);
+                form.Controls.Add(control);
+                control.Dock = DockStyle.Fill;
+                control.Disposed += ControlDisposed;
+                //WireUpForm(form);
+            }
 
             return form;
         }
 
-        /// <summary>
-        /// Handles the FormClosing event of the form control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Forms.FormClosingEventArgs"/> instance containing the event data.</param>
-        private void form_FormClosing(object sender, FormClosingEventArgs e)
+        protected void SetWindowProperties(Form form, WindowSmartPartInfo spi)
         {
-            Form form = (Form)sender;
-
-            Control smartPart = GetSmartPart(form);
-
-            if (form.Controls.Count > 0)
-                form.Controls.Remove(smartPart);
-
-            if (SmartPartClosed != null)
-                SmartPartClosed(this, new WorkspaceEventArgs(smartPart));
+            form.ControlBox = spi.ControlBox;
+            form.MaximizeBox = spi.MaximizeBox;
+            form.MinimizeBox = spi.MinimizeBox;
+            form.Text = spi.Title;
+            form.Icon = spi.Icon;
+            form.Height = spi.Height;
+            form.Width = spi.Width;
         }
 
-        /// <summary>
-        /// Gets the smart part.
-        /// </summary>
-        /// <param name="containerForm">The container form.</param>
-        /// <returns></returns>
-        private Control GetSmartPart(Form containerForm)
+        protected void SetWindowLocation(Form form, WindowSmartPartInfo spi)
         {
-            foreach (KeyValuePair<Control, Form> pair in this.Windows)
+            if (form.StartPosition != FormStartPosition.CenterParent)
             {
-                if (pair.Value == containerForm)
-                    return pair.Key;
+                form.Location = spi.Location;
+            }
+        }
+
+        #endregion
+
+        #region Private
+
+        private void ControlDisposed(object sender, EventArgs e)
+        {
+            Control control = sender as Control;
+            if (control != null && SmartParts.Contains(sender))
+            {
+                CloseInternal(control);
+            }
+        }
+
+        private void WireUpForm(WindowForm form)
+        {
+            form.WindowFormClosing += new EventHandler<WorkspaceCancelEventArgs>(WindowFormClosing);
+            form.WindowFormClosed += new EventHandler<WorkspaceEventArgs>(WindowFormClosed);
+            form.WindowFormActivated += new EventHandler<WorkspaceEventArgs>(WindowFormActivated);
+        }
+
+        private void WindowFormActivated(object sender, WorkspaceEventArgs e)
+        {
+            if (fireActivatedFromForm)
+            {
+                RaiseSmartPartActivated(e.SmartPart);
+                SetActiveSmartPart(e.SmartPart);
+            }
+        }
+
+        private void WindowFormClosed(object sender, WorkspaceEventArgs e)
+        {
+            windows.Remove((Control)e.SmartPart);
+            InnerSmartParts.Remove((Control)e.SmartPart);
+        }
+
+        private void WindowFormClosing(object sender, WorkspaceCancelEventArgs e)
+        {
+            RaiseSmartPartClosing(e);
+        }
+
+        private void ShowForm(Form form, WindowSmartPartInfo spi)
+        {
+            SetWindowProperties(form, spi);
+
+            if (spi.Modal) {
+                SetWindowLocation(form, spi); // Argument can be null. It's the default for the other overload.
+                form.ShowDialog(owner);
+            }
+            else {
+                if (owner != null) {
+                    form.Show(owner);
+                }
+                else {
+                    form.Show();
+                }
+                SetWindowLocation(form, spi);
+                form.BringToFront();
+            }
+        }
+
+        #endregion
+
+        #region Private Form Class
+
+        /// <summary>
+        /// WindowForm class
+        /// </summary>
+        private class WindowForm : Form
+        {
+            /// <summary>
+            /// Fires when form is closing
+            /// </summary>
+            public event EventHandler<WorkspaceCancelEventArgs> WindowFormClosing;
+
+            /// <summary>
+            /// Fires when form is closed
+            /// </summary>
+            public event EventHandler<WorkspaceEventArgs> WindowFormClosed;
+
+            /// <summary>
+            /// Fires when form is activated
+            /// </summary>
+            public event EventHandler<WorkspaceEventArgs> WindowFormActivated;
+
+            /// <summary>
+            /// Handles Activated Event.
+            /// </summary>
+            /// <param name="e"></param>
+            protected override void OnActivated(EventArgs e)
+            {
+                if (this.Controls.Count > 0 && WindowFormActivated != null)
+                {
+                    this.WindowFormActivated(this, new WorkspaceEventArgs(this.Controls[0]));
+                }
+
+                base.OnActivated(e);
             }
 
-            return null;
+
+            /// <summary>
+            /// Handles the Closing Event
+            /// </summary>
+            /// <param name="e"></param>
+            protected override void OnClosing(CancelEventArgs e)
+            {
+                if (this.Controls.Count > 0)
+                {
+                    WorkspaceCancelEventArgs cancelArgs = FireWindowFormClosing(this.Controls[0]);
+                    e.Cancel = cancelArgs.Cancel;
+
+                    if (cancelArgs.Cancel == false)
+                    {
+                        this.Controls[0].Hide();
+                    }
+                }
+
+                base.OnClosing(e);
+            }
+
+            /// <summary>
+            /// Handles the Closed Event
+            /// </summary>
+            /// <param name="e"></param>
+            protected override void OnClosed(EventArgs e)
+            {
+                if ((this.WindowFormClosed != null) &&
+                    (this.Controls.Count > 0))
+                {
+                    this.WindowFormClosed(this, new WorkspaceEventArgs(this.Controls[0]));
+                }
+
+                base.OnClosed(e);
+            }
+
+            private WorkspaceCancelEventArgs FireWindowFormClosing(object smartPart)
+            {
+                WorkspaceCancelEventArgs cancelArgs = new WorkspaceCancelEventArgs(smartPart);
+
+                if (this.WindowFormClosing != null)
+                {
+                    this.WindowFormClosing(this, cancelArgs);
+                }
+
+                return cancelArgs;
+            }
         }
 
-        /// <summary>
-        /// Occurs when [smart part closed].
-        /// </summary>
-        public event EventHandler<WorkspaceEventArgs> SmartPartClosed;
+        #endregion
     }
 }
