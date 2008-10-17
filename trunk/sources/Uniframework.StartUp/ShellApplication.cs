@@ -68,7 +68,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Items.Add(Shell.TabbedMdiManager, UIExtensionSiteNames.Shell_Manager_TabbedMdiManager);
             RootWorkItem.Items.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_NaviPane_Navibar);
 
-            RootWorkItem.Workspaces.Add(new Microsoft.Practices.CompositeUI.WinForms.MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
+            RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
             RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
             RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
 

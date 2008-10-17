@@ -12,6 +12,7 @@ using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.CompositeUI.WinForms;
 using Uniframework.SmartClient.Views;
+using DevExpress.XtraEditors;
 
 namespace Uniframework.SmartClient
 {
@@ -62,7 +63,8 @@ namespace Uniframework.SmartClient
         public void Goto(string address)
         {
             Uri uri = new Uri(address);
-            BrowserView view = WorkItem.SmartParts.Get<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView);
+            BrowserView view = default(BrowserView);
+            view = WorkItem.SmartParts.Get<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView);
             if (view == null)
                 view = WorkItem.SmartParts.AddNew<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView);
 
@@ -71,12 +73,12 @@ namespace Uniframework.SmartClient
                 WindowSmartPartInfo spi = new WindowSmartPartInfo();
                 spi.Title = "浏览器";
                 wp.Show(view, spi);
-                try
-                {
+                try {
                     view.Goto(uri);
                 }
-                catch (Exception)
-                { }
+                catch (Exception ex) {
+                    XtraMessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                }
             }
         }
 
