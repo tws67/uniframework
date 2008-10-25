@@ -29,6 +29,8 @@ namespace Uniframework.SmartClient.Views
         private void InitializeComponent()
         {
             this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.windowSmartPartInfo = new Microsoft.Practices.CompositeUI.WinForms.WindowSmartPartInfo();
+            this.infoProvider = new Microsoft.Practices.CompositeUI.SmartParts.SmartPartInfoProvider();
             this.SuspendLayout();
             // 
             // webBrowser
@@ -41,6 +43,13 @@ namespace Uniframework.SmartClient.Views
             this.webBrowser.TabIndex = 0;
             this.webBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser_ProgressChanged);
             this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
+            // 
+            // windowSmartPartInfo
+            // 
+            this.windowSmartPartInfo.Description = "";
+            this.windowSmartPartInfo.Location = new System.Drawing.Point(0, 0);
+            this.windowSmartPartInfo.Title = "ÎÒµÄä¯ÀÀÆ÷";
+            this.infoProvider.Items.Add(this.windowSmartPartInfo);
             // 
             // BrowserView
             // 
@@ -56,5 +65,7 @@ namespace Uniframework.SmartClient.Views
         #endregion
 
         private System.Windows.Forms.WebBrowser webBrowser;
+        private Microsoft.Practices.CompositeUI.WinForms.WindowSmartPartInfo windowSmartPartInfo;
+        private Microsoft.Practices.CompositeUI.SmartParts.SmartPartInfoProvider infoProvider;
     }
 }

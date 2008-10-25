@@ -1,20 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+
 using DevExpress.XtraEditors;
+using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.ObjectBuilder;
-using System.Reflection;
-using System.IO;
 using Uniframework.Services;
 using Uniframework.SmartClient;
 
 namespace Uniframework.Upgrade.Views
 {
-    public partial class UpgradeBuilderView : DevExpress.XtraEditors.XtraUserControl
+    public partial class UpgradeBuilderView : DevExpress.XtraEditors.XtraUserControl, ISmartPartInfoProvider
     {
         private bool upgradeItemChanged = false;
         private bool upgradeUrl;
@@ -315,5 +317,23 @@ namespace Uniframework.Upgrade.Views
         {
             Presenter.UploadProject();
         }
+
+        public Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo GetSmartPartInfo(Type smartPartInfoType)
+        {
+            // Implement ISmartPartInfoProvider in the containing smart part. Required in order for contained smart part infos to work.
+            Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfoProvider ensureProvider = this;
+            return this.infoProvider.GetSmartPartInfo(smartPartInfoType);
+
+        }
+
+        #region ISmartPartInfoProvider Members
+
+        ISmartPartInfo ISmartPartInfoProvider.GetSmartPartInfo(Type smartPartInfoType)
+        {
+            ISmartPartInfoProvider ensureProvider = this;
+            return this.infoProvider.GetSmartPartInfo(smartPartInfoType);
+        }
+
+        #endregion
     }
 }

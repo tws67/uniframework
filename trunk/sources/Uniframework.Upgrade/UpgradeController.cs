@@ -55,16 +55,7 @@ namespace Uniframework.Upgrade
         [CommandHandler(CommandHandlerNames.CMD_SHOWUPGRADEBUILDER)]
         public void OnShowUpgradeBuilder(object sender, EventArgs e)
         {
-            UpgradeBuilderView view = WorkItem.SmartParts.AddNew<UpgradeBuilderView>();
-            IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Main);
-            if (wp != null)
-            {
-                WindowSmartPartInfo spi = new WindowSmartPartInfo();
-                spi.Title = "创建升级包";
-                view.Dock = System.Windows.Forms.DockStyle.Fill;
-
-                wp.Show(view, spi);
-            }
+            ShowViewInWorkspace<UpgradeBuilderView>("UpgradeBuilder", UIExtensionSiteNames.Shell_Workspace_Main);
         }
 
         /// <summary>
