@@ -44,13 +44,15 @@ namespace Microsoft.Practices.CompositeUI.Common
 
         protected override void OnActivate(Control smartPart)
         {
-            try {
+            try
+            {
                 fireActivatedFromForm = false;	// Prevent double firing from composer Workspace class and form
                 Form form = windows[smartPart];
                 form.BringToFront();
                 form.Show();
             }
-            finally {
+            finally
+            {
                 fireActivatedFromForm = true;
             }
         }
@@ -103,7 +105,7 @@ namespace Microsoft.Practices.CompositeUI.Common
                 form.Controls.Add(control);
                 control.Dock = DockStyle.Fill;
                 control.Disposed += ControlDisposed;
-                //WireUpForm(form);
+                WireUpForm(form);
             }
 
             return form;

@@ -25,8 +25,11 @@ namespace Uniframework.Db4o
         {
             if (HttpContext.Current != null)
                 dbPath = HttpContext.Current.Server.MapPath("~/App_Data/");
-            else
+            else {
                 dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
+                if (!Directory.Exists(dbPath))
+                    Directory.CreateDirectory(dbPath);
+            }
 
             Db4oFactory.Configure().UpdateDepth(Int32.MaxValue);
             Db4oFactory.Configure().OptimizeNativeQueries(true);

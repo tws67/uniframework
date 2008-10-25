@@ -20,7 +20,7 @@ namespace Uniframework.SmartClient
     /// 浏览器服务
     /// </summary>
     [Service]
-    public class BrowserService : IBrowserService
+    public class BrowserService : WorkItemController, IBrowserService
     {
         private IBrowser browser = null;
         private string homeUri = null;
@@ -30,19 +30,6 @@ namespace Uniframework.SmartClient
             homeUri = ConfigurationManager.AppSettings["ShellHomeUri"];
             Application.Idle += new EventHandler(Application_Idle);
         }
-
-        #region Dependency services
-
-        [ServiceDependency]
-        public WorkItem WorkItem
-        {
-            get { return workItem; }
-            set {
-                workItem = value;
-            }
-        }
-
-        #endregion
 
         #region BrowserService members
 
@@ -63,22 +50,16 @@ namespace Uniframework.SmartClient
         public void Goto(string address)
         {
             Uri uri = new Uri(address);
-            BrowserView view = default(BrowserView);
-            view = WorkItem.SmartParts.Get<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView);
-            if (view == null)
-                view = WorkItem.SmartParts.AddNew<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView);
+            BrowserView view = ShowViewInWorkspace<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView,
+                UIExtensionSiteNames.Shell_Workspace_Main);
 
-            IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Main);
-            if (wp != null) {
-                WindowSmartPartInfo spi = new WindowSmartPartInfo();
-                spi.Title = "浏览器";
-                wp.Show(view, spi);
-                try {
-                    view.Goto(uri);
-                }
-                catch (Exception ex) {
-                    XtraMessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
-                }
+            try
+            {
+                view.Goto(uri);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message);
             }
         }
 

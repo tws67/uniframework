@@ -85,6 +85,8 @@ namespace Uniframework.Upgrade.Views
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
+            this.windowSmartPartInfo = new Microsoft.Practices.CompositeUI.WinForms.WindowSmartPartInfo();
+            this.infoProvider = new Microsoft.Practices.CompositeUI.SmartParts.SmartPartInfoProvider();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtTarget.Properties)).BeginInit();
@@ -662,6 +664,13 @@ namespace Uniframework.Upgrade.Views
             this.barButtonItem9.Id = 10;
             this.barButtonItem9.Name = "barButtonItem9";
             // 
+            // windowSmartPartInfo
+            // 
+            this.windowSmartPartInfo.Description = "";
+            this.windowSmartPartInfo.Location = new System.Drawing.Point(0, 0);
+            this.windowSmartPartInfo.Title = "创建升级包";
+            this.infoProvider.Items.Add(this.windowSmartPartInfo);
+            // 
             // UpgradeBuilderView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -761,6 +770,8 @@ namespace Uniframework.Upgrade.Views
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private Microsoft.Practices.CompositeUI.WinForms.WindowSmartPartInfo windowSmartPartInfo;
+        private Microsoft.Practices.CompositeUI.SmartParts.SmartPartInfoProvider infoProvider;
 
     }
 }

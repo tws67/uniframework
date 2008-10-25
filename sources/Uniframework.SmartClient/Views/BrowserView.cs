@@ -9,10 +9,11 @@ using DevExpress.XtraEditors;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
+using Microsoft.Practices.CompositeUI.SmartParts;
 
 namespace Uniframework.SmartClient.Views
 {
-    public partial class BrowserView : DevExpress.XtraEditors.XtraUserControl, IBrowser
+    public partial class BrowserView : DevExpress.XtraEditors.XtraUserControl, IBrowser, ISmartPartInfoProvider
     {
         public BrowserView()
         {
@@ -131,5 +132,15 @@ namespace Uniframework.SmartClient.Views
         {
             webBrowser.Dock = DockStyle.Fill;
         }
+
+        #region ISmartPartInfoProvider Members
+
+        public ISmartPartInfo GetSmartPartInfo(Type smartPartInfoType)
+        {
+            ISmartPartInfoProvider ensoureProvider = this;
+            return infoProvider.GetSmartPartInfo(smartPartInfoType);
+        }
+
+        #endregion
     }
 }
