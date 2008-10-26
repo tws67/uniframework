@@ -43,6 +43,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CommandHelper.cs" />
     <Compile Include="Services\EntityTranslatorException.cs" />
     <Compile Include="Services\EntityTranslatorService.cs" />
     <Compile Include="Services\IEntityTranslator.cs" />
@@ -56,9 +57,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWorkspaceLocatorService.cs" />
     <Compile Include="Services\WorkspaceLocatorService.cs" />
+    <Compile Include="SmartPartInfos\FormSmartPartInfo.cs" />
+    <Compile Include="SmartPartInfos\IconSmartPartInfo.cs" />
+    <Compile Include="SmartPartInfos\LightSmartPartInfo.cs" />
     <Compile Include="WorkItemController.cs" />
+    <Compile Include="Workspaces\FormWorkspace.cs" />
+    <Compile Include="Workspaces\IWorkspaceComposer.cs" />
     <Compile Include="Workspaces\MdiWorkspace.cs" />
     <Compile Include="Workspaces\WindowWorkspace.cs" />
+    <Compile Include="Workspaces\WorkspaceComposerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CompositeUI.WinForms\CompositeUI.WinForms.csproj">

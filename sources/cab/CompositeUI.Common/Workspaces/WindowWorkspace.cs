@@ -80,9 +80,8 @@ namespace Microsoft.Practices.CompositeUI.Common
         protected override void OnClose(Control smartPart)
         {
             Form form = windows[smartPart];
-            smartPart.Disposed -= ControlDisposed;
-
             form.Controls.Remove(smartPart);	// Remove the smartPart from the form to avoid disposing it.
+            smartPart.Disposed -= ControlDisposed;
 
             form.Close();
             windows.Remove(smartPart);
@@ -101,6 +100,7 @@ namespace Microsoft.Practices.CompositeUI.Common
             }
             else {
                 form = new WindowForm();
+                form.ShowInTaskbar = owner == null;
                 windows.Add(control, form);
                 form.Controls.Add(control);
                 control.Dock = DockStyle.Fill;
@@ -240,8 +240,7 @@ namespace Microsoft.Practices.CompositeUI.Common
                     WorkspaceCancelEventArgs cancelArgs = FireWindowFormClosing(this.Controls[0]);
                     e.Cancel = cancelArgs.Cancel;
 
-                    if (cancelArgs.Cancel == false)
-                    {
+                    if (cancelArgs.Cancel == false) {
                         this.Controls[0].Hide();
                     }
                 }
@@ -255,10 +254,10 @@ namespace Microsoft.Practices.CompositeUI.Common
             /// <param name="e"></param>
             protected override void OnClosed(EventArgs e)
             {
-                if ((this.WindowFormClosed != null) &&
-                    (this.Controls.Count > 0))
+                if ((WindowFormClosed != null) &&
+                    (Controls.Count > 0))
                 {
-                    this.WindowFormClosed(this, new WorkspaceEventArgs(this.Controls[0]));
+                    WindowFormClosed(this, new WorkspaceEventArgs(this.Controls[0]));
                 }
 
                 base.OnClosed(e);
