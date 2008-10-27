@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.SmartParts;
 
 namespace Microsoft.Practices.CompositeUI.Common
 {
@@ -61,7 +62,25 @@ namespace Microsoft.Practices.CompositeUI.Common
         protected virtual TView ShowViewInWorkspace<TView>(string workspaceName)
         {
             TView view = WorkItem.SmartParts.AddNew<TView>();
-            WorkItem.Workspaces[workspaceName].Show(view);
+            IWorkspace wp = WorkItem.Workspaces.Get(workspaceName);
+            if (wp != null)
+                wp.Show(view);
+            return view;
+        }
+
+        /// <summary>
+        /// Shows the view in workspace.
+        /// </summary>
+        /// <typeparam name="TView">The type of the view.</typeparam>
+        /// <param name="workspaceName">Name of the workspace.</param>
+        /// <param name="spi">The spi.</param>
+        /// <returns></returns>
+        protected virtual TView ShowViewInWorkspace<TView>(string workspaceName, ISmartPartInfo spi)
+        {
+            TView view = WorkItem.SmartParts.AddNew<TView>();
+            IWorkspace wp = WorkItem.Workspaces.Get(workspaceName);
+            if (wp != null)
+                wp.Show(view, spi);
             return view;
         }
 
@@ -84,7 +103,36 @@ namespace Microsoft.Practices.CompositeUI.Common
                 view = WorkItem.SmartParts.AddNew<TView>(viewId);
             }
 
-            WorkItem.Workspaces[workspaceName].Show(view);
+            IWorkspace wp = WorkItem.Workspaces.Get(workspaceName);
+            if (wp != null)
+                wp.Show(view);
+
+            return view;
+        }
+
+        /// <summary>
+        /// Shows the view in workspace.
+        /// </summary>
+        /// <typeparam name="TView">The type of the view.</typeparam>
+        /// <param name="viewId">The view id.</param>
+        /// <param name="workspaceName">Name of the workspace.</param>
+        /// <param name="spi">The spi.</param>
+        /// <returns></returns>
+        protected virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName, ISmartPartInfo spi)
+        {
+            TView view = default(TView);
+            if (WorkItem.SmartParts.Contains(viewId))
+            {
+                view = WorkItem.SmartParts.Get<TView>(viewId);
+            }
+            else
+            {
+                view = WorkItem.SmartParts.AddNew<TView>(viewId);
+            }
+
+            IWorkspace wp = WorkItem.Workspaces.Get(workspaceName);
+            if (wp != null)
+                wp.Show(view, spi);
 
             return view;
         }
