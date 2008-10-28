@@ -134,7 +134,6 @@ namespace Uniframework.SmartClient.Views
 
         private void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            SmartClient.ShowAddressUri(e.Url.ToString());
         }
 
         private void BrowserView_Load(object sender, EventArgs e)
