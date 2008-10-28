@@ -379,38 +379,6 @@
             label="系统界面皮肤(&amp;K)" 
             command="" 
             classname="XtraSkinMenu"/>
-
-      <Item id="Back"
-            name="mmivBack"
-            label="后退(&amp;B)"
-            command="/Shell/Module/Foundation/View/Back"
-            classname="XtraButtonItem"
-            begingroup="true"
-            imagefile="${nav_left_green}"
-            shortcut="AltLeftArrow"/>
-            
-      <Item id="Forward"
-            name="mmivForward"
-            label="前进(&amp;F)"
-            command="/Shell/Module/Foundation/View/Forward"
-            classname="XtraButtonItem"
-            imagefile="${nav_right_green}"
-            shortcut="AltRightArrow"/>
-
-      <Item id="Stop"
-            name="mmivStop"
-            label="停止(&amp;S)"
-            command="/Shell/Module/Foundation/View/Stop"
-            classname="XtraButtonItem"/>
-
-      <Item id="Refresh"
-            name="mmivRefresh"
-            label="刷新(&amp;R)"
-            command="/Shell/Module/Foundation/View/Refresh"
-            classname="XtraButtonItem"
-            begingroup="true"
-            imagefile="${refresh}"
-            shortcut="F5"/>
       
       <Item id="Setting"
             name="mmivSetting"

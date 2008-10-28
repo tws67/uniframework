@@ -226,12 +226,6 @@ namespace Uniframework.StartUp
         }
 
         /// <summary>
-        /// 地址内容变化事件
-        /// </summary>
-        [EventPublication(EventNames.Shell_AddressUriChanged, PublicationScope.Global)]
-        public event EventHandler<EventArgs<string>> AddressUriChanged;
-
-        /// <summary>
         /// 系统外壳关闭事件
         /// </summary>
         [EventPublication(EventNames.Shell_ShellClosing, PublicationScope.Global)]
@@ -240,17 +234,6 @@ namespace Uniframework.StartUp
         #endregion
 
         #region ISmartClient Members
-
-        public void ShowAddressUri(string uri)
-        {
-            edtAddress.EditValueChanged -= edtAddress_EditValueChanged;
-            try {
-                edtAddress.EditValue = uri;
-            }
-            finally {
-                edtAddress.EditValueChanged += edtAddress_EditValueChanged;
-            }
-        }
 
         /// <summary>
         /// 显示状态栏的帮助信息.
@@ -411,20 +394,6 @@ namespace Uniframework.StartUp
                 CancelEventArgs eventArgs = new CancelEventArgs();
                 ShellClosing(this, eventArgs);
                 e.Cancel = eventArgs.Cancel;
-            }
-        }
-
-        /// <summary>
-        /// Handles the EditValueChanged event of the edtAddress control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void edtAddress_EditValueChanged(object sender, EventArgs e)
-        {
-            if (AddressUriChanged != null)
-            {
-                EventArgs<string> args = new EventArgs<string>(edtAddress.EditValue.ToString());
-                AddressUriChanged(this, args);
             }
         }
 

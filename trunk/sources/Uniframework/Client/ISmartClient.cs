@@ -40,11 +40,6 @@ namespace Uniframework.Client
         event ConnectionStateChangeHandler ConnectionStateChanged;
 
         /// <summary>
-        /// 显示地址栏中的地址
-        /// </summary>
-        /// <param name="uri">The URI.</param>
-        void ShowAddressUri(string uri);
-        /// <summary>
         /// 显示状态栏的帮助信息.
         /// </summary>
         /// <param name="info">信息</param>

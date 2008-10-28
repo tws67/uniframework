@@ -42,7 +42,6 @@ namespace Uniframework.StartUp
             this.tlabRequestSize = new DevExpress.XtraBars.BarStaticItem();
             this.ZoomBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemZoomTrackBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemZoomTrackBar();
-            this.NavigateBar = new DevExpress.XtraBars.Bar();
             this.edtAddress = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMRUEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMRUEdit();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -69,8 +68,7 @@ namespace Uniframework.StartUp
             // 
             this.barManager.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
             this.MenuBar,
-            this.StatusBar,
-            this.NavigateBar});
+            this.StatusBar});
             this.barManager.DockControls.Add(this.barDockControlTop);
             this.barManager.DockControls.Add(this.barDockControlBottom);
             this.barManager.DockControls.Add(this.barDockControlLeft);
@@ -212,20 +210,6 @@ namespace Uniframework.StartUp
             this.repositoryItemZoomTrackBar1.Name = "repositoryItemZoomTrackBar1";
             this.repositoryItemZoomTrackBar1.ScrollThumbStyle = DevExpress.XtraEditors.Repository.ScrollThumbStyle.ArrowDownRight;
             // 
-            // NavigateBar
-            // 
-            this.NavigateBar.BarName = "NavigateBar";
-            this.NavigateBar.CanDockStyle = ((DevExpress.XtraBars.BarCanDockStyle)((((DevExpress.XtraBars.BarCanDockStyle.Floating | DevExpress.XtraBars.BarCanDockStyle.Top)
-                        | DevExpress.XtraBars.BarCanDockStyle.Bottom)
-                        | DevExpress.XtraBars.BarCanDockStyle.Standalone)));
-            this.NavigateBar.DockCol = 0;
-            this.NavigateBar.DockRow = 1;
-            this.NavigateBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            this.NavigateBar.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.edtAddress, "", true, true, true, 373, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
-            this.NavigateBar.OptionsBar.UseWholeRow = true;
-            this.NavigateBar.Text = "µ¼º½¹¤¾ßÀ¸(&N)";
-            // 
             // edtAddress
             // 
             this.edtAddress.AutoFillWidth = true;
@@ -234,7 +218,6 @@ namespace Uniframework.StartUp
             this.edtAddress.Id = 9;
             this.edtAddress.IEBehavior = true;
             this.edtAddress.Name = "edtAddress";
-            this.edtAddress.EditValueChanged += new System.EventHandler(this.edtAddress_EditValueChanged);
             // 
             // repositoryItemMRUEdit1
             // 
@@ -277,18 +260,18 @@ namespace Uniframework.StartUp
             this.naviWorkspace.ActiveGroup = null;
             this.naviWorkspace.ContentButtonHint = null;
             this.naviWorkspace.Dock = System.Windows.Forms.DockStyle.Left;
-            this.naviWorkspace.Location = new System.Drawing.Point(0, 51);
+            this.naviWorkspace.Location = new System.Drawing.Point(0, 25);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 491);
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 517);
             this.naviWorkspace.TabIndex = 6;
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
             // SplitterControl
             // 
-            this.SplitterControl.Location = new System.Drawing.Point(169, 51);
+            this.SplitterControl.Location = new System.Drawing.Point(169, 25);
             this.SplitterControl.Name = "SplitterControl";
-            this.SplitterControl.Size = new System.Drawing.Size(6, 491);
+            this.SplitterControl.Size = new System.Drawing.Size(6, 517);
             this.SplitterControl.TabIndex = 7;
             this.SplitterControl.TabStop = false;
             // 
@@ -348,7 +331,6 @@ namespace Uniframework.StartUp
         private DevExpress.XtraEditors.Repository.RepositoryItemMRUEdit repositoryItemMRUEdit1;
         private DevExpress.XtraBars.Bar StatusBar;
         private DevExpress.XtraBars.Bar MenuBar;
-        public DevExpress.XtraBars.Bar NavigateBar;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
     }
 }

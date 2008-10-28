@@ -223,7 +223,6 @@ namespace Uniframework.StartUp
             // 注册系统主菜单及状态栏
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Manager, Shell.BarManager);
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Mainmenu, Shell.BarManager.MainMenu);
-            RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Navigate, Shell.NavigateBar);
             RootWorkItem.UIExtensionSites.RegisterSite(UIExtensionSiteNames.Shell_Bar_Status, Shell.BarManager.StatusBar);
         }
 
@@ -238,7 +237,6 @@ namespace Uniframework.StartUp
             RootWorkItem.Services.AddNew<DocumentService, IDocumentService>();
             RootWorkItem.Services.AddNew<PrintableService, IPrintableService>();
             RootWorkItem.Services.AddNew<DataGridViewService, IDataListViewService>();
-            RootWorkItem.Services.AddNew<BrowserService, IBrowserService>();
         }
 
         /// <summary>
