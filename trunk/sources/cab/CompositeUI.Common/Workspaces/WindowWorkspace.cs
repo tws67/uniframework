@@ -6,9 +6,9 @@ using System.Text;
 using System.Windows.Forms;
 
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Common.SmartPartInfo;
 using Microsoft.Practices.CompositeUI.SmartParts;
 using Microsoft.Practices.CompositeUI.Utility;
-using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Microsoft.Practices.CompositeUI.Common
 {
@@ -121,6 +121,14 @@ namespace Microsoft.Practices.CompositeUI.Common
             form.Icon = spi.Icon;
             form.Height = spi.Height;
             form.Width = spi.Width;
+            form.WindowState = spi.WindowState;
+            form.ShowInTaskbar = spi.ShowInTaskbar;
+            form.StartPosition = spi.StartPosition;
+
+            if (spi.AcceptButton != null)
+                form.AcceptButton = spi.AcceptButton;
+            if (spi.CancelButton != null)
+                form.CancelButton = spi.CancelButton;
         }
 
         protected void SetWindowLocation(Form form, WindowSmartPartInfo spi)

@@ -241,6 +241,16 @@ namespace Uniframework.StartUp
 
         #region ISmartClient Members
 
+        public void ShowAddressUri(string uri)
+        {
+            edtAddress.EditValueChanged -= edtAddress_EditValueChanged;
+            try {
+                edtAddress.EditValue = uri;
+            }
+            finally {
+                edtAddress.EditValueChanged += edtAddress_EditValueChanged;
+            }
+        }
 
         /// <summary>
         /// 显示状态栏的帮助信息.
@@ -355,8 +365,6 @@ namespace Uniframework.StartUp
             }
         }
 
-        #endregion
-
         /// <summary>
         /// Handles the Load event of the ShellForm control.
         /// </summary>
@@ -398,7 +406,8 @@ namespace Uniframework.StartUp
         /// <param name="e">The <see cref="System.Windows.Forms.FormClosingEventArgs"/> instance containing the event data.</param>
         private void ShellForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (ShellClosing != null) {
+            if (ShellClosing != null)
+            {
                 CancelEventArgs eventArgs = new CancelEventArgs();
                 ShellClosing(this, eventArgs);
                 e.Cancel = eventArgs.Cancel;
@@ -412,11 +421,13 @@ namespace Uniframework.StartUp
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void edtAddress_EditValueChanged(object sender, EventArgs e)
         {
-            if (AddressUriChanged != null) {
+            if (AddressUriChanged != null)
+            {
                 EventArgs<string> args = new EventArgs<string>(edtAddress.EditValue.ToString());
                 AddressUriChanged(this, args);
             }
         }
 
+        #endregion
     }
 }

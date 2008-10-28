@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.Common.SmartPartInfo;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.CompositeUI.SmartParts;
-using Microsoft.Practices.CompositeUI.WinForms;
 using Uniframework.SmartClient.Views;
 using DevExpress.XtraEditors;
 
@@ -54,8 +54,12 @@ namespace Uniframework.SmartClient
         public void Goto(string address)
         {
             Uri uri = new Uri(address);
+            WindowSmartPartInfo spi = new WindowSmartPartInfo();
+            spi.Title = "我的浏览器";
+            spi.WindowState = FormWindowState.Maximized;
             BrowserView view = ShowViewInWorkspace<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView,
-                UIExtensionSiteNames.Shell_Workspace_Main);
+                UIExtensionSiteNames.Shell_Workspace_Main, spi);
+            Browser = view;
 
             try {
                 view.Goto(uri);
@@ -78,21 +82,18 @@ namespace Uniframework.SmartClient
         [CommandHandler(CommandHandlerNames.CMD_VIEW_BACK)]
         public void OnBack(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(Browser, "Browser");
             Browser.Back();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_VIEW_FORWARD)]
         public void OnForward(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(Browser, "Browser");
             Browser.Forward();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_VIEW_STOP)]
         public void OnStop(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(Browser, "Browser");
             Browser.Stop();
         }
 
@@ -105,11 +106,10 @@ namespace Uniframework.SmartClient
         [CommandHandler(CommandHandlerNames.CMD_VIEW_REFRESH)]
         public void OnRefresh(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(Browser, "Browser");
             Browser.Refresh();
         }
 
-        [EventSubscription(EventNames.Shell_AddressUriChanged, ThreadOption.UserInterface)]
+        [EventSubscription(EventNames.Shell_AddressUriChanged, ThreadOption.Publisher)]
         public void OnShellAddressUriChanged(object sender, EventArgs<string> e)
         {
             Goto(e.Data);

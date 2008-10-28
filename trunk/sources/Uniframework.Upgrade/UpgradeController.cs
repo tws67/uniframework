@@ -9,8 +9,8 @@ using DevExpress.XtraNavBar;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.Common.SmartPartInfo;
 using Microsoft.Practices.CompositeUI.SmartParts;
-using Microsoft.Practices.CompositeUI.WinForms;
 
 using Uniframework.Services;
 using Uniframework.SmartClient;
@@ -55,7 +55,9 @@ namespace Uniframework.Upgrade
         [CommandHandler(CommandHandlerNames.CMD_SHOWUPGRADEBUILDER)]
         public void OnShowUpgradeBuilder(object sender, EventArgs e)
         {
-            ShowViewInWorkspace<UpgradeBuilderView>("UpgradeBuilder", UIExtensionSiteNames.Shell_Workspace_Main);
+            WindowSmartPartInfo spi = new WindowSmartPartInfo();
+            spi.Title = "创建升级包";
+            ShowViewInWorkspace<UpgradeBuilderView>("UpgradeBuilder", UIExtensionSiteNames.Shell_Workspace_Main, spi);
         }
 
         /// <summary>

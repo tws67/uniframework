@@ -42,6 +42,7 @@ namespace Uniframework.SmartClient.Views
             this.webBrowser.Size = new System.Drawing.Size(702, 458);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.webBrowser_ProgressChanged);
+            this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
             this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
             // 
             // windowSmartPartInfo
