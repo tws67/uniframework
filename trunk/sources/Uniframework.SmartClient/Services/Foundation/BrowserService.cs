@@ -47,14 +47,17 @@ namespace Uniframework.SmartClient
             }
         }
 
+        /// <summary>
+        /// Gotoes the specified address.
+        /// </summary>
+        /// <param name="address">The address.</param>
         public void Goto(string address)
         {
             Uri uri = new Uri(address);
             BrowserView view = ShowViewInWorkspace<BrowserView>(SmartPartNames.SmartPart_Shell_BrowserView,
                 UIExtensionSiteNames.Shell_Workspace_Main);
 
-            try
-            {
+            try {
                 view.Goto(uri);
             }
             catch (Exception ex)

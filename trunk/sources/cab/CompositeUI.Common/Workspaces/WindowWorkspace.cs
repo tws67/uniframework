@@ -105,6 +105,7 @@ namespace Microsoft.Practices.CompositeUI.Common
                 form.Controls.Add(control);
                 control.Dock = DockStyle.Fill;
                 control.Disposed += ControlDisposed;
+                control.Show();
                 WireUpForm(form);
             }
 
@@ -161,6 +162,9 @@ namespace Microsoft.Practices.CompositeUI.Common
 
         private void WindowFormClosed(object sender, WorkspaceEventArgs e)
         {
+            Form form = windows[(Control)e.SmartPart];
+            if (form != null)
+                form.Controls.Remove((Control)e.SmartPart);
             windows.Remove((Control)e.SmartPart);
             InnerSmartParts.Remove((Control)e.SmartPart);
         }
@@ -254,9 +258,7 @@ namespace Microsoft.Practices.CompositeUI.Common
             /// <param name="e"></param>
             protected override void OnClosed(EventArgs e)
             {
-                if ((WindowFormClosed != null) &&
-                    (Controls.Count > 0))
-                {
+                if (WindowFormClosed != null) {
                     WindowFormClosed(this, new WorkspaceEventArgs(this.Controls[0]));
                 }
 

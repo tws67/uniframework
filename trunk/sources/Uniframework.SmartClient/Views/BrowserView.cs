@@ -13,6 +13,7 @@ using Microsoft.Practices.CompositeUI.SmartParts;
 
 namespace Uniframework.SmartClient.Views
 {
+    [SmartPart]
     public partial class BrowserView : DevExpress.XtraEditors.XtraUserControl, IBrowser, ISmartPartInfoProvider
     {
         public BrowserView()
