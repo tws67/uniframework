@@ -37,12 +37,11 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// <param name="smartPartInfo">The information to use to show the smart part.</param>
         protected override void OnShow(Control smartPart, WindowSmartPartInfo smartPartInfo)
         {
-            Form child = this.GetOrCreateForm(smartPart);
+            Form child = GetOrCreateForm(smartPart);
             child.MdiParent = parentMdiForm;
 
-            this.SetWindowProperties(child, smartPartInfo);
+            SetWindowProperties(child, smartPartInfo);
             child.Show();
-            //SetWindowLocation(child, smartPartInfo);
             child.BringToFront();
         }
     }
