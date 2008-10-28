@@ -10,6 +10,7 @@ using DevExpress.XtraEditors;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
 using Microsoft.Practices.CompositeUI.SmartParts;
+using Uniframework.Client;
 
 namespace Uniframework.SmartClient.Views
 {
@@ -47,6 +48,13 @@ namespace Uniframework.SmartClient.Views
 
         [ServiceDependency]
         public IBrowserService BrowserService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public ISmartClient SmartClient
         {
             get;
             set;
@@ -126,7 +134,7 @@ namespace Uniframework.SmartClient.Views
 
         private void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            Presenter.ShowProgress(-1);
+            SmartClient.ShowAddressUri(e.Url.ToString());
         }
 
         private void BrowserView_Load(object sender, EventArgs e)
@@ -143,5 +151,10 @@ namespace Uniframework.SmartClient.Views
         }
 
         #endregion
+
+        private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            SmartClient.ChangeProgress(-1);
+        }
     }
 }

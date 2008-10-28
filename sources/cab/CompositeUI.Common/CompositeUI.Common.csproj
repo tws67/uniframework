@@ -57,11 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWorkspaceLocatorService.cs" />
     <Compile Include="Services\WorkspaceLocatorService.cs" />
-    <Compile Include="SmartPartInfos\FormSmartPartInfo.cs" />
-    <Compile Include="SmartPartInfos\IconSmartPartInfo.cs" />
-    <Compile Include="SmartPartInfos\LightSmartPartInfo.cs" />
+    <Compile Include="SmartPartInfos\WindowSmartPartInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WorkItemController.cs" />
-    <Compile Include="Workspaces\FormWorkspace.cs" />
     <Compile Include="Workspaces\IWorkspaceComposer.cs" />
     <Compile Include="Workspaces\MdiWorkspace.cs" />
     <Compile Include="Workspaces\WindowWorkspace.cs" />

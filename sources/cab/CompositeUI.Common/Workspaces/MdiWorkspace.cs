@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
+using Microsoft.Practices.CompositeUI.Common.SmartPartInfo;
 using Microsoft.Practices.CompositeUI.SmartParts;
-using Microsoft.Practices.CompositeUI.WinForms;
 
 namespace Microsoft.Practices.CompositeUI.Common
 {
@@ -35,12 +35,12 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// </summary>
         /// <param name="smartPart">The <see cref="Control"/> to show in the workspace.</param>
         /// <param name="smartPartInfo">The information to use to show the smart part.</param>
-        protected override void OnShow(Control smartPart, WindowSmartPartInfo smartPartInfo)
+        protected override void OnShow(Control smartPart, WindowSmartPartInfo spi)
         {
             Form child = GetOrCreateForm(smartPart);
             child.MdiParent = parentMdiForm;
 
-            SetWindowProperties(child, smartPartInfo);
+            SetWindowProperties(child, spi);
             child.Show();
             child.BringToFront();
         }
