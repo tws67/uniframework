@@ -11,6 +11,7 @@ using System.Text;
 using Lephone.Data;
 using Lephone.Data.Builder.Clause;
 using Lephone.Data.Common;
+using Lephone.Data.Definition;
 using Lephone.Data.Dialect;
 using Lephone.Data.Driver;
 using Lephone.Data.SqlEntry;
@@ -73,21 +74,6 @@ namespace Uniframework.Database
         /// <returns>结果集<see cref="DataSet"/></returns>
         [RemoteMethod]
         DataSet ExecuteDataset(string context, SqlStatement Sql);
-        /// <summary>
-        /// 执行SQL语句将SQL结果返回到DataSet数据集中
-        /// </summary>
-        /// <param name="Sql">SQL语句</param>
-        /// <param name="ds">存放结果数据集的<see cref="DataSet"/></param>
-        [RemoteMethod]
-        void ExecuteDataset(SqlStatement Sql, DataSet ds);
-        /// <summary>
-        /// 执行SQL语句将SQL结果返回到DataSet数据集中
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="Sql">SQL语句</param>
-        /// <param name="ds">存放结果数据集的<see cref="DataSet"/></param>
-        [RemoteMethod]
-        void ExecuteDataset(string context, SqlStatement Sql, DataSet ds);
         /// <summary>
         /// 执行SQL语句将SQL结果返回到DataSet数据集中
         /// </summary>
@@ -228,7 +214,7 @@ namespace Uniframework.Database
         /// <param name="iwc">条件</param>
         /// <returns>执行成功与否的返回值</returns>
         [RemoteMethod]
-        int Delete<T>(WhereCondition iwc);
+        int Delete<T>(WhereCondition iwc) where T : class, IDbObject;
         /// <summary>
         /// 删除满足条件指定类型<see cref="T"/>的对象
         /// </summary>
@@ -237,7 +223,7 @@ namespace Uniframework.Database
         /// <param name="iwc">条件</param>
         /// <returns>执行成功与否的返回值</returns>
         [RemoteMethod]
-        int Delete<T>(string context, WhereCondition iwc);
+        int Delete<T>(string context, WhereCondition iwc) where T : class, IDbObject;
         /// <summary>
         /// 删除特定对象
         /// </summary>
@@ -254,30 +240,13 @@ namespace Uniframework.Database
         [RemoteMethod]
         int Delete(string context, object obj);
         /// <summary>
-        /// 级联删除
-        /// </summary>
-        /// <param name="oi">对象信息<see cref="ObjectInfo"/></param>
-        /// <param name="obj">待删除对象</param>
-        /// <returns>执行成功与否的返回值</returns>
-        [RemoteMethod]
-        int DeleteRelation(ObjectInfo oi, object obj);
-        /// <summary>
-        /// 级联删除
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="oi">对象信息</param>
-        /// <param name="obj">待删除对象</param>
-        /// <returns>执行成功与否的返回值</returns>
-        [RemoteMethod]
-        int DeleteRelation(string context, ObjectInfo oi, object obj);
-        /// <summary>
         /// 执行SQL语句将结果放入<see cref="DbObjectList"/>列表中
         /// </summary>
         /// <typeparam name="T">泛型类型<see cref="T"/></typeparam>
         /// <param name="Sql">SQL语句</param>
         /// <returns>执行SQL语句后的<see cref="DbObjectList"/>列表</returns>
         [RemoteMethod]
-        DbObjectList<T> ExecuteList<T>(SqlStatement Sql);
+        DbObjectList<T> ExecuteList<T>(SqlStatement Sql) where T : class, IDbObject;
         /// <summary>
         /// 执行SQL语句将结果放入<see cref="DbObjectList"/>列表中
         /// </summary>
@@ -286,7 +255,7 @@ namespace Uniframework.Database
         /// <param name="Sql">SQL语句</param>
         /// <returns>执行SQL语句后的<see cref="DbObjectList"/>列表</returns>
         [RemoteMethod]
-        DbObjectList<T> ExecuteList<T>(string context, SqlStatement Sql);
+        DbObjectList<T> ExecuteList<T>(string context, SqlStatement Sql) where T : class, IDbObject;
         /// <summary>
         /// 执行SQL命令语句将结果放入<see cref="DbObjectList"/>列表中.
         /// </summary>
@@ -294,7 +263,7 @@ namespace Uniframework.Database
         /// <param name="SqlStr">SQL命令语句</param>
         /// <returns>执行SQL语句后的<see cref="DbObjectList"/>列表</returns>
         [RemoteMethod]
-        DbObjectList<T> ExecuteList<T>(string SqlStr);
+        DbObjectList<T> ExecuteList<T>(string SqlStr) where T : class, IDbObject;
         /// <summary>
         /// 执行SQL命令语句将结果放入<see cref="DbObjectList"/>列表中
         /// </summary>
@@ -303,7 +272,7 @@ namespace Uniframework.Database
         /// <param name="SqlStr">SQL命令语句</param>
         /// <returns>执行SQL语句后的<see cref="DbObjectList"/>列表</returns>
         [RemoteMethod]
-        DbObjectList<T> ExecuteList<T>(string context, string SqlStr);
+        DbObjectList<T> ExecuteList<T>(string context, string SqlStr) where T : class, IDbObject;
         /// <summary>
         /// 执行SQL命令语句将结果放入<see cref="DbObjectList"/>列表中
         /// </summary>
@@ -312,7 +281,7 @@ namespace Uniframework.Database
         /// <param name="os">参数</param>
         /// <returns>执行SQL语句后的<see cref="DbObjectList"/>列表</returns>
         [RemoteMethod]
-        DbObjectList<T> ExecuteList<T>(string SqlStr, params object[] os);
+        DbObjectList<T> ExecuteList<T>(string SqlStr, params object[] os) where T : class, IDbObject;
         /// <summary>
         /// 执行SQL命令语句将结果放入<see cref="DbObjectList"/>列表中
         /// </summary>
@@ -322,7 +291,7 @@ namespace Uniframework.Database
         /// <param name="os">参数</param>
         /// <returns>执行SQL语句后的<see cref="DbObjectList"/>列表</returns>
         [RemoteMethod]
-        DbObjectList<T> ExecuteList<T>(string context, string SqlStr, params object[] os);
+        DbObjectList<T> ExecuteList<T>(string context, string SqlStr, params object[] os) where T : class, IDbObject;
         /// <summary>
         /// 填充集合
         /// </summary>
@@ -404,7 +373,7 @@ namespace Uniframework.Database
         /// <param name="key">主键</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(object key);
+        T GetObject<T>(object key) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -413,7 +382,7 @@ namespace Uniframework.Database
         /// <param name="key">主键</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(string context, object key);
+        T GetObject<T>(string context, object key) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -421,7 +390,7 @@ namespace Uniframework.Database
         /// <param name="c">Where子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(WhereCondition c);
+        T GetObject<T>(WhereCondition c) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -430,7 +399,7 @@ namespace Uniframework.Database
         /// <param name="c">Where子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(string context, WhereCondition c);
+        T GetObject<T>(string context, WhereCondition c) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -439,7 +408,7 @@ namespace Uniframework.Database
         /// <param name="ob">Order by子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(WhereCondition c, OrderBy ob);
+        T GetObject<T>(WhereCondition c, OrderBy ob) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -449,7 +418,7 @@ namespace Uniframework.Database
         /// <param name="ob">Order by子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(string context, WhereCondition c, OrderBy ob);
+        T GetObject<T>(string context, WhereCondition c, OrderBy ob) where T : class, IDbObject;
         /// <summary>
         /// 向数据库中插入对象
         /// </summary>
@@ -476,21 +445,6 @@ namespace Uniframework.Database
         /// <param name="obj">待更新数据对象</param>
         [RemoteMethod]
         void Update(string context, object obj);
-        /// <summary>
-        /// 更新数据库
-        /// </summary>
-        /// <param name="obj">待更新数据对象</param>
-        /// <param name="iwc">Where子句</param>
-        [RemoteMethod]
-        void Update(object obj, WhereCondition iwc);
-        /// <summary>
-        /// 更新数据库
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="obj">待更新数据对象</param>
-        /// <param name="iwc">Where子句</param>
-        [RemoteMethod]
-        void Update(string context, object obj, WhereCondition iwc);
         /// <summary>
         /// 保存对象到数据库
         /// </summary>
