@@ -117,7 +117,6 @@
     <Compile Include="Security\RSAKey.cs" />
     <Compile Include="Security\SecurityCommon.cs" />
     <Compile Include="Security\SymmetricCryptServiceBase.cs" />
-    <Compile Include="Service\IDataListService.cs" />
     <Compile Include="Service\IImageService.cs" />
     <Compile Include="Service\ImageService.cs" />
     <Compile Include="Utility\MyConvert.cs" />
