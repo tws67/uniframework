@@ -261,13 +261,13 @@ namespace Uniframework.Services
     }
     #endregion
 
-    /// <summary>
-    /// 快速反射调用句柄委托
-    /// </summary>
-    /// <param name="target">委托调用目标</param>
-    /// <param name="paramters">参数</param>
-    /// <returns></returns>
-    public delegate object FastInvokeHandler(object target, object[] paramters);
+    ///// <summary>
+    ///// 快速反射调用句柄委托
+    ///// </summary>
+    ///// <param name="target">委托调用目标</param>
+    ///// <param name="paramters">参数</param>
+    ///// <returns></returns>
+    //public delegate object FastInvokeHandler(object target, object[] paramters);
 
     
     /// <summary>
@@ -324,6 +324,6 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="methodInfo">方法参数</param>
         /// <returns></returns>
-        FastInvokeHandler GetInvoker(MethodInfo methodInfo);
+        DynamicInvoker GetInvoker(MethodInfo methodInfo);
     }
 }

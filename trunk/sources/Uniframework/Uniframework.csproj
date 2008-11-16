@@ -171,7 +171,7 @@
     <Compile Include="Utility\DynamicComparer.cs" />
     <Compile Include="Utility\EventUtility.cs" />
     <Compile Include="Utility\ExceptionUtility.cs" />
-    <Compile Include="Utility\FastInvokeUtility.cs" />
+    <Compile Include="Utility\DynamicCaller.cs" />
     <Compile Include="Utility\FileUtility.cs" />
     <Compile Include="Utility\Guard.cs" />
     <Compile Include="Utility\MyBinaryFormatter.cs" />

@@ -58,6 +58,7 @@
     <Compile Include="Services\IWorkspaceLocatorService.cs" />
     <Compile Include="Services\WorkspaceLocatorService.cs" />
     <Compile Include="SmartPartInfos\WindowSmartPartInfo.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WorkItemController.cs" />
     <Compile Include="Workspaces\IWorkspaceComposer.cs" />
