@@ -34,7 +34,7 @@ namespace Uniframework.Services
         {
             object service = kernel[method.DeclaringType];
             ISystemService system = (ISystemService)kernel[typeof(ISystemService)];
-            FastInvokeHandler invoker = system.GetInvoker(method);
+            DynamicInvoker invoker = system.GetInvoker(method);
             return invoker(service, parameters);
         }
 

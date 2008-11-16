@@ -16,10 +16,9 @@ namespace Uniframework.Services
     {
         private ILogger logger;
         private ISessionService sessionService;
-        //private IConfigurationService configService;
         private IKernel kernal;
         private Dictionary<string, ServiceInfo> subsystems;
-        private Dictionary<MethodInfo, FastInvokeHandler> invokers;
+        private Dictionary<MethodInfo, DynamicInvoker> invokers;
 
         private readonly string WORKSTATION_PATH = "System/Workstations/"; // 客户端配置路径
 
@@ -30,13 +29,12 @@ namespace Uniframework.Services
         /// <param name="log">日志对象</param>
         /// <param name="sessionService">会话服务</param>
         /// <param name="registerService">注册服务</param>
-        public SystemService(IKernel kernal, ILoggerFactory log, ISessionService sessionService/*, IConfigurationService configService*/)
+        public SystemService(IKernel kernal, ILoggerFactory log, ISessionService sessionService)
         {
             this.logger = log.CreateLogger<SystemService>("Framework");
             this.subsystems = new Dictionary<string, ServiceInfo>();
-            this.invokers = new Dictionary<MethodInfo, FastInvokeHandler>();
+            this.invokers = new Dictionary<MethodInfo, DynamicInvoker>();
             this.sessionService = sessionService;
-            //this.configService = configService;
             this.kernal = kernal;
         }
 
@@ -72,120 +70,8 @@ namespace Uniframework.Services
             if (!subsystems.ContainsKey(serviceKey)) throw new ArgumentException("在注册[" + serviceName + "]服务时发现SystemManager并不已经存在Key为[" + serviceKey + "]的子系统信息", "subsystemKey");
             ServiceInfo subsystem = subsystems[serviceKey];
             subsystem.AddService(new RemoteMethodInfo(functionKey, serviceKey, serviceName, description, offline, methodInfo, dataUpdateEvent));
-            invokers.Add(methodInfo, GetMethodInvoker(methodInfo));
+            invokers.Add(methodInfo, DynamicCaller.GetMethodInvoker(methodInfo));
         }
-
-        #region FastInvokeHandler
-        /// <summary>
-        /// 快速的反射方法调用器
-        /// </summary>
-        /// <param name="methodInfo">方法描述信息</param>
-        /// <returns>生成的调用器</returns>
-        private FastInvokeHandler GetMethodInvoker(MethodInfo methodInfo)
-        {
-            DynamicMethod dynamicMethod = new DynamicMethod(string.Empty, typeof(object), new Type[] { typeof(object), typeof(object[]) }, methodInfo.DeclaringType.Module);
-            ILGenerator il = dynamicMethod.GetILGenerator();
-            ParameterInfo[] ps = methodInfo.GetParameters();
-            Type[] paramTypes = new Type[ps.Length];
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                paramTypes[i] = ps[i].ParameterType;
-            }
-            LocalBuilder[] locals = new LocalBuilder[paramTypes.Length];
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                locals[i] = il.DeclareLocal(paramTypes[i]);
-            }
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                il.Emit(OpCodes.Ldarg_1);
-                EmitFastInt(il, i);
-                il.Emit(OpCodes.Ldelem_Ref);
-                EmitCastToReference(il, paramTypes[i]);
-                il.Emit(OpCodes.Stloc, locals[i]);
-            }
-            il.Emit(OpCodes.Ldarg_0);
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                il.Emit(OpCodes.Ldloc, locals[i]);
-            }
-            il.EmitCall(OpCodes.Call, methodInfo, null);
-            if (methodInfo.ReturnType == typeof(void))
-                il.Emit(OpCodes.Ldnull);
-            else
-                EmitBoxIfNeeded(il, methodInfo.ReturnType);
-            il.Emit(OpCodes.Ret);
-            FastInvokeHandler invoker = (FastInvokeHandler)dynamicMethod.CreateDelegate(typeof(FastInvokeHandler));
-            return invoker;
-        }
-
-        private void EmitCastToReference(ILGenerator il, System.Type type)
-        {
-            if (type.IsValueType)
-            {
-                il.Emit(OpCodes.Unbox_Any, type);
-            }
-            else
-            {
-                il.Emit(OpCodes.Castclass, type);
-            }
-        }
-
-        private void EmitBoxIfNeeded(ILGenerator il, System.Type type)
-        {
-            if (type.IsValueType)
-            {
-                il.Emit(OpCodes.Box, type);
-            }
-        }
-
-        private void EmitFastInt(ILGenerator il, int value)
-        {
-            switch (value)
-            {
-                case -1:
-                    il.Emit(OpCodes.Ldc_I4_M1);
-                    return;
-                case 0:
-                    il.Emit(OpCodes.Ldc_I4_0);
-                    return;
-                case 1:
-                    il.Emit(OpCodes.Ldc_I4_1);
-                    return;
-                case 2:
-                    il.Emit(OpCodes.Ldc_I4_2);
-                    return;
-                case 3:
-                    il.Emit(OpCodes.Ldc_I4_3);
-                    return;
-                case 4:
-                    il.Emit(OpCodes.Ldc_I4_4);
-                    return;
-                case 5:
-                    il.Emit(OpCodes.Ldc_I4_5);
-                    return;
-                case 6:
-                    il.Emit(OpCodes.Ldc_I4_6);
-                    return;
-                case 7:
-                    il.Emit(OpCodes.Ldc_I4_7);
-                    return;
-                case 8:
-                    il.Emit(OpCodes.Ldc_I4_8);
-                    return;
-            }
-
-            if (value > -129 && value < 128)
-            {
-                il.Emit(OpCodes.Ldc_I4_S, (SByte)value);
-            }
-            else
-            {
-                il.Emit(OpCodes.Ldc_I4, value);
-            }
-        }
-
-        #endregion
 
         #endregion
 
@@ -217,34 +103,38 @@ namespace Uniframework.Services
                 MethodInfo[] methods = type.GetMethods();
                 foreach (MethodInfo method in methods)
                 {
-                    if (method.IsDefined(typeof(RemoteMethodAttribute), true))
+                    MethodInfo mi = method;
+                    if (method.IsGenericMethod)
+                        mi = method.MakeGenericMethod(method.GetGenericArguments());
+
+                    if (mi.IsDefined(typeof(RemoteMethodAttribute), true))
                     {
                         string dataUpdateEvent = null;
-                        if (method.IsDefined(typeof(ClientCacheAttribute), true))
+                        if (mi.IsDefined(typeof(ClientCacheAttribute), true))
                         {
-                            if (method.ReturnType == typeof(void))
+                            if (mi.ReturnType == typeof(void))
                             {
-                                logger.Warn("方法 [" + method.Name + "] 定义了 [ClientCacheAttribute] 特性，但是却没有返回值，已被忽略。");
+                                logger.Warn("方法 [" + mi.Name + "] 定义了 [ClientCacheAttribute] 特性，但是却没有返回值，已被忽略。");
                             }
                             else
                             {
-                                ClientCacheAttribute cacheAttribute = method.GetCustomAttributes(typeof(ClientCacheAttribute), true)[0] as ClientCacheAttribute;
+                                ClientCacheAttribute cacheAttribute = mi.GetCustomAttributes(typeof(ClientCacheAttribute), true)[0] as ClientCacheAttribute;
                                 dataUpdateEvent = cacheAttribute.DataUpdateEvent;
                             }
                         }
                         // 注册方法
-                        RemoteMethodAttribute functionAttribute = method.GetCustomAttributes(typeof(RemoteMethodAttribute), true)[0] as RemoteMethodAttribute;
-                        RegisterFunction(SecurityUtility.HashObject(method),
+                        RemoteMethodAttribute functionAttribute = mi.GetCustomAttributes(typeof(RemoteMethodAttribute), true)[0] as RemoteMethodAttribute;
+                        RegisterFunction(SecurityUtility.HashObject(mi),
                             serviceKey,
-                            method.Name,
+                            mi.Name,
                             functionAttribute.Description,
                             functionAttribute.Offline,
-                            method,
+                            mi,
                             dataUpdateEvent);
                     }
                     else if (method.IsDefined(typeof(ClientCacheAttribute), true))
                     {
-                        logger.Warn("方法 [" + method.Name + "] 定义了 [ClientCacheAttribute] 特性，但是却没有定义 [FunctionInfomationAttribute]，已被忽略。");
+                        logger.Warn("方法 [" + method.Name + "] 定义了 [ClientCacheAttribute] 特性，但是却没有定义 [RemoteMethodAttribute]，已被忽略。");
                     }
                 }
             }
@@ -346,7 +236,7 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="methodInfo">方法参数</param>
         /// <returns></returns>
-        public FastInvokeHandler GetInvoker(MethodInfo methodInfo)
+        public DynamicInvoker GetInvoker(MethodInfo methodInfo)
         {
             return invokers[methodInfo];
         }

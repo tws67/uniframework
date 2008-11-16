@@ -71,7 +71,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Uniframework\Uniframework.csproj">
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
-      <Name>Uniframework</Name>
+      <Name>Uniframework %28Sources\Uniframework%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

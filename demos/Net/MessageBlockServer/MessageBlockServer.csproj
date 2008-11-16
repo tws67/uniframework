@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{39A87C67-5307-4AF1-93B9-063BC72BE79C}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -52,7 +52,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\sources\Uniframework\Uniframework.csproj">
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
-      <Name>Uniframework</Name>
+      <Name>Uniframework %28Sources\Uniframework%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
