@@ -84,19 +84,14 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="SmartPartInfos\DockManagerSmartPartInfo.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraImageSmartPartInfo.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraNavBarGroupSmartPartInfo.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraTabSmartPartInfo.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartPartInfos\XtraWindowSmartPartInfo.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="UIElementsDynamic\BarLinksCollectionDynamicUIAdapter.cs" />
     <Compile Include="UIElementsDynamic\DynamicCommandEventLink.cs" />
