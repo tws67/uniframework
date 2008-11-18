@@ -71,6 +71,7 @@ namespace Uniframework.Services
             ServiceInfo subsystem = subsystems[serviceKey];
             subsystem.AddService(new RemoteMethodInfo(functionKey, serviceKey, serviceName, description, offline, methodInfo, dataUpdateEvent));
             invokers.Add(methodInfo, DynamicCaller.GetMethodInvoker(methodInfo));
+            //invokers.Add(methodInfo, DynamicCaller.MethodGenerator(methodInfo));
         }
 
         #endregion
@@ -105,7 +106,7 @@ namespace Uniframework.Services
                 {
                     MethodInfo mi = method;
                     if (method.IsGenericMethod)
-                        mi = method.MakeGenericMethod(method.GetGenericArguments());
+                        mi = method.GetGenericMethodDefinition();
 
                     if (mi.IsDefined(typeof(RemoteMethodAttribute), true))
                     {
