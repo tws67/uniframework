@@ -79,9 +79,10 @@
     <Compile Include="Common\Collections\Queue.cs" />
     <Compile Include="Common\DisposableAndStartableBase.cs" />
     <Compile Include="Common\DisposableBase.cs" />
+    <Compile Include="Common\DynamicEmit.cs" />
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\Exception.cs" />
-    <Compile Include="Common\Latebound.cs" />
+    <Compile Include="Common\DynamicLatebound.cs" />
     <Compile Include="Common\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
     <Compile Include="Db4o\Db4oDatabase.cs" />
@@ -169,10 +170,10 @@
     <Compile Include="Utility\ArrayUtility.cs" />
     <Compile Include="Utility\CombinUtility.cs" />
     <Compile Include="Utility\Compressor.cs" />
-    <Compile Include="Utility\DynamicComparer.cs" />
+    <Compile Include="Common\DynamicComparer.cs" />
     <Compile Include="Utility\EventUtility.cs" />
     <Compile Include="Utility\ExceptionUtility.cs" />
-    <Compile Include="Utility\DynamicCaller.cs" />
+    <Compile Include="Common\DynamicInvoker.cs" />
     <Compile Include="Utility\FileUtility.cs" />
     <Compile Include="Utility\Guard.cs" />
     <Compile Include="Utility\MyBinaryFormatter.cs" />

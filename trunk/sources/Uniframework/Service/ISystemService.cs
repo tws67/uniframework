@@ -324,6 +324,6 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="methodInfo">方法参数</param>
         /// <returns></returns>
-        DynamicInvoker GetInvoker(MethodInfo methodInfo);
+        DynamicInvokerHandler GetInvoker(MethodInfo methodInfo);
     }
 }

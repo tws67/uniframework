@@ -112,10 +112,6 @@ namespace Uniframework.Client
             ProxyGenerationOptions option = new ProxyGenerationOptions();
             option.AddMixinInstance(caller);
 
-            //GeneratorContext context = new GeneratorContext();
-            //context.AddMixinInstance(caller);
-
-            //object proxy = generator.CreateClassProxy(serviceType, option, interceptor); // (serviceType, interceptor, caller, context);
             object proxy = generator.CreateInterfaceProxyWithoutTarget(serviceType, null, option, interceptor);
             return proxy;
         }

@@ -8,19 +8,19 @@ using System.Text;
 
 namespace Uniframework
 {
-    public delegate object DynamicInvoker(object target, object[] paramters);
+    public delegate object DynamicInvokerHandler(object target, object[] paramters);
 
     /// <summary>
     /// 快速反射调用工具类
     /// </summary>
-    public static class DynamicCaller
+    public static class DynamicInvoker
     {
         /// <summary>
         /// 获取方法定义的快速调用器
         /// </summary>
         /// <param name="methodInfo">方法信息</param>
         /// <returns>快速调用委托<see cref="FastInvokeHandler"/></returns>
-        public static DynamicInvoker GetMethodInvoker(MethodInfo methodInfo)
+        public static DynamicInvokerHandler GetMethodInvoker(MethodInfo methodInfo)
         {
             DynamicMethod dynamicMethod = new DynamicMethod(string.Empty, typeof(object), 
                 new Type[] { typeof(object), typeof(object[]) }, 
@@ -146,12 +146,17 @@ namespace Uniframework
                 il.Emit(OpCodes.Ldloc_0);
                 il.Emit(OpCodes.Ret);
             }
-            DynamicInvoker invoker = (DynamicInvoker)dynamicMethod.CreateDelegate(typeof(DynamicInvoker));
+            DynamicInvokerHandler invoker = (DynamicInvokerHandler)dynamicMethod.CreateDelegate(typeof(DynamicInvokerHandler));
             return invoker;
         }
 
         #region Assistant function
 
+        /// <summary>
+        /// Emits the call.
+        /// </summary>
+        /// <param name="il">The il.</param>
+        /// <param name="method">The method.</param>
         private static void EmitCall(ILGenerator il, MethodInfo method)
         {
             if ((method.CallingConvention & CallingConventions.VarArgs) != 0)
@@ -178,6 +183,11 @@ namespace Uniframework
             }
         }
 
+        /// <summary>
+        /// Emits the cast to reference.
+        /// </summary>
+        /// <param name="il">The il.</param>
+        /// <param name="type">The type.</param>
         private static void EmitCastToReference(ILGenerator il, System.Type type)
         {
             if (type.IsValueType)
@@ -190,6 +200,11 @@ namespace Uniframework
             }
         }
 
+        /// <summary>
+        /// Emits the box if needed.
+        /// </summary>
+        /// <param name="il">The il.</param>
+        /// <param name="type">The type.</param>
         private static void EmitBoxIfNeeded(ILGenerator il, System.Type type)
         {
             if (type.IsValueType)
@@ -198,6 +213,11 @@ namespace Uniframework
             }
         }
 
+        /// <summary>
+        /// Emits the fast int.
+        /// </summary>
+        /// <param name="il">The il.</param>
+        /// <param name="value">The value.</param>
         private static void EmitFastInt(ILGenerator il, int value)
         {
             switch (value)
@@ -244,6 +264,12 @@ namespace Uniframework
             }
         }
 
+        /// <summary>
+        /// Types the convert.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         private static object TypeConvert(object source, Type type)
         {
             object obj = System.Convert.ChangeType(source, type);
