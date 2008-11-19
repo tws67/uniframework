@@ -108,10 +108,15 @@ namespace Uniframework.Client
                 caller = new RemoteCaller();
                 remoteCallers.Add(serviceType, caller);
             }
-            GeneratorContext context = new GeneratorContext();
-            context.AddMixinInstance(caller);
 
-            object proxy = generator.CreateCustomProxy(serviceType, interceptor, caller, context);
+            ProxyGenerationOptions option = new ProxyGenerationOptions();
+            option.AddMixinInstance(caller);
+
+            //GeneratorContext context = new GeneratorContext();
+            //context.AddMixinInstance(caller);
+
+            //object proxy = generator.CreateClassProxy(serviceType, option, interceptor); // (serviceType, interceptor, caller, context);
+            object proxy = generator.CreateInterfaceProxyWithoutTarget(serviceType, null, option, interceptor);
             return proxy;
         }
 

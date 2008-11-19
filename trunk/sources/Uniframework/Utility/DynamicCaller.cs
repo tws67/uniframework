@@ -71,10 +71,8 @@ namespace Uniframework
                         il.Emit(OpCodes.Ldloc, locals[i]);
                 }
 
-                if (methodInfo.IsStatic)
-                    il.EmitCall(OpCodes.Call, methodInfo, null);
-                else
-                    il.EmitCall(OpCodes.Callvirt, methodInfo, null);
+                // Call method
+                EmitCall(il, methodInfo);
 
                 if (methodInfo.ReturnType == typeof(void))
                     il.Emit(OpCodes.Ldnull);
@@ -127,7 +125,7 @@ namespace Uniframework
                 }
 
                 // call method
-                il.EmitCall(OpCodes.Call, methodInfo, null);
+                EmitCall(il, methodInfo);
 
                 // handle method return if needed
                 if (methodInfo.ReturnType == typeof(void)) {
@@ -152,163 +150,33 @@ namespace Uniframework
             return invoker;
         }
 
-        #region Generate generic method
-
-        public static DynamicInvoker MethodGenerator(MethodInfo method)
-        {
-            DynamicMethod dynamicMethod = new DynamicMethod(string.Empty, typeof(object),
-                new Type[] { typeof(object), typeof(object[]) },
-                method.DeclaringType.Module);
-            ILGenerator il = dynamicMethod.GetILGenerator();
-
-            Type[] types = GetParameterTypes(method.GetParameters());
-            Type[] gtypes;
-            MethodInfo callmethod;
-            il.DeclareLocal(typeof(MethodBase));
-            il.DeclareLocal(typeof(object[]));
-            bool isvoid = method.ReturnType.ToString() == "System.Void";
-            if (!isvoid) // 定义返回值变量
-            {
-                il.DeclareLocal(GetType(method.ReturnType));
-            }
-            il.DeclareLocal(typeof(object[]));
-            il.DeclareLocal(typeof(Type[]));
-            il.Emit(OpCodes.Nop);
-            callmethod = typeof(MethodBase).GetMethod("GetCurrentMethod", new Type[0]);
-            il.Emit(OpCodes.Call, callmethod);
-            il.Emit(OpCodes.Stloc_0); // 把调用GetCurrentMethod的返回值封送到局部变量0里
-
-            #region AddGenericTypes
-            if (method.IsGenericMethod) // 顶他个肺是泛型方法
-            {
-                gtypes = method.GetGenericArguments();  // 得到泛型参类型
-                il.Emit(OpCodes.Ldc_I4, gtypes.Length); // 加载数组长度
-                il.Emit(OpCodes.Newarr, typeof(Type));  // 定义数组,并保存以下局部变量中
-                if (!isvoid)
-                    il.Emit(OpCodes.Stloc_S, 4);
-                else
-                    il.Emit(OpCodes.Stloc_3);
-                for (int i = 0; i < gtypes.Length; i++) // 这下把TM后面的运行时类型挖出来放到数据组中
-                {
-                    if (!isvoid) // 加载相关局部变量
-                        il.Emit(OpCodes.Ldloc_S, 4);
-                    else
-                        il.Emit(OpCodes.Ldloc_3);
-                    il.Emit(OpCodes.Ldc_I4, i); // 设置索引
-                    il.Emit(OpCodes.Ldtoken, gtypes[i]); // 封送类型
-                    callmethod = typeof(Type).GetMethod("GetTypeFromHandle"
-                        , new Type[] { typeof(RuntimeTypeHandle) });
-                    il.Emit(OpCodes.Call, callmethod); // 把运行时类型拖出来
-                    il.Emit(OpCodes.Stelem_Ref); // 把类型放进袋子里
-                }
-            }
-            else
-            {
-                il.Emit(OpCodes.Ldnull); // 把null值封送到以下变量中
-                if (!isvoid)
-                    il.Emit(OpCodes.Stloc_S, 4);
-                else
-                    il.Emit(OpCodes.Stloc_3);
-            }
-
-            #endregion
-
-            if (types.Length > 0) // 存在方法参数
-            {
-                il.Emit(OpCodes.Ldc_I4, types.Length);   // 加载数组长度
-                il.Emit(OpCodes.Newarr, typeof(object)); // 定义数组,并保存以下局部变量中
-                if (!isvoid)
-                    il.Emit(OpCodes.Stloc_3);
-                else
-                    il.Emit(OpCodes.Stloc_2);
-
-                for (int i = 0; i < types.Length; i++)   // 将参数加载到局部变量数组里面
-                {
-                    if (!isvoid)
-                        il.Emit(OpCodes.Ldloc_3);
-                    else
-                        il.Emit(OpCodes.Ldloc_2);
-                    il.Emit(OpCodes.Ldc_I4, i);
-                    il.Emit(OpCodes.Ldarg, i + 1);
-                    if (types[i].IsValueType || types[i].IsGenericParameter || types[i].IsGenericType)
-                    {
-                        // 是值类型,泛型参,泛型拖进来打包装箱
-                        il.Emit(OpCodes.Box, GetType(types[i]));
-                    }
-                    il.Emit(OpCodes.Stelem_Ref);
-                }
-
-                if (!isvoid) // 加载相关局部变量
-                    il.Emit(OpCodes.Ldloc_3);
-                else
-                    il.Emit(OpCodes.Ldloc_2);
-            }
-            else
-            {
-                il.Emit(OpCodes.Ldnull);
-            }
-
-            il.Emit(OpCodes.Stloc_1);
-            il.Emit(OpCodes.Ldloc_0); // 加载method类型变量
-            if (!isvoid) // 加载泛型类型数组变量
-                il.Emit(OpCodes.Ldloc_S, 4);
-            else
-                il.Emit(OpCodes.Ldloc_3);
-            il.Emit(OpCodes.Ldloc_1); // 加载参数数组变量
-            //callmethod = typeof(Context).GetMethod("CallMethod", new Type[] { typeof(MethodBase), typeof(Type[]), typeof(object[]) });
-            //il.Emit(OpCodes.Call, callmethod); // 把方法参数和相关信息扔到一个上下文方法处理
-            // calls the method
-            if (!method.IsStatic) {
-                il.EmitCall(OpCodes.Callvirt, method, null);
-            }
-            else {
-                il.EmitCall(OpCodes.Call, method, null);
-            }
-
-            if (!isvoid)
-            {
-                if (method.ReturnType.IsValueType || method.ReturnType.IsGenericType || method.ReturnType.IsGenericParameter)
-                {
-                    // 是值类型,泛型参,泛型拖进来脱衣服
-                    il.Emit(OpCodes.Unbox_Any, GetType(method.ReturnType));
-                }
-                else
-                {
-                    il.Emit(OpCodes.Castclass, method.ReturnType);
-                }
-                il.Emit(OpCodes.Stloc_2);
-                il.Emit(OpCodes.Ldloc_2);
-            }
-            else
-            {
-                il.Emit(OpCodes.Pop);
-            }
-            il.Emit(OpCodes.Ret);
-
-            DynamicInvoker invoker = (DynamicInvoker)dynamicMethod.CreateDelegate(typeof(DynamicInvoker));
-            return invoker;
-        }
-
-        private static Type GetType(Type type)
-        {
-            return type.IsByRef ? type.GetElementType() : type;
-        }
-
-        private static Type[] GetParameterTypes(ParameterInfo[] pis)
-        {
-            Type[] types = new Type[pis.Length];
-            for (int i = 0; i < pis.Length; i++) { 
-                if(pis[i].ParameterType.IsByRef)
-                    types[i] = pis[i].ParameterType.GetElementType();
-                else
-                    types[i] = pis[i].ParameterType;
-            }
-            return types;
-        }
-
-        #endregion
-
         #region Assistant function
+
+        private static void EmitCall(ILGenerator il, MethodInfo method)
+        {
+            if ((method.CallingConvention & CallingConventions.VarArgs) != 0)
+            {
+                if (method.IsFinal || !method.IsVirtual)
+                {
+                    il.EmitCall(OpCodes.Call, method, null);
+                }
+                else
+                {
+                    il.EmitCall(OpCodes.Callvirt, method, null);
+                }
+            }
+            else
+            {
+                if (method.IsFinal || !method.IsVirtual)
+                {
+                    il.Emit(OpCodes.Call, method);
+                }
+                else
+                {
+                    il.Emit(OpCodes.Callvirt, method);
+                }
+            }
+        }
 
         private static void EmitCastToReference(ILGenerator il, System.Type type)
         {

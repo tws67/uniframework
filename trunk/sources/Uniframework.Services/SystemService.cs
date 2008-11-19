@@ -71,7 +71,6 @@ namespace Uniframework.Services
             ServiceInfo subsystem = subsystems[serviceKey];
             subsystem.AddService(new RemoteMethodInfo(functionKey, serviceKey, serviceName, description, offline, methodInfo, dataUpdateEvent));
             invokers.Add(methodInfo, DynamicCaller.GetMethodInvoker(methodInfo));
-            //invokers.Add(methodInfo, DynamicCaller.MethodGenerator(methodInfo));
         }
 
         #endregion
