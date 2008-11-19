@@ -197,7 +197,7 @@ namespace Uniframework.Client
 
         private void InvokeMehtod(object target, MethodInfo method, EventArgs e)
         {
-            DynamicInvoker invoker = DynamicCaller.GetMethodInvoker(method);
+            DynamicInvokerHandler invoker = DynamicInvoker.GetMethodInvoker(method);
             invoker(target, new object[] { null, e });
         }
 

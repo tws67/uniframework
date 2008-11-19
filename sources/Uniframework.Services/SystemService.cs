@@ -18,7 +18,7 @@ namespace Uniframework.Services
         private ISessionService sessionService;
         private IKernel kernal;
         private Dictionary<string, ServiceInfo> subsystems;
-        private Dictionary<MethodInfo, DynamicInvoker> invokers;
+        private Dictionary<MethodInfo, DynamicInvokerHandler> invokers;
 
         private readonly string WORKSTATION_PATH = "System/Workstations/"; // 客户端配置路径
 
@@ -33,7 +33,7 @@ namespace Uniframework.Services
         {
             this.logger = log.CreateLogger<SystemService>("Framework");
             this.subsystems = new Dictionary<string, ServiceInfo>();
-            this.invokers = new Dictionary<MethodInfo, DynamicInvoker>();
+            this.invokers = new Dictionary<MethodInfo, DynamicInvokerHandler>();
             this.sessionService = sessionService;
             this.kernal = kernal;
         }
@@ -70,7 +70,7 @@ namespace Uniframework.Services
             if (!subsystems.ContainsKey(serviceKey)) throw new ArgumentException("在注册[" + serviceName + "]服务时发现SystemManager并不已经存在Key为[" + serviceKey + "]的子系统信息", "subsystemKey");
             ServiceInfo subsystem = subsystems[serviceKey];
             subsystem.AddService(new RemoteMethodInfo(functionKey, serviceKey, serviceName, description, offline, methodInfo, dataUpdateEvent));
-            invokers.Add(methodInfo, DynamicCaller.GetMethodInvoker(methodInfo));
+            invokers.Add(methodInfo, DynamicInvoker.GetMethodInvoker(methodInfo));
         }
 
         #endregion
@@ -236,7 +236,7 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="methodInfo">方法参数</param>
         /// <returns></returns>
-        public DynamicInvoker GetInvoker(MethodInfo methodInfo)
+        public DynamicInvokerHandler GetInvoker(MethodInfo methodInfo)
         {
             return invokers[methodInfo];
         }

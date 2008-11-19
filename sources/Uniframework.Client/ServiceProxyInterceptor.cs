@@ -48,6 +48,10 @@ namespace Uniframework.Client
 
         #region IInterceptor Members
 
+        /// <summary>
+        /// Intercepts the specified invocation.
+        /// </summary>
+        /// <param name="invocation">The invocation.</param>
         public void Intercept(IInvocation invocation)
         {
             MethodInfo method = invocation.Method;
@@ -56,13 +60,13 @@ namespace Uniframework.Client
                 method = invocation.GetConcreteMethodInvocationTarget();
 
                 if (method.DeclaringType == typeof(IRemoteCaller)) {
-                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.GenericArguments);
+                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, GetArgs(invocation));
                     return;
                 }
             }
             else {
                 if (method.DeclaringType == typeof(IRemoteCaller)) {
-                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
+                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, GetArgs(invocation));
                     return;
                 }
             }
@@ -75,28 +79,28 @@ namespace Uniframework.Client
                 // begin modified
                 if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
                 {
-                    if (ClientCacheManager.HasCache(invocation.Method, GetArgs(invocation)))
-                        invocation.ReturnValue = ClientCacheManager.GetCachedData(invocation.Method, GetArgs(invocation));
+                    if (ClientCacheManager.HasCache(method, GetArgs(invocation)))
+                        invocation.ReturnValue = ClientCacheManager.GetCachedData(method, GetArgs(invocation));
                     else
                     {
-                        object result = InvokeCommand(invocation.Method, GetArgs(invocation));
-                        ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
+                        object result = InvokeCommand(method, GetArgs(invocation));
+                        ClientCacheManager.RegisterCache(method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
                         invocation.ReturnValue = result;
                     }
                 }
                 else // end modified
-                    invocation.ReturnValue = InvokeCommand(invocation.Method, GetArgs(invocation));
+                    invocation.ReturnValue = InvokeCommand(method, GetArgs(invocation));
             }
             else
             {
                 if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
                 {
-                    if (ClientCacheManager.HasCache(invocation.Method, GetArgs(invocation)))
-                        invocation.ReturnValue = ClientCacheManager.GetCachedData(invocation.Method, GetArgs(invocation));
+                    if (ClientCacheManager.HasCache(method, GetArgs(invocation)))
+                        invocation.ReturnValue = ClientCacheManager.GetCachedData(method, GetArgs(invocation));
                     else
                     {
-                        object result = InvokeCommand(invocation.Method, GetArgs(invocation));
-                        ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
+                        object result = InvokeCommand(method, GetArgs(invocation));
+                        ClientCacheManager.RegisterCache(method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
                         invocation.ReturnValue = result;
                     }
                 }
@@ -104,55 +108,6 @@ namespace Uniframework.Client
                     OfflineProcess(invocation.Method, GetArgs(invocation)); // 调用离线处理方法
             }
         }
-
-        //public object Intercept(IInvocation invocation, params object[] args)
-        //{
-        //    foreach (object obj in args)
-        //    {
-        //        SetDataSetSerializationFormat(obj);
-        //    }
-
-        //    if (invocation.Method.DeclaringType == typeof(IRemoteCaller))
-        //        return invocation.Proceed(args);
-
-        //    RemoteMethodInfo remoteMethodInfo = InterfaceConfigLoader.GetServiceInfo(invocation.Method);
-        //    if (!remoteMethodInfo.Offline)
-        //    {
-        //        // Modified : 修复系统对缓存方法的调用
-        //        // Jacky 2007-05-22 11:28
-        //        // begin modified
-        //        if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
-        //        {
-        //            if (ClientCacheManager.HasCache(invocation.Method, args))
-        //                return ClientCacheManager.GetCachedData(invocation.Method, args);
-        //            else
-        //            {
-        //                object result = InvokeCommand(invocation.Method, args);
-        //                ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethodInfo.DataUpdateEvent, args);
-        //                return result;
-        //            }
-        //        }
-        //        else // end modified
-        //            return InvokeCommand(invocation.Method, args);
-        //    }
-        //    else
-        //    {
-        //        if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
-        //        {
-        //            if (ClientCacheManager.HasCache(invocation.Method, args))
-        //                return ClientCacheManager.GetCachedData(invocation.Method, args);
-        //            else
-        //            {
-        //                object result = InvokeCommand(invocation.Method, args);
-        //                ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethodInfo.DataUpdateEvent, args);
-        //                return result;
-        //            }
-        //        }
-        //        else
-        //            OfflineProcess(invocation.Method, args); // 调用离线处理方法
-        //        return null;
-        //    }
-        //}
 
         #endregion
 
