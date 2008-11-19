@@ -81,6 +81,7 @@
     <Compile Include="Common\DisposableBase.cs" />
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\Exception.cs" />
+    <Compile Include="Common\Latebound.cs" />
     <Compile Include="Common\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
     <Compile Include="Db4o\Db4oDatabase.cs" />

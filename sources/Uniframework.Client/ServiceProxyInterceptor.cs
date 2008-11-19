@@ -7,7 +7,10 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
+
+using Castle.Core.Interceptor;
 using Castle.DynamicProxy;
+using Castle.DynamicProxy.Generators;
 
 using Uniframework.Client.OfflineProxy;
 using Uniframework.Services;
@@ -45,58 +48,120 @@ namespace Uniframework.Client
 
         #region IInterceptor Members
 
-        public object Intercept(IInvocation invocation, params object[] args)
+        public void Intercept(IInvocation invocation)
         {
-            foreach (object obj in args)
-            {
-                SetDataSetSerializationFormat(obj);
+            MethodInfo method = invocation.Method;
+            RemoteMethodInfo remoteMethod = null;
+            if (method.IsGenericMethod) {
+                method = invocation.GetConcreteMethodInvocationTarget();
+
+                if (method.DeclaringType == typeof(IRemoteCaller)) {
+                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.GenericArguments);
+                    return;
+                }
+            }
+            else {
+                if (method.DeclaringType == typeof(IRemoteCaller)) {
+                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
+                    return;
+                }
             }
 
-            if (invocation.Method.DeclaringType == typeof(IRemoteCaller))
-                return invocation.Proceed(args);
-
-            RemoteMethodInfo remoteMethodInfo = InterfaceConfigLoader.GetServiceInfo(invocation.Method);
-            if (!remoteMethodInfo.Offline)
+            remoteMethod = InterfaceConfigLoader.GetServiceInfo(method);
+            if (!remoteMethod.Offline)
             {
                 // Modified : 修复系统对缓存方法的调用
                 // Jacky 2007-05-22 11:28
                 // begin modified
                 if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
                 {
-                    if (ClientCacheManager.HasCache(invocation.Method, args))
-                        return ClientCacheManager.GetCachedData(invocation.Method, args);
+                    if (ClientCacheManager.HasCache(invocation.Method, GetArgs(invocation)))
+                        invocation.ReturnValue = ClientCacheManager.GetCachedData(invocation.Method, GetArgs(invocation));
                     else
                     {
-                        object result = InvokeCommand(invocation.Method, args);
-                        ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethodInfo.DataUpdateEvent, args);
-                        return result;
+                        object result = InvokeCommand(invocation.Method, GetArgs(invocation));
+                        ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
+                        invocation.ReturnValue = result;
                     }
                 }
                 else // end modified
-                    return InvokeCommand(invocation.Method, args);
+                    invocation.ReturnValue = InvokeCommand(invocation.Method, GetArgs(invocation));
             }
             else
             {
                 if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
                 {
-                    if (ClientCacheManager.HasCache(invocation.Method, args))
-                        return ClientCacheManager.GetCachedData(invocation.Method, args);
+                    if (ClientCacheManager.HasCache(invocation.Method, GetArgs(invocation)))
+                        invocation.ReturnValue = ClientCacheManager.GetCachedData(invocation.Method, GetArgs(invocation));
                     else
                     {
-                        object result = InvokeCommand(invocation.Method, args);
-                        ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethodInfo.DataUpdateEvent, args);
-                        return result;
+                        object result = InvokeCommand(invocation.Method, GetArgs(invocation));
+                        ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
+                        invocation.ReturnValue = result;
                     }
                 }
                 else
-                    OfflineProcess(invocation.Method, args); // 调用离线处理方法
-                return null;
+                    OfflineProcess(invocation.Method, GetArgs(invocation)); // 调用离线处理方法
             }
         }
+
+        //public object Intercept(IInvocation invocation, params object[] args)
+        //{
+        //    foreach (object obj in args)
+        //    {
+        //        SetDataSetSerializationFormat(obj);
+        //    }
+
+        //    if (invocation.Method.DeclaringType == typeof(IRemoteCaller))
+        //        return invocation.Proceed(args);
+
+        //    RemoteMethodInfo remoteMethodInfo = InterfaceConfigLoader.GetServiceInfo(invocation.Method);
+        //    if (!remoteMethodInfo.Offline)
+        //    {
+        //        // Modified : 修复系统对缓存方法的调用
+        //        // Jacky 2007-05-22 11:28
+        //        // begin modified
+        //        if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
+        //        {
+        //            if (ClientCacheManager.HasCache(invocation.Method, args))
+        //                return ClientCacheManager.GetCachedData(invocation.Method, args);
+        //            else
+        //            {
+        //                object result = InvokeCommand(invocation.Method, args);
+        //                ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethodInfo.DataUpdateEvent, args);
+        //                return result;
+        //            }
+        //        }
+        //        else // end modified
+        //            return InvokeCommand(invocation.Method, args);
+        //    }
+        //    else
+        //    {
+        //        if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
+        //        {
+        //            if (ClientCacheManager.HasCache(invocation.Method, args))
+        //                return ClientCacheManager.GetCachedData(invocation.Method, args);
+        //            else
+        //            {
+        //                object result = InvokeCommand(invocation.Method, args);
+        //                ClientCacheManager.RegisterCache(invocation.Method, result, remoteMethodInfo.DataUpdateEvent, args);
+        //                return result;
+        //            }
+        //        }
+        //        else
+        //            OfflineProcess(invocation.Method, args); // 调用离线处理方法
+        //        return null;
+        //    }
+        //}
 
         #endregion
 
         #region Assistant function
+
+        private object[] GetArgs(IInvocation invocation)
+        {
+            return invocation.Method.IsGenericMethod ? invocation.GenericArguments : invocation.Arguments;
+        }
 
         private void ThrowException(string message, IInvocation invocation, string[] parameterTypes)
         {
