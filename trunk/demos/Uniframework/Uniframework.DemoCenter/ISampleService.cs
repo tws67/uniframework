@@ -8,7 +8,7 @@ namespace Uniframework.DemoCenter
     /// <summary>
     /// 框架基本功能演示
     /// </summary>
-    [RemoteService]
+    [RemoteService(ServiceType.Business)]
     public interface ISampleService
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace Uniframework.DemoCenter
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        [ClientCache(Constants.Event_TimeChanged)]
+        [ClientCache(Constants.Event_DataChanged)]
         [RemoteMethod(true)]
         string Hello4Cache(string username);
 
@@ -45,7 +45,7 @@ namespace Uniframework.DemoCenter
         /// <summary>
         /// 缓存方法所依赖的事件
         /// </summary>
-        [EventPublisher(Constants.Event_TimeChanged)]
-        event EventHandler TimeChanged;
+        [EventPublisher(Constants.Event_DataChanged)]
+        event EventHandler DataChanged;
     }
 }

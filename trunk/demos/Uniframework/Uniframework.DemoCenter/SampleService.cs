@@ -15,6 +15,17 @@ namespace Uniframework.DemoCenter
         {
             timer = new Timer(1000);
             timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            timer.Enabled = true;
+
+            timerChanged = new Timer(5000);
+            timerChanged.Elapsed += new ElapsedEventHandler(timerChanged_Elapsed);
+        }
+
+        private void timerChanged_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (DataChanged != null) {
+                DataChanged(this, null);
+            }
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -43,7 +54,7 @@ namespace Uniframework.DemoCenter
 
         public event EventHandler<EventArgs<string>> SampleEvent;
 
-        public event EventHandler TimeChanged;
+        public event EventHandler DataChanged;
 
         #endregion
     }

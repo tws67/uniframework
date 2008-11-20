@@ -20,10 +20,17 @@
     </Path>
 
     <Path name="/Shell/NaviPane/DemoCenter" label="演示中心" buildstartup="true">
-      <Item id="DatabaseView"
-            name="DatabaseView"
+      <Item id="Sample"
+            name="SampleService"
+            label="框架基本功能"
+            command="/Shell/Module/DemoCenter/SampleService"
+            classname="XtraNavBarItem"
+            largeimage="${note_new}"/>
+      
+      <Item id="Database"
+            name="DatabaseService"
             label="数据库服务"
-            command="/Shell/Module/DemoCenter/ShowDatabaseView"
+            command="/Shell/Module/DemoCenter/DatabaseService"
             classname="XtraNavBarItem"
             largeimage="${data}"/>
     </Path>

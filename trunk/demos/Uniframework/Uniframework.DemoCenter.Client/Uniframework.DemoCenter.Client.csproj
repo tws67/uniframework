@@ -79,6 +79,13 @@
     <Compile Include="DemoCenterController.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\SamplePresenter.cs" />
+    <Compile Include="Views\SampleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\SampleView.Designer.cs">
+      <DependentUpon>SampleView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\sources\cab\CompositeUI.Common\CompositeUI.Common.csproj">
@@ -124,6 +131,9 @@
       <DependentUpon>DatabaseView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\SampleView.resx">
+      <DependentUpon>SampleView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
