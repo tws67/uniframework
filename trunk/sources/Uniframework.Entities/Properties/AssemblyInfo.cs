@@ -5,12 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Uniframework.DemoCenter.Client")]
+[assembly: AssemblyTitle("Uniframework.Entities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-//[assembly: AssemblyCompany("SJTEK")]
-[assembly: AssemblyProduct("Uniframework.DemoCenter.Client")]
-//[assembly: AssemblyCopyright("Copyright © SJTEK 2008")]
+[assembly: AssemblyProduct("Uniframework.Entities")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fb4865b9-ba21-4c74-91b4-47a82fc3bcb7")]
+[assembly: Guid("7f0c2151-d24c-4a0e-90a7-4a821afdb2e9")]
 
 // Version information for an assembly consists of the following four values:
 //

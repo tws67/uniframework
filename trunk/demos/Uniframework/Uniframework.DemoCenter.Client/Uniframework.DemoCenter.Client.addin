@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration name = "Uniframework.Upgrade.addin"
+               author = "东成西就"
+               copyright = "Copyright by Sjteksoft"
+               url = "http://www.lightweightcti.cn"
+               description = "架构演示程序"
+               hideninmanager = "true">
+
+  <AddIns>
+    <!-- 添加演示分组导航条 -->
+    <Path name="/Shell/NaviPane" label="" buildstartup="true">
+      <Item id="DemoCenter"
+            name="naviMyWorkspace"
+            label="框架功能演示"
+            command=""
+            classname="XtraNavBarGroup"
+            navipane="/Shell/NaviPane/Navibar"
+            largeimage="${angel}"
+            register="true"/>
+    </Path>
+
+    <Path name="/Shell/NaviPane/DemoCenter" label="演示中心" buildstartup="true">
+      <Item id="DatabaseView"
+            name="DatabaseView"
+            label="数据库服务"
+            command="/Shell/Module/DemoCenter/ShowDatabaseView"
+            classname="XtraNavBarItem"
+            largeimage="${data}"/>
+    </Path>
+  </AddIns>
+</configuration>

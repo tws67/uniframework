@@ -31,6 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="Lephone.Data, Version=3.5.3241.38467, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\assembly\Lephone.Data.dll</HintPath>
@@ -47,6 +52,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -57,7 +65,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="..\..\..\sources\UniframeworkInfo.cs">
+      <Link>UniframeworkInfo.cs</Link>
+    </Compile>
+    <Compile Include="Constants\CommandHandlerNames.cs" />
+    <Compile Include="Database\DatabasePresenter.cs" />
+    <Compile Include="Database\DatabaseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Database\DatabaseView.Designer.cs">
+      <DependentUpon>DatabaseView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemoCenterController.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +109,21 @@
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
       <Name>Uniframework %28Sources\Uniframework%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Uniframework.DemoCenter\Uniframework.DemoCenter.csproj">
+      <Project>{EE77BF85-CD50-457D-AA61-A722497FA25A}</Project>
+      <Name>Uniframework.DemoCenter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Uniframework.DemoCenter.Client.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Database\DatabaseView.resx">
+      <DependentUpon>DatabaseView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

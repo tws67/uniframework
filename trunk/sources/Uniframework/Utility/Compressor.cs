@@ -13,7 +13,7 @@ namespace Uniframework
     /// </summary>
     public class Compressor
     {
-        private int overSize = 512; // 默认的压缩处理阀值为512字节以上
+        private int overSize = 1024; // 默认的压缩处理阀值为1kb字节以上
 
         /// <summary>
         /// 构造函数
