@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Uniframework.DemoCenter.Client
 {
-    public class Class1
+    public class CommandHandlerNames
     {
+        public const string CMD_SHOWDATABASEVIEW = "/Shell/Module/DemoCenter/ShowDatabaseView";
     }
 }

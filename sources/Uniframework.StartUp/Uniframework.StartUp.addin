@@ -5,31 +5,6 @@
                url = "http://www.lightweightcti.cn"
                description = "系统启动项插件描述文件"
                hideninmanager = "true">
-  <!-- LightweightCTi框架用户界面构造服务的配置文件，通过此文件可以向框架注册UIAdapterFactory、CommandAdapters、UIBuilder及
-  　　添加具体的用户界面元素。
-    　　　
-      UI适配器工厂用于向底层框架提供系统目前所支持的UI组件类型，配置节点名为UIAdapterFactories，其属性分别为：
-      　　name 指示此工厂的名字
-          type 指示UI适配器工厂的类型信息，用于实例化具体的适配器工厂-->
-  <!--UIAdapterFactories>
-    <add name="OutlookBarAdapterFactory" type="LightweightCTi.Layout.OutlookBarUIAdapterFactory, LightweightCTi.Layout.dll"/>
-  </UIAdapterFactories-->
-  
-  <!--命令处理适配器用于向底层框架提供到UI组件的相关事件的映射工作，如菜单项、按钮的单击事件等对应于UI元素中的command属性，
-      配置节点名为UICommandAdapters，其属性分别为：
-          name 指示适配器名称
-          invokertype 调用者类型
-          adaptertype 指示命令处理适配器的类型信息-->
-  <!--CommandAdapters>
-    <add name="OutlookBarCommandAdapter" invokertype="BaseItem" adaptertype="LightweightCTi.Layout.OutlookBarCommandAdapter, LightweightCTi.Layout.dll"/>
-  </CommandAdapters-->
-  
-  <!--用户界面元素构建器UIBuilder用于向框架底层注册UI构建器，通过它来完成具体的UI构建工作，配置节点名为UIBuilders，其属性分别为：
-      　　name 指示构建器的名称
-        　type 指示UIBuilder的类型信息，用于实例化具体的构建器-->
-  <!--UIBuilders>
-    <add name="OutlookBarBuilder" type="LightweightCTi.Layout.OutlookBarBuilder, LightweightCTi.Layout.dll"/>
-  </UIBuilders-->
 
   <!--<Resources>
     --><!--图象资源，其属性有以下这些：--><!--
@@ -72,23 +47,14 @@
     </Path>
 
     <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
-      <Item id="MyWorkspace" 
+      <!--<Item id="MyWorkspace" 
             name="naviMyWorkspace" 
             label="快速启动栏" 
             command="" 
             classname="XtraNavBarGroup" 
             navipane="/Shell/NaviPane/Navibar"
             largeimage="${magic-wand}" 
-            register="true"/>
-      
-      <Item id="DGGS" 
-            name="DGGS" 
-            label="营业收费系统" 
-            command="" 
-            classname="XtraNavBarGroup" 
-            navipane="/Shell/NaviPane/Navibar"
-            largeimage="${money}" 
-            register="true"/>
+            register="true"/>-->
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu" label="主菜单" buildstartup="true">
