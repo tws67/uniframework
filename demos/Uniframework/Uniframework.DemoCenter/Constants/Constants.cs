@@ -8,6 +8,6 @@ namespace Uniframework.DemoCenter
     public class Constants
     {
         public const string Event_SamplePublisher = "topic://Uniframework/DemoCenter/SampleEvent";
-        public const string Event_TimeChanged = "topic://Uniframework/DemoCenter/TimeChanged";
+        public const string Event_DataChanged = "topic://Uniframework/DemoCenter/DataChanged";
     }
 }
