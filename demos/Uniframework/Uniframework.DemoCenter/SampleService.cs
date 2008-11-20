@@ -19,6 +19,7 @@ namespace Uniframework.DemoCenter
 
             timerChanged = new Timer(5000);
             timerChanged.Elapsed += new ElapsedEventHandler(timerChanged_Elapsed);
+            timerChanged.Enabled = true;
         }
 
         private void timerChanged_Elapsed(object sender, ElapsedEventArgs e)
