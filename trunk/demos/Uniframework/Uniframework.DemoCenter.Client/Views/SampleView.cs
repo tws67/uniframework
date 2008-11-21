@@ -40,7 +40,7 @@ namespace Uniframework.DemoCenter.Client.Views
 
         private void btnHelloOffline_Click(object sender, EventArgs e)
         {
-            XtraMessageBox.Show(Presenter.HelloOffline(txtName.Text));
+            Presenter.HelloOffline(txtName.Text);
         }
 
         private void btnHelloCache_Click(object sender, EventArgs e)

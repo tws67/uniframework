@@ -116,6 +116,11 @@ namespace Uniframework.Client
             return proxy;
         }
 
+        /// <summary>
+        /// Gets the service.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T GetService<T>() where T : class
         {
             return (T)GetService(typeof(T));

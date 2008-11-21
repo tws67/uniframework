@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI;
+using Uniframework.Client;
+using DevExpress.XtraEditors;
 
 namespace Uniframework.DemoCenter.Client.Views
 {
@@ -18,11 +20,22 @@ namespace Uniframework.DemoCenter.Client.Views
             set;
         }
 
+        private ISampleService sampleService;
         [ServiceDependency]
         public ISampleService SampleService
         {
-            get;
-            set;
+            get { return sampleService; }
+            set {
+                sampleService = value;
+                IRemoteCaller caller = sampleService as IRemoteCaller;
+                if (caller != null)
+                    caller.InvokedMethodFinished += new InvokedFinishedHandler(caller_InvokedMethodFinished);
+            }
+        }
+
+        private void caller_InvokedMethodFinished(InvokedResult result)
+        {
+            XtraMessageBox.Show(result.Result.ToString());
         }
 
         #endregion
