@@ -55,6 +55,11 @@ namespace Uniframework.DemoCenter.Client.Views
             return SampleService.Hello4Cache(username);
         }
 
+        public void ThrowException()
+        {
+            SampleService.ThrowException();
+        }
+
         [EventSubscriber(Constants.Event_SamplePublisher)]
         public void OnSampleEvent(object sender, EventArgs<string> e)
         {

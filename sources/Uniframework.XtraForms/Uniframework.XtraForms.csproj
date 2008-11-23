@@ -129,9 +129,11 @@
     <Compile Include="UIElements\RibbonUIAdapterFactory.cs" />
     <Compile Include="UIElements\XtraBarUIAdapterFactory.cs" />
     <Compile Include="UIElements\XtraNavBarUIAdapterFactory.cs" />
+    <Compile Include="UIElements\XtraTreeListNodeUIAdapter.cs" />
     <Compile Include="UIElements\XtraTreeNodeUI.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UIElements\XtraTreeUIAdapterFactory.cs" />
     <Compile Include="Workspaces\DockManagerWorkspace.cs" />
     <Compile Include="Workspaces\XtraNavBarWorkspace.cs">
       <SubType>Component</SubType>

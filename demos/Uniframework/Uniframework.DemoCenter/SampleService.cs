@@ -25,7 +25,7 @@ namespace Uniframework.DemoCenter
         private void timerChanged_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (DataChanged != null) {
-                DataChanged(this, null);
+                DataChanged(this, new EventArgs());
             }
         }
 
@@ -51,6 +51,11 @@ namespace Uniframework.DemoCenter
         public string Hello4Cache(string username)
         {
             return "hello " + username + ", cache test, now is : " + DateTime.Now.ToString();
+        }
+
+        public void ThrowException()
+        {
+            throw new UniframeworkException("Uniframework exception from server side.");
         }
 
         public event EventHandler<EventArgs<string>> SampleEvent;

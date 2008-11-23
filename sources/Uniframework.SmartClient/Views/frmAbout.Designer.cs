@@ -42,16 +42,17 @@ namespace Uniframework.SmartClient.Views
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnSysInfo = new DevExpress.XtraEditors.SimpleButton();
             this.labWarning = new DevExpress.XtraEditors.LabelControl();
-            this.lvModules = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.IconPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.tlAddIns = new DevExpress.XtraTreeList.TreeList();
+            this.colName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.colVersion = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tlAddIns)).BeginInit();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -171,30 +172,6 @@ namespace Uniframework.SmartClient.Views
             this.labWarning.TabIndex = 15;
             this.labWarning.Text = "警告：本计算机程序受著作权法和国际公约的保护，未经授权擅自复制或散布本程序的部分或全部，将承受严厉的民事和刑事处罚，对已知的违反者将给予法律范围内的全面制裁。";
             // 
-            // lvModules
-            // 
-            this.lvModules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.lvModules.FullRowSelect = true;
-            this.lvModules.Location = new System.Drawing.Point(10, 106);
-            this.lvModules.Name = "lvModules";
-            this.lvModules.Size = new System.Drawing.Size(446, 86);
-            this.lvModules.TabIndex = 16;
-            this.lvModules.TabStop = false;
-            this.lvModules.UseCompatibleStateImageBehavior = false;
-            this.lvModules.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "已加载的插件";
-            this.columnHeader1.Width = 314;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "版本";
-            this.columnHeader2.Width = 112;
-            // 
             // TopPanel
             // 
             this.TopPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -231,15 +208,49 @@ namespace Uniframework.SmartClient.Views
             this.label1.TabIndex = 18;
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // tlAddIns
+            // 
+            this.tlAddIns.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.colName,
+            this.colVersion});
+            this.tlAddIns.Location = new System.Drawing.Point(11, 106);
+            this.tlAddIns.Name = "tlAddIns";
+            this.tlAddIns.OptionsBehavior.Editable = false;
+            this.tlAddIns.OptionsMenu.EnableColumnMenu = false;
+            this.tlAddIns.OptionsMenu.EnableFooterMenu = false;
+            this.tlAddIns.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.tlAddIns.OptionsView.ShowIndicator = false;
+            this.tlAddIns.OptionsView.ShowRoot = false;
+            this.tlAddIns.Size = new System.Drawing.Size(446, 86);
+            this.tlAddIns.TabIndex = 19;
+            // 
+            // colName
+            // 
+            this.colName.Caption = "插件名称";
+            this.colName.FieldName = "插件名称";
+            this.colName.Name = "colName";
+            this.colName.Visible = true;
+            this.colName.VisibleIndex = 0;
+            this.colName.Width = 248;
+            // 
+            // colVersion
+            // 
+            this.colVersion.Caption = "版本";
+            this.colVersion.FieldName = "版本";
+            this.colVersion.Name = "colVersion";
+            this.colVersion.Visible = true;
+            this.colVersion.VisibleIndex = 1;
+            this.colVersion.Width = 177;
+            // 
             // frmAbout
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 292);
+            this.Controls.Add(this.tlAddIns);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TopPanel);
-            this.Controls.Add(this.lvModules);
             this.Controls.Add(this.labWarning);
             this.Controls.Add(this.btnSysInfo);
             this.Controls.Add(this.btnOK);
@@ -265,6 +276,7 @@ namespace Uniframework.SmartClient.Views
             this.TopPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tlAddIns)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,12 +298,12 @@ namespace Uniframework.SmartClient.Views
         private DevExpress.XtraEditors.SimpleButton btnOK;
         private DevExpress.XtraEditors.SimpleButton btnSysInfo;
         private DevExpress.XtraEditors.LabelControl labWarning;
-        private System.Windows.Forms.ListView lvModules;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         public System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         public System.Windows.Forms.Panel IconPanel;
+        private DevExpress.XtraTreeList.TreeList tlAddIns;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colName;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colVersion;
     }
 }

@@ -37,6 +37,11 @@ namespace Uniframework.DemoCenter
         string Hello4Cache(string username);
 
         /// <summary>
+        /// 服务端异常
+        /// </summary>
+        [RemoteMethod]
+        void ThrowException();
+        /// <summary>
         /// 简单事件
         /// </summary>
         [EventPublisher(Constants.Event_SamplePublisher)]

@@ -29,17 +29,19 @@ namespace Uniframework.DemoCenter.Client.Views
         private void InitializeComponent()
         {
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.btnHello = new DevExpress.XtraEditors.SimpleButton();
-            this.btnHelloOffline = new DevExpress.XtraEditors.SimpleButton();
-            this.btnHelloCache = new DevExpress.XtraEditors.SimpleButton();
-            this.labSamleEvent = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.txtName = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.labSamleEvent = new DevExpress.XtraEditors.LabelControl();
+            this.btnHelloCache = new DevExpress.XtraEditors.SimpleButton();
+            this.btnHelloOffline = new DevExpress.XtraEditors.SimpleButton();
+            this.btnHello = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.btnThrowException = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -58,32 +60,21 @@ namespace Uniframework.DemoCenter.Client.Views
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "远程方法与事件演示";
             // 
-            // btnHello
+            // txtName
             // 
-            this.btnHello.Location = new System.Drawing.Point(5, 24);
-            this.btnHello.Name = "btnHello";
-            this.btnHello.Size = new System.Drawing.Size(134, 23);
-            this.btnHello.TabIndex = 0;
-            this.btnHello.Text = "Say &hello          ";
-            this.btnHello.Click += new System.EventHandler(this.btnHello_Click);
+            this.txtName.EditValue = "Uniframework !!! ";
+            this.txtName.Location = new System.Drawing.Point(265, 26);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(160, 21);
+            this.txtName.TabIndex = 5;
             // 
-            // btnHelloOffline
+            // labelControl2
             // 
-            this.btnHelloOffline.Location = new System.Drawing.Point(5, 53);
-            this.btnHelloOffline.Name = "btnHelloOffline";
-            this.btnHelloOffline.Size = new System.Drawing.Size(134, 23);
-            this.btnHelloOffline.TabIndex = 1;
-            this.btnHelloOffline.Text = "Say hello &offline";
-            this.btnHelloOffline.Click += new System.EventHandler(this.btnHelloOffline_Click);
-            // 
-            // btnHelloCache
-            // 
-            this.btnHelloCache.Location = new System.Drawing.Point(5, 82);
-            this.btnHelloCache.Name = "btnHelloCache";
-            this.btnHelloCache.Size = new System.Drawing.Size(134, 23);
-            this.btnHelloCache.TabIndex = 2;
-            this.btnHelloCache.Text = "Say hello &cache";
-            this.btnHelloCache.Click += new System.EventHandler(this.btnHelloCache_Click);
+            this.labelControl2.Location = new System.Drawing.Point(195, 29);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(64, 14);
+            this.labelControl2.TabIndex = 4;
+            this.labelControl2.Text = "&Your name:";
             // 
             // labSamleEvent
             // 
@@ -94,31 +85,53 @@ namespace Uniframework.DemoCenter.Client.Views
             this.labSamleEvent.TabIndex = 3;
             this.labSamleEvent.Text = "Active me!";
             // 
-            // labelControl2
+            // btnHelloCache
             // 
-            this.labelControl2.Location = new System.Drawing.Point(195, 29);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(64, 14);
-            this.labelControl2.TabIndex = 4;
-            this.labelControl2.Text = "&Your name:";
+            this.btnHelloCache.Location = new System.Drawing.Point(5, 82);
+            this.btnHelloCache.Name = "btnHelloCache";
+            this.btnHelloCache.Size = new System.Drawing.Size(134, 23);
+            this.btnHelloCache.TabIndex = 2;
+            this.btnHelloCache.Text = "Say hello &cache";
+            this.btnHelloCache.Click += new System.EventHandler(this.btnHelloCache_Click);
             // 
-            // txtName
+            // btnHelloOffline
             // 
-            this.txtName.EditValue = "Uniframework !!! ";
-            this.txtName.Location = new System.Drawing.Point(265, 26);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(160, 21);
-            this.txtName.TabIndex = 5;
+            this.btnHelloOffline.Enabled = false;
+            this.btnHelloOffline.Location = new System.Drawing.Point(5, 53);
+            this.btnHelloOffline.Name = "btnHelloOffline";
+            this.btnHelloOffline.Size = new System.Drawing.Size(134, 23);
+            this.btnHelloOffline.TabIndex = 1;
+            this.btnHelloOffline.Text = "Say hello &offline";
+            this.btnHelloOffline.Click += new System.EventHandler(this.btnHelloOffline_Click);
+            // 
+            // btnHello
+            // 
+            this.btnHello.Location = new System.Drawing.Point(5, 24);
+            this.btnHello.Name = "btnHello";
+            this.btnHello.Size = new System.Drawing.Size(134, 23);
+            this.btnHello.TabIndex = 0;
+            this.btnHello.Text = "Say &hello          ";
+            this.btnHello.Click += new System.EventHandler(this.btnHello_Click);
             // 
             // groupControl2
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.Controls.Add(this.btnThrowException);
             this.groupControl2.Location = new System.Drawing.Point(3, 121);
             this.groupControl2.Name = "groupControl2";
             this.groupControl2.Size = new System.Drawing.Size(663, 112);
             this.groupControl2.TabIndex = 1;
             this.groupControl2.Text = "服务端异常捕获演示";
+            // 
+            // btnThrowException
+            // 
+            this.btnThrowException.Location = new System.Drawing.Point(5, 24);
+            this.btnThrowException.Name = "btnThrowException";
+            this.btnThrowException.Size = new System.Drawing.Size(134, 23);
+            this.btnThrowException.TabIndex = 3;
+            this.btnThrowException.Text = "&Throw exception";
+            this.btnThrowException.Click += new System.EventHandler(this.btnThrowException_Click);
             // 
             // SampleView
             // 
@@ -133,6 +146,7 @@ namespace Uniframework.DemoCenter.Client.Views
             this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -147,5 +161,6 @@ namespace Uniframework.DemoCenter.Client.Views
         private DevExpress.XtraEditors.TextEdit txtName;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.SimpleButton btnThrowException;
     }
 }
