@@ -47,5 +47,18 @@ namespace Uniframework.DemoCenter.Client.Views
         {
             XtraMessageBox.Show(Presenter.Hello4Cache(txtName.Text));
         }
+
+        private void btnThrowException_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Presenter.ThrowException();
+            }
+            catch (UniframeworkException ex)
+            {
+                XtraMessageBox.Show(ex.Message);
+                throw ex;
+            }
+        }
     }
 }

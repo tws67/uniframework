@@ -36,8 +36,10 @@ namespace Uniframework.SmartClient.Views
 
         public void AddModule(string name, string version)
         {
-            ListViewItem item = lvModules.Items.Add(name);
-            item.SubItems.Add(version);
+            //ListViewItem item = lvModules.Items.Add(name);
+            //item.SubItems.Add(version);
+
+            tlAddIns.AppendNode(new object[] { name, version }, null);
         }
 
         private void frmAbout_Load(object sender, EventArgs e)

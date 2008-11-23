@@ -16,6 +16,8 @@ namespace Uniframework.XtraForms.UIElements
     {
         private Image image = null;
         private Image selectedImage = null;
+        private string name = String.Empty;
+        private string text = String.Empty;
 
         public XtraTreeListNode(int id, TreeListNodes owner)
             : base(id, owner)
