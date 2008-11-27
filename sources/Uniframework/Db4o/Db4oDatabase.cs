@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Threading;
 using System.Transactions;
 
 using Db4objects.Db4o;
+using Db4objects.Db4o.Ext;
+using Db4objects.Db4o.Query;
 
 namespace Uniframework.Db4o
 {
@@ -125,6 +128,90 @@ namespace Uniframework.Db4o
             return list;
         }
 
+        #region special for db4o 7.4 & C#3.0
+
+        public void Activate(object obj, int depth)
+        {
+            container.Activate(obj, depth);
+        }
+
+        public void Deactivate(object obj, int depth)
+        {
+            container.Deactivate(obj, depth);
+        }
+
+        public IExtObjectContainer Ext()
+        {
+            return container.Ext();
+        }
+
+        public IQuery Query()
+        {
+            return container.Query();
+        }
+
+        public IObjectSet Query(Type clazz)
+        {
+            return container.Query(clazz);
+        }
+
+        public IObjectSet Query(Predicate predicate)
+        {
+            return container.Query(predicate);
+        }
+
+        public IObjectSet Query(Predicate predicate, IQueryComparator comparator)
+        {
+            return container.Query(predicate, comparator);
+        }
+
+        public IObjectSet Query(Predicate predicate, IComparer comparer)
+        {
+            return container.Query(predicate, comparer);
+        }
+
+        public IList<Extent> Query<Extent>(Predicate<Extent> match)
+        {
+            return container.Query(match);
+        }
+
+        public IList<Extent> Query<Extent>(Predicate<Extent> match, IComparer<Extent> comparer)
+        {
+            return container.Query(match, comparer);
+        }
+
+        public IList<Extent> Query<Extent>(Predicate<Extent> match, Comparison<Extent> comparison)
+        {
+            return container.Query(match, comparison);
+        }
+
+        public IList<ElementType> Query<ElementType>(Type extent)
+        {
+            return container.Query<ElementType>(extent);
+        }
+
+        public IList<Extent> Query<Extent>()
+        {
+            return container.Query<Extent>();
+        }
+
+        public IList<Extent> Query<Extent>(IComparer<Extent> comparer)
+        {
+            return container.Query<Extent>(comparer);
+        }
+
+        public void Commit()
+        {
+            container.Commit();
+        }
+
+        public void Rollback()
+        {
+            container.Rollback();
+        }
+        
+        #endregion
+
         #endregion
 
         #region IDisposable Members
@@ -163,5 +250,6 @@ namespace Uniframework.Db4o
         }
 
         #endregion
+
     }
 }

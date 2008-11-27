@@ -85,7 +85,7 @@ namespace Uniframework.Switch
         protected string CheckFile(string filename)
         {
             IVirtualCTI virtualCTI = driver.WorkItem.Services.Get<IVirtualCTI>();
-            string dir = virtualCTI.GlobalVars[SwitchVariableNames.ResourceDir];
+            string dir = virtualCTI.GlobalVars[SwitchVariableNames.ResourceDir] as String;
             string file = string.Empty;
 
             if(File.Exists(filename))

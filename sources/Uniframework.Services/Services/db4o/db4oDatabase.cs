@@ -93,7 +93,7 @@ namespace Uniframework.Services
         {
             db4oEnlist enlist = new db4oEnlist(db, item);
             bool inTransaction = Enlist(enlist);
-            db.Set(item);
+            db.Store(item);
             if (!inTransaction) db.Commit();
             db.Commit();
         }

@@ -180,8 +180,7 @@ namespace Uniframework.Services
                         if (module.Attributes["assemblyfile"] == null)
                             throw new ArgumentException("没有定义模块的程序集属性[assemblyfile]。");
                         string assemblyFile = module.Attributes["assemblyfile"];
-                        string updateLocation = module.Attributes["updatelocation"] != null ? module.Attributes["updatelocation"] : String.Empty;
-                        ClientModuleInfo client = new ClientModuleInfo(assemblyFile, updateLocation, module.Value == "MainModule");
+                        ClientModuleInfo client = new ClientModuleInfo(assemblyFile, module.Value == "MainModule");
                         list.Add(client);
                     }
                 }
