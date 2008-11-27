@@ -16,6 +16,10 @@ namespace Uniframework.Switch.Endpoints.DB160X
         private string name = string.Empty;
         private readonly IChannel channel = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CallSubscripter"/> class.
+        /// </summary>
+        /// <param name="chnl">The CHNL.</param>
         public CallSubscripter(AbstractChannel chnl) 
         {
             name = "Call Subscripter";
@@ -33,27 +37,21 @@ namespace Uniframework.Switch.Endpoints.DB160X
         public void Call(int chnlno, string callNumber)
         {
             // 抛弃不属于通道的呼入/出事件
-            if (chnlno != channel.ChannelID || channel == null || (channel.CurrentStatus <= ChannelStatus.INIT || channel.CurrentStatus >= ChannelStatus.DONE))
+            if (chnlno != channel.ChannelID || channel == null 
+                || (channel.CurrentStatus <= ChannelStatus.INIT || channel.CurrentStatus >= ChannelStatus.DONE))
                 return;
 
-            MethodInfo method = null;
-            Type type = channel.GetType();
-            foreach (MemberInfo mi in type.GetMembers(BindingFlags.NonPublic | BindingFlags.Instance))
-            {
-                if (mi.Name == "OnCall")
-                {
-                    method = type.GetMethod("OnCall", BindingFlags.NonPublic | BindingFlags.Instance);
-                    break;
-                }
-            }
-
+            MethodInfo method = typeof(AbstractChannel).GetMethod("OnCall", BindingFlags.NonPublic | BindingFlags.Instance);
             if (method != null && channel.CurrentStatus == ChannelStatus.IDLE)
                 try
                 {
+                    DynamicInvokerHandler invoker = DynamicInvoker.GetMethodInvoker(method);
                     channel.CurrentStatus = ChannelStatus.EXECUTE;
                     channel.Logger.Debug(String.Format("反射目标通道 {0} 的呼入/呼出事件处理程序，OnCall", channel.ChannelID));
-                    method.Invoke(channel, new object[] { channel, 
-                        new CallEventArgs(channel.ChannelType == ChannelType.TRUNK ? CallType.In : CallType.Out, callNumber) });
+                    //method.Invoke(channel, new object[] { channel, 
+                    //    new CallEventArgs(channel.ChannelType == ChannelType.TRUNK ? CallType.In : CallType.Out, callNumber) });
+                    invoker.Invoke(channel, 
+                        new object[] { new CallEventArgs(channel.ChannelType == ChannelType.TRUNK ? CallType.In : CallType.Out, callNumber) });
                 }
                 catch (Exception ex)
                 {
@@ -67,6 +65,9 @@ namespace Uniframework.Switch.Endpoints.DB160X
 
         #region ISubscripterRegister Members
 
+        /// <summary>
+        /// 向事件分配器注册自己
+        /// </summary>
         public void Register()
         {
             IEventService eventService = channel.Driver.WorkItem.Services.Get<IEventService>();
@@ -80,6 +81,9 @@ namespace Uniframework.Switch.Endpoints.DB160X
             }
         }
 
+        /// <summary>
+        /// 从事件分配器注销自己
+        /// </summary>
         public void UnRegister()
         {
             IEventService eventService = channel.Driver.WorkItem.Services.Get<IEventService>();
@@ -93,6 +97,10 @@ namespace Uniframework.Switch.Endpoints.DB160X
             }
         }
 
+        /// <summary>
+        /// 订阅者名字
+        /// </summary>
+        /// <value></value>
         public string Name
         {
             get { return name; }

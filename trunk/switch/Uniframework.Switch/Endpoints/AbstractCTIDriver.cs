@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 using log4net;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
-
 using Uniframework;
+using Uniframework.Services;
 using Uniframework.SmartClient;
 
 namespace Uniframework.Switch
@@ -69,28 +68,48 @@ namespace Uniframework.Switch
 
         #region ICTIDriver Members
 
+        /// <summary>
+        /// 名字
+        /// </summary>
+        /// <value></value>
         public string Key
         {
             get { return key; }
             protected set { key = value; }
         }
 
+        /// <summary>
+        /// 板卡适配器的版本信息
+        /// </summary>
+        /// <value></value>
         public IVersionInfo VersionInfo
         {
             get { return versionInfo; }
         }
 
+        /// <summary>
+        /// 超时值
+        /// </summary>
+        /// <value></value>
         public int Timeout
         {
             get { return timeout; }
             set { timeout = value; }
         }
 
+        /// <summary>
+        /// 工作项，本地容器
+        /// </summary>
+        /// <value></value>
         public WorkItem WorkItem
         {
             get { return workItem; }
         }
 
+        /// <summary>
+        /// 激活/关闭板卡适配器
+        /// </summary>
+        /// <value></value>
         public bool Active
         {
             get { return active; }
@@ -109,6 +128,10 @@ namespace Uniframework.Switch
             }
         }
 
+        /// <summary>
+        /// 用于标识当前板卡适配器可否工作
+        /// </summary>
+        /// <value></value>
         public bool CanWork
         {
             get { return canWork; }
@@ -118,6 +141,10 @@ namespace Uniframework.Switch
             }
         }
 
+        /// <summary>
+        /// 当前适配器初始化的所有通道
+        /// </summary>
+        /// <value></value>
         public ChannelCollection Channels
         {
             get 
@@ -127,6 +154,10 @@ namespace Uniframework.Switch
             }
         }
 
+        /// <summary>
+        /// 通道数
+        /// </summary>
+        /// <value></value>
         public int ChannelCount
         {
             get 
@@ -142,7 +173,9 @@ namespace Uniframework.Switch
         /// <param name="chnlid">通道标识</param>
         /// <param name="chnlType">通道类型</param>
         /// <param name="chnlSttatus">通道状态</param>
-        /// <returns>若板卡适配器可用并指定了相应的通道标识则直接返回相应的通道，否则查找指定类型及状态的通道</returns>
+        /// <returns>
+        /// 若板卡适配器可用并指定了相应的通道标识则直接返回相应的通道，否则查找指定类型及状态的通道
+        /// </returns>
         public abstract IChannel GetChannel(int chnlid, ChannelType chnlType, ChannelStatus chnlSttatus);
 
         /// <summary>
@@ -150,6 +183,9 @@ namespace Uniframework.Switch
         /// </summary>
         /// <param name="conf">会议组号</param>
         /// <param name="chnl">语音通道</param>
+        /// <seealso cref="LeaveConf"/>
+        /// <seealso cref="ConfCount"/>
+        /// <seealso cref="GetConf"/>
         public void JoinConf(int conf, IChannel chnl)
         {
             if (confGroups != null)
@@ -166,6 +202,9 @@ namespace Uniframework.Switch
         /// </summary>
         /// <param name="conf">会议组号</param>
         /// <param name="chnl">语音通道</param>
+        /// <seealso cref="JoinConf"/>
+        /// <seealso cref="ConfCount"/>
+        /// <seealso cref="GetConf"/>
         public void LeaveConf(int conf, IChannel chnl)
         {
             if (confGroups != null)
@@ -183,6 +222,10 @@ namespace Uniframework.Switch
         /// <summary>
         /// 系统当前创建的会议组数
         /// </summary>
+        /// <value></value>
+        /// <seealso cref="JoinConf"/>
+        /// <seealso cref="LeaveConf"/>
+        /// <seealso cref="GetConf"/>
         public int ConfCount
         {
             get { return confGroups.Count; }
@@ -191,6 +234,12 @@ namespace Uniframework.Switch
         /// <summary>
         /// 获取指定组号的会议
         /// </summary>
+        /// <param name="confGroup">会议组号</param>
+        /// <returns>返回指定组号的会议，如果不存在的话则返回null</returns>
+        /// <remarks>Modified By JackyXU 2007-01-12</remarks>
+        /// <seealso cref="JoinConf"/>
+        /// <seealso cref="LeaveConf"/>
+        /// <seealso cref="ConfCount"/>
         public List<int> GetConf(int confGroup)
         {
             if (confGroups.ContainsKey(confGroup))
@@ -275,7 +324,11 @@ namespace Uniframework.Switch
 
         #region IConfigurable Members
 
-        public virtual void Configuration(Uniframework.Services.IConfiguration config)
+        /// <summary>
+        /// Configurations the specified config.
+        /// </summary>
+        /// <param name="config">The config.</param>
+        public virtual void Configuration(IConfiguration config)
         { 
         }
 

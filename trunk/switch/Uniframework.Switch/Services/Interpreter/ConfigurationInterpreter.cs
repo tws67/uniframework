@@ -40,7 +40,7 @@ namespace Uniframework.Switch
             //logger.Info("********************************************************************************");
             //logger.Info("***                       Uniframework is Starting!!!                      ***");
             //logger.Info("********************************************************************************");
-            logger.Info("开始从系统配置文件中加载Uniframework组件……");
+            logger.Info("开始从系统配置文件中加载LightweightCTi组件……");
 
             IVirtualCTI virtualCTI = workItem.Services.Get<IVirtualCTI>();
             

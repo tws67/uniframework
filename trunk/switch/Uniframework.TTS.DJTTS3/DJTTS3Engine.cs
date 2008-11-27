@@ -12,11 +12,19 @@ using Uniframework.Switch.Endpoints.DB160X;
 
 namespace Uniframework.Switch.TTS.DJTTS3
 {
+    /// <summary>
+    /// 东进TTS引擎
+    /// </summary>
     public class DJTTS3Engine : AbstractTTSEngine, IDisposable
     {
         private readonly static Int32 Defaultdelay = 425;  // 相关处理延迟时间（毫秒）
         private Int32 ttsChannelCount = 0;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DJTTS3Engine"/> class.
+        /// </summary>
+        /// <param name="workItem">The work item.</param>
+        /// <param name="threadNumber">The thread number.</param>
         public DJTTS3Engine(WorkItem workItem, Int32 threadNumber)
             : base(workItem, threadNumber)
         {
@@ -73,7 +81,14 @@ namespace Uniframework.Switch.TTS.DJTTS3
             }
         }
 
-        // 播放语音
+        /// <summary>
+        /// Plays the message.
+        /// </summary>
+        /// <param name="channel">The channel.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="allowBreak">if set to <c>true</c> [allow break].</param>
+        /// <param name="playType">Type of the play.</param>
+        /// <returns></returns>
         public override SwitchStatus PlayMessage(IChannel channel, string text, bool allowBreak, TTSPlayType playType)
         {
             if (!canWork)
@@ -147,7 +162,14 @@ namespace Uniframework.Switch.TTS.DJTTS3
             return SwitchStatus.SUCCESS;
         }
 
-        // 转换文字到语音文件
+        /// <summary>
+        /// Plays to file.
+        /// </summary>
+        /// <param name="channel">The channel.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="playType">Type of the play.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns></returns>
         public override bool PlayToFile(IChannel channel, string text, TTSPlayType playType, string fileName)
         {
             if (!canWork)
@@ -209,6 +231,10 @@ namespace Uniframework.Switch.TTS.DJTTS3
 
         private bool disposed = false;
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

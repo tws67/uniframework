@@ -129,9 +129,9 @@
     <Compile Include="Common\Startable.cs" />
     <Compile Include="Utility\StringEx.cs" />
     <Compile Include="Common\TEventArgs.cs" />
-    <Compile Include="Service\Authorization\AuthorizationAction.cs" />
-    <Compile Include="Service\Authorization\AuthorizationResource.cs" />
-    <Compile Include="Service\Authorization\IAuthorizationStoreService.cs" />
+    <Compile Include="Authorization\AuthorizationAction.cs" />
+    <Compile Include="Authorization\AuthorizationResource.cs" />
+    <Compile Include="Authorization\IAuthorizationStoreService.cs" />
     <Compile Include="Service\Configuration\AbstractConfiguration.cs" />
     <Compile Include="Service\Configuration\ConfigurationCollection.cs" />
     <Compile Include="Service\Configuration\IConfiguration.cs" />

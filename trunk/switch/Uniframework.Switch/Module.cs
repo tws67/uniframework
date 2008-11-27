@@ -12,6 +12,9 @@ using Uniframework.SmartClient;
 
 namespace Uniframework.Switch
 {
+    /// <summary>
+    /// 语音服务模块入口
+    /// </summary>
     public class Module : ModuleInit
     {
         private WorkItem workItem;
