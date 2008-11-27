@@ -14,14 +14,14 @@ namespace Uniframework.Switch
     {
         #region DefaultVirtualCTI fields
 
-        private readonly static String sectionPath = "Uniframework/";
+        private readonly static String sectionPath = "LightweightCTI/";
         private readonly static Int32 DefaultSessionLimit = 1000;
         private readonly static object SyncObj = new object();
 
-        private String resourceDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
-        private String projectsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects");
+        private String resourceDir = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Resources\";
+        private String projectsDir = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Projects\";
 
-        private Dictionary<String, String> globalVars = new Dictionary<String, String>();
+        private Dictionary<String, object> globalVars = new Dictionary<String, object>();
         private DateTime initialized = DateTime.Now;
         private String session_id = Guid.NewGuid().ToString().ToUpper();
         private Int32 sessionLimit = DefaultSessionLimit;
@@ -50,6 +50,12 @@ namespace Uniframework.Switch
                 logger.Fatal(errStr);
                 throw new Exception(errStr);
             }
+
+            // 创建相关文件夹
+            if (!Directory.Exists(resourceDir))
+                Directory.CreateDirectory(resourceDir);
+            if (!Directory.Exists(projectsDir))
+                Directory.CreateDirectory(projectsDir);
 
             IConfiguration config = new XMLConfiguration(configService.GetItem(sectionPath));
             ConfigurationInterpreter confInterpreter = new ConfigurationInterpreter(workItem, config);
@@ -107,7 +113,7 @@ namespace Uniframework.Switch
         /// <summary>
         /// 虚拟机全局变量
         /// </summary>
-        public Dictionary<String, String> GlobalVars
+        public Dictionary<String, object> GlobalVars
         {
             get { return globalVars; }
         }

@@ -168,7 +168,7 @@ namespace Uniframework.Switch
         private void InvokeMainPoint(Assembly assembly, object[] args)
         {
             Type scriptType = null;
-            foreach (Module module in assembly.GetModules())
+            foreach (System.Reflection.Module module in assembly.GetModules())
             {   
                 // 在当前模块中查找实现了ICTIScript接口的类
                 foreach (Type type in module.GetTypes())

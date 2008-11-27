@@ -14,7 +14,7 @@ namespace Uniframework.Switch
         /// <summary>
         /// 虚拟机层次全局变量
         /// </summary>
-        Dictionary<String, String> GlobalVars { get; }
+        Dictionary<String, object> GlobalVars { get; }
         /// <summary>
         /// 工作项 - CAB容器
         /// </summary>
