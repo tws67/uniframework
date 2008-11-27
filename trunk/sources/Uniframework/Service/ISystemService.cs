@@ -216,7 +216,6 @@ namespace Uniframework.Services
     {
         private bool isMainModule = false;
         private string assemblyFile = string.Empty;
-        private string updateLocation = string.Empty;
 
         /// <summary>
         /// 无参构造函数
@@ -229,20 +228,13 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="allowRoles">允许操作的角色数组</param>
         /// <param name="assemblyFile">程序集文件名</param>
-        /// <param name="updateLocation">更新位置</param>
         /// <param name="isMainModule">是否主要模块</param>
-        public ClientModuleInfo(string assemblyFile, string updateLocation, bool isMainModule)
+        public ClientModuleInfo(string assemblyFile, bool isMainModule)
             : this()
         {
             this.assemblyFile = assemblyFile;
-            this.updateLocation = updateLocation;
             this.isMainModule = isMainModule;
         }
-
-        ///// <summary>
-        ///// 获取允许操作的角色数组
-        ///// </summary>
-        //public string[] AllowedRoles { get { return allowRoles; } }
 
         /// <summary>
         /// 获取装配件文件
@@ -250,26 +242,13 @@ namespace Uniframework.Services
         public string AssemblyFile { get { return assemblyFile; } set { assemblyFile = value; } }
 
         /// <summary>
-        /// 获取更新位置
-        /// </summary>
-        public string UpdateLocation { get { return updateLocation; } }
-
-        /// <summary>
         /// 获取是否主要模块
         /// </summary>
         public bool IsMainModule { get { return isMainModule; } }
     }
+
     #endregion
 
-    ///// <summary>
-    ///// 快速反射调用句柄委托
-    ///// </summary>
-    ///// <param name="target">委托调用目标</param>
-    ///// <param name="paramters">参数</param>
-    ///// <returns></returns>
-    //public delegate object FastInvokeHandler(object target, object[] paramters);
-
-    
     /// <summary>
     /// 系统管理服务
     /// </summary>

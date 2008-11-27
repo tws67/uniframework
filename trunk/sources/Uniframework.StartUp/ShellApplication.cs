@@ -179,6 +179,7 @@ namespace Uniframework.StartUp
                     addInTree.InsertAddIn(addIn);
                 }
             }
+            Program.Logger.Info(String.Format("完成加载应用系统插件 \"{0}\"", e.Data.Name.Split(',')[0] + ".dll"));
         }
 
         /// <summary>

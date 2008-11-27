@@ -8,7 +8,7 @@ using Microsoft.Practices.CompositeUI.Common;
 namespace Uniframework.Switch
 {
     /// <summary>
-    /// 交换机控制器
+    /// 控制器
     /// </summary>
     public class SwitchController : WorkItemController
     {

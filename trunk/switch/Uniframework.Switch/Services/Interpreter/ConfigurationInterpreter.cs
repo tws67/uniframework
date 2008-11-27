@@ -37,15 +37,11 @@ namespace Uniframework.Switch
         /// </summary>
         public void Parse()
         {
-            //logger.Info("********************************************************************************");
-            //logger.Info("***                       Uniframework is Starting!!!                      ***");
-            //logger.Info("********************************************************************************");
             logger.Info("开始从系统配置文件中加载LightweightCTi组件……");
-
             IVirtualCTI virtualCTI = workItem.Services.Get<IVirtualCTI>();
             
             // 读取系统配置的全局变量
-            if (config.Children["Variables"].Children.Count > 0)
+            if (config.Children["Variables"] != null)
             {
                 foreach (IConfiguration conf in config.Children["Variables"].Children)
                 {
@@ -61,76 +57,81 @@ namespace Uniframework.Switch
                 }
             }
 
-            // 注册事件侦听、分配器组件
-            IEventService eventService = workItem.Services.Get<IEventService>();
-            if (config.Children["EventDispatchers"].Children.Count > 0 && eventService != null)
-            {
-                foreach (IConfiguration conf in config.Children["EventDispatchers"].Children)
-                {
-                    if (conf.Name.ToLower() == "clear")
-                        eventService.ClearEventDispatcher();
-                    else
-                    {
-                        if (conf.Name.ToLower() == "add")
-                        {
-                            string dispname = conf.Attributes["name"];
-                            Type dispType = Type.GetType(conf.Attributes["type"]);
-                            Type serviceType = Type.GetType(conf.Attributes["servicetype"]);
-                            Type baseType = Type.GetType(conf.Attributes["basetype"]);
-                            EventDispatcher dispatcher = null;
-                            if (serviceType != null && baseType != null)
-                            {
-                                dispatcher = Activator.CreateInstance(dispType, new object[] { serviceType, baseType }) as EventDispatcher;
-                            }
-                            else
-                                if (serviceType != null)
-                                {
+            #region 以下配置工作移入相关的接入层终端自行处理
+
+            //// 注册事件侦听、分配器组件
+            //IEventService eventService = workItem.Services.Get<IEventService>();
+            //if (config.Children["EventDispatchers"] != null && eventService != null)
+            //{
+            //    foreach (IConfiguration conf in config.Children["EventDispatchers"].Children)
+            //    {
+            //        if (conf.Name.ToLower() == "clear")
+            //            eventService.ClearEventDispatcher();
+            //        else
+            //        {
+            //            if (conf.Name.ToLower() == "add")
+            //            {
+            //                string dispname = conf.Attributes["name"];
+            //                Type dispType = Type.GetType(conf.Attributes["type"]);
+            //                Type serviceType = Type.GetType(conf.Attributes["servicetype"]);
+            //                Type baseType = Type.GetType(conf.Attributes["basetype"]);
+            //                EventDispatcher dispatcher = null;
+            //                if (serviceType != null && baseType != null)
+            //                {
+            //                    dispatcher = Activator.CreateInstance(dispType, new object[] { serviceType, baseType }) as EventDispatcher;
+            //                }
+            //                else
+            //                    if (serviceType != null)
+            //                    {
                                     
-                                    dispatcher = Activator.CreateInstance(dispType, new object[] { serviceType }) as EventDispatcher;
-                                }
+            //                        dispatcher = Activator.CreateInstance(dispType, new object[] { serviceType }) as EventDispatcher;
+            //                    }
 
-                            logger.Info("向系统注册事件分配器 " + dispname);
-                            if (dispatcher is IConfigurable)
-                                ((IConfigurable)dispatcher).Configuration(conf);
-                            eventService.RegisterEventDispatcher(dispname, dispatcher);
-                        }
-                        else if(conf.Name.ToLower() == "remove")
-                        {
-                            eventService.UnRegisterEventDispatcher(conf.Attributes["name"]);
-                        }
-                    }
-                }
-            }
+            //                logger.Info("向系统注册事件分配器 " + dispname);
+            //                if (dispatcher is IConfigurable)
+            //                    ((IConfigurable)dispatcher).Configuration(conf);
+            //                eventService.RegisterEventDispatcher(dispname, dispatcher);
+            //            }
+            //            else if(conf.Name.ToLower() == "remove")
+            //            {
+            //                eventService.UnRegisterEventDispatcher(conf.Attributes["name"]);
+            //            }
+            //        }
+            //    }
+            //}
 
-            // 注册事件订阅者组件
-            if (config.Children["Subscripters"].Children.Count > 0 && eventService != null)
-            {
-                foreach (IConfiguration conf in config.Children["Subscripters"].Children)
-                {
-                    if (conf.Name.ToLower() == "add")
-                    {
-                        string name = conf.Attributes["name"];
-                        Type subscripterType = Type.GetType(conf.Attributes["type"]);
-                        if ((conf.Attributes["EventDispatcher"] != null || conf.Attributes["EventDispatcher"] != string.Empty) && subscripterType != null)
-                        {
-                            object sub = Activator.CreateInstance(subscripterType); // 此处必须支持默认的构造函数
-                            if (sub is IConfigurable)
-                                ((IConfigurable)sub).Configuration(conf);
-                            eventService.RegisterSubscripter(sub as ISubscripterRegister);
-                            logger.Debug("注册事件订阅器，注册于 " + conf.Attributes["EventDispatcher"]);
-                        }
-                    }
-                    else if(conf.Name.ToLower() == "remove")
-                    {
-                        eventService.UnRegisterSubscripter(conf.Attributes["name"]);
-                    }
-                }
-            }
+            //// 注册事件订阅者组件
+            //if (config.Children["Subscripters"] != null && eventService != null)
+            //{
+            //    foreach (IConfiguration conf in config.Children["Subscripters"].Children)
+            //    {
+            //        if (conf.Name.ToLower() == "add")
+            //        {
+            //            string name = conf.Attributes["name"];
+            //            Type subscripterType = Type.GetType(conf.Attributes["type"]);
+            //            if ((conf.Attributes["EventDispatcher"] != null || conf.Attributes["EventDispatcher"] != string.Empty) && subscripterType != null)
+            //            {
+            //                object sub = Activator.CreateInstance(subscripterType); // 此处必须支持默认的构造函数
+            //                if (sub is IConfigurable)
+            //                    ((IConfigurable)sub).Configuration(conf);
+            //                eventService.RegisterSubscripter(sub as ISubscripterRegister);
+            //                logger.Debug("注册事件订阅器，注册于 " + conf.Attributes["EventDispatcher"]);
+            //            }
+            //        }
+            //        else if(conf.Name.ToLower() == "remove")
+            //        {
+            //            eventService.UnRegisterSubscripter(conf.Attributes["name"]);
+            //        }
+            //    }
+            //}
 
-            // 逐个初始化适配器
-            if (config.Children["Adapters"].Children.Count < 1) return;
+            #endregion
 
-            foreach (IConfiguration conf in config.Children["Adapters"].Children)
+            // 逐个初始化接入层的设备
+
+            if (config.Children["Endpoints"] == null) return;
+
+            foreach (IConfiguration conf in config.Children["Endpoints"].Children)
             {
                 if (conf.Name.ToLower() == "clear")
                     workItem.Services.Remove<ICTIDriver>();
@@ -138,7 +139,7 @@ namespace Uniframework.Switch
                 {
                     if (conf.Name.ToLower() == "add")
                     {
-                        string adapterName = conf.Attributes["name"];
+                        string endpointName = conf.Attributes["name"];
                         bool active = bool.Parse(conf.Attributes["active"]);
                         Type adapterType = Type.GetType(conf.Attributes["type"]);
                         if (adapterType == null)

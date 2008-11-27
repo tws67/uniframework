@@ -11,6 +11,9 @@ using System.IO;
 
 namespace Uniframework.Db4o
 {
+    /// <summary>
+    /// db4o数据库服务
+    /// </summary>
     public class Db4oDatabaseService : IDb4oDatabaseService, IDisposable
     {
         private Dictionary<string, IObjectContainer> containers = new Dictionary<string, IObjectContainer>();

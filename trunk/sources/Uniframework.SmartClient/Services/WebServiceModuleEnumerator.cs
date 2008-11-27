@@ -44,7 +44,7 @@ namespace Uniframework.SmartClient
                 }
                 // Modified by Jacky 2008-08-18,去掉了允许的角色列表
                 //list.Add(new ModuleInfo(info.AllowedRoles, info.AssemblyFile, info.UpdateLocation));
-                list.Add(new ModuleInfo(null, info.AssemblyFile, info.UpdateLocation));
+                list.Add(new ModuleInfo(null, info.AssemblyFile, ""));
             }
         }
 

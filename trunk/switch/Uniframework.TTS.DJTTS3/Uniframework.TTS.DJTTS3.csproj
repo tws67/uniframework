@@ -7,8 +7,8 @@
     <ProjectGuid>{DB27E4F8-DE7D-4D47-A11D-EDCBD6D9FAC5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LightweightCTI.Switch.TTS.DJTTS3</RootNamespace>
-    <AssemblyName>LightweightCTI.Switch.TTS.DJTTS3</AssemblyName>
+    <RootNamespace>Uniframework.Switch.TTS.DJTTS3</RootNamespace>
+    <AssemblyName>Uniframework.Switch.TTS.DJTTS3</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
