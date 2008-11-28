@@ -108,7 +108,6 @@ namespace Uniframework.StartUp
         {
             base.AddBuilderStrategies(builder);
 
-            builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
         }
 
         #region Assistant functions

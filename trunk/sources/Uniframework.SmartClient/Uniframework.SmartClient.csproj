@@ -121,6 +121,7 @@
     <Compile Include="Services\Foundation\DataGridViewService.cs" />
     <Compile Include="Services\Foundation\DocumentService.cs" />
     <Compile Include="Services\Foundation\EditableService.cs" />
+    <Compile Include="Services\Foundation\EditAdapters\TextEditAdapterFactory.cs" />
     <Compile Include="Services\Foundation\IBrowserService.cs" />
     <Compile Include="Services\Foundation\IDataGridListHandler.cs" />
     <Compile Include="Services\Foundation\IDataGridListService.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Services\Foundation\IPrintableService.cs" />
     <Compile Include="Services\Foundation\IPrintHandler.cs" />
     <Compile Include="Services\Foundation\PrintableService.cs" />
+    <Compile Include="Services\Foundation\EditAdapters\TextEditAdapter.cs" />
     <Compile Include="Services\Help\DynamicHelpService.cs" />
     <Compile Include="Services\Help\IDynamicHelpService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="SmartFormApplication.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
+    <Compile Include="Strategies\TextEditAdapterStrategy.cs" />
     <Compile Include="Views\AboutPresenter.cs" />
     <Compile Include="Views\BrowserPresenter.cs" />
     <Compile Include="Views\BrowserView.cs">
