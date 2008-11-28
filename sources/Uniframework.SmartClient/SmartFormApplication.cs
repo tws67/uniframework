@@ -8,6 +8,7 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.Common.Services;
 using Microsoft.Practices.CompositeUI.Services;
+using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Db4o;
 using Uniframework.SmartClient.WorkItems.Setting;
@@ -24,6 +25,8 @@ namespace Uniframework.SmartClient
         where TWorkItem : WorkItem, new()
         where TShell : Form
     {
+        private IAdapterFactoryCatalog<IEditHandler> editFactoryCatalog;
+
         /// <summary>
         /// Must be overriden. This method is called when the application is fully created and
         /// ready to run.
@@ -38,7 +41,8 @@ namespace Uniframework.SmartClient
         {
             base.AddServices();
 
-            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IEditHandler>, IAdapterFactoryCatalog<IEditHandler>>();
+            editFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IEditHandler>, IAdapterFactoryCatalog<IEditHandler>>();
+
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IPrintHandler>, IAdapterFactoryCatalog<IPrintHandler>>();
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListViewHandler>, IAdapterFactoryCatalog<IDataListViewHandler>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
@@ -50,8 +54,20 @@ namespace Uniframework.SmartClient
             RootWorkItem.Services.AddOnDemand<UIExtensionService, IUIExtensionService>();
 
             AddCustomWorkItem(); // 加载自定义的工作项
+            RegisterFactoryCatalog();
         }
 
+        /// <summary>
+        /// 添加自定义的策略构建器
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void AddBuilderStrategies(Builder builder)
+        {
+            base.AddBuilderStrategies(builder);
+
+            builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
+            builder.Strategies.AddNew<TextEditAdapterStrategy>(BuilderStage.Initialization);
+        }
         #region Assistant function
 
         /// <summary>
@@ -61,6 +77,14 @@ namespace Uniframework.SmartClient
         {
             ControlledWorkItem<TaskbarController> taskbarWorkItem = RootWorkItem.WorkItems.AddNew<ControlledWorkItem<TaskbarController>>();
             taskbarWorkItem.Run();
+        }
+
+        /// <summary>
+        /// Registers the custom factory catalog.
+        /// </summary>
+        private void RegisterFactoryCatalog()
+        {
+            editFactoryCatalog.RegisterFactory(new TextEditAdapterFactory());
         }
 
         #endregion
