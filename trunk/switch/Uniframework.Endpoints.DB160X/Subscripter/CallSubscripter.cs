@@ -45,13 +45,10 @@ namespace Uniframework.Switch.Endpoints.DB160X
             if (method != null && channel.CurrentStatus == ChannelStatus.IDLE)
                 try
                 {
-                    DynamicInvokerHandler invoker = DynamicInvoker.GetMethodInvoker(method);
                     channel.CurrentStatus = ChannelStatus.EXECUTE;
                     channel.Logger.Debug(String.Format("反射目标通道 {0} 的呼入/呼出事件处理程序，OnCall", channel.ChannelID));
-                    //method.Invoke(channel, new object[] { channel, 
-                    //    new CallEventArgs(channel.ChannelType == ChannelType.TRUNK ? CallType.In : CallType.Out, callNumber) });
-                    invoker.Invoke(channel, 
-                        new object[] { new CallEventArgs(channel.ChannelType == ChannelType.TRUNK ? CallType.In : CallType.Out, callNumber) });
+                    method.Invoke(channel, new object[] { channel, 
+                        new CallEventArgs(channel.ChannelType == ChannelType.TRUNK ? CallType.In : CallType.Out, callNumber) });
                 }
                 catch (Exception ex)
                 {
