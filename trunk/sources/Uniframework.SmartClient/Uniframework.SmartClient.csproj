@@ -32,9 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=95fc6c5621878f0a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v8.2.Core, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
     <Reference Include="DevExpress.Data.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v8.2.UI, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
@@ -122,6 +125,8 @@
     <Compile Include="Services\Foundation\DocumentService.cs" />
     <Compile Include="Services\Foundation\EditableService.cs" />
     <Compile Include="Services\Foundation\EditAdapters\TextEditAdapterFactory.cs" />
+    <Compile Include="Services\Foundation\EditAdapters\XtraGridEditAdapter.cs" />
+    <Compile Include="Services\Foundation\EditAdapters\XtraGridEditAdapterFactory.cs" />
     <Compile Include="Services\Foundation\IBrowserService.cs" />
     <Compile Include="Services\Foundation\IDataGridListHandler.cs" />
     <Compile Include="Services\Foundation\IDataGridListService.cs" />
@@ -137,6 +142,9 @@
     <Compile Include="Services\Foundation\IPrintHandler.cs" />
     <Compile Include="Services\Foundation\PrintableService.cs" />
     <Compile Include="Services\Foundation\EditAdapters\TextEditAdapter.cs" />
+    <Compile Include="Services\Foundation\PrintAdapters\XtraPrintAdapterFactory.cs" />
+    <Compile Include="Services\Foundation\PrintAdapters\XtraPrintService.cs" />
+    <Compile Include="Services\Foundation\PrintAdapters\XtraGridPrintAdapter.cs" />
     <Compile Include="Services\Help\DynamicHelpService.cs" />
     <Compile Include="Services\Help\IDynamicHelpService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
@@ -153,7 +161,10 @@
     <Compile Include="SmartFormApplication.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
+    <Compile Include="Strategies\StrategyUtility.cs" />
     <Compile Include="Strategies\TextEditAdapterStrategy.cs" />
+    <Compile Include="Strategies\XtraGridEditAdapterStrategy.cs" />
+    <Compile Include="Strategies\XtraPrintAdapterStrategy.cs" />
     <Compile Include="Views\AboutPresenter.cs" />
     <Compile Include="Views\BrowserPresenter.cs" />
     <Compile Include="Views\BrowserView.cs">

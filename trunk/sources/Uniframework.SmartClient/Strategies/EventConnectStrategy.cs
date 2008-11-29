@@ -8,7 +8,7 @@ using Microsoft.Practices.ObjectBuilder;
 using Uniframework.Client;
 using Uniframework.Services;
 
-namespace Uniframework.SmartClient
+namespace Uniframework.SmartClient.Strategies
 {
     /// <summary>
     /// 事件连接器

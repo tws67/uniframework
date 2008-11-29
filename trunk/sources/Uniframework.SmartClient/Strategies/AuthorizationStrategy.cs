@@ -10,7 +10,7 @@ using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Services;
 
-namespace Uniframework.SmartClient
+namespace Uniframework.SmartClient.Strategies
 {
     /// <summary>
     /// 框架权限管理构建策略，在这里对系统中定义的所有需要应用权限的类进行处理
@@ -22,7 +22,7 @@ namespace Uniframework.SmartClient
 
         public override object BuildUp(IBuilderContext context, Type typeToBuild, object existing, string idToBuild)
         {
-            WorkItem workItem = GetWorkItem(context, existing);
+            WorkItem workItem = StrategyUtility.GetWorkItem(context, existing);
             if (workItem != null)
             {
                 IAuthorizationService authService = workItem.Services.Get<IAuthorizationService>();
@@ -40,7 +40,7 @@ namespace Uniframework.SmartClient
 
         public override object TearDown(IBuilderContext context, object item)
         {
-            WorkItem workItem = GetWorkItem(context, item);
+            WorkItem workItem = StrategyUtility.GetWorkItem(context, item);
             if (workItem != null)
             {
                 IAuthorizationService catalog = workItem.Services.Get<IAuthorizationService>();
@@ -89,21 +89,6 @@ namespace Uniframework.SmartClient
                 return attrs[0].Path;
             else
                 return String.Empty;
-        }
-
-
-        /// <summary>
-        /// 返回当前上下文中的WorkItem
-        /// </summary>
-        /// <param name="context">构建上下文</param>
-        /// <param name="item">对象</param>
-        /// <returns>返回当前所需要的WorkItem</returns>
-        private WorkItem GetWorkItem(IBuilderContext context, object item)
-        {
-            if (item is WorkItem)
-                return item as WorkItem;
-
-            return context.Locator.Get<WorkItem>(new DependencyResolutionLocatorKey(typeof(WorkItem), null));
         }
 
         #endregion

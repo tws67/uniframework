@@ -30,12 +30,12 @@ namespace Uniframework.DemoCenter.Client.Database
         {
             this.components = new System.ComponentModel.Container();
             this.dataGrid = new DevExpress.XtraGrid.GridControl();
+            this.bsDocument = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.bsDocument = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsDocument)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGrid
@@ -57,7 +57,6 @@ namespace Uniframework.DemoCenter.Client.Database
             this.gridView1.GridControl = this.dataGrid;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
-            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsView.ShowFooter = true;
             // 
@@ -80,8 +79,8 @@ namespace Uniframework.DemoCenter.Client.Database
             this.Name = "DatabaseView";
             this.Size = new System.Drawing.Size(536, 426);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsDocument)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
 
         }

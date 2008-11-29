@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 
-using DevExpress.XtraEditors;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views;
 
 namespace Uniframework.SmartClient
 {
-    /// <summary>
-    /// 文本编辑器适配器工厂
-    /// </summary>
-    public class TextEditAdapterFactory : IAdapterFactory<IEditHandler>
+    public class XtraGridEditAdapterFactory : IAdapterFactory<IEditHandler>
     {
-        #region IAdapterFactory<IEditHandler> Members
+        #region IAdapterFactory<XtraGridEditAdapter> Members
 
         public IEditHandler GetAdapter(object element)
         {
-            if (element is TextEdit)
-                return new TextEditAdapter(element as TextEdit);
+            if (element is GridControl)
+                return new XtraGridEditAdapter(element as GridControl);
 
             throw new UniframeworkException(String.Format("不支持此种类型 \"{0}\" 控件的编辑服务功能。",
                 element.GetType().ToString()));
@@ -26,7 +26,7 @@ namespace Uniframework.SmartClient
 
         public bool Supports(object element)
         {
-            return element is TextEdit;
+            return element is GridControl;
         }
 
         #endregion
