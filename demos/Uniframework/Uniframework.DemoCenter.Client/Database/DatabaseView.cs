@@ -30,10 +30,11 @@ namespace Uniframework.DemoCenter.Client.Database
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-            dataGrid.BeginUpdate();
             try
             {
-                bsDocument.DataSource = Presenter.GetDocuments();
+                dataGrid.BeginUpdate();
+                bsDocument.DataSource = Presenter.GetDocuments().Tables[0];
+                dataGrid.MainView.PopulateColumns();
             }
             finally
             {

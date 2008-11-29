@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.Common.Services;
@@ -11,6 +10,7 @@ using Microsoft.Practices.CompositeUI.Services;
 using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework.Db4o;
+using Uniframework.SmartClient.Strategies;
 using Uniframework.SmartClient.WorkItems.Setting;
 using Uniframework.XtraForms;
 
@@ -26,6 +26,7 @@ namespace Uniframework.SmartClient
         where TShell : Form
     {
         private IAdapterFactoryCatalog<IEditHandler> editFactoryCatalog;
+        private IAdapterFactoryCatalog<IPrintHandler> printFactoryCatalog;
 
         /// <summary>
         /// Must be overriden. This method is called when the application is fully created and
@@ -42,8 +43,8 @@ namespace Uniframework.SmartClient
             base.AddServices();
 
             editFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IEditHandler>, IAdapterFactoryCatalog<IEditHandler>>();
+            printFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IPrintHandler>, IAdapterFactoryCatalog<IPrintHandler>>();
 
-            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IPrintHandler>, IAdapterFactoryCatalog<IPrintHandler>>();
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListViewHandler>, IAdapterFactoryCatalog<IDataListViewHandler>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
             RootWorkItem.Services.AddOnDemand<Db4oDatabaseService, IDb4oDatabaseService>();
@@ -67,6 +68,8 @@ namespace Uniframework.SmartClient
 
             builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
             builder.Strategies.AddNew<TextEditAdapterStrategy>(BuilderStage.Initialization);
+            builder.Strategies.AddNew<XtraGridEditAdapterStrategy>(BuilderStage.Initialization);
+            builder.Strategies.AddNew<XtraPrintAdapterStrategy>(BuilderStage.Initialization);
         }
         #region Assistant function
 
@@ -85,6 +88,9 @@ namespace Uniframework.SmartClient
         private void RegisterFactoryCatalog()
         {
             editFactoryCatalog.RegisterFactory(new TextEditAdapterFactory());
+            editFactoryCatalog.RegisterFactory(new XtraGridEditAdapterFactory());
+
+            printFactoryCatalog.RegisterFactory(new XtraPrintAdapterFactory(RootWorkItem));
         }
 
         #endregion
