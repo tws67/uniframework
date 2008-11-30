@@ -35,6 +35,8 @@ namespace Uniframework.SmartClient
         {
             if (element is GridControl)
                 return new XtraGridPrintAdapter(element as GridControl, workItem);
+            else if (element is TreeList)
+                return new XtraTreeListPrintAdapter(element as TreeList, workItem);
 
             throw new UniframeworkException(String.Format("不支持此种类型 \"{0}\" 控件的打印服务功能。",
                 element.GetType().ToString()));

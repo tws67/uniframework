@@ -13,11 +13,11 @@ namespace Uniframework.SmartClient
         /// <summary>
         /// Occurs when [data grid actived].
         /// </summary>
-        event EventHandler DataGridActived;
+        event EventHandler Enter;
         /// <summary>
         /// Occurs when [data grid deactived].
         /// </summary>
-        event EventHandler DataGridDeactived;
+        event EventHandler Leave;
 
         /// <summary>
         /// Gets a value indicating whether this instance can insert.

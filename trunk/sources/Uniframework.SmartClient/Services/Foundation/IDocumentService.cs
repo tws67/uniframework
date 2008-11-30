@@ -9,8 +9,16 @@ namespace Uniframework.SmartClient
     /// <summary>
     /// 文档接口，用于实现文档操作的最简单集合
     /// </summary>
-    public interface IDocument
+    public interface IDocumentHandler
     {
+        /// <summary>
+        /// 获得焦点事件
+        /// </summary>
+        event EventHandler Enter;
+        /// <summary>
+        /// 失去焦点事件
+        /// </summary>
+        event EventHandler Leave;
         /// <summary>
         /// 文档激活事件
         /// </summary>
@@ -27,7 +35,7 @@ namespace Uniframework.SmartClient
         /// 文档类型
         /// </summary>
         /// <value>文档类型.</value>
-        IDocumentType DocumentType { get; }
+        List<IDocumentType> SupportTypes { get; }
         /// <summary>
         /// 文档名称
         /// </summary>
@@ -43,30 +51,6 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <param name="filename">文档名称.</param>
         void Save(string filename);
-        /// <summary>
-        /// 返回一个值决定是否可以从一个文件中导入文档
-        /// </summary>
-        /// <value>
-        /// 	如果可以导入文档返回<c>true</c>; 否则为, <c>false</c>.
-        /// </value>
-        bool CanImport { get; }
-        /// <summary>
-        /// 从文件中导入文档
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        void Import(string filename);
-        /// <summary>
-        /// 返回一个值决定是否可以将当前文档导出到文件
-        /// </summary>
-        /// <value>
-        /// 	如果可以导出到文件返回<c>true</c>; 否则为, <c>false</c>.
-        /// </value>
-        bool CanExport { get; }
-        /// <summary>
-        /// 导出文档到特定文件.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        void Export(string filename);
     }
 
     /// <summary>
@@ -87,13 +71,47 @@ namespace Uniframework.SmartClient
     }
 
     /// <summary>
+    /// 简单文档类型表示文档的描述及扩展名
+    /// </summary>
+    public class PlainDocumentType : IDocumentType
+    {
+        private string description;
+        private string extension;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlainDocumentType"/> class.
+        /// </summary>
+        /// <param name="description">The description.</param>
+        /// <param name="extension">The extension.</param>
+        public PlainDocumentType(string description, string extension)
+        {
+            this.description = description;
+            this.extension = extension;
+        }
+
+        #region IDocumentType Members
+
+        public string Description
+        {
+            get { return description; }
+        }
+
+        public string Extension
+        {
+            get { return extension; }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
     /// Describes a document factory which is able to create new documents and
     /// open existing ones.
     /// </summary>
     public interface IDocumentFactory : IDocumentType
     {
-        IDocument New();
-        IDocument Open(string filename);
+        IDocumentHandler New();
+        IDocumentHandler Open(string filename);
     }
     /// <summary>
     /// 文档服务接口
@@ -105,12 +123,31 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <value>文档类型列表.</value>
         ReadOnlyCollection<IDocumentType> DocumentTypes { get; }
-
         /// <summary>
         /// 注册文档工厂
         /// </summary>
         /// <param name="documentFactory">文档工厂.</param>
         void Register(IDocumentFactory documentFactory);
+        /// <summary>
+        /// 注册文档处理组件
+        /// </summary>
+        /// <param name="uiElement">文档处理UI组件.</param>
+        void Register(object uiElement);
+        /// <summary>
+        /// 注册文档处理器
+        /// </summary>
+        /// <param name="handler">文档处理器</param>
+        void Register(IDocumentHandler handler);
+        /// <summary>
+        /// 注销文档处理组件
+        /// </summary>
+        /// <param name="uiElement">文档处理UI组件.</param>
+        void UnRegister(object uiElement);
+        /// <summary>
+        /// 注销文档处理器
+        /// </summary>
+        /// <param name="handler">文档处理器.</param>
+        void UnRegister(IDocumentHandler handler);
         /// <summary>
         /// 新建指定文档类型的文档
         /// </summary>

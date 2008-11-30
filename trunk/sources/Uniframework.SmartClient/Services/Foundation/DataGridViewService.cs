@@ -66,8 +66,8 @@ namespace Uniframework.SmartClient
         public void Register(IDataListViewHandler handler)
         {
             Guard.ArgumentNotNull(handler, "Data grid view handler");
-            handler.DataGridActived += new EventHandler(DataGridActived);
-            handler.DataGridDeactived += new EventHandler(DataGridDeactived);
+            handler.Enter += new EventHandler(OnLeave);
+            handler.Leave += new EventHandler(OnEnter);
         }
 
 
@@ -81,8 +81,8 @@ namespace Uniframework.SmartClient
         public void UnRegister(IDataListViewHandler handler)
         {
             Guard.ArgumentNotNull(handler, "Data grid view handler");
-            handler.DataGridActived -= DataGridActived;
-            handler.DataGridDeactived -= DataGridDeactived;
+            handler.Enter -= OnLeave;
+            handler.Leave -= OnEnter;
         }
 
         public void UnRegister(object datagrid)
@@ -223,13 +223,13 @@ namespace Uniframework.SmartClient
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SETTING, enabled && ActiveView.CanSetting);
         }
 
-        private void DataGridDeactived(object sender, EventArgs e)
+        private void OnEnter(object sender, EventArgs e)
         {
             activeView = null;
             UpdateCommandStatus();
         }
 
-        private void DataGridActived(object sender, EventArgs e)
+        private void OnLeave(object sender, EventArgs e)
         {
             Microsoft.Practices.CompositeUI.Utility.Guard.TypeIsAssignableFromType(sender.GetType(), typeof(IDataListViewHandler), "sender");
 

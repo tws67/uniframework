@@ -27,6 +27,7 @@ namespace Uniframework.SmartClient
     {
         private IAdapterFactoryCatalog<IEditHandler> editFactoryCatalog;
         private IAdapterFactoryCatalog<IPrintHandler> printFactoryCatalog;
+        private IAdapterFactoryCatalog<IDocumentHandler> documentFactoryCatalog;
 
         /// <summary>
         /// Must be overriden. This method is called when the application is fully created and
@@ -44,6 +45,7 @@ namespace Uniframework.SmartClient
 
             editFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IEditHandler>, IAdapterFactoryCatalog<IEditHandler>>();
             printFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IPrintHandler>, IAdapterFactoryCatalog<IPrintHandler>>();
+            documentFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IDocumentHandler>, IAdapterFactoryCatalog<IDocumentHandler>>();
 
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListViewHandler>, IAdapterFactoryCatalog<IDataListViewHandler>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
@@ -70,6 +72,7 @@ namespace Uniframework.SmartClient
             builder.Strategies.AddNew<TextEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraGridEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraPrintAdapterStrategy>(BuilderStage.Initialization);
+            builder.Strategies.AddNew<XtraDocumentAdapterStrategy>(BuilderStage.Initialization);
         }
         #region Assistant function
 
@@ -87,9 +90,14 @@ namespace Uniframework.SmartClient
         /// </summary>
         private void RegisterFactoryCatalog()
         {
+            // 文档
+            documentFactoryCatalog.RegisterFactory(new XtraDocumentAdapterFactory());
+
+            // 编辑
             editFactoryCatalog.RegisterFactory(new TextEditAdapterFactory());
             editFactoryCatalog.RegisterFactory(new XtraGridEditAdapterFactory());
 
+            // 打印
             printFactoryCatalog.RegisterFactory(new XtraPrintAdapterFactory(RootWorkItem));
         }
 

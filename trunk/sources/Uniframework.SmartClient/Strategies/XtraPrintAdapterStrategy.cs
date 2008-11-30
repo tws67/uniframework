@@ -18,7 +18,7 @@ namespace Uniframework.SmartClient.Strategies
             if (workItem != null) {
                 IPrintableService printableService = workItem.Services.Get<IPrintableService>();
                 if (printableService != null && existing is Control)
-                    RegisterPrintable(printableService, (Control)existing, true);
+                    RegisterPrintableAdapter(printableService, (Control)existing, true);
             }
 
             return base.BuildUp(context, typeToBuild, existing, idToBuild);
@@ -32,13 +32,13 @@ namespace Uniframework.SmartClient.Strategies
             {
                 IPrintableService printableService = workItem.Services.Get<IPrintableService>();
                 if (printableService != null && item is Control)
-                    RegisterPrintable(printableService, (Control)item, false);
+                    RegisterPrintableAdapter(printableService, (Control)item, false);
             }
 
             return base.TearDown(context, item);
         }
 
-        private void RegisterPrintable(IPrintableService printableService, Control control, bool register)
+        private void RegisterPrintableAdapter(IPrintableService printableService, Control control, bool register)
         {
             Guard.ArgumentNotNull(printableService, "printableService");
             Guard.ArgumentNotNull(control, "control");
@@ -52,7 +52,7 @@ namespace Uniframework.SmartClient.Strategies
                 }
 
                 if (ctrl.Controls.Count > 0)
-                    RegisterPrintable(printableService, ctrl, register);
+                    RegisterPrintableAdapter(printableService, ctrl, register);
             }
         }
 

@@ -27,7 +27,7 @@ namespace Uniframework.SmartClient.Strategies
             if (workItem != null) {
                 IEditableService editableService = workItem.Services.Get<IEditableService>();
                 if (editableService != null && existing is Control)
-                    RegisterXtraGrid(editableService, (Control)existing, true);
+                    RegisterXtraGridEditAdapter(editableService, (Control)existing, true);
             }
 
             return base.BuildUp(context, typeToBuild, existing, idToBuild);
@@ -46,7 +46,7 @@ namespace Uniframework.SmartClient.Strategies
             {
                 IEditableService editableService = workItem.Services.Get<IEditableService>();
                 if (editableService != null && item is Control)
-                    RegisterXtraGrid(editableService, (Control)item, false);
+                    RegisterXtraGridEditAdapter(editableService, (Control)item, false);
             }
 
             return base.TearDown(context, item);
@@ -58,7 +58,7 @@ namespace Uniframework.SmartClient.Strategies
         /// <param name="editableService">The editable service.</param>
         /// <param name="control">The control.</param>
         /// <param name="register">if set to <c>true</c> [register].</param>
-        private void RegisterXtraGrid(IEditableService editableService, Control control, bool register)
+        private void RegisterXtraGridEditAdapter(IEditableService editableService, Control control, bool register)
         {
             Guard.ArgumentNotNull(editableService, "editableService");
             Guard.ArgumentNotNull(control, "control");
@@ -72,7 +72,7 @@ namespace Uniframework.SmartClient.Strategies
                 }
 
                 if (ctrl.Controls.Count > 0)
-                    RegisterXtraGrid(editableService, ctrl, register);
+                    RegisterXtraGridEditAdapter(editableService, ctrl, register);
             }
         }
     }

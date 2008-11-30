@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
+using Lephone.Data;
+using Lephone.Data.Common;
+using Lephone.Data.Definition;
+
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
+
 using Uniframework.Database;
-using System.Data;
+using Uniframework.Entities;
 
 namespace Uniframework.DemoCenter.Client.Database
 {
@@ -29,6 +35,11 @@ namespace Uniframework.DemoCenter.Client.Database
         public DataSet GetDocuments()
         {
             return DatabaseService.ExecuteDataset("select * from COM_Document");
+        }
+
+        public DbObjectList<Document> Documents()
+        {
+            return DatabaseService.ExecuteList<Document>(new Lephone.Data.SqlEntry.SqlStatement("select * from COM_Document"));
         }
     }
 }

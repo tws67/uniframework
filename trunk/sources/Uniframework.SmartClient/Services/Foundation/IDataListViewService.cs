@@ -19,7 +19,7 @@ namespace Uniframework.SmartClient
         /// Registers the specified datagrid.
         /// </summary>
         /// <param name="datagrid">The datagrid.</param>
-        void Register(object datagrid);
+        void Register(object uiElement);
         /// <summary>
         /// Uns the register.
         /// </summary>
@@ -29,6 +29,6 @@ namespace Uniframework.SmartClient
         /// Uns the register.
         /// </summary>
         /// <param name="datagrid">The datagrid.</param>
-        void UnRegister(object datagrid);
+        void UnRegister(object uiElement);
     }
 }
