@@ -108,6 +108,10 @@
       <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
       <Name>Uniframework.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\sources\Uniframework.Entities\Uniframework.Entities.csproj">
+      <Project>{4DF29E17-6C52-47D4-9F4E-42691C358F83}</Project>
+      <Name>Uniframework.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\sources\Uniframework.SmartClient\Uniframework.SmartClient.csproj">
       <Project>{3A800ABE-8658-460C-A471-D1C14FADF408}</Project>
       <Name>Uniframework.SmartClient</Name>

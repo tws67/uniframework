@@ -34,7 +34,23 @@ namespace Uniframework.DemoCenter.Client.Database
             {
                 dataGrid.BeginUpdate();
                 bsDocument.DataSource = Presenter.GetDocuments().Tables[0];
-                dataGrid.MainView.PopulateColumns();
+                dataGrid.DefaultView.PopulateColumns();
+            }
+            finally
+            {
+                dataGrid.EndUpdate();
+            }
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGrid.BeginUpdate();
+                using (WaitCursor cursor = new WaitCursor(true)) {
+                    bsDocument.DataSource = Presenter.Documents();
+                    dataGrid.DefaultView.PopulateColumns();
+                }
             }
             finally
             {

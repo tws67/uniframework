@@ -103,18 +103,27 @@ namespace Uniframework.SmartClient
             printSystem.PageSettings.PaperKind = paperKind;
         }
 
+        /// <summary>
+        /// 快速打印
+        /// </summary>
         public void QuickPrint()
         {
             PreparePrint();
             printSystem.Print();
         }
 
+        /// <summary>
+        /// 提供打印对话框的打印
+        /// </summary>
         public void Print()
         {
             PreparePrint();
             printSystem.PrintDlg();
         }
 
+        /// <summary>
+        /// 打印预览
+        /// </summary>
         public void Preview()
         {
             PreparePrint();
@@ -122,6 +131,10 @@ namespace Uniframework.SmartClient
                 printSystem.Links[0].ShowPreviewDialog();
         }
 
+        /// <summary>
+        /// 打印预览
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public void Preview(IWin32Window owner)
         {
             PreparePrint();
@@ -129,6 +142,9 @@ namespace Uniframework.SmartClient
                 printSystem.Links[0].ShowPreviewDialog(owner);
         }
 
+        /// <summary>
+        /// 页面设置
+        /// </summary>
         public void PageSetup()
         {
             printSystem.PageSetup();
@@ -136,6 +152,9 @@ namespace Uniframework.SmartClient
 
         #region Assistant functions
 
+        /// <summary>
+        /// 打印准备
+        /// </summary>
         private void PreparePrint()
         {
             foreach (Link link in printSystem.Links) {
@@ -143,23 +162,11 @@ namespace Uniframework.SmartClient
             }
         }
 
-        private void pcl_CreateMarginalFooterArea(object sender, CreateAreaEventArgs e)
-        {
-            string format = "第{0}页 共{1}页";
-            e.Graph.Font = new Font("宋体", 10);
-            e.Graph.BackColor = Color.Transparent;
-
-            RectangleF r = new RectangleF(0, 5, 0, e.Graph.Font.Height + 20);
-
-            PageInfoBrick brick = e.Graph.DrawPageInfo(PageInfo.NumberOfTotal, format, Color.Black, r, BorderSide.None);
-            brick.Alignment = BrickAlignment.Far;
-            brick.AutoWidth = true;
-
-            brick = e.Graph.DrawPageInfo(PageInfo.DateTime, "打印时间:" + DateTime.Today.ToLongDateString(), Color.Black, r, BorderSide.None);
-            brick.Alignment = BrickAlignment.Near;
-            brick.AutoWidth = true;
-        }
-
+        /// <summary>
+        /// 添加页眉
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DevExpress.XtraPrinting.CreateAreaEventArgs"/> instance containing the event data.</param>
         private void pcl_CreateMarginalHeaderArea(object sender, CreateAreaEventArgs e)
         {
             if (!String.IsNullOrEmpty(reportTitle))
@@ -181,6 +188,28 @@ namespace Uniframework.SmartClient
                 brick.Alignment = BrickAlignment.Center;
                 brick.AutoWidth = true;
             }
+        }
+
+        /// <summary>
+        /// 添加页脚
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DevExpress.XtraPrinting.CreateAreaEventArgs"/> instance containing the event data.</param>
+        private void pcl_CreateMarginalFooterArea(object sender, CreateAreaEventArgs e)
+        {
+            string format = "第{0}页 共{1}页";
+            e.Graph.Font = new Font("宋体", 10);
+            e.Graph.BackColor = Color.Transparent;
+
+            RectangleF r = new RectangleF(0, 5, 0, e.Graph.Font.Height + 20);
+
+            PageInfoBrick brick = e.Graph.DrawPageInfo(PageInfo.NumberOfTotal, format, Color.Black, r, BorderSide.None);
+            brick.Alignment = BrickAlignment.Far;
+            brick.AutoWidth = true;
+
+            brick = e.Graph.DrawPageInfo(PageInfo.DateTime, "打印时间:" + DateTime.Today.ToLongDateString(), Color.Black, r, BorderSide.None);
+            brick.Alignment = BrickAlignment.Near;
+            brick.AutoWidth = true;
         }
 
         #endregion

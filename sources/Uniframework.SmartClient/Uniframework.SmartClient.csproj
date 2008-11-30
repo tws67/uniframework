@@ -122,14 +122,17 @@
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
     <Compile Include="Services\Foundation\BrowserService.cs" />
     <Compile Include="Services\Foundation\DataGridViewService.cs" />
+    <Compile Include="Services\Foundation\DocumentAdapters\TreeListDocumentAdapter.cs" />
+    <Compile Include="Services\Foundation\DocumentAdapters\XtraDocumentAdapterFactory.cs" />
+    <Compile Include="Services\Foundation\DocumentAdapters\XtraGridDocumentAdapter.cs" />
     <Compile Include="Services\Foundation\DocumentService.cs" />
     <Compile Include="Services\Foundation\EditableService.cs" />
     <Compile Include="Services\Foundation\EditAdapters\TextEditAdapterFactory.cs" />
     <Compile Include="Services\Foundation\EditAdapters\XtraGridEditAdapter.cs" />
     <Compile Include="Services\Foundation\EditAdapters\XtraGridEditAdapterFactory.cs" />
     <Compile Include="Services\Foundation\IBrowserService.cs" />
-    <Compile Include="Services\Foundation\IDataGridListHandler.cs" />
-    <Compile Include="Services\Foundation\IDataGridListService.cs" />
+    <Compile Include="Services\Foundation\IDataListViewHandler.cs" />
+    <Compile Include="Services\Foundation\IDataListViewService.cs" />
     <Compile Include="Services\Foundation\IDocumentService.cs" />
     <Compile Include="Services\Foundation\IEditHandler.cs" />
     <Compile Include="Services\Foundation\IEditableService.cs" />
@@ -145,6 +148,7 @@
     <Compile Include="Services\Foundation\PrintAdapters\XtraPrintAdapterFactory.cs" />
     <Compile Include="Services\Foundation\PrintAdapters\XtraPrintService.cs" />
     <Compile Include="Services\Foundation\PrintAdapters\XtraGridPrintAdapter.cs" />
+    <Compile Include="Services\Foundation\PrintAdapters\XtraTreeListPrintAdapter.cs" />
     <Compile Include="Services\Help\DynamicHelpService.cs" />
     <Compile Include="Services\Help\IDynamicHelpService.cs" />
     <Compile Include="Services\IContentMenuService.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Strategies\StrategyUtility.cs" />
     <Compile Include="Strategies\TextEditAdapterStrategy.cs" />
+    <Compile Include="Strategies\XtraDocumentAdapterStrategy.cs" />
     <Compile Include="Strategies\XtraGridEditAdapterStrategy.cs" />
     <Compile Include="Strategies\XtraPrintAdapterStrategy.cs" />
     <Compile Include="Views\AboutPresenter.cs" />

@@ -48,6 +48,10 @@ namespace Uniframework.SmartClient
 
         #region IPrintableService Members
 
+        /// <summary>
+        /// Registers the specified handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
         public void Register(IPrintHandler handler)
         {
             Guard.ArgumentNotNull(handler, "PrintHandler");
@@ -56,6 +60,10 @@ namespace Uniframework.SmartClient
             handler.Leave += new EventHandler(OnLeave);
         }
 
+        /// <summary>
+        /// Registers the specified UI element.
+        /// </summary>
+        /// <param name="uiElement">The UI element.</param>
         public void Register(object uiElement)
         {
             IPrintHandler handler = FactoryCatalog.GetFactory(uiElement).GetAdapter(uiElement);
@@ -63,6 +71,10 @@ namespace Uniframework.SmartClient
             Register(handler);
         }
 
+        /// <summary>
+        /// Uns the register.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
         public void UnRegister(IPrintHandler handler)
         {
             Guard.ArgumentNotNull(handler, "PrintHandler");
@@ -71,6 +83,10 @@ namespace Uniframework.SmartClient
             handler.Leave -= OnLeave;
         }
 
+        /// <summary>
+        /// Uns the register.
+        /// </summary>
+        /// <param name="uiElement">The UI element.</param>
         public void UnRegister(object uiElement)
         {
             if (handlers.ContainsKey(uiElement)) {

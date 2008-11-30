@@ -27,10 +27,10 @@ namespace Uniframework.Client
                 if (subsystemInfo != null && subsystemInfo.Type != null)
                 {
                     subsystems.Add(subsystemInfo.Type, subsystemInfo);
-                    foreach (RemoteMethodInfo serviceInfo in subsystemInfo.Functions)
+                    foreach (RemoteMethodInfo rmInfo in subsystemInfo.RemoteMethods)
                     {
-                        if (serviceInfo != null && serviceInfo.MethodInfo != null)
-                            services.Add(serviceInfo.MethodInfo, serviceInfo);
+                        if (rmInfo != null && rmInfo.MethodInfo != null)
+                            services.Add(rmInfo.MethodInfo, rmInfo);
                     }
                 }
             }

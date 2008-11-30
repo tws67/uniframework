@@ -199,7 +199,7 @@
             classname="XtraButtonItem"
             shortcut="F2"/>
 
-      <Item id="Import"
+      <!--<Item id="Import"
             name="mmifImport"
             label="导入(&amp;I)..."
             command="/Shell/Module/Foundation/File/Import"
@@ -214,7 +214,7 @@
             command="/Shell/Module/Foundation/File/Export"
             classname="XtraButtonItem"
             shortcut="CtrlE"
-            imagefile="${export1}"/>
+            imagefile="${export1}"/>-->
 
       <Item id="Print"
             name="mmifPrint"

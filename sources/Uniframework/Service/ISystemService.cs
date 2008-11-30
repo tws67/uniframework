@@ -20,14 +20,14 @@ namespace Uniframework.Services
         private ServiceType systemType;
         private ServiceScope serviceScope = ServiceScope.Global;
         private Type type;
-        private List<RemoteMethodInfo> functions;
+        private List<RemoteMethodInfo> remoteMethods;
 
         /// <summary>
         /// 无参构造函数
         /// </summary>
         public ServiceInfo()
         {
-            functions = new List<RemoteMethodInfo>();
+            remoteMethods = new List<RemoteMethodInfo>();
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取操作列表
         /// </summary>
-        public List<RemoteMethodInfo> Functions { get { return functions; } }
+        public List<RemoteMethodInfo> RemoteMethods { get { return remoteMethods; } }
 
         /// <summary>
         /// 增加系统操作
@@ -116,7 +116,7 @@ namespace Uniframework.Services
         /// <param name="service">系统操作</param>
         public void AddService(RemoteMethodInfo service)
         {
-            functions.Add(service);
+            remoteMethods.Add(service);
         }
     }
     #endregion
