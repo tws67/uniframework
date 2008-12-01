@@ -53,8 +53,7 @@ namespace Uniframework
         {
             if (data == null)
                 return default(T);
-            using (MemoryStream stream = new MemoryStream(compressor.Decompress(data)))
-            {
+            using (MemoryStream stream = new MemoryStream(compressor.Decompress(data))) {
                 return (T)bf.Deserialize(stream);
             }
         }

@@ -56,17 +56,17 @@ namespace Uniframework.Client
         {
             MethodInfo method = invocation.Method;
             RemoteMethodInfo remoteMethod = null;
-            if (method.IsGenericMethod) {
-                method = invocation.GetConcreteMethodInvocationTarget();
+            if (method.IsGenericMethodDefinition) {
+                method = invocation.Method.MakeGenericMethod(invocation.GenericArguments); // 获取方法泛型定义
 
                 if (method.DeclaringType == typeof(IRemoteCaller)) {
-                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, GetArgs(invocation));
+                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
                     return;
                 }
             }
             else {
                 if (method.DeclaringType == typeof(IRemoteCaller)) {
-                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, GetArgs(invocation));
+                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
                     return;
                 }
             }
@@ -74,49 +74,43 @@ namespace Uniframework.Client
             remoteMethod = InterfaceConfigLoader.GetServiceInfo(method);
             if (!remoteMethod.Offline)
             {
-                // Modified : 修复系统对缓存方法的调用
-                // Jacky 2007-05-22 11:28
-                // begin modified
                 if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
                 {
-                    if (ClientCacheManager.HasCache(method, GetArgs(invocation)))
-                        invocation.ReturnValue = ClientCacheManager.GetCachedData(method, GetArgs(invocation));
+                    // 获取缓存结果
+                    if (ClientCacheManager.HasCache(method, invocation.Arguments))
+                        invocation.ReturnValue = ClientCacheManager.GetCachedData(method, invocation.Arguments);
                     else
                     {
-                        object result = InvokeCommand(method, GetArgs(invocation));
-                        ClientCacheManager.RegisterCache(method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
+                        // 第一次调用
+                        object result = InvokeCommand(method, invocation.Arguments);
+                        ClientCacheManager.RegisterCache(method, result, remoteMethod.DataUpdateEvent, invocation.Arguments);
                         invocation.ReturnValue = result;
                     }
                 }
-                else // end modified
-                    invocation.ReturnValue = InvokeCommand(method, GetArgs(invocation));
+                else
+                    invocation.ReturnValue = InvokeCommand(method, invocation.Arguments);
             }
             else
             {
                 if (invocation.Method.IsDefined(typeof(ClientCacheAttribute), true))
                 {
-                    if (ClientCacheManager.HasCache(method, GetArgs(invocation)))
-                        invocation.ReturnValue = ClientCacheManager.GetCachedData(method, GetArgs(invocation));
+                    if (ClientCacheManager.HasCache(method, invocation.Arguments))
+                        invocation.ReturnValue = ClientCacheManager.GetCachedData(method, invocation.Arguments);
                     else
                     {
-                        object result = InvokeCommand(method, GetArgs(invocation));
-                        ClientCacheManager.RegisterCache(method, result, remoteMethod.DataUpdateEvent, GetArgs(invocation));
+                        object result = InvokeCommand(method, invocation.Arguments);
+                        ClientCacheManager.RegisterCache(method, result, remoteMethod.DataUpdateEvent, invocation.Arguments);
                         invocation.ReturnValue = result;
                     }
                 }
                 else
-                    OfflineProcess(invocation.Method, GetArgs(invocation)); // 调用离线处理方法
+                    OfflineProcess(invocation.Method, invocation.Arguments); // 调用离线处理方法
             }
         }
 
         #endregion
 
         #region Assistant function
-
-        private object[] GetArgs(IInvocation invocation)
-        {
-            return invocation.Method.IsGenericMethod ? invocation.GenericArguments : invocation.Arguments;
-        }
 
         private void ThrowException(string message, IInvocation invocation, string[] parameterTypes)
         {
