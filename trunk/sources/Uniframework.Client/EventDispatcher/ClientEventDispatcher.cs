@@ -16,21 +16,21 @@ namespace Uniframework.Client
         private Dictionary<string, Dictionary<MethodInfo, List<object>>> subscribers;
         private static ClientEventDispatcher instance;
         private static object syncObj = new object();
-        private ILog log;
+        private ILog logger;
         private IEventDispatcher dispatcher;
 
         /// <summary>
         /// 日志记录组件
         /// </summary>
-        public ILog Log
+        public ILog Logger
         {
             get
             {
-                return log;
+                return logger;
             }
             set
             {
-                log = value;
+                logger = value;
             }
         }
 
@@ -70,11 +70,11 @@ namespace Uniframework.Client
                     try
                     {
                         InvokeMehtod(receiver, method, e);
-                        log.Debug("已经将事件参数 [" + e.GetType().Name + "] 提交 [" + receiver.GetType().Name + "] 类的 [" + method.Name + "] 方法");
+                        logger.Debug("已经将事件参数 [" + e.GetType().Name + "] 提交 [" + receiver.GetType().Name + "] 类的 [" + method.Name + "] 方法");
                     }
                     catch (Exception ex)
                     {
-                        log.Warn("分发事件时发生错误", ex);
+                        logger.Warn("分发事件时发生错误", ex);
                     }
                 }
             }

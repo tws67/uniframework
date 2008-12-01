@@ -14,7 +14,7 @@ namespace Uniframework.Upgrade
     public class UpgradeDetecter : StartableBase
     {
         private ILiveUpgradeService liveupgradeService;
-        private int checkInterval = 1800; // 默认30分钟检查一次
+        private int checkInterval = 30; // 默认30分钟检查一次
         private Thread thread;
         private object syncObj = new object();
 
@@ -46,7 +46,7 @@ namespace Uniframework.Upgrade
         private void StartDetectUpgrade()
         {
             while (IsRun) {
-                Thread.Sleep(checkInterval * 1000);
+                Thread.Sleep(checkInterval * 1000 * 60);
                 UpgradeProject proj = liveupgradeService.GetValidUpgradeProject();
                 if (proj != null)
                     liveupgradeService.UpgradeNotify(proj);
