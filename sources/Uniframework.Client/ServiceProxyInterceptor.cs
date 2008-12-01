@@ -54,23 +54,13 @@ namespace Uniframework.Client
         /// <param name="invocation">The invocation.</param>
         public void Intercept(IInvocation invocation)
         {
-            MethodInfo method = invocation.Method;
+            MethodInfo method = invocation.GetConcreteMethodInvocationTarget();
             RemoteMethodInfo remoteMethod = null;
-            if (method.IsGenericMethodDefinition) {
-                method = invocation.Method.MakeGenericMethod(invocation.GenericArguments); // 获取方法泛型定义
-
-                if (method.DeclaringType == typeof(IRemoteCaller)) {
-                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
-                    return;
-                }
+            if (method.DeclaringType == typeof(IRemoteCaller)) {
+                invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
+                return;
             }
-            else {
-                if (method.DeclaringType == typeof(IRemoteCaller)) {
-                    invocation.ReturnValue = method.Invoke(invocation.InvocationTarget, invocation.Arguments);
-                    return;
-                }
-            }
-
+ 
             remoteMethod = InterfaceConfigLoader.GetServiceInfo(method);
             if (!remoteMethod.Offline)
             {

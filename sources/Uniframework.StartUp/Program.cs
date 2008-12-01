@@ -76,7 +76,7 @@ namespace Uniframework.StartUp
                 XmlConfigurator.Configure(new FileInfo(LOGGER_CONFIGFILE));
                 logger = LogManager.GetLogger(typeof(Program));
                 logger.Info("****************应用程序启动，本次会话编号为[" + sessionID + "]****************");
-                ClientEventDispatcher.Instance.Log = logger;
+                ClientEventDispatcher.Instance.Logger = logger;
                 IncreaseProgressBar(10);
 
                 SetInitialState("初始化通讯代理组件……");

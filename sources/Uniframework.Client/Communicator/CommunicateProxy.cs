@@ -109,7 +109,7 @@ namespace Uniframework.Client
             Guard.ArgumentNotNull(method, "method");
             Guard.ArgumentNotNull(parameter, "parameter");
 
-            ClientEventDispatcher.Instance.Log.Debug("提交请求[" + method.Name + "]，SessionID 为 [" + sessionID + "]，用户 [" + username + "] ");
+            ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "]，SessionID 为 [" + sessionID + "]，用户 [" + username + "] ");
             byte[] buf = serializer.Serialize<MethodInfo>(method);
             byte[] par = serializer.Serialize<object>(parameter);
             byte[] encryptData = SecurityUtility.DESEncrypt(par, encryptKey); // 加密参数值
