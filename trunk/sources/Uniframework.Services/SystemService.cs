@@ -123,12 +123,12 @@ namespace Uniframework.Services
                             }
                         }
                         // 注册方法
-                        RemoteMethodAttribute functionAttribute = mi.GetCustomAttributes(typeof(RemoteMethodAttribute), true)[0] as RemoteMethodAttribute;
+                        RemoteMethodAttribute rmAttribute = mi.GetCustomAttributes(typeof(RemoteMethodAttribute), true)[0] as RemoteMethodAttribute;
                         RegisterFunction(SecurityUtility.HashObject(mi),
                             serviceKey,
                             mi.Name,
-                            functionAttribute.Description,
-                            functionAttribute.Offline,
+                            rmAttribute.Description,
+                            rmAttribute.Offline,
                             mi,
                             dataUpdateEvent);
                     }
@@ -190,6 +190,28 @@ namespace Uniframework.Services
         }
 
         /// <summary>
+        /// 获取方法的动态调用器
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns></returns>
+        public DynamicInvokerHandler GetDynamicInvoker(MethodInfo method)
+        {
+            if (invokers.ContainsKey(method))
+                return invokers[method];
+            else
+                try {
+                    if (method.IsGenericMethod)
+                        method = method.GetGenericMethodDefinition();
+                    DynamicInvokerHandler invoker = DynamicInvoker.GetMethodInvoker(method);
+                    invokers.Add(method, invoker);
+                    return invoker;
+                }
+                catch (Exception ex) {
+                    throw ex;
+                }
+        }
+
+        /// <summary>
         /// 返回所有的服务列表
         /// </summary>
         /// <returns>返回系统可用的所有远程服务列表</returns>
@@ -235,9 +257,9 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="methodInfo">方法参数</param>
         /// <returns></returns>
-        public DynamicInvokerHandler GetInvoker(MethodInfo methodInfo)
+        public DynamicInvokerHandler GetInvoker(MethodInfo method)
         {
-            return invokers[methodInfo];
+            return invokers[method];
         }
 
         #endregion

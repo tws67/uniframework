@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+
 using Castle.MicroKernel;
 using Castle.Windsor;
 
@@ -30,11 +32,11 @@ namespace Uniframework.Services
         /// <param name="method">方法</param>
         /// <param name="parameters">方法参数</param>
         /// <returns></returns>
-        public object Invoke(System.Reflection.MethodInfo method, object[] parameters)
+        public object Invoke(MethodInfo method, object[] parameters)
         {
             object service = kernel[method.DeclaringType];
             ISystemService system = (ISystemService)kernel[typeof(ISystemService)];
-            DynamicInvokerHandler invoker = system.GetInvoker(method);
+            DynamicInvokerHandler invoker = system.GetDynamicInvoker(method);
             return invoker(service, parameters);
         }
 

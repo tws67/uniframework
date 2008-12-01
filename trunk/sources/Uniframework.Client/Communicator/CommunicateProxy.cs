@@ -98,8 +98,17 @@ namespace Uniframework.Client
             return serverReady;
         }
 
+        /// <summary>
+        /// Invokes the command.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
         public static object InvokeCommand(MethodInfo method, object parameter)
         {
+            Guard.ArgumentNotNull(method, "method");
+            Guard.ArgumentNotNull(parameter, "parameter");
+
             ClientEventDispatcher.Instance.Log.Debug("提交请求[" + method.Name + "]，SessionID 为 [" + sessionID + "]，用户 [" + username + "] ");
             byte[] buf = serializer.Serialize<MethodInfo>(method);
             byte[] par = serializer.Serialize<object>(parameter);
@@ -110,6 +119,10 @@ namespace Uniframework.Client
             return serializer.Deserialize<object>(SecurityUtility.DESDecrypt(result, encryptKey)); // 解密返回结果
         }
 
+        /// <summary>
+        /// Gets the remote interface catalog.
+        /// </summary>
+        /// <returns></returns>
         public static List<ServiceInfo> GetRemoteInterfaceCatalog()
         {
             NetworkInvokePackage pk = GetPackage(NetworkInvokeType.RemoteService);
@@ -117,6 +130,9 @@ namespace Uniframework.Client
             return serializer.Deserialize<List<ServiceInfo>>(buf);
         }
 
+        /// <summary>
+        /// Registers the session.
+        /// </summary>
         public static void RegisterSession()
         {
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());

@@ -274,15 +274,22 @@ namespace Uniframework.Services
         /// 注销会话
         /// </summary>
         /// <param name="sessionID">会话标识</param>
-        [RemoteMethod("注销会话")]
+        [RemoteMethod]
         void UnRegisterSession(string sessionID);
 
         /// <summary>
-        /// 
+        /// 获取客户端配置信息
         /// </summary>
-        /// <returns></returns>
-        [RemoteMethod("获取客户端配置信息")]
+        /// <returns>返回当前用户可以加载的客户模块列表</returns>
+        [RemoteMethod]
         ClientModuleInfo[] GetClientModules();
+
+        /// <summary>
+        /// 获取方法的动态调用器
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns></returns>
+        DynamicInvokerHandler GetDynamicInvoker(MethodInfo method);
 
         /// <summary>
         /// 获取远程服务
@@ -297,12 +304,5 @@ namespace Uniframework.Services
         /// <param name="clientType">客户端类型</param>
         /// <returns></returns>
         List<ServiceInfo> GetServices(string sessionID, ClientType clientType);
-
-        /// <summary>
-        /// 返回方法原型以便调用
-        /// </summary>
-        /// <param name="methodInfo">方法参数</param>
-        /// <returns></returns>
-        DynamicInvokerHandler GetInvoker(MethodInfo methodInfo);
     }
 }

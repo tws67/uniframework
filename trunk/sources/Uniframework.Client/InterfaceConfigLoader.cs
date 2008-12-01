@@ -67,10 +67,24 @@ namespace Uniframework.Client
         /// <returns>远程方法</returns>
         public static RemoteMethodInfo GetServiceInfo(MethodInfo interfaceMethodInfo)
         {
-            if (!services.ContainsKey(interfaceMethodInfo))
-                throw new ArgumentException("无法找到服务 [" + interfaceMethodInfo.DeclaringType.Name + "] 的方法 [" +
-                    interfaceMethodInfo.Name + "]，请确定已经在服务器上配置了该服务，并且已经标记上正确的Attribute");
-            return services[interfaceMethodInfo];
+            if (services.ContainsKey(interfaceMethodInfo))
+                return services[interfaceMethodInfo];
+            else
+                try {
+                    services.Add(interfaceMethodInfo, GetRemoteMethod(interfaceMethodInfo));
+                    return services[interfaceMethodInfo];
+                }
+                catch {
+                    throw new ArgumentException("无法找到服务 [" + interfaceMethodInfo.DeclaringType.Name + "] 的方法 [" +
+                        interfaceMethodInfo.Name + "]，请确定已经在服务器上配置了该服务，并且已经标记上正确的Attribute");
+                }
+        }
+
+        private static RemoteMethodInfo GetRemoteMethod(MethodInfo method)
+        {
+            string serviceKey = SecurityUtility.HashObject(method.DeclaringType);
+            RemoteMethodAttribute rmAttribute = method.GetCustomAttributes(typeof(RemoteMethodAttribute), true)[0] as RemoteMethodAttribute;
+            return new RemoteMethodInfo(SecurityUtility.HashObject(method), serviceKey, method.Name, rmAttribute.Description, rmAttribute.Offline, method, String.Empty);
         }
     }
 }

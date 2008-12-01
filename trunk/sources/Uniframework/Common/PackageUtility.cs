@@ -12,11 +12,11 @@ namespace Uniframework
         /// <summary>
         /// 
         /// </summary>
-        public static readonly string METHOD_NAME = "contex_method";
+        public static readonly string METHOD_NAME = "contex_uf_method";
         /// <summary>
         /// 
         /// </summary>
-        public static readonly string PARAMETERS_NAME = "contex_parameters";
+        public static readonly string PARAMETERS_NAME = "contex_uf_parameters";
 
         /// <summary>
         /// 封装远程过程调用包
