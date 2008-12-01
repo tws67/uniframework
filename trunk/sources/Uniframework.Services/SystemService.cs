@@ -252,16 +252,6 @@ namespace Uniframework.Services
             return systems;
         }
 
-        /// <summary>
-        /// 返回方法原型以便调用
-        /// </summary>
-        /// <param name="methodInfo">方法参数</param>
-        /// <returns></returns>
-        public DynamicInvokerHandler GetInvoker(MethodInfo method)
-        {
-            return invokers[method];
-        }
-
         #endregion
     }
 }

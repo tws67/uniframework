@@ -94,17 +94,18 @@ namespace Uniframework.Services
 
         private byte[] InvokeCommand(string sessionId, byte[] methodType, byte[] parameterStream)
         {
-            ActiviteSessioin(sessionId);
-            MethodInfo method = dataProcessor.Deserialize<MethodInfo>(methodType);
-            logger.Debug("接收到会话 [" + sessionId + "] 的远程服务调用请求。 服务名称：" + method.DeclaringType.Name + "，被调用方法:" + method.Name);
-            if (ServiceInvoking != null)
-                ServiceInvoking(this, new EventArgs<InvokeInfo>(new InvokeInfo(sessionId, method)));
             try
             {
+                ActiviteSessioin(sessionId);
+                MethodInfo method = dataProcessor.Deserialize<MethodInfo>(methodType);
+                logger.Debug("接收到会话 [" + sessionId + "] 的远程服务调用请求, 服务名称:" + method.DeclaringType.Name + ", 被调用方法:" + method.Name);
+                if (ServiceInvoking != null)
+                    ServiceInvoking(this, new EventArgs<InvokeInfo>(new InvokeInfo(sessionId, method)));
+
                 string key = GetCryptKey(sessionId);
                 byte[] decryptData = SecurityUtility.DESDecrypt(parameterStream, key); // 解密参数
-                object[] vat = dataProcessor.Deserialize<object[]>(decryptData);
-                object result = Invoke(method, vat);
+                object[] paramObjs = dataProcessor.Deserialize<object[]>(decryptData);
+                object result = Invoke(method, paramObjs);
                 if (result == null) return null;
                 SetDataSetSerializationFormat(result);
                 byte[] buf = dataProcessor.Serialize<object>(result);
