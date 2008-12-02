@@ -107,7 +107,7 @@ namespace Uniframework.Services
                 object[] paramObjs = dataProcessor.Deserialize<object[]>(decryptData);
                 object result = Invoke(method, paramObjs);
                 if (result == null) return null;
-                SetDataSetSerializationFormat(result);
+                SerializaionDataSet(result);
                 byte[] buf = dataProcessor.Serialize<object>(result);
                 byte[] encryptData = SecurityUtility.DESEncrypt(buf, key); // 加密返回值
                 return encryptData;
@@ -119,7 +119,37 @@ namespace Uniframework.Services
             }
         }
 
-        private void SetDataSetSerializationFormat(object obj)
+        /// <summary>
+        /// 调用服务器端的方法
+        /// </summary>
+        /// <param name="package">远程调用包</param>
+        /// <returns>经过加密后的方法结果</returns>
+        private byte[] InvokeCommand(NetworkInvokePackage package)
+        {
+            try {
+                ActiviteSessioin(package.SessionID);
+                String encryptKey = GetCryptKey(package.SessionID);
+                MethodInfo method;
+                object[] parameters;
+                PackageUtility.DecodeInvoke(package, encryptKey, out method, out parameters); // 解码调用包
+                object result = Invoke(method, parameters);
+                if (result == null)
+                    return null;
+                SerializaionDataSet(result);
+                byte[] buffer = SecurityUtility.DESEncrypt(dataProcessor.Serialize<object>(result), encryptKey);
+                return buffer;
+            }
+            catch (Exception ex) {
+                logger.Error(String.Format("调用服务时发生错误, SessionId : {0}", package.SessionID), ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 序列化数据集或数据表
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        private void SerializaionDataSet(object obj)
         {
             if (obj is DataTable)
             {
@@ -132,6 +162,7 @@ namespace Uniframework.Services
                 ds.RemotingFormat = SerializationFormat.Binary;
             }
         }
+
         #endregion
 
         /// <summary>
@@ -153,21 +184,22 @@ namespace Uniframework.Services
         {
             switch (pk.InvokeType)
             { 
+                    // 注册会话连接
                 case NetworkInvokeType.Register :
-                    string UserName = (string)pk.Context["UserName"];
-                    string Password = (string)pk.Context["Password"];
-                    string IpAddress = (string)pk.Context["IPAddress"];
-                    string EncryptKey = (string)pk.Context["EncryptKey"];
-                    RegisterSession(pk.SessionID, UserName, Password, IpAddress, EncryptKey);
+                    string UserName = (string)pk.Context[PackageUtility.SESSION_USERNAME];
+                    string Password = (string)pk.Context[PackageUtility.SESSION_PASSWORD];
+                    string IpAddress = (string)pk.Context[PackageUtility.SESSION_IPADDRESS];
+                    string EncryptKey = (string)pk.Context[PackageUtility.SESSION_ENCTRYPTKEY];
+                    RegisterSession(pk.SessionID, UserName, Password, IpAddress, EncryptKey); // 注册会话
                     return null;
 
+                    // 获取远程服务
                 case NetworkInvokeType.RemoteService :
                     return GetRemoteServices(pk);
 
+                    // 调用远程方法
                 case NetworkInvokeType.Invoke :
-                    byte[] method = (byte[])pk.Context[PackageUtility.METHOD_NAME];
-                    byte[] parameters = (byte[])pk.Context[PackageUtility.PARAMETERS_NAME];
-                    return InvokeCommand(pk.SessionID, method, parameters);
+                    return InvokeCommand(pk);
 
                 default :
                     throw new ArgumentException("无法识别的远程调用数据包格式。");
@@ -176,6 +208,7 @@ namespace Uniframework.Services
     }
 
     #region Assistant class
+
     /// <summary>
     /// 方法调用信息
     /// </summary>

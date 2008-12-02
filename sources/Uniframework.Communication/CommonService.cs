@@ -15,6 +15,9 @@ using Uniframework.Services;
 
 namespace Uniframework.Communication
 {
+    /// <summary>
+    /// 公共服务用于连接客户端与服务器端
+    /// </summary>
     public class CommonService
     {
         private static ILogger logger;
@@ -22,24 +25,20 @@ namespace Uniframework.Communication
 
         #region Assistant function
 
-        private static ServiceGateway gateway
+        private static ServiceGateway Gateway
         {
-            get
-            {
-                //return DefaultHttpApplication.Container[typeof(ServiceGateway)] as ServiceGateway;
+            get {
                 return Singleton<DefaultContainer>.Instance[typeof(ServiceGateway)] as ServiceGateway;
             }
         }
 
         private static bool Ping(NetworkInvokePackage ping)
         {
-            if (DefaultContainer.SystemReady)
-            {
-                gateway.ActiviteSessioin(ping.SessionID);
+            if (DefaultContainer.SystemReady) {
+                Gateway.ActiviteSessioin(ping.SessionID);
                 return true;
             }
-            else
-            {
+            else {
                 return false;
             }
         }
@@ -55,18 +54,18 @@ namespace Uniframework.Communication
         /// # 由于采用Xml序列化不能将客户端与应用服务器相连，所以用回bf 2007-11-07 by Jacky
         public static byte[] Invoke(byte[] data)
         {
-            try
-            {
+            try {
                 NetworkInvokePackage package = serializer.Deserialize<NetworkInvokePackage>(data);
                 if (package.InvokeType == NetworkInvokeType.Ping)
                     return serializer.Serialize<bool>(Ping(package));
                 else
-                    return gateway.Execute(package);
+                    return Gateway.Execute(package);
             }
-            catch (Exception ex)
-            {
-                if (logger == null) logger = DefaultHttpApplication.LoggerFactory.CreateLogger<CommonService>("Framework");
+            catch (Exception ex) {
+                if (logger == null) 
+                    logger = DefaultHttpApplication.LoggerFactory.CreateLogger<CommonService>("Framework");
                 logger.Error("调用服务发生错误", ex);
+
                 throw ExceptionUtility.WrapException(ex);
             }
         }
