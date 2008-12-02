@@ -12,13 +12,13 @@ namespace Uniframework.Client
 {
     public class CommunicateProxy
     {
-        private static ICommunicationChannel communicator;
         private static Serializer serializer = new Serializer();
         private static string sessionID = null;
         private static string encryptKey = null;
         private static string username = null;
         private static string password = null;
         private static bool serverReady = false;
+        private static object syncObj = new object();
 
         #region Members
 
@@ -74,8 +74,7 @@ namespace Uniframework.Client
 
         public static ICommunicationChannel Communicator
         {
-            get
-            {
+            get {
                 return ChannelFactory.GetCommunicationChannel();
             }
         }
@@ -106,17 +105,13 @@ namespace Uniframework.Client
         /// <returns></returns>
         public static object InvokeCommand(MethodInfo method, object parameter)
         {
-            Guard.ArgumentNotNull(method, "method");
-            Guard.ArgumentNotNull(parameter, "parameter");
-
-            ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "]，SessionID 为 [" + sessionID + "]，用户 [" + username + "] ");
-            byte[] buf = serializer.Serialize<MethodInfo>(method);
-            byte[] par = serializer.Serialize<object>(parameter);
-            byte[] encryptData = SecurityUtility.DESEncrypt(par, encryptKey); // 加密参数值
+            ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "], SessionId 为 [" + sessionID + "], 用户 [" + username + "] ");
+           
             NetworkInvokePackage package = GetPackage(NetworkInvokeType.Invoke);
-            PackageUtility.EncodeInvoke(package, buf, encryptData);
+            PackageUtility.EncodeInvoke(method, parameter, encryptKey, ref package);
             byte[] result = Communicator.Invoke(serializer.Serialize<NetworkInvokePackage>(package));
-            return serializer.Deserialize<object>(SecurityUtility.DESDecrypt(result, encryptKey)); // 解密返回结果
+            // 解密方法返回结果
+            return serializer.Deserialize<object>(SecurityUtility.DESDecrypt(result, encryptKey)); 
         }
 
         /// <summary>
@@ -139,11 +134,14 @@ namespace Uniframework.Client
             string ip = host.AddressList[0].ToString();
             string un = SecurityUtility.DESEncrypt(username, encryptKey);
             string pw = SecurityUtility.DESEncrypt(password, encryptKey);
+
+            // 编码会话包
             NetworkInvokePackage pk = GetPackage(NetworkInvokeType.Register);
-            pk.Context.Add("UserName", un);
-            pk.Context.Add("Password", pw);
-            pk.Context.Add("IPAddress", ip);
-            pk.Context.Add("EncryptKey", encryptKey);
+            pk.Context[PackageUtility.SESSION_USERNAME] = un;
+            pk.Context[PackageUtility.SESSION_PASSWORD] = pw;
+            pk.Context[PackageUtility.SESSION_IPADDRESS] = ip;
+            pk.Context[PackageUtility.SESSION_ENCTRYPTKEY] = encryptKey;
+
             Communicator.Invoke(serializer.Serialize<NetworkInvokePackage>(pk));
         }
 

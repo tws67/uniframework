@@ -1,19 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
-//using System.Runtime.Serialization;
-//using System.Runtime.Serialization.Formatters.Binary;
-//using System.Xml.Serialization;
-#if PocketPC || WindowsCE
-using AsGoodAsItGets.System.Runtime.Serialization;
-using AsGoodAsItGets.System.Runtime.Serialization.Formatters.Binary;
-using AsGoodAsItGets.System.Runtime.Serialization.Surrogates.Binary;
-#else
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-#endif
+using System.Text;
 
 namespace Uniframework
 {
@@ -34,10 +26,9 @@ namespace Uniframework
         public byte[] Serialize<T>(T obj)
         {
             if (obj == null)
-                throw new Exception("序列化对象 \"obj\" 不能为空");
+                throw new UniframeworkException("序列化对象 \"obj\" 不能为空");
 
-            using (MemoryStream stream = new MemoryStream())
-            {
+            using (MemoryStream stream = new MemoryStream()) {
                 bf.Serialize(stream, obj);
                 return compressor.Compress(stream.ToArray());
             }
