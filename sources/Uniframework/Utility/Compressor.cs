@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Text;
+
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace Uniframework
 {
@@ -29,29 +31,30 @@ namespace Uniframework
         }
 
         /// <summary>
-        /// 压缩数据
+        /// 压缩数据，如果压缩阀值为-1表示不对数据流进行压缩处理
         /// </summary>
         /// <param name="val">原始数据流</param>
         /// <returns>压缩后数据流</returns>
         public byte[] Compress(byte[] val)
         {
             byte[] buf;
-            //测试参数流长度是否超过定义的值
-            if (overSize != -1 && val.Length > overSize)
-            {
-                MemoryStream destStream = new MemoryStream();
-                using (DeflateStream compressedStream = new DeflateStream(destStream, CompressionMode.Compress)) {
-                    compressedStream.Write(val, 0, val.Length);
-                    buf = new byte[destStream.Length + 1];
-                    destStream.ToArray().CopyTo(buf, 1);
+            if (overSize != -1 && val.Length > overSize) {
+                using (MemoryStream destStream = new MemoryStream()) {
+                    Deflater deflater = new Deflater(Deflater.DEFAULT_COMPRESSION, true);
+                    using (DeflaterOutputStream compressStream = new DeflaterOutputStream(destStream, deflater)) {
+                        compressStream.Write(val, 0, val.Length);
+                        compressStream.Finish();
+                        buf = new byte[destStream.Length + 1];
+                        destStream.ToArray().CopyTo(buf, 1);
+                    }
+                    buf[0] = 1; // 已压缩标志
+                    return buf;
                 }
-                buf[0] = 1;//压缩标记
-                return buf;
             }
             else {
                 buf = new byte[val.Length + 1];
                 val.CopyTo(buf, 1);
-                buf[0] = 0;//未压缩标记
+                buf[0] = 0; // 未压缩标志
                 return buf;
             }
         }
@@ -63,15 +66,14 @@ namespace Uniframework
         /// <returns>返回解压后的数据</returns>
         public byte[] Decompress(byte[] val)
         {
-            if (val[0] == 1)
-            {
-                DeflateStream compressedStream = new DeflateStream(new MemoryStream(UnwrapData(val)), CompressionMode.Decompress);
-                return ArrayUtility.ReadAllBytesFromStream(compressedStream);
+            if (val[0] == 1) {
+                Inflater inflater = new Inflater(true);
+                using (InflaterInputStream decompressStream = new InflaterInputStream(new MemoryStream(UnwrapData(val)), inflater)) {
+                    return ArrayUtility.ReadAllBytesFromStream(decompressStream);
+                }
             }
             else
-            {
                 return UnwrapData(val);
-            }
         }
 
         /// <summary>

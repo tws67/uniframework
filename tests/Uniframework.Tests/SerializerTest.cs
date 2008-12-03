@@ -36,6 +36,7 @@ namespace Uniframework.Tests
             Assert.AreEqual(true, buffer.Length > 0);
 
             MockContact c2 = serializer.Deserialize<MockContact>(buffer);
+            Assert.IsNotNull(c2);
             Assert.AreEqual("Jacky", c2.Name);
             Assert.AreEqual("22305779", c2.Phone);
         }
@@ -59,6 +60,7 @@ namespace Uniframework.Tests
             Assert.AreEqual("12345", (string)pk2.Context[PackageUtility.SESSION_PASSWORD]);
         }
 
+        
         [Serializable]
         public class MockContact
         {
