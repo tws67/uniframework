@@ -43,8 +43,7 @@ namespace Uniframework.Client
         public static Type[] GetAllSubSystem()
         {
             List<Type> ss = new List<Type>();
-            foreach (Type t in subsystems.Keys)
-            {
+            foreach (Type t in subsystems.Keys) {
                 ss.Add(t);
             }
             return ss.ToArray();

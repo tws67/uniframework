@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using DevExpress.XtraGrid;
+using DevExpress.XtraPrinting;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
-using DevExpress.XtraGrid;
 
 namespace Uniframework.SmartClient.Strategies
 {
@@ -44,7 +45,7 @@ namespace Uniframework.SmartClient.Strategies
             Guard.ArgumentNotNull(control, "control");
 
             foreach (Control ctrl in control.Controls) {
-                if (ctrl is GridControl) {
+                if (ctrl is IPrintable) {
                     if (register)
                         printableService.Register(ctrl);
                     else

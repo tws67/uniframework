@@ -4,13 +4,32 @@ using System.Text;
 
 namespace Uniframework.Client
 {
+    /// <summary>
+    /// 通道类型枚举类型
+    /// </summary>
     public enum CommunicationChannel
     {
+        /// <summary>
+        /// Web服务
+        /// </summary>
         WebService,
+        /// <summary>
+        /// Socket通道
+        /// </summary>
         Socket,
+        /// <summary>
+        /// Wcf通道
+        /// </summary>
+        Wcf,
+        /// <summary>
+        /// 自动创建
+        /// </summary>
         Auto
     }
 
+    /// <summary>
+    /// 通道工厂
+    /// </summary>
     public class ChannelFactory
     {
         static string url;
