@@ -10,6 +10,8 @@ namespace Uniframework
     /// </summary>
     public static class ArrayUtility
     {
+        private static int buffer_size = 100;
+
         /// <summary>合并两个数组</summary>
         /// <typeparam name="T">数组类型</typeparam>
         /// <param name="array1">数组1</param>
@@ -30,18 +32,17 @@ namespace Uniframework
         /// <returns></returns>
         public static byte[] ReadAllBytesFromStream(Stream stream)
         {
-            MemoryStream ms = new MemoryStream();
+            MemoryStream destStream = new MemoryStream();
             byte[] buffer = new byte[100];
-            while (true)
-            {
-                int bytesRead = stream.Read(buffer, 0, 100);
-                if (bytesRead == 0)
-                {
-                    break;
+            while (true) {
+                int bytesRead = stream.Read(buffer, 0, buffer_size);
+                if (bytesRead == 0) {
+                    break; // 读完了所有数据
                 }
-                ms.Write(buffer, 0, bytesRead);
+                destStream.Write(buffer, 0, bytesRead);
             }
-            return ms.ToArray();
+            destStream.Flush();
+            return destStream.ToArray();
         }
 
         /// <summary>

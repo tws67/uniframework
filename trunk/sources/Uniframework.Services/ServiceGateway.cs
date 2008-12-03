@@ -85,40 +85,6 @@ namespace Uniframework.Services
             }
         }
 
-        private object Invoke(MethodInfo method, object[] parameters)
-        {
-            IServiceCaller serviceCaller = kernel[typeof(IServiceCaller)] as IServiceCaller;
-            if (serviceCaller == null) throw new InvalidOperationException("无法获取 [ServiceCaller] 服务");
-            return serviceCaller.Invoke(method, parameters);
-        }
-
-        private byte[] InvokeCommand(string sessionId, byte[] methodType, byte[] parameterStream)
-        {
-            try
-            {
-                ActiviteSessioin(sessionId);
-                MethodInfo method = dataProcessor.Deserialize<MethodInfo>(methodType);
-                logger.Debug("接收到会话 [" + sessionId + "] 的远程服务调用请求, 服务名称:" + method.DeclaringType.Name + ", 被调用方法:" + method.Name);
-                if (ServiceInvoking != null)
-                    ServiceInvoking(this, new EventArgs<InvokeInfo>(new InvokeInfo(sessionId, method)));
-
-                string key = GetCryptKey(sessionId);
-                byte[] decryptData = SecurityUtility.DESDecrypt(parameterStream, key); // 解密参数
-                object[] paramObjs = dataProcessor.Deserialize<object[]>(decryptData);
-                object result = Invoke(method, paramObjs);
-                if (result == null) return null;
-                SerializaionDataSet(result);
-                byte[] buf = dataProcessor.Serialize<object>(result);
-                byte[] encryptData = SecurityUtility.DESEncrypt(buf, key); // 加密返回值
-                return encryptData;
-            }
-            catch (Exception ex)
-            {
-                logger.Error("调用服务时发生错误！", ex);
-                throw;
-            }
-        }
-
         /// <summary>
         /// 调用服务器端的方法
         /// </summary>
@@ -130,9 +96,23 @@ namespace Uniframework.Services
                 ActiviteSessioin(package.SessionID);
                 String encryptKey = GetCryptKey(package.SessionID);
                 MethodInfo method;
+                MethodInvokeInfo invokeInfo; 
                 object[] parameters;
-                PackageUtility.DecodeInvoke(package, encryptKey, out method, out parameters); // 解码调用包
+                bool isGenericMethod = (bool)package.Context[PackageUtility.METHOD_ISGENERIC];
+
+                // 解码调用包
+                if (isGenericMethod) {
+                    PackageUtility.DecodeInvoke(package, encryptKey, out invokeInfo, out parameters);
+                    ISystemService system = (ISystemService)kernel[typeof(ISystemService)];
+                    method = system.GetMethod(invokeInfo);
+                }
+                else
+                    PackageUtility.DecodeInvoke(package, encryptKey, out method, out parameters); 
+
+                // 调用
                 object result = Invoke(method, parameters);
+
+                // 返回服务器端方法执行结果
                 if (result == null)
                     return null;
                 SerializaionDataSet(result);
@@ -143,6 +123,13 @@ namespace Uniframework.Services
                 logger.Error(String.Format("调用服务时发生错误, SessionId : {0}", package.SessionID), ex);
                 throw;
             }
+        }
+
+        private object Invoke(MethodInfo method, object[] parameters)
+        {
+            IServiceCaller serviceCaller = kernel[typeof(IServiceCaller)] as IServiceCaller;
+            if (serviceCaller == null) throw new InvalidOperationException("无法获取 [ServiceCaller] 服务");
+            return serviceCaller.Invoke(method, parameters);
         }
 
         /// <summary>

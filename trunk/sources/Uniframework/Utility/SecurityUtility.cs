@@ -1,23 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-
+using System.IO;
 using System.Net;
 using System.Reflection;
-using System.IO;
-using System.Security;
-using System.Security.Cryptography;
-//using System.Runtime.Serialization;
-//using System.Runtime.Serialization.Formatters.Binary;
-//using System.Xml.Serialization;
-#if PocketPC || WindowsCE
-using AsGoodAsItGets.System.Runtime.Serialization;
-using AsGoodAsItGets.System.Runtime.Serialization.Formatters.Binary;
-using AsGoodAsItGets.System.Runtime.Serialization.Surrogates.Binary;
-#else
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-#endif
+using System.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Uniframework
 {
@@ -37,24 +27,8 @@ namespace Uniframework
         {
             if (valueToHash == null) valueToHash = typeof(void);
             SHA1 hashingAlgorithm = new SHA1CryptoServiceProvider();
-            //XmlSerializer serializer = new XmlSerializer(typeof(object));
-            //using (MemoryStream stream = new MemoryStream())
-            //{
-            //    serializer.Serialize(stream, valueToHash);
-            //    return Convert.ToBase64String(hashingAlgorithm.ComputeHash(stream.ToArray()));
-            //}
-            //byte[] ba = new byte[256];
-            //string str = valueToHash.ToString().GetHashCode() +"75D6327AE1294b2dA39C1DB1B7946DC0";
-            //int i = 0;
-            //foreach (char c in str)
-            //{
-            //    ba[i++] = (byte)c;
-            //}
-            //return Convert.ToBase64String(hashingAlgorithm.ComputeHash(ba));
 
-            //MBinaryFormatter bf = new MBinaryFormatter();
             BinaryFormatter bf = new BinaryFormatter();
-            //BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream stream = new MemoryStream())
             {
                 bf.Serialize(stream, valueToHash);

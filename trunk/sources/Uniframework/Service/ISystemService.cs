@@ -292,6 +292,13 @@ namespace Uniframework.Services
         DynamicInvokerHandler GetDynamicInvoker(MethodInfo method);
 
         /// <summary>
+        /// 获取客户端发过来的泛型方法调用定义
+        /// </summary>
+        /// <param name="invokerInfo">The invoker info.</param>
+        /// <returns>根据<see cref="MethodInvokeInfo"/>生成的方法定义</returns>
+        MethodInfo GetMethod(MethodInvokeInfo invokerInfo);
+
+        /// <summary>
         /// 获取远程服务
         /// </summary>
         /// <returns>返回系统可用的所有远程服务列表</returns>

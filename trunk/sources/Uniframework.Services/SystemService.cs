@@ -19,6 +19,7 @@ namespace Uniframework.Services
         private IKernel kernal;
         private Dictionary<string, ServiceInfo> subsystems;
         private Dictionary<MethodInfo, DynamicInvokerHandler> invokers;
+        private Dictionary<MethodInvokeInfo, MethodInfo> methodInvokers; // 缓存客户端发过来的泛型方法调用
 
         private readonly string WORKSTATION_PATH = "System/Workstations/"; // 客户端配置路径
 
@@ -34,46 +35,10 @@ namespace Uniframework.Services
             this.logger = log.CreateLogger<SystemService>("Framework");
             this.subsystems = new Dictionary<string, ServiceInfo>();
             this.invokers = new Dictionary<MethodInfo, DynamicInvokerHandler>();
+            this.methodInvokers = new Dictionary<MethodInvokeInfo, MethodInfo>();
             this.sessionService = sessionService;
             this.kernal = kernal;
         }
-
-        #region Assistant function
-
-        /// <summary>
-        /// 注册服务
-        /// </summary>
-        /// <param name="serviceKey">服务标识</param>
-        /// <param name="serviceName">名称</param>
-        /// <param name="description">描述信息</param>
-        /// <param name="serviceType">服务类型</param>
-        /// <param name="type">反射类型</param>
-        private void RegisterService(string serviceKey, string serviceName, string description, ServiceType serviceType, Type type, ServiceScope serviceScope)
-        {
-            logger.Debug("接收到子系统[" + serviceName + "]的注册请求");
-            if (subsystems.ContainsKey(serviceKey)) throw new ArgumentException("SystemManager中已经存在Key为[" + serviceKey + "]的子系统信息", "subsystemKey");
-            subsystems.Add(serviceKey, new ServiceInfo(serviceKey, serviceName, description, serviceType, type, serviceScope));
-        }
-
-        /// <summary>
-        /// 注册方法
-        /// </summary>
-        /// <param name="functionKey">方法标识</param>
-        /// <param name="serviceKey">服务标识</param>
-        /// <param name="serviceName">名称</param>
-        /// <param name="description">描述信息</param>
-        /// <param name="offline">离线标志</param>
-        /// <param name="methodInfo">方法信息对象</param>
-        /// <param name="dataUpdateEvent">数据更新事件签名</param>
-        private void RegisterFunction(string functionKey, string serviceKey, string serviceName, string description, bool offline, MethodInfo methodInfo, string dataUpdateEvent)
-        {
-            if (!subsystems.ContainsKey(serviceKey)) throw new ArgumentException("在注册[" + serviceName + "]服务时发现SystemManager并不已经存在Key为[" + serviceKey + "]的子系统信息", "subsystemKey");
-            ServiceInfo subsystem = subsystems[serviceKey];
-            subsystem.AddService(new RemoteMethodInfo(functionKey, serviceKey, serviceName, description, offline, methodInfo, dataUpdateEvent));
-            invokers.Add(methodInfo, DynamicInvoker.GetMethodInvoker(methodInfo));
-        }
-
-        #endregion
 
         #region ISystemService Members
 
@@ -200,15 +165,33 @@ namespace Uniframework.Services
                 return invokers[method];
             else
                 try {
-                    if (method.IsGenericMethod)
-                        method = method.GetGenericMethodDefinition();
+                    logger.Debug(String.Format("生成方法 \"{0}\" 的调用器", method));
+                    //if (method.IsGenericMethod)
+                    //    method = method.GetGenericMethodDefinition();
                     DynamicInvokerHandler invoker = DynamicInvoker.GetMethodInvoker(method);
-                    invokers.Add(method, invoker);
+                    invokers[method] = invoker;
                     return invoker;
                 }
                 catch (Exception ex) {
                     throw ex;
                 }
+        }
+
+        /// <summary>
+        /// 通过客户端传过来的方法调用信息获取方法的动态调用器
+        /// </summary>
+        /// <param name="invokeInfo">The invoke info.</param>
+        /// <returns></returns>
+        public MethodInfo GetMethod(MethodInvokeInfo invokeInfo)
+        {
+            if (!methodInvokers.ContainsKey(invokeInfo)) {
+                MethodInfo method = invokeInfo.GetGenericMethod();
+                if (method == null)
+                    throw new ArgumentException(String.Format("无此泛型方法 \"{0}\" 定义", invokeInfo.Name));
+
+                methodInvokers.Add(invokeInfo, method);
+            }
+            return methodInvokers[invokeInfo];
         }
 
         /// <summary>
@@ -253,5 +236,43 @@ namespace Uniframework.Services
         }
 
         #endregion
+
+        #region Assistant function
+
+        /// <summary>
+        /// 注册服务
+        /// </summary>
+        /// <param name="serviceKey">服务标识</param>
+        /// <param name="serviceName">名称</param>
+        /// <param name="description">描述信息</param>
+        /// <param name="serviceType">服务类型</param>
+        /// <param name="type">反射类型</param>
+        private void RegisterService(string serviceKey, string serviceName, string description, ServiceType serviceType, Type type, ServiceScope serviceScope)
+        {
+            logger.Debug("接收到子系统[" + serviceName + "]的注册请求");
+            if (subsystems.ContainsKey(serviceKey)) throw new ArgumentException("SystemManager中已经存在Key为[" + serviceKey + "]的子系统信息", "subsystemKey");
+            subsystems.Add(serviceKey, new ServiceInfo(serviceKey, serviceName, description, serviceType, type, serviceScope));
+        }
+
+        /// <summary>
+        /// 注册方法
+        /// </summary>
+        /// <param name="functionKey">方法标识</param>
+        /// <param name="serviceKey">服务标识</param>
+        /// <param name="serviceName">名称</param>
+        /// <param name="description">描述信息</param>
+        /// <param name="offline">离线标志</param>
+        /// <param name="methodInfo">方法信息对象</param>
+        /// <param name="dataUpdateEvent">数据更新事件签名</param>
+        private void RegisterFunction(string functionKey, string serviceKey, string serviceName, string description, bool offline, MethodInfo methodInfo, string dataUpdateEvent)
+        {
+            if (!subsystems.ContainsKey(serviceKey)) throw new ArgumentException("在注册[" + serviceName + "]服务时发现SystemManager并不已经存在Key为[" + serviceKey + "]的子系统信息", "subsystemKey");
+            ServiceInfo subsystem = subsystems[serviceKey];
+            subsystem.AddService(new RemoteMethodInfo(functionKey, serviceKey, serviceName, description, offline, methodInfo, dataUpdateEvent));
+            invokers.Add(methodInfo, DynamicInvoker.GetMethodInvoker(methodInfo));
+        }
+
+        #endregion
+
     }
 }

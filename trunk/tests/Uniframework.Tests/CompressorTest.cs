@@ -43,6 +43,7 @@ namespace Uniframework.Tests
 
                 byte[] buf2 = compressor.Decompress(buf1);
                 Assert.AreEqual(buffer.Length, buf2.Length);
+                Console.WriteLine("decompress buffer length : " + buf2.Length);
             }
         }
     }
