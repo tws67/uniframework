@@ -5,37 +5,38 @@ using System.Configuration.Provider;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Security;
+
 using Db4objects.Db4o;
+using Uniframework.Db4o;
+using System.Web.Hosting;
 
 namespace Uniframework.Services.db4oProviders
 {
     public class db4oMembershipProvider : MembershipProvider
     {
+        private static readonly string PROVIDER_NAME = "db4oMembershipProvider";
+        private readonly IConnectionStringStore ConnectionStringStore;
+        private readonly int newPasswordLength = 5;
+        private readonly IValidationKeyInfo ValidationKeyInfo;
+        private string connectionString;
+
         public db4oMembershipProvider()
             : this(new ConfigurationManagerConnectionStringStore(), new ValidationKeyInfo("system.web/machineKey"))
         {
         }
 
         public db4oMembershipProvider(IConnectionStringStore connectionStringStore, IValidationKeyInfo validationKeyInfo)
-            : base()
         {
-            this.ConnectionStringStore = connectionStringStore;
-            this.ValidationKeyInfo = validationKeyInfo;
+            ConnectionStringStore = connectionStringStore;
+            ValidationKeyInfo = validationKeyInfo;
         }
-
-        private IConnectionStringStore ConnectionStringStore;
-        private IValidationKeyInfo ValidationKeyInfo;
-        private static readonly string PROVIDER_NAME = "db4oMembershipProvider";
-        private int newPasswordLength = 5;
-        private string eventSource = PROVIDER_NAME;
-        private string connectionString;
 
         public override void Initialize(string name, NameValueCollection config)
         {
             if (config == null)
                 throw new ArgumentNullException("config");
 
-            if (name == null || name.Length == 0)
+            if (string.IsNullOrEmpty(name))
                 name = PROVIDER_NAME;
 
             if (String.IsNullOrEmpty(config["description"]))
@@ -46,29 +47,23 @@ namespace Uniframework.Services.db4oProviders
 
             base.Initialize(name, config);
 
-            applicationName =
-                Utils.DefaultIfBlank(config["applicationName"],
-                                     System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
+            applicationName = Utils.DefaultIfBlank(config["applicationName"], HostingEnvironment.ApplicationVirtualPath);
 
-            connectionString = this.ConnectionStringStore.GetConnectionString(config["connectionStringName"]);
+            connectionString = ConnectionStringStore.GetConnectionString(config["connectionStringName"]);
             if (connectionString == null)
                 throw new ProviderException("Connection string cannot be blank.");
 
-            maxInvalidPasswordAttempts = Convert.ToInt32(DefaultIfBlank(config["maxInvalidPasswordAttempts"], "5"));
-            passwordAttemptWindow = Convert.ToInt32(DefaultIfBlank(config["passwordAttemptWindow"], "3"));
-            minRequiredNonAlphanumericCharacters =
-                Convert.ToInt32(DefaultIfBlank(config["minRequiredNonAlphanumericCharacters"], "0"));
-            minRequiredPasswordLength = Convert.ToInt32(DefaultIfBlank(config["minRequiredPasswordLength"], "4"));
-            passwordStrengthRegularExpression =
-                Convert.ToString(DefaultIfBlank(config["passwordStrengthRegularExpression"], ""));
-            enablePasswordReset = Convert.ToBoolean(DefaultIfBlank(config["enablePasswordReset"], "true"));
-            enablePasswordRetrieval = Convert.ToBoolean(DefaultIfBlank(config["enablePasswordRetrieval"], "true"));
-            requiresQuestionAndAnswer = Convert.ToBoolean(DefaultIfBlank(config["requiresQuestionAndAnswer"], "false"));
-            requiresUniqueEmail = Convert.ToBoolean(DefaultIfBlank(config["requiresUniqueEmail"], "true"));
+            maxInvalidPasswordAttempts = Convert.ToInt32(Utils.DefaultIfBlank(config["maxInvalidPasswordAttempts"], "5"));
+            passwordAttemptWindow = Convert.ToInt32(Utils.DefaultIfBlank(config["passwordAttemptWindow"], "3"));
+            minRequiredNonAlphanumericCharacters = Convert.ToInt32(Utils.DefaultIfBlank(config["minRequiredNonAlphanumericCharacters"], "0"));
+            minRequiredPasswordLength = Convert.ToInt32(Utils.DefaultIfBlank(config["minRequiredPasswordLength"], "4"));
+            passwordStrengthRegularExpression = Convert.ToString(Utils.DefaultIfBlank(config["passwordStrengthRegularExpression"], ""));
+            enablePasswordReset = Convert.ToBoolean(Utils.DefaultIfBlank(config["enablePasswordReset"], "true"));
+            enablePasswordRetrieval = Convert.ToBoolean(Utils.DefaultIfBlank(config["enablePasswordRetrieval"], "true"));
+            requiresQuestionAndAnswer = Convert.ToBoolean(Utils.DefaultIfBlank(config["requiresQuestionAndAnswer"], "false"));
+            requiresUniqueEmail = Convert.ToBoolean(Utils.DefaultIfBlank(config["requiresUniqueEmail"], "true"));
 
-            string tempPasswordFormat = config["passwordFormat"];
-            if (tempPasswordFormat == null)
-                tempPasswordFormat = "Hashed";
+            string tempPasswordFormat = config["passwordFormat"] ?? "Hashed";
 
             switch (tempPasswordFormat)
             {
@@ -85,18 +80,534 @@ namespace Uniframework.Services.db4oProviders
                     throw new ProviderException("Password format not supported.");
             }
 
-            if (this.ValidationKeyInfo.IsAutoGenerated())
-                if (PasswordFormat != MembershipPasswordFormat.Clear)
-                    throw new ProviderException("Hashed or Encrypted passwords " +
-                                                "are not supported with auto-generated keys.");
+            if (ValidationKeyInfo.IsAutoGenerated() && (PasswordFormat != MembershipPasswordFormat.Clear))
+                throw new ProviderException("Hashed or Encrypted passwords are not supported with auto-generated keys.");
         }
 
-        private string DefaultIfBlank(string originalValue, string defaultValue)
+        public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            if (String.IsNullOrEmpty(originalValue))
-                return defaultValue;
+            if (!ValidateUser(username, oldPassword))
+                return false;
 
-            return originalValue;
+            var args = new ValidatePasswordEventArgs(username, newPassword, false);
+
+            OnValidatingPassword(args);
+
+            if (args.Cancel)
+                if (args.FailureInformation != null)
+                    throw args.FailureInformation;
+                else
+                    throw new MembershipPasswordException("Change password cancelled due to new password validation failure.");
+
+            User user = UpdateUser(username, found => found.Password = EncodePassword(newPassword));
+
+            return (user != null);
+        }
+
+        public override bool ChangePasswordQuestionAndAnswer(string username,
+                                                             string password,
+                                                             string newPwdQuestion,
+                                                             string newPwdAnswer)
+        {
+            if (!ValidateUser(username, password))
+                return false;
+
+            UpdateUser(username, updating =>
+            {
+                updating.PasswordQuestion = newPwdQuestion;
+                updating.PasswordAnswer = newPwdAnswer;
+            });
+
+            return true;
+        }
+
+        public override MembershipUser CreateUser(string username,
+                                                  string password,
+                                                  string email,
+                                                  string passwordQuestion,
+                                                  string passwordAnswer,
+                                                  bool isApproved,
+                                                  object providerUserKey,
+                                                  out MembershipCreateStatus status)
+        {
+            var args = new ValidatePasswordEventArgs(username, password, true);
+
+            OnValidatingPassword(args);
+
+            if (args.Cancel)
+            {
+                status = MembershipCreateStatus.InvalidPassword;
+                return null;
+            }
+
+            if (RequiresUniqueEmail && GetUserNameByEmail(email) != "")
+            {
+                status = MembershipCreateStatus.DuplicateEmail;
+                return null;
+            }
+
+            MembershipUser u = GetUser(username, false);
+
+            if (u == null)
+            {
+                DateTime createDate = DateTime.Now;
+
+                if (providerUserKey == null)
+                {
+                    providerUserKey = Guid.NewGuid();
+                }
+                else
+                {
+                    if (!(providerUserKey is Guid))
+                    {
+                        status = MembershipCreateStatus.InvalidProviderUserKey;
+                        return null;
+                    }
+                }
+
+                var user = new User(
+                    (Guid)providerUserKey,
+                    username,
+                    EncodePassword(password),
+                    email,
+                    passwordQuestion,
+                    EncodePassword(passwordAnswer),
+                    isApproved,
+                    "",
+                    createDate,
+                    createDate,
+                    createDate,
+                    applicationName,
+                    false,
+                    createDate,
+                    0,
+                    createDate,
+                    0,
+                    createDate);
+
+                using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
+                {
+                    dbc.Store(user);
+                }
+
+                status = MembershipCreateStatus.Success;
+
+                return GetUser(username, false);
+            }
+            else
+            {
+                status = MembershipCreateStatus.DuplicateUserName;
+            }
+
+            return null;
+        }
+
+        public override bool DeleteUser(string username, bool deleteAllRelatedData)
+        {
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
+            {
+                var results = dbc.Query<User>(u => u.Username == username && u.ApplicationName == applicationName);
+
+                if (results.Count != 1)
+                    return false;
+
+                User found = results[0];
+
+                dbc.Delete(found);
+            }
+
+            return false;
+        }
+
+        public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
+        {
+            return FindUsers(
+                u => u.ApplicationName == applicationName,
+                pageIndex,
+                pageSize,
+                out totalRecords);
+        }
+
+        public override int GetNumberOfUsersOnline()
+        {
+            TimeSpan onlineSpan = new TimeSpan(0, Membership.UserIsOnlineTimeWindow, 0);
+            DateTime compareTime = DateTime.Now.Subtract(onlineSpan);
+
+            List<User> users = GetUsers(u => u.LastActivityDate > compareTime && u.ApplicationName == applicationName);
+
+            return users.Count;
+        }
+
+        public override string GetPassword(string username, string answer)
+        {
+            if (!EnablePasswordRetrieval)
+                throw new ProviderException("Password Retrieval not enabled.");
+
+            if (PasswordFormat == MembershipPasswordFormat.Hashed)
+                throw new ProviderException("Cannot retrieve Hashed passwords.");
+
+            User found = GetUser(u => u.Username == username && u.ApplicationName == applicationName, false);
+
+            if (found == null)
+                throw new MembershipPasswordException("The supplied user name is not found.");
+
+            if (found.IsLockedOut)
+                throw new MembershipPasswordException("The supplied user is locked out.");
+
+            if (RequiresQuestionAndAnswer && !CheckPassword(answer, found.PasswordAnswer))
+            {
+                UpdateUser(username, updating => updating.UpdateFailureCount("passwordAnswer", this));
+
+                throw new MembershipPasswordException("Incorrect password answer.");
+            }
+
+            if (PasswordFormat == MembershipPasswordFormat.Encrypted)
+                return UnEncodePassword(found.Password);
+
+            return found.Password;
+        }
+
+        public override MembershipUser GetUser(string username, bool userIsOnline)
+        {
+            User found = GetUser(user => user.Username == username && user.ApplicationName == applicationName, userIsOnline);
+            if (found != null)
+                return UserToMembershipUser(found);
+            else
+                return null;
+        }
+
+        public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
+        {
+            User found = GetUser(user => user.PKID == (Guid)providerUserKey && user.ApplicationName == applicationName, userIsOnline);
+            if (found != null)
+                return UserToMembershipUser(found);
+            else
+                return null;
+        }
+
+        private User GetUser(Predicate<User> userPredicate, bool userIsOnline)
+        {
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
+            {
+                var results = dbc.Query(userPredicate);
+
+                if (results.Count == 0)
+                    return null;
+
+                User found = results[0];
+
+                if (userIsOnline)
+                {
+                    found.LastActivityDate = DateTime.Now;
+                    dbc.Store(found);
+                }
+
+                return found;
+            }
+        }
+
+        private List<User> GetUsers(Predicate<User> userPredicate)
+        {
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
+                return new List<User>(dbc.Query(userPredicate));
+        }
+
+        private MembershipUser UserToMembershipUser(User user)
+        {
+            return new MembershipUser(Name,
+                                      user.Username,
+                                      user.PKID,
+                                      user.Email,
+                                      user.PasswordQuestion,
+                                      user.Comment,
+                                      user.IsApproved,
+                                      user.IsLockedOut,
+                                      user.CreationDate,
+                                      user.LastLoginDate,
+                                      user.LastActivityDate,
+                                      user.LastPasswordChangedDate,
+                                      user.LastLockedOutDate);
+        }
+
+        public override bool UnlockUser(string username)
+        {
+            User found = UpdateUser(username,
+                                    updating =>
+                                    {
+                                        updating.IsLockedOut = false;
+                                        updating.LastLockedOutDate = DateTime.Now;
+                                    });
+
+            return found != null;
+        }
+
+        public override string GetUserNameByEmail(string email)
+        {
+            User found = GetUser(user => (user.Email == email && user.ApplicationName == ApplicationName), false);
+
+            if (found == null)
+                return "";
+            else
+                return found.Username;
+        }
+
+        public override string ResetPassword(string username, string answer)
+        {
+            if (!EnablePasswordReset)
+                throw new NotSupportedException("Password reset is not enabled.");
+
+            User user = GetUser(u => u.Username == username && u.ApplicationName == applicationName, false);
+            if (user == null)
+                throw new ProviderException("The supplied user name is not found.");
+
+            if (String.IsNullOrEmpty(answer) && RequiresQuestionAndAnswer)
+            {
+                user.UpdateFailureCount("passwordAnswer", this);
+                throw new ProviderException("Password answer required for password reset.");
+            }
+
+            string newPassword = GenerateTempPassword(newPasswordLength, MinRequiredNonAlphanumericCharacters);
+
+            var args = new ValidatePasswordEventArgs(username, newPassword, false);
+
+            OnValidatingPassword(args);
+
+            if (args.Cancel)
+            {
+                if (args.FailureInformation != null)
+                    throw args.FailureInformation;
+
+                throw new MembershipPasswordException("Reset password cancelled due to password validation failure.");
+            }
+
+            if (user.IsLockedOut)
+                throw new MembershipPasswordException("The supplied user is locked out.");
+
+            if (RequiresQuestionAndAnswer && !CheckPassword(answer, user.PasswordAnswer))
+            {
+                user.UpdateFailureCount("passwordAnswer", this);
+                throw new MembershipPasswordException("Incorrect password answer.");
+            }
+
+            UpdateUser(user.Username,
+                       updating =>
+                       {
+                           updating.Password = EncodePassword(newPassword);
+                           updating.LastPasswordChangedDate = DateTime.Now;
+                       });
+
+            return newPassword;
+        }
+
+        /// <summary>
+        /// Membership.GeneratePassword can generates some unnecessary complex password,
+        /// whereas this produces passwords much more pleasant especially if no alphanumerics are required.
+        /// </summary>
+        protected static string GenerateTempPassword(int length, int minNonAlphanumeric)
+        {
+            int modVal = 3;
+
+            if (minNonAlphanumeric == 0)
+                modVal = 2;
+            else if (minNonAlphanumeric * 3 > length)
+                length = minNonAlphanumeric * 3;
+
+            byte[] buffer = new byte[length];
+            new Random((int)DateTime.Now.Ticks).NextBytes(buffer);
+
+            string password = "";
+
+            for (int i = 0; i < length; i++)
+            {
+                if (i % modVal == 0)
+                    password = password + (char)('a' + (buffer[i] % 26));
+                else if (i % modVal == 1)
+                    password = password + (char)('0' + (buffer[i] % 10));
+                else
+                    password = password + (char)('#' + (buffer[i] % 4));
+            }
+
+            return password;
+        }
+
+        public override void UpdateUser(MembershipUser user)
+        {
+            UpdateUser(u => u.Username == user.UserName && u.ApplicationName == ApplicationName,
+                       updating =>
+                       {
+                           updating.Email = user.Email;
+                           updating.Comment = user.Comment;
+                           updating.IsApproved = user.IsApproved;
+                       });
+        }
+
+        public User UpdateUser(string username, Action<User> userUpdate)
+        {
+            return UpdateUser(u => u.Username == username && u.ApplicationName == ApplicationName, userUpdate);
+        }
+
+        private User UpdateUser(Predicate<User> userPredicate, Action<User> userUpdate)
+        {
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
+            {
+                IList<User> results = dbc.Query(userPredicate);
+
+                if (results.Count != 1)
+                    return null;
+
+                User found = results[0];
+
+                if (userUpdate != null)
+                    userUpdate(found);
+
+                found.LastActivityDate = DateTime.Now;
+
+                dbc.Store(found);
+
+                return found;
+            }
+        }
+
+        public override bool ValidateUser(string username, string password)
+        {
+            bool isValid = false;
+
+            User user = UpdateUser(username,
+                                   updating =>
+                                   {
+                                       if (CheckPassword(password, updating.Password))
+                                       {
+                                           if (updating.IsApproved)
+                                           {
+                                               isValid = true;
+                                               updating.LastLoginDate = DateTime.Now;
+                                           }
+                                       }
+                                       else
+                                       {
+                                           updating.UpdateFailureCount("password", this);
+                                       }
+                                   }
+                );
+
+            if (user == null)
+                return false;
+
+            return isValid;
+        }
+
+        private bool CheckPassword(string password, string dbPassword)
+        {
+            string pass1 = password;
+            string pass2 = dbPassword;
+
+            switch (PasswordFormat)
+            {
+                case MembershipPasswordFormat.Encrypted:
+                    pass2 = UnEncodePassword(dbPassword);
+                    break;
+                case MembershipPasswordFormat.Hashed:
+                    pass1 = EncodePassword(password);
+                    break;
+                default:
+                    break;
+            }
+
+            if (pass1 == pass2)
+                return true;
+
+            return false;
+        }
+
+        private string EncodePassword(string password)
+        {
+            string encodedPassword = password;
+
+            switch (PasswordFormat)
+            {
+                case MembershipPasswordFormat.Clear:
+                    break;
+                case MembershipPasswordFormat.Encrypted:
+                    encodedPassword = Convert.ToBase64String(EncryptPassword(Encoding.Unicode.GetBytes(password)));
+                    break;
+                case MembershipPasswordFormat.Hashed:
+                    HMACSHA1 hash = new HMACSHA1 { Key = HexToByte(ValidationKeyInfo.GetKey()) };
+                    encodedPassword = Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
+                    break;
+                default:
+                    throw new ProviderException("Unsupported password format.");
+            }
+
+            return encodedPassword;
+        }
+
+        private string UnEncodePassword(string encodedPassword)
+        {
+            string password = encodedPassword;
+
+            switch (PasswordFormat)
+            {
+                case MembershipPasswordFormat.Clear:
+                    break;
+                case MembershipPasswordFormat.Encrypted:
+                    password =
+                        Encoding.Unicode.GetString(DecryptPassword(Convert.FromBase64String(password)));
+                    break;
+                case MembershipPasswordFormat.Hashed:
+                    throw new ProviderException("Cannot unencode a hashed password.");
+                default:
+                    throw new ProviderException("Unsupported password format.");
+            }
+
+            return password;
+        }
+
+        private static byte[] HexToByte(string hexString)
+        {
+            byte[] returnBytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < returnBytes.Length; i++)
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+            return returnBytes;
+        }
+
+        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
+        {
+            return FindUsers(
+                u => u.Username.Contains(usernameToMatch) && u.ApplicationName == applicationName,
+                pageIndex,
+                pageSize,
+                out totalRecords);
+        }
+
+        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
+        {
+            return FindUsers(
+                u => u.Email.Contains(emailToMatch) && u.ApplicationName == applicationName,
+                pageIndex,
+                pageSize,
+                out totalRecords);
+        }
+
+        private MembershipUserCollection FindUsers(Predicate<User> predicate, int pageIndex, int pageSize, out int totalRecords)
+        {
+            List<User> list = GetUsers(predicate);
+            totalRecords = list.Count;
+
+            list.Sort(
+                (left, right) => left.Username.CompareTo(right.Username));
+
+            MembershipUserCollection result = new MembershipUserCollection();
+
+            int start = pageIndex * pageSize;
+            int end = (start + pageSize < totalRecords) ? start + pageSize : totalRecords;
+
+            if (start < end)
+            {
+                for (int i = start; i < end; i++)
+                    result.Add(UserToMembershipUser(list[i]));
+            }
+
+            return result;
         }
 
         #region properties
@@ -104,14 +615,14 @@ namespace Uniframework.Services.db4oProviders
         private string applicationName;
         private bool enablePasswordReset;
         private bool enablePasswordRetrieval;
-        private bool requiresQuestionAndAnswer;
-        private bool requiresUniqueEmail;
         private int maxInvalidPasswordAttempts;
-        private int passwordAttemptWindow;
-        private MembershipPasswordFormat passwordFormat;
         private int minRequiredNonAlphanumericCharacters;
         private int minRequiredPasswordLength;
+        private int passwordAttemptWindow;
+        private MembershipPasswordFormat passwordFormat;
         private string passwordStrengthRegularExpression;
+        private bool requiresQuestionAndAnswer;
+        private bool requiresUniqueEmail;
 
         public override string ApplicationName
         {
@@ -170,533 +681,5 @@ namespace Uniframework.Services.db4oProviders
         }
 
         #endregion
-
-        public override bool ChangePassword(string username, string oldPassword, string newPassword)
-        {
-            if (!ValidateUser(username, oldPassword))
-                return false;
-
-            ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, newPassword, true);
-
-            this.OnValidatingPassword(args);
-
-            if (args.Cancel)
-                if (args.FailureInformation != null)
-                    throw args.FailureInformation;
-                else
-                    throw new MembershipPasswordException(
-                        "Change password cancelled due to new password validation failure.");
-
-            User user = this.UpdateUser(username,
-                                        delegate(User found) { found.Password = this.EncodePassword(newPassword); });
-
-            return (user != null);
-        }
-
-        public override bool ChangePasswordQuestionAndAnswer(string username,
-                                                             string password,
-                                                             string newPwdQuestion,
-                                                             string newPwdAnswer)
-        {
-            if (!ValidateUser(username, password))
-                return false;
-
-            this.UpdateUser(username,
-                            delegate(User updating)
-                            {
-                                updating.PasswordQuestion = newPwdQuestion;
-                                updating.PasswordAnswer = newPwdAnswer;
-                            });
-
-            return true;
-        }
-
-        public override MembershipUser CreateUser(string username,
-                                                  string password,
-                                                  string email,
-                                                  string passwordQuestion,
-                                                  string passwordAnswer,
-                                                  bool isApproved,
-                                                  object providerUserKey,
-                                                  out MembershipCreateStatus status)
-        {
-            ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, password, true);
-
-            this.OnValidatingPassword(args);
-
-            if (args.Cancel)
-            {
-                status = MembershipCreateStatus.InvalidPassword;
-                return null;
-            }
-
-            if (this.RequiresUniqueEmail && GetUserNameByEmail(email) != "")
-            {
-                status = MembershipCreateStatus.DuplicateEmail;
-                return null;
-            }
-
-            MembershipUser u = GetUser(username, false);
-
-            if (u == null)
-            {
-                DateTime createDate = DateTime.Now;
-
-                if (providerUserKey == null)
-                {
-                    providerUserKey = Guid.NewGuid();
-                }
-                else
-                {
-                    if (!(providerUserKey is Guid))
-                    {
-                        status = MembershipCreateStatus.InvalidProviderUserKey;
-                        return null;
-                    }
-                }
-
-                User user = new User(
-                    (Guid)providerUserKey,
-                    username,
-                    this.EncodePassword(password),
-                    email,
-                    passwordQuestion,
-                    this.EncodePassword(passwordAnswer),
-                    isApproved,
-                    "",
-                    createDate,
-                    createDate,
-                    createDate,
-                    applicationName,
-                    false,
-                    createDate,
-                    0,
-                    createDate,
-                    0,
-                    createDate);
-
-                using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
-                {
-                    dbc.dbService.Set(user);
-                }
-
-                status = MembershipCreateStatus.Success;
-
-                return GetUser(username, false);
-            }
-            else
-            {
-                status = MembershipCreateStatus.DuplicateUserName;
-            }
-
-            return null;
-        }
-
-        public override bool DeleteUser(string username, bool deleteAllRelatedData)
-        {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
-            {
-                IList<User> results =
-                    dbc.dbService.Query<User>(
-                        delegate(User u) { return u.Username == username && u.ApplicationName == this.applicationName; });
-
-                if (results.Count != 1)
-                    return false;
-
-                User found = results[0];
-
-                dbc.dbService.Delete(found);
-            }
-
-            return false;
-        }
-
-        public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
-        {
-            return this.FindUsers(
-                delegate(User u) { return u.ApplicationName == this.applicationName; },
-                pageIndex,
-                pageSize,
-                out totalRecords);
-        }
-
-        public override int GetNumberOfUsersOnline()
-        {
-            TimeSpan onlineSpan = new TimeSpan(0, System.Web.Security.Membership.UserIsOnlineTimeWindow, 0);
-            DateTime compareTime = DateTime.Now.Subtract(onlineSpan);
-
-            List<User> users = this.GetUsers(
-                delegate(User u) { return u.LastActivityDate > compareTime && u.ApplicationName == this.applicationName; });
-
-            return users.Count;
-        }
-
-        public override string GetPassword(string username, string answer)
-        {
-            if (!EnablePasswordRetrieval)
-                throw new ProviderException("Password Retrieval not enabled.");
-
-            if (PasswordFormat == MembershipPasswordFormat.Hashed)
-                throw new ProviderException("Cannot retrieve Hashed passwords.");
-
-            User found =
-                GetUser(
-                    delegate(User u) { return u.Username == username && u.ApplicationName == this.applicationName; },
-                    false);
-
-            if (found == null)
-                throw new MembershipPasswordException("The supplied user name is not found.");
-
-            if (found.IsLockedOut)
-                throw new MembershipPasswordException("The supplied user is locked out.");
-
-            if (RequiresQuestionAndAnswer && !CheckPassword(answer, found.PasswordAnswer))
-            {
-                UpdateUser(username,
-                           delegate(User updating) { updating.UpdateFailureCount("passwordAnswer", this); });
-
-                throw new MembershipPasswordException("Incorrect password answer.");
-            }
-
-            if (PasswordFormat == MembershipPasswordFormat.Encrypted)
-                return this.UnEncodePassword(found.Password);
-
-            return found.Password;
-        }
-
-        public override MembershipUser GetUser(string username, bool userIsOnline)
-        {
-            User found =
-                this.GetUser(
-                    delegate(User user) { return user.Username == username && user.ApplicationName == this.applicationName; },
-                    userIsOnline);
-            if (found != null)
-                return UserToMembershipUser(found);
-            else
-                return null;
-        }
-
-        public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
-        {
-            User found =
-                this.GetUser(
-                    delegate(User user) { return user.PKID == (Guid)providerUserKey && user.ApplicationName == this.applicationName; },
-                    userIsOnline);
-            if (found != null)
-                return UserToMembershipUser(found);
-            else
-                return null;
-        }
-
-        private User GetUser(Predicate<User> userPredicate, bool userIsOnline)
-        {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
-            {
-                IList<User> results = dbc.dbService.Query<User>(userPredicate);
-
-                if (results.Count == 0)
-                    return null;
-
-                User found = results[0];
-
-                if (userIsOnline)
-                {
-                    found.LastActivityDate = DateTime.Now;
-                    dbc.dbService.Set(found);
-                }
-
-                return found;
-            }
-        }
-
-        private List<User> GetUsers(Predicate<User> userPredicate)
-        {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
-            {
-                IList<User> list = dbc.dbService.Query<User>(userPredicate);
-                return new List<User>(list);
-            }
-        }
-
-        private MembershipUser UserToMembershipUser(User user)
-        {
-            return new MembershipUser(this.Name,
-                                      user.Username,
-                                      user.PKID,
-                                      user.Email,
-                                      user.PasswordQuestion,
-                                      user.Comment,
-                                      user.IsApproved,
-                                      user.IsLockedOut,
-                                      user.CreationDate,
-                                      user.LastLoginDate,
-                                      user.LastActivityDate,
-                                      user.LastPasswordChangedDate,
-                                      user.LastLockedOutDate);
-        }
-
-        public override bool UnlockUser(string username)
-        {
-            User found = UpdateUser(username,
-                                    delegate(User updating)
-                                    {
-                                        updating.IsLockedOut = false;
-                                        updating.LastLockedOutDate = DateTime.Now;
-                                    });
-
-            return found != null;
-        }
-
-        public override string GetUserNameByEmail(string email)
-        {
-            User found =
-                this.GetUser(
-                    delegate(User user) { return (user.Email == email && user.ApplicationName == this.ApplicationName); }, false);
-
-            if (found == null)
-                return "";
-            else
-                return found.Username;
-        }
-
-        public override string ResetPassword(string username, string answer)
-        {
-            if (!EnablePasswordReset)
-                throw new NotSupportedException("Password reset is not enabled.");
-
-            User user =
-                this.GetUser(
-                    delegate(User u) { return u.Username == username && u.ApplicationName == this.applicationName; },
-                    false);
-            if (user == null)
-                throw new ProviderException("The supplied user name is not found.");
-
-            if (String.IsNullOrEmpty(answer) && RequiresQuestionAndAnswer)
-            {
-                user.UpdateFailureCount("passwordAnswer", this);
-                throw new ProviderException("Password answer required for password reset.");
-            }
-
-            string newPassword =
-                System.Web.Security.Membership.GeneratePassword(newPasswordLength,
-                                                                this.MinRequiredNonAlphanumericCharacters);
-
-            ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, newPassword, true);
-            this.OnValidatingPassword(args);
-            if (args.Cancel)
-            {
-                if (args.FailureInformation != null)
-                    throw args.FailureInformation;
-                else
-                    throw new MembershipPasswordException("Reset password cancelled due to password validation failure.");
-            }
-
-            if (user.IsLockedOut)
-                throw new MembershipPasswordException("The supplied user is locked out.");
-
-            if (this.RequiresQuestionAndAnswer && !CheckPassword(answer, user.PasswordAnswer))
-            {
-                user.UpdateFailureCount("passwordAnswer", this);
-                throw new MembershipPasswordException("Incorrect password answer.");
-            }
-
-            this.UpdateUser(user.Username,
-                            delegate(User updating)
-                            {
-                                updating.Password = newPassword;
-                                updating.LastPasswordChangedDate = DateTime.Now;
-                            });
-
-            return newPassword;
-        }
-
-        public override void UpdateUser(MembershipUser user)
-        {
-            this.UpdateUser(
-                delegate(User u) { return u.Username == user.UserName && u.ApplicationName == this.ApplicationName; },
-                delegate(User updating)
-                {
-                    updating.Email = user.Email;
-                    updating.Comment = user.Comment;
-                    updating.IsApproved = user.IsApproved;
-                });
-        }
-
-        public User UpdateUser(string username, Action<User> userUpdate)
-        {
-            return this.UpdateUser(
-                delegate(User u) { return u.Username == username && u.ApplicationName == this.ApplicationName; },
-                userUpdate);
-        }
-
-        private User UpdateUser(Predicate<User> userPredicate, Action<User> userUpdate)
-        {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
-            {
-                IList<User> results = dbc.dbService.Query<User>(userPredicate);
-
-                if (results.Count != 1)
-                    return null;
-
-                User found = results[0];
-
-                if (userUpdate != null)
-                    userUpdate(found);
-
-                found.LastActivityDate = DateTime.Now;
-
-                dbc.dbService.Set(found);
-
-                return found;
-            }
-        }
-
-        public override bool ValidateUser(string username, string password)
-        {
-            bool isValid = false;
-
-            User user = this.UpdateUser(username,
-                                        delegate(User updating)
-                                        {
-                                            if (CheckPassword(password, updating.Password))
-                                            {
-                                                if (updating.IsApproved)
-                                                {
-                                                    isValid = true;
-                                                    updating.LastLoginDate = DateTime.Now;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                updating.UpdateFailureCount("password", this);
-                                            }
-                                        }
-                );
-
-            if (user == null)
-                return false;
-
-            return isValid;
-        }
-
-        private bool CheckPassword(string password, string dbpassword)
-        {
-            string pass1 = password;
-            string pass2 = dbpassword;
-
-            switch (PasswordFormat)
-            {
-                case MembershipPasswordFormat.Encrypted:
-                    pass2 = this.UnEncodePassword(dbpassword);
-                    break;
-                case MembershipPasswordFormat.Hashed:
-                    pass1 = this.EncodePassword(password);
-                    break;
-                default:
-                    break;
-            }
-
-            if (pass1 == pass2)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private string EncodePassword(string password)
-        {
-            string encodedPassword = password;
-
-            switch (PasswordFormat)
-            {
-                case MembershipPasswordFormat.Clear:
-                    break;
-                case MembershipPasswordFormat.Encrypted:
-                    encodedPassword = Convert.ToBase64String(EncryptPassword(Encoding.Unicode.GetBytes(password)));
-                    break;
-                case MembershipPasswordFormat.Hashed:
-                    HMACSHA1 hash = new HMACSHA1();
-                    hash.Key = HexToByte(this.ValidationKeyInfo.GetKey());
-                    encodedPassword = Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
-                    break;
-                default:
-                    throw new ProviderException("Unsupported password format.");
-            }
-
-            return encodedPassword;
-        }
-
-        private string UnEncodePassword(string encodedPassword)
-        {
-            string password = encodedPassword;
-
-            switch (PasswordFormat)
-            {
-                case MembershipPasswordFormat.Clear:
-                    break;
-                case MembershipPasswordFormat.Encrypted:
-                    password =
-                        Encoding.Unicode.GetString(DecryptPassword(Convert.FromBase64String(password)));
-                    break;
-                case MembershipPasswordFormat.Hashed:
-                    throw new ProviderException("Cannot unencode a hashed password.");
-                default:
-                    throw new ProviderException("Unsupported password format.");
-            }
-
-            return password;
-        }
-
-        private byte[] HexToByte(string hexString)
-        {
-            byte[] returnBytes = new byte[hexString.Length / 2];
-            for (int i = 0; i < returnBytes.Length; i++)
-                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
-            return returnBytes;
-        }
-
-        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize,
-                                                                 out int totalRecords)
-        {
-            return this.FindUsers(
-                delegate(User u) { return u.Username.Contains(usernameToMatch) && u.ApplicationName == this.applicationName; },
-                pageIndex,
-                pageSize,
-                out totalRecords);
-        }
-
-        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
-                                                                  out int totalRecords)
-        {
-            return this.FindUsers(
-                delegate(User u) { return u.Email.Contains(emailToMatch) && u.ApplicationName == this.applicationName; },
-                pageIndex,
-                pageSize,
-                out totalRecords);
-        }
-
-        private MembershipUserCollection FindUsers(Predicate<User> predicate, int pageIndex, int pageSize,
-                                                   out int totalRecords)
-        {
-            List<User> list = GetUsers(predicate);
-            totalRecords = list.Count;
-
-            list.Sort(
-                delegate(User left, User right) { return left.Username.CompareTo(right.Username); });
-
-            MembershipUserCollection result = new MembershipUserCollection();
-
-            int start = pageIndex * pageSize;
-            int end = (start + pageSize < totalRecords) ? start + pageSize : totalRecords;
-
-            if (start < end)
-            {
-                for (int i = start; i < end; i++)
-                    result.Add(this.UserToMembershipUser(list[i]));
-            }
-
-            return result;
-        }
     }
 }

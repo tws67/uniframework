@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 
 using Castle.MicroKernel;
+using Uniframework.Db4o;
 
 namespace Uniframework.Services
 {
@@ -22,7 +23,7 @@ namespace Uniframework.Services
 
         private IKernel kernel;
         private ILogger logger;
-        private IObjectDatabase db;
+        private IDb4oDatabase db;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventDispatcher"/> class.
@@ -30,7 +31,7 @@ namespace Uniframework.Services
         /// <param name="log">The log.</param>
         /// <param name="kernel">The kernel.</param>
         /// <param name="databaseService">The database service.</param>
-        public EventDispatcher(ILoggerFactory log, IKernel kernel, IObjectDatabaseService databaseService)
+        public EventDispatcher(ILoggerFactory log, IKernel kernel, IDb4oDatabaseService databaseService)
         {
             this.kernel = kernel;
 
@@ -38,7 +39,7 @@ namespace Uniframework.Services
             subscribers = new Dictionary<string, EventSubscriberInfo>();
             eventCollectors = new Dictionary<string, EventCollector>();
             logger = log.CreateLogger<EventDispatcher>("Framework");
-            db = databaseService.OpenDatabase(dbName);
+            db = databaseService.Open(dbName);
             outerSubscriberMapping = new Dictionary<string, List<string>>();
         }
 
@@ -125,7 +126,7 @@ namespace Uniframework.Services
             if (!outerSubscriberMapping.ContainsKey(sessionID)) outerSubscriberMapping.Add(sessionID, new List<string>());
             outerSubscriberMapping[sessionID].Add(topic);
             AddOuterSubscriberToPublisherInfo(sessionID + topic, subInfo);
-            db.Save(new OuterEventInfo(sessionID, topic, location));
+            db.Store(new OuterEventInfo(sessionID, topic, location));
         }
 
         public void UnRegisterAnOuterEventSubscriber(string sessionID, string topic)
@@ -141,7 +142,7 @@ namespace Uniframework.Services
             template.SessionID = sessionID;
             template.Topic = topic;
 
-            OuterEventInfo[] events = db.Load<OuterEventInfo>(template);
+            IList<OuterEventInfo> events = db.Load<OuterEventInfo>(template);
             foreach (OuterEventInfo info in events)
             {
                 db.Delete(info);
@@ -260,7 +261,7 @@ namespace Uniframework.Services
             OuterEventInfo template = new OuterEventInfo();
             template.SessionID = sessionID;
 
-            OuterEventInfo[] events = db.Load<OuterEventInfo>(template);
+            IList<OuterEventInfo> events = db.Load<OuterEventInfo>(template);
             foreach (OuterEventInfo info in events)
             {
                 db.Delete(info);

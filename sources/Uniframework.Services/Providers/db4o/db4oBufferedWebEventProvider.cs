@@ -9,22 +9,19 @@ namespace Uniframework.Services.db4oProviders
 {
     public class db4oBufferedWebEventProvider : BufferedWebEventProvider
     {
+        public static readonly string PROVIDER_NAME = "db4oBufferedWebEventProvider";
+        private string buffer, bufferMode;
+
+        private string connectionString;
         public IConnectionStringStore ConnectionStringStore = new ConfigurationManagerConnectionStringStore();
 
-        public static readonly string PROVIDER_NAME = "db4oBufferedWebEventProvider";
-
-        private string eventSource = PROVIDER_NAME;
-        private string connectionString;
-
-
-        // Holds custom information.
         private StringBuilder customInfo = new StringBuilder();
-
-        private string providerName, buffer, bufferMode;
-
+        private string providerName;
 
         public override void Initialize(string name, NameValueCollection config)
         {
+            throw new NotImplementedException();
+
             if (config == null)
                 throw new ArgumentNullException("config");
 
@@ -39,7 +36,7 @@ namespace Uniframework.Services.db4oProviders
 
             base.Initialize(name, config);
 
-            connectionString = this.ConnectionStringStore.GetConnectionString(config["connectionStringName"]);
+            connectionString = ConnectionStringStore.GetConnectionString(config["connectionStringName"]);
             if (connectionString == null)
                 throw new ProviderException("Connection string cannot be blank.");
 
@@ -60,7 +57,7 @@ namespace Uniframework.Services.db4oProviders
         // to buffer the event information.
         public override void ProcessEvent(WebBaseEvent eventRaised)
         {
-            if (this.UseBuffering)
+            if (UseBuffering)
                 base.ProcessEvent(eventRaised);
             else
             {
@@ -168,7 +165,7 @@ namespace Uniframework.Services.db4oProviders
             {
                 throw new Exception(
                     "SampleEventProvider.StoreToFile: "
-                    + e.ToString());
+                    + e);
             }
         }
     }

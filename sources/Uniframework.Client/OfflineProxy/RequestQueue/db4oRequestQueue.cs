@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Uniframework.Db4o;
 using Uniframework.Services;
 
 namespace Uniframework.Client.OfflineProxy
@@ -11,13 +12,13 @@ namespace Uniframework.Client.OfflineProxy
     /// </summary>
     public class db4oRequestQueue : IRequestQueue, IDisposable
     {
-        private IObjectDatabase dbService;
+        private IDb4oDatabase dbService;
         
         /// <summary>
         /// db4o请求队列构造函数
         /// </summary>
         /// <param name="databaseService">db4o数据库服务</param>
-        public db4oRequestQueue(IObjectDatabaseService databaseService)
+        public db4oRequestQueue(IDb4oDatabaseService databaseService)
             : this(databaseService, "Request")
         { }
 
@@ -26,9 +27,9 @@ namespace Uniframework.Client.OfflineProxy
         /// </summary>
         /// <param name="databaseService">db4o数据库服务</param>
         /// <param name="databaseName">请求队列存放的数据库名称</param>
-        public db4oRequestQueue(IObjectDatabaseService databaseService, string databaseName)
+        public db4oRequestQueue(IDb4oDatabaseService databaseService, string databaseName)
         {
-            dbService = databaseService.OpenDatabase(databaseName);
+            dbService = databaseService.Open(databaseName);
         }
 
         #region IRequestQueue Members
@@ -37,12 +38,12 @@ namespace Uniframework.Client.OfflineProxy
 
         public void Enqueue(Request request)
         {
-            Request[] results = dbService.Load<Request>(delegate(Request queryRequest) {
+            IList<Request> results = dbService.Load<Request>(delegate(Request queryRequest) {
                 return queryRequest.RequestId == request.RequestId;
             });
-            if (results.Length == 0)
+            if (results.Count == 0)
             {
-                dbService.Save(request);
+                dbService.Store(request);
                 if (RequestQueueChanged != null)
                     RequestQueueChanged(this, new RequestQueueEventArgs(request, GetCount()));
             }
@@ -50,7 +51,7 @@ namespace Uniframework.Client.OfflineProxy
 
         public int GetCount()
         {
-            return dbService.Load<Request>().Length;
+            return dbService.Load<Request>().Count;
         }
 
         public Request GetNextRequest()
@@ -60,48 +61,39 @@ namespace Uniframework.Client.OfflineProxy
 
         public IList<Request> GetRequests(string tag)
         {
-            Request[] results = dbService.Load<Request>(delegate(Request request) {
+            return dbService.Load<Request>(delegate(Request request) {
                 return request.Behavior.Tag == tag;
             });
-            List<Request> requests = new List<Request>();
-            requests.AddRange(results);
-            return requests;
         }
 
         public IList<Request> GetRequests(uint stampsEqualOrMoreThan)
         {
-            Request[] results = dbService.Load<Request>(delegate(Request request) {
+            return dbService.Load<Request>(delegate(Request request) {
                 return request.Behavior.Stamps >= stampsEqualOrMoreThan;
             });
-            List<Request> requests = new List<Request>();
-            requests.AddRange(results);
-            return requests;
         }
 
         public IList<Request> GetRequests()
         {
-            Request[] results = dbService.Load<Request>();
-            List<Request> requests = new List<Request>();
-            requests.AddRange(results);
-            return requests;
+            return dbService.Load<Request>();
         }
 
         public Request GetRequest(Guid requestId)
         {
-            Request[] results = dbService.Load<Request>(delegate(Request request) {
+            IList<Request> results = dbService.Load<Request>(delegate(Request request) {
                 return request.RequestId == requestId;
             });
-            if(results.Length > 0)
+            if(results.Count > 0)
                 return results[0];
             return null;
         }
 
         public void Remove(Request request)
         {
-            Request[] results = dbService.Load<Request>(delegate(Request queryRequest) {
+            IList<Request> results = dbService.Load<Request>(delegate(Request queryRequest) {
                 return request.RequestId == queryRequest.RequestId;
             });
-            if (results.Length > 0)
+            if (results.Count > 0)
             {
                 dbService.Delete(results[0]);
                 if (RequestQueueChanged != null)
@@ -119,8 +111,7 @@ namespace Uniframework.Client.OfflineProxy
         {
             if (!disposed && disposing)
             {
-                Request[] results = dbService.Load<Request>();
-                foreach (Request request in results)
+                foreach (Request request in dbService.Load<Request>())
                     dbService.Delete(request);
                 disposed = true;
             }

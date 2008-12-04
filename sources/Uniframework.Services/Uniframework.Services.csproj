@@ -100,10 +100,6 @@
     <Compile Include="Services\Extend\AbstractExtend.cs" />
     <Compile Include="Services\Logger\Log4NetLogger.cs" />
     <Compile Include="Services\Logger\Log4NetLoggerFactory.cs" />
-    <Compile Include="Services\db4o\db4oDatabase.cs" />
-    <Compile Include="Services\db4o\db4oDatabaseService.cs" />
-    <Compile Include="Services\db4o\db4oEnlist.cs" />
-    <Compile Include="Services\db4o\db4oHttpModule.cs" />
     <Compile Include="Services\Session\SessionService.cs" />
     <Compile Include="Services\Session\SessionState.cs" />
     <Compile Include="Services\Upgrade\IISManager.cs" />

@@ -5,6 +5,7 @@ using System.Web;
 
 using Db4objects.Db4o;
 using Db4objects.Db4o.Query;
+using Uniframework.Db4o;
 
 namespace Uniframework.Services
 {
@@ -15,7 +16,7 @@ namespace Uniframework.Services
     {
         private ILogger logger;
         private object SyncObj = new object();
-        private IObjectDatabase db;
+        private IDb4oDatabase db;
 
         private readonly static string UPGRADE_CONFIGURATION_FILE = "Configuration.yap";
         private readonly static string UPGRADE_PATH = "~/Upgrade/";
@@ -25,11 +26,11 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="databaseService">数据库服务</param>
         /// <param name="loggerFactory">日志服务工厂</param>
-        public UpgradeService(IObjectDatabaseService databaseService, ILoggerFactory loggerFactory)
+        public UpgradeService(IDb4oDatabaseService databaseService, ILoggerFactory loggerFactory)
         {
             logger = loggerFactory.CreateLogger<UpgradeService>();
             Db4oFactory.Configure().ObjectClass(typeof(UpgradeProject)).CascadeOnDelete(true); // 设置级联删除
-            db = databaseService.OpenDatabase(UPGRADE_CONFIGURATION_FILE);
+            db = databaseService.Open(UPGRADE_CONFIGURATION_FILE);
         }
 
         #region IUpgradeService Members
@@ -43,10 +44,10 @@ namespace Uniframework.Services
         {
             lock (SyncObj)
             {
-                UpgradeProject[] projects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
+                IList<UpgradeProject> projects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
                     return product == project.Product;
                 });
-                if (projects.Length > 0)
+                if (projects.Count > 0)
                 {
                     UpgradeProject project = projects[0];
                     foreach (UpgradeProject proj in projects)
@@ -73,10 +74,10 @@ namespace Uniframework.Services
         {
             lock (SyncObj)
             {
-                UpgradeProject[] upgradeProjects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
+                IList<UpgradeProject> upgradeProjects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
                     return project.Product == product && project.Version == version;
                 });
-                if (upgradeProjects.Length > 0)
+                if (upgradeProjects.Count > 0)
                     return upgradeProjects[0];
                 return null;
             }
@@ -111,7 +112,7 @@ namespace Uniframework.Services
         {
             lock (SyncObj)
             {
-                UpgradeProject[] upgradeProjects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
+                IList<UpgradeProject> upgradeProjects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
                     return project.Product == product;
                 });
                 IList<UpgradeProject> results = new List<UpgradeProject>();
@@ -127,7 +128,7 @@ namespace Uniframework.Services
         /// <param name="project">软件更新项目配置信息</param>
         public void CreateUpgradeProject(UpgradeProject project)
         {
-            db.Save(project);
+            db.Store(project);
             if (UpgradeProjectCreated != null)
                 UpgradeProjectCreated(this, new EventArgs<UpgradeProject>(project));
         }
@@ -152,7 +153,7 @@ namespace Uniframework.Services
         {
             lock (SyncObj)
             {
-                UpgradeProject[] upgradeProjects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
+                IList<UpgradeProject> upgradeProjects = db.Load<UpgradeProject>(delegate(UpgradeProject project) {
                     return project.Product == product;
                 });
                 foreach (UpgradeProject project in upgradeProjects)

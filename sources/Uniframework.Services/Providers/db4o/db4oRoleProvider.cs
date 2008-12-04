@@ -2,19 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration.Provider;
+using System.Web.Hosting;
 using System.Web.Security;
 using Db4objects.Db4o;
+
+using Uniframework.Db4o;
 
 namespace Uniframework.Services.db4oProviders
 {
     public class db4oRoleProvider : RoleProvider
     {
-        public IConnectionStringStore ConnectionStringStore = new ConfigurationManagerConnectionStringStore();
-
         public static readonly string PROVIDER_NAME = "db4oRoleProvider";
 
-        private string eventSource = PROVIDER_NAME;
+        private string applicationName;
         private string connectionString;
+        public IConnectionStringStore ConnectionStringStore = new ConfigurationManagerConnectionStringStore();
+
+        public override string ApplicationName
+        {
+            get { return applicationName; }
+            set { applicationName = value; }
+        }
 
         public override void Initialize(string name, NameValueCollection config)
         {
@@ -34,9 +42,9 @@ namespace Uniframework.Services.db4oProviders
 
             applicationName =
                 Utils.DefaultIfBlank(config["applicationName"],
-                                            System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
+                                     HostingEnvironment.ApplicationVirtualPath);
 
-            connectionString = this.ConnectionStringStore.GetConnectionString(config["connectionStringName"]);
+            connectionString = ConnectionStringStore.GetConnectionString(config["connectionStringName"]);
             if (connectionString == null)
                 throw new ProviderException("Connection string cannot be blank.");
 
@@ -44,21 +52,13 @@ namespace Uniframework.Services.db4oProviders
             Db4oFactory.Configure().ObjectClass(new EnrolledUser("", "")).CascadeOnUpdate(true);
         }
 
-        private string applicationName;
-
-        public override string ApplicationName
-        {
-            get { return applicationName; }
-            set { applicationName = value; }
-        }
-
         public override void AddUsersToRoles(string[] usernames, string[] rolenames)
         {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
                 foreach (string rolename in rolenames)
                 {
-                    if (!this.RoleExists(rolename, dbc.dbService))
+                    if (!RoleExists(rolename, dbc))
                         throw new ProviderException("Role name not found.");
                 }
 
@@ -70,8 +70,7 @@ namespace Uniframework.Services.db4oProviders
 
                 foreach (string rolename in rolenames)
                 {
-                    IList<Role> results = dbc.dbService.Query<Role>(
-                        delegate(Role r) { return r.Rolename == rolename && r.ApplicationName == this.applicationName; });
+                    IList<Role> results = dbc.Query((Role r) => r.Rolename == rolename && r.ApplicationName == applicationName);
 
                     Role found = results[0];
 
@@ -81,13 +80,12 @@ namespace Uniframework.Services.db4oProviders
                             found.EnrolledUsers.Add(username);
                     }
 
-                    dbc.dbService.Set(found);
+                    dbc.Store(found);
                 }
 
                 foreach (string username in usernames)
                 {
-                    IList<EnrolledUser> results = dbc.dbService.Query<EnrolledUser>(
-                        delegate(EnrolledUser u) { return u.Username == username && u.ApplicationName == this.applicationName; });
+                    IList<EnrolledUser> results = dbc.Query((EnrolledUser u) => u.Username == username && u.ApplicationName == applicationName);
 
                     EnrolledUser found;
 
@@ -95,7 +93,7 @@ namespace Uniframework.Services.db4oProviders
                     {
                         // this is the only place in the API that EnrolledUser's
                         // are added to the database
-                        found = new EnrolledUser(username, this.applicationName);
+                        found = new EnrolledUser(username, applicationName);
                     }
                     else
                         found = results[0];
@@ -106,7 +104,7 @@ namespace Uniframework.Services.db4oProviders
                             found.Roles.Add(rolename);
                     }
 
-                    dbc.dbService.Set(found);
+                    dbc.Store(found);
                 }
             }
         }
@@ -116,12 +114,12 @@ namespace Uniframework.Services.db4oProviders
             if (rolename.Contains(","))
                 throw new ArgumentException("Role names cannot contain commas.");
 
-            if (this.RoleExists(rolename))
+            if (RoleExists(rolename))
                 throw new ProviderException("Role name already exists.");
 
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
-                dbc.dbService.Set(new Role(rolename, this.applicationName));
+                dbc.Store(new Role(rolename, applicationName));
             }
         }
 
@@ -133,14 +131,13 @@ namespace Uniframework.Services.db4oProviders
             if (throwOnPopulatedRole && GetUsersInRole(rolename).Length > 0)
                 throw new ProviderException("Cannot delete a populated role.");
 
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
-                IList<Role> results = dbc.dbService.Query<Role>(
-                    delegate(Role r) { return r.Rolename == rolename && r.ApplicationName == this.applicationName; });
+                IList<Role> results = dbc.Query((Role r) => r.Rolename == rolename && r.ApplicationName == applicationName);
 
                 Role found = results[0];
 
-                dbc.dbService.Delete(found);
+                dbc.Delete(found);
 
                 return true;
             }
@@ -148,10 +145,9 @@ namespace Uniframework.Services.db4oProviders
 
         public override string[] GetAllRoles()
         {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
-                IList<Role> results = dbc.dbService.Query<Role>(
-                    delegate(Role r) { return r.ApplicationName == this.applicationName; });
+                IList<Role> results = dbc.Query((Role r) => r.ApplicationName == applicationName);
 
                 List<string> roleList = new List<string>();
                 foreach (Role role in results)
@@ -163,10 +159,9 @@ namespace Uniframework.Services.db4oProviders
 
         public override string[] GetRolesForUser(string username)
         {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
-                IList<EnrolledUser> results = dbc.dbService.Query<EnrolledUser>(
-                    delegate(EnrolledUser u) { return u.Username == username && u.ApplicationName == this.applicationName; });
+                IList<EnrolledUser> results = dbc.Query((EnrolledUser u) => u.Username == username && u.ApplicationName == applicationName);
 
                 if (results.Count == 0)
                     return new string[0];
@@ -179,10 +174,9 @@ namespace Uniframework.Services.db4oProviders
 
         public override string[] GetUsersInRole(string rolename)
         {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
-                IList<Role> results = dbc.dbService.Query<Role>(
-                    delegate(Role r) { return r.Rolename == rolename && r.ApplicationName == this.applicationName; });
+                IList<Role> results = dbc.Query((Role r) => r.Rolename == rolename && r.ApplicationName == applicationName);
 
                 if (results.Count == 0)
                     return new string[0];
@@ -201,18 +195,17 @@ namespace Uniframework.Services.db4oProviders
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] rolenames)
         {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
                 foreach (string rolename in rolenames)
                 {
-                    if (!this.RoleExists(rolename, dbc.dbService))
+                    if (!RoleExists(rolename, dbc))
                         throw new ProviderException("Role name not found.");
                 }
 
                 foreach (string rolename in rolenames)
                 {
-                    IList<Role> results = dbc.dbService.Query<Role>(
-                        delegate(Role r) { return r.Rolename == rolename && r.ApplicationName == this.applicationName; });
+                    IList<Role> results = dbc.Query((Role r) => r.Rolename == rolename && r.ApplicationName == applicationName);
 
                     Role found = results[0];
 
@@ -222,13 +215,12 @@ namespace Uniframework.Services.db4oProviders
                             found.EnrolledUsers.Remove(username);
                     }
 
-                    dbc.dbService.Set(found);
+                    dbc.Store(found);
                 }
 
                 foreach (string username in usernames)
                 {
-                    IList<EnrolledUser> results = dbc.dbService.Query<EnrolledUser>(
-                        delegate(EnrolledUser u) { return u.Username == username && u.ApplicationName == this.applicationName; });
+                    IList<EnrolledUser> results = dbc.Query((EnrolledUser u) => u.Username == username && u.ApplicationName == applicationName);
 
                     if (results.Count == 0)
                         continue;
@@ -241,24 +233,23 @@ namespace Uniframework.Services.db4oProviders
                             found.Roles.Remove(rolename);
                     }
 
-                    dbc.dbService.Set(found);
+                    dbc.Store(found);
                 }
             }
         }
 
         private bool RoleExists(string rolename, IObjectContainer db)
         {
-            IList<Role> results = db.Query<Role>(
-                delegate(Role r) { return r.Rolename == rolename && r.ApplicationName == this.applicationName; });
+            IList<Role> results = db.Query((Role r) => r.Rolename == rolename && r.ApplicationName == applicationName);
 
             return results.Count > 0;
         }
 
         public override bool RoleExists(string rolename)
         {
-            using (db4oDatabase dbc = new db4oDatabase(this.connectionString))
+            using (Db4oDatabase dbc = new Db4oDatabase(connectionString))
             {
-                return this.RoleExists(rolename, dbc.dbService);
+                return RoleExists(rolename, dbc);
             }
         }
 
@@ -266,7 +257,7 @@ namespace Uniframework.Services.db4oProviders
         {
             List<string> results = new List<string>();
 
-            string[] enrolledUsers = this.GetUsersInRole(rolename);
+            string[] enrolledUsers = GetUsersInRole(rolename);
 
             foreach (string username in enrolledUsers)
             {

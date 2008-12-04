@@ -5,7 +5,9 @@ using System.Configuration;
 using System.Text;
 using System.Threading;
 using System.Xml;
+
 using Db4objects.Db4o;
+using Uniframework.Db4o;
 
 namespace Uniframework.Services
 {
@@ -20,7 +22,7 @@ namespace Uniframework.Services
         private readonly string THREAD_SOLOT_NAME = "SessionThreadSlot";
         private IEventDispatcher dispatcher;
         private object syncObj = new object();
-        private IObjectDatabase db;
+        private IDb4oDatabase db;
 
         private int timeout;
         private int checkSpan;
@@ -36,15 +38,15 @@ namespace Uniframework.Services
         /// <param name="configService">The config service.</param>
         /// <param name="loggerFactory">The logger factory.</param>
         /// <param name="dispatcher">The dispatcher.</param>
-        public SessionService(IObjectDatabaseService databaseService, IConfigurationService configService, ILoggerFactory loggerFactory, IEventDispatcher dispatcher)
+        public SessionService(IDb4oDatabaseService databaseService, IConfigurationService configService, ILoggerFactory loggerFactory, IEventDispatcher dispatcher)
         {
             //设置Session对象的级联删除
             Db4oFactory.Configure().ObjectClass(typeof(SessionStore)).CascadeOnDelete(true);
             logger = loggerFactory.CreateLogger<SessionService>("Framework");
-            db = databaseService.OpenDatabase(SESSION_DATABASE_NAME);
+            db = databaseService.Open(SESSION_DATABASE_NAME);
             sessions = new Dictionary<string, SessionState>();
 
-            SessionStore[] stores = db.Load<SessionStore>();
+            IList<SessionStore> stores = db.Load<SessionStore>();
             foreach (SessionStore store in stores)
             {
                 sessions.Add(store.Key, store.Session);
@@ -119,7 +121,7 @@ namespace Uniframework.Services
             string id = ((SessionState)sender)[ServerVariables.SESSION_ID].ToString();
             SessionStore store = GetSessionFromDatabase(id);
             store.Session = (SessionState)sender;
-            db.Save(store);
+            db.Store(store);
         }
 
         /// <summary>
@@ -129,13 +131,13 @@ namespace Uniframework.Services
         /// <returns></returns>
         private SessionStore GetSessionFromDatabase(string sessionID)
         {
-            SessionStore[] stores = db.Load<SessionStore>(new Predicate<SessionStore>(
+            IList<SessionStore> stores = db.Load<SessionStore>(new Predicate<SessionStore>(
                 delegate(SessionStore store)
                 {
                     return store.Key == sessionID;
                 }));
 
-            if (stores.Length == 0) return null;
+            if (stores.Count == 0) return null;
             return stores[0];
         }
         #endregion
@@ -164,7 +166,7 @@ namespace Uniframework.Services
                 session[ServerVariables.ENCRYPT_KEY] = encryptKey;
                 session[ServerVariables.LOGGING_TIME] = DateTime.Now;
                 sessions.Add(sessionID, session);
-                db.Save(new SessionStore(sessionID, session));
+                db.Store(new SessionStore(sessionID, session));
                 InitialSession(session);
             }
         }

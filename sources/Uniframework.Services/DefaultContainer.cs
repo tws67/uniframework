@@ -12,6 +12,7 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration;
 using Castle.Windsor.Configuration.Interpreters;
 
+using Uniframework.Db4o;
 using Uniframework.Services.Facilities;
 
 namespace Uniframework.Services
@@ -80,7 +81,7 @@ namespace Uniframework.Services
                 this.Kernel.AddComponentInstance("configService", typeof(IConfigurationService), new XMLConfigurationService(CONFIG_FILENAME));
 
                 logger.Info("开始加载嵌入式对象数据库服务");
-                AddComponent("ObjectDatabaseService", typeof(IObjectDatabaseService), typeof(db4oDatabaseService));
+                AddComponent("ObjectDatabaseService", typeof(IDb4oDatabaseService), typeof(Db4oDatabaseService));
 
                 logger.Info("开始加载事件分发服务");
                 AddFacility("eventautowiring", new EventAutoWiringFacility());

@@ -4,43 +4,43 @@ namespace Uniframework.Services.db4oProviders
 {
     public class Role : DataContainer
     {
+        public readonly string ApplicationName;
+        public readonly string Rolename;
+        public List<string> EnrolledUsers;
+
         public Role(string rolename, string applicationName)
         {
-            this.Rolename = rolename;
-            this.ApplicationName = applicationName;
-            this.EnrolledUsers = new List<string>();
+            Rolename = rolename;
+            ApplicationName = applicationName;
+            EnrolledUsers = new List<string>();
         }
 
         public override string ToString()
         {
             return string.Format("Role:{0}:{1}",
-                                 this.Rolename,
-                                 this.ApplicationName);
+                                 Rolename,
+                                 ApplicationName);
         }
-
-        public readonly string Rolename;
-        public readonly string ApplicationName;
-        public List<string> EnrolledUsers;
     }
 
     public class EnrolledUser : DataContainer
     {
+        public readonly string ApplicationName;
+        public readonly string Username;
+        public List<string> Roles;
+
         public EnrolledUser(string username, string applicationName)
         {
-            this.Username = username;
-            this.ApplicationName = applicationName;
-            this.Roles = new List<string>();
+            Username = username;
+            ApplicationName = applicationName;
+            Roles = new List<string>();
         }
 
         public override string ToString()
         {
             return string.Format("EnrolledUser:{0}:{1}",
-                                 this.Username,
-                                 this.ApplicationName);
+                                 Username,
+                                 ApplicationName);
         }
-
-        public readonly string Username;
-        public readonly string ApplicationName;
-        public List<string> Roles;
     }
 }

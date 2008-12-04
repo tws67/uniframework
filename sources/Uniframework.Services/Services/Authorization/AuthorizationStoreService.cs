@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Security;
+using Uniframework.Db4o;
 
 namespace Uniframework.Services
 {
@@ -13,19 +14,19 @@ namespace Uniframework.Services
     {
         private readonly static string AUTHORIZE_DBNAME = "Authorization.yap";
         private ILogger logger;
-        private IObjectDatabase db;
+        private IDb4oDatabase db;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationStoreService"/> class.
         /// </summary>
         /// <param name="databaseService">The database service.</param>
         /// <param name="loggerFactory">The logger factory.</param>
-        public AuthorizationStoreService(IObjectDatabaseService databaseService, ILoggerFactory loggerFactory)
+        public AuthorizationStoreService(IDb4oDatabaseService databaseService, ILoggerFactory loggerFactory)
         {
             logger = loggerFactory.CreateLogger<AuthorizationStoreService>("Framework");
             try
             {
-                db = databaseService.OpenDatabase(AUTHORIZE_DBNAME);
+                db = databaseService.Open(AUTHORIZE_DBNAME);
             }
             catch (Exception ex)
             {
@@ -46,7 +47,7 @@ namespace Uniframework.Services
             string[] roles = Roles.GetRolesForUser(username);
             foreach (string role in roles)
             {
-                AuthorizationResource[] results = db.Load<AuthorizationResource>(delegate(AuthorizationResource ar)
+                IList<AuthorizationResource> results = db.Load<AuthorizationResource>(delegate(AuthorizationResource ar)
                 {
                     return ar.Role == role;
                 });
@@ -62,11 +63,11 @@ namespace Uniframework.Services
         /// <returns>如果存在指定角色的资源信息则返回，否则返回null</returns>
         public AuthorizationResource GetAuthorizationResource(string rolename)
         {
-            AuthorizationResource[] results = db.Load<AuthorizationResource>(delegate(AuthorizationResource ar)
+            IList<AuthorizationResource> results = db.Load<AuthorizationResource>(delegate(AuthorizationResource ar)
             {
                 return ar.Role == rolename;
             });
-            if (results.Length > 0)
+            if (results.Count > 0)
                 return results[0];
             return null;
         }
@@ -79,7 +80,7 @@ namespace Uniframework.Services
         {
             if (Exists(ar.Role))
                 Delete(ar.Role);
-            db.Save(ar);
+            db.Store(ar);
             if (AuthorizationChanged != null)
                 AuthorizationChanged(this, new EventArgs<string>(ar.Role));
         }
@@ -106,11 +107,11 @@ namespace Uniframework.Services
 
         private bool Exists(string rolename)
         {
-            AuthorizationResource[] results = db.Load<AuthorizationResource>(delegate(AuthorizationResource ar)
+            IList<AuthorizationResource> results = db.Load<AuthorizationResource>(delegate(AuthorizationResource ar)
             {
                 return ar.Role == rolename;
             });
-            return results.Length > 0;
+            return results.Count > 0;
         }
 
         #endregion

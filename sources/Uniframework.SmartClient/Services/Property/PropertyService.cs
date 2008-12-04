@@ -97,7 +97,7 @@ namespace Uniframework.SmartClient
                 Name = property,
                 Current = value
             };
-            db.Save(item);
+            db.Store(item);
             OnPropertyChanged(new PropertyChangedEventArgs(item, oldValue)); // 触发事件
         }
 
