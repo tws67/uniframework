@@ -33,20 +33,6 @@ namespace Uniframework
         /// </summary>
         public static readonly string PARAMETERS_NAME = "contex_uf_parameters";
 
-
-        ///// <summary>
-        ///// 编码远程过程调用包
-        ///// </summary>
-        ///// <param name="method">The method.</param>
-        ///// <param name="parameters">The parameters.</param>
-        ///// <param name="package">The package.</param>
-        //public static void EncodeInvoke(MethodInfo method, object parameters, string encryptKey, ref NetworkInvokePackage package)
-        //{
-        //    package.Context[METHOD] = serializer.Serialize<MethodInfo>(method);
-        //    package.Context[METHOD_NAME] = serializer.Serialize<string>(method.Name);
-        //    package.Context[METHOD_PARAMETERS] = SecurityUtility.DESEncrypt(serializer.Serialize<object>(parameters), encryptKey);
-        //}
-
         /// <summary>
         /// 解码远程过程调用包
         /// </summary>

@@ -1,26 +1,28 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Uniframework
 {
     /// <summary>
-    /// 同步帮助类
+    /// 异步操作帮助类
     /// </summary>
-    public class AsyncHelper
+    public class AsyncAssistant
     {
-        bool busy;
-        bool cancelled;
+        private bool busy;
+        private bool cancelled;
+        private int waitEventIndex;
 
-        AutoResetEvent completionEvent = new AutoResetEvent(false);
-        AutoResetEvent errorEvent = new AutoResetEvent(false);
-        AutoResetEvent cancelEvent = new AutoResetEvent(false);
-        AutoResetEvent[] resultEvent;
-        Exception lastException;
+        private AutoResetEvent completionEvent = new AutoResetEvent(false);
+        private AutoResetEvent errorEvent = new AutoResetEvent(false);
+        private AutoResetEvent cancelEvent = new AutoResetEvent(false);
+        private AutoResetEvent[] resultEvent;
+        private Exception lastException;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncHelper"/> class.
         /// </summary>
-        public AsyncHelper()
+        public AsyncAssistant()
         {
             resultEvent = new AutoResetEvent[3] { completionEvent, errorEvent, cancelEvent };
         }
@@ -51,33 +53,31 @@ namespace Uniframework
             get { return cancelled; }
         }
       
-        /// <summary>
-        /// 开始新的异步操作
-        /// </summary>
-        public  void BeginAsyncOperation()
-        {
-            if (Busy)
-            {
-                throw new RuntimeException("It's busy, can start a new async operation");
-            }
-            cancelled = false;
-            lastException = null;
-            busy = true;
+        ///// <summary>
+        ///// 开始新的异步操作
+        ///// </summary>
+        //public  void BeginAsyncOperation()
+        //{
+        //    if (Busy) {
+        //        throw new UniframeworkException("It's busy, cann't start a new async operation");
+        //    }
+        //    cancelled = false;
+        //    lastException = null;
+        //    busy = true;
 
-            foreach (AutoResetEvent e in resultEvent)
-            {
-                e.Reset();
-            }
-        }
+        //    foreach (AutoResetEvent e in resultEvent) {
+        //        e.Reset();
+        //    }
+        //}
 
         /// <summary>
         /// 结束异步操作
         /// </summary>
         public void EndAsyncOperation()
         {
+            busy = false;
             cancelled = false;
             lastException = null;
-            busy = false;
             completionEvent.Set();
         }
 
@@ -101,39 +101,43 @@ namespace Uniframework
             cancelEvent.Set();
         }
 
-        int waitEventIndex;
-
         public int WaitEventIndex
         {
             get { return waitEventIndex; }
         }
 
+        /// <summary>
+        /// 等待异步操作返回
+        /// </summary>
+        /// <param name="timeOut">等待的超时值.</param>
         public void WaitAsyncResult(int timeOut)
         {
             int index = WaitHandle.WaitAny(resultEvent, timeOut, true);
             waitEventIndex = index;
-            switch (index)
-            {
-                case 0: //异步操作已经完成
+            switch (index) {
+                case 0: // 异步操作已经完成
                     cancelled = false;
                     lastException = null;
                     break;
-                case 1: //异步操作发生错误
-                    
+
+                case 1: // 异步操作发生错误
                     if(lastException!=null)
                         throw lastException;
                     break;
-                case 2: //异步操作已经取消
+
+                case 2: // 异步操作已经取消
                     cancelled = true;
                     busy = false;
                     throw  new CancelAsyncOperationException();
-                case WaitHandle.WaitTimeout: //异步操作超时
+
+                case WaitHandle.WaitTimeout: // 异步操作超时
                     cancelled = false;
                     busy = false;
                     lastException = null;
                     throw new TimeoutException();
+
                 default:
-                    System.Diagnostics.Debug.Assert(false);
+                    Debug.Assert(false);
                     break;
             }
         }
@@ -142,9 +146,9 @@ namespace Uniframework
     }
 
     /// <summary>
-    /// 同步取消异常信息
+    /// 异步被取消异常
     /// </summary>
-    public class CancelAsyncOperationException : RuntimeException
+    public class CancelAsyncOperationException : UniframeworkException
     {
         public CancelAsyncOperationException()
             :base("User cancel async operation")

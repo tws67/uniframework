@@ -204,8 +204,7 @@ namespace Uniframework.Net
         /// <param name="iar">异步Socket</param>
         private void ConnectCallBack(IAsyncResult iar)
         {
-            try
-            {
+            try {
                 socket.EndConnect(iar);
                 session = new TSession();
 
@@ -217,8 +216,7 @@ namespace Uniframework.Net
                 WaitForData();
                 OnConnectServer();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 //连接服务器失败
                 OnConnectServerFailed(e);
             }

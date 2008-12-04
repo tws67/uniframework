@@ -22,13 +22,11 @@ namespace Uniframework.Client
         /// <remarks/>
         public WebServiceChannel()
         {
-            if ((this.IsLocalFileSystemWebService(this.Url) == true))
-            {
+            if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
             }
-            else
-            {
+            else {
                 this.useDefaultCredentialsSetExplicitly = true;
             }
         }
@@ -80,14 +78,11 @@ namespace Uniframework.Client
         [return: XmlElementAttribute(DataType = "base64Binary")]
         public byte[] WebInvoke([XmlElementAttribute(DataType = "base64Binary")] byte[] data)
         {
-            try
-            {
-                object[] results = this.Invoke("WebInvoke", new object[] {
-                        data});
+            try {
+                object[] results = this.Invoke("WebInvoke", new object[] { data } );
                 return ((byte[])(results[0]));
             }
-            catch (SoapException ex)
-            {
+            catch (SoapException ex) {
                 throw ExceptionUtility.UnWrapException<Exception>(ex);
             }
         }
@@ -104,8 +99,7 @@ namespace Uniframework.Client
         /// <remarks/>
         public void WebInvokeAsync(byte[] data, object userState)
         {
-            if ((this.WebInvokeOperationCompleted == null))
-            {
+            if ((this.WebInvokeOperationCompleted == null)) {
                 this.WebInvokeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWebInvokeOperationCompleted);
             }
             this.InvokeAsync("WebInvoke", new object[] {
@@ -114,8 +108,7 @@ namespace Uniframework.Client
 
         private void OnWebInvokeOperationCompleted(object arg)
         {
-            if ((this.WebInvokeCompleted != null))
-            {
+            if ((this.WebInvokeCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WebInvokeCompleted(this, new WebInvokeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
@@ -129,13 +122,12 @@ namespace Uniframework.Client
 
         private bool IsLocalFileSystemWebService(string url)
         {
-            if (((url == null) || (url == string.Empty)))
-            {
+            if (((url == null) || (url == string.Empty))) {
                 return false;
             }
             System.Uri wsUri = new System.Uri(url);
-            if (((wsUri.Port >= 1024)
-                        && (string.Compare(wsUri.Host, "localhost", System.StringComparison.OrdinalIgnoreCase) == 0)))
+            if (((wsUri.Port >= 1024) 
+                && (string.Compare(wsUri.Host, "localhost", System.StringComparison.OrdinalIgnoreCase) == 0)))
             {
                 return true;
             }
@@ -162,12 +154,10 @@ namespace Uniframework.Client
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class WebInvokeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
-
         private object[] results;
 
         internal WebInvokeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState)
-            :
-                base(exception, cancelled, userState)
+            : base(exception, cancelled, userState)
         {
             this.results = results;
         }

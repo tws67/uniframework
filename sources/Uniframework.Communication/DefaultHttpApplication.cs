@@ -37,6 +37,7 @@ namespace Uniframework.Communication
                 int port = Convert.ToInt32(ConfigurationManager.AppSettings["ServerSocketPort"]);
                 int capacity = Convert.ToInt32(ConfigurationManager.AppSettings["Capactity"]);
 
+                //tcpServer = new TcpServer_(port, capacity, logger);
                 tcpServer = new TcpServer(port, capacity, logger);
                 tcpServer.Start();
                 logger.Info("TCP 服务在端口 [" + port + "] 开始监听");
