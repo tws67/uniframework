@@ -41,8 +41,13 @@ namespace Uniframework.Services
                 IConfiguration config = null;
                 if (configService.Exists(CONFIG_ROOTPATH))
                     config = new XMLConfiguration(configService.GetItem(CONFIG_ROOTPATH));
-                dbPath = config != null ? config.Attributes["dbpath"] 
-                    : (HttpContext.Current != null) ? DEFAULT_DBPATH : Path.Combine(FileUtility.GetParent(FileUtility.ApplicationRootPath), @"\Data\");
+                dbPath = config != null ? config.Attributes["dbpath"] : DEFAULT_DBPATH;
+                if(HttpContext.Current != null)
+                    dbPath = HttpContext.Current.Server.MapPath(dbPath);
+                else
+                    dbPath = Path.Combine(FileUtility.GetParent(FileUtility.ApplicationRootPath), dbPath);
+                if (!Directory.Exists(dbPath))
+                    Directory.CreateDirectory(dbPath);
             }
             catch (Exception ex)
             {
@@ -70,7 +75,7 @@ namespace Uniframework.Services
             try
             {
                 string filename = String.IsNullOrEmpty(Path.GetExtension(databaseName)) ? Path.Combine(dbPath, databaseName + ".yap") : Path.Combine(dbPath, databaseName);
-                container = Db4oFactory.OpenFile(HttpContext.Current.Server.MapPath(filename));
+                container = Db4oFactory.OpenFile(filename);
             }
             catch { }
             return container;

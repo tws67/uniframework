@@ -46,6 +46,11 @@ namespace Uniframework.Client
             return webservice;
         }
 
+        private static TcpChannel CreateTcpChannel()
+        {
+            return new TcpChannel(server, port);
+        }
+
         private static SocketChannel CreateSocketChannel()
         {
             SocketChannel socket = new SocketChannel(server, port);
@@ -104,10 +109,10 @@ namespace Uniframework.Client
                 case CommunicationChannel.WebService:
                     return CreateWebServiceChannel();
                 case CommunicationChannel.Socket:
-                    return CreateSocketChannel();
+                    return CreateTcpChannel();
                 default:
                     if (CanSocketUse())
-                        return CreateSocketChannel();
+                        return CreateTcpChannel();
                     else
                         return CreateWebServiceChannel();
             }

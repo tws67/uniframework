@@ -9,7 +9,7 @@ using Uniframework.Services;
 namespace Uniframework.Client
 {
     /// <summary>
-    /// 
+    /// Wcf通道回调处理器
     /// </summary>
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     public class CallbackHandler : IWcfCallback

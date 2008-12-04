@@ -75,7 +75,7 @@
     <Compile Include="Attributes\RemoteServiceAttribute.cs" />
     <Compile Include="Client\IRemoteCaller.cs" />
     <Compile Include="Client\ISmartClient.cs" />
-    <Compile Include="Common\AsyncHelper.cs" />
+    <Compile Include="Common\AsyncAssistant.cs" />
     <Compile Include="Common\CollectionBase.cs" />
     <Compile Include="Common\Collections\DoubleEndedQueue.cs" />
     <Compile Include="Common\Collections\PriorityQueue.cs" />

@@ -130,7 +130,7 @@ namespace Uniframework.Services
         /// <returns></returns>
         private AbstractExtend[] AddExtends()
         {
-            string extendsPath = "System/Extends/";
+            string extendsPath = "System/Extends";
             IConfigurationService configService = this[typeof(IConfigurationService)] as IConfigurationService;
             IConfiguration extends = new XMLConfiguration(configService.GetItem(extendsPath));
             List<AbstractExtend> list = new List<AbstractExtend>();
