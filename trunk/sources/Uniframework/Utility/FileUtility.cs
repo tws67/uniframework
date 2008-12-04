@@ -141,6 +141,56 @@ namespace Uniframework
         }
 
         /// <summary>
+        /// Convert a path into a fully qualified local file path.
+        /// </summary>
+        /// <param name="path">The path to convert.</param>
+        /// <returns>The fully qualified path.</returns>
+        /// <remarks>
+        /// <para>
+        /// Converts the path specified to a fully
+        /// qualified path. If the path is relative it is
+        /// taken as relative from the application base 
+        /// directory.
+        /// </para>
+        /// <para>
+        /// The path specified must be a local file path, a URI is not supported.
+        /// </para>
+        /// </remarks>
+        public static string ConvertToFullPath(string path)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
+
+            string baseDirectory = "";
+            try
+            {
+                string applicationBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                if (applicationBaseDirectory != null)
+                {
+                    // applicationBaseDirectory may be a URI not a local file path
+                    Uri applicationBaseDirectoryUri = new Uri(applicationBaseDirectory);
+                    if (applicationBaseDirectoryUri.IsFile)
+                    {
+                        baseDirectory = applicationBaseDirectoryUri.LocalPath;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore URI exceptions & SecurityExceptions from SystemInfo.ApplicationBaseDirectory
+            }
+
+            if (baseDirectory != null && baseDirectory.Length > 0)
+            {
+                // Note that Path.Combine will return the second path if it is rooted
+                return Path.GetFullPath(Path.Combine(baseDirectory, path));
+            }
+            return Path.GetFullPath(path);
+        }
+
+        /// <summary>
         /// Converts a given absolute path and a given base path to a path that leads
         /// from the base path to the absoulte path. (as a relative path)
         /// </summary>

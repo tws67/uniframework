@@ -69,7 +69,7 @@ namespace Uniframework
             if (val[0] == 1) {
                 Inflater inflater = new Inflater(true);
                 using (InflaterInputStream decompressStream = new InflaterInputStream(new MemoryStream(UnwrapData(val)), inflater)) {
-                    return ArrayUtility.ReadAllBytesFromStream(decompressStream);
+                    return ArrayHelper.ReadAllBytesFromStream(decompressStream);
                 }
             }
             else

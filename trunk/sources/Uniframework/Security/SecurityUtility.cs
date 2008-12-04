@@ -9,7 +9,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Uniframework
+namespace Uniframework.Security
 {
     /// <summary>
     /// 系统安全工具类，用于完成一般的数据加解密操作
@@ -173,7 +173,7 @@ namespace Uniframework
             mobjCryptoService.IV = GetLegalIV();
             ICryptoTransform encrypto = mobjCryptoService.CreateDecryptor();
             CryptoStream cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Read);
-            return ArrayUtility.ReadAllBytesFromStream(cs);
+            return ArrayHelper.ReadAllBytesFromStream(cs);
         }
     }
 

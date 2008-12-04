@@ -8,7 +8,7 @@ namespace Uniframework
     /// <summary>
     /// 参数工具类
     /// </summary>
-    public static class ArgumentUtility
+    public static class ArgumentHelper
     {
         /// <summary>
         /// 断言指定实例不为空

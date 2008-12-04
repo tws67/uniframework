@@ -9,8 +9,10 @@ using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Xml;
+
 using Castle.MicroKernel;
 using Castle.Windsor;
+using Uniframework.Security;
 
 namespace Uniframework.Services
 {

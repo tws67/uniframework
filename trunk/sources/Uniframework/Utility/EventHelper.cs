@@ -7,7 +7,7 @@ namespace Uniframework
     /// <summary>
     /// 事件触发工具类
     /// </summary>
-    public static class EventUtility
+    public static class EventHelper
     {
         /// <summary>
         /// 触发事件

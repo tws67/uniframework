@@ -6,6 +6,7 @@ using System.Text;
 
 using Castle.MicroKernel;
 using Uniframework.Db4o;
+using Uniframework.Security;
 
 namespace Uniframework.Services
 {

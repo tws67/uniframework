@@ -18,15 +18,15 @@ namespace Uniframework.SmartClient
 
         public EventDispatcher(Type serviceType)
         {
-            ArgumentUtility.AssertNotNull<Type>(serviceType, "serviceType");
+            ArgumentHelper.AssertNotNull<Type>(serviceType, "serviceType");
 
             subject = EventSubject.GetObject(serviceType);
         }
 
         public EventDispatcher(Type serviceType, Type baseType)
         {
-            ArgumentUtility.AssertNotNull<Type>(serviceType, "service");
-            ArgumentUtility.AssertNotNull<Type>(baseType, "baseType");
+            ArgumentHelper.AssertNotNull<Type>(serviceType, "service");
+            ArgumentHelper.AssertNotNull<Type>(baseType, "baseType");
 
             subject = EventSubject.GetObject(baseType, serviceType);
         }

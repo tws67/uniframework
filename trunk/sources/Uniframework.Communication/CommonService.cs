@@ -66,7 +66,7 @@ namespace Uniframework.Communication
                     logger = DefaultHttpApplication.LoggerFactory.CreateLogger<CommonService>("Framework");
                 logger.Error("调用服务发生错误", ex);
 
-                throw ExceptionUtility.WrapException(ex);
+                throw ExceptionHelper.WrapException(ex);
             }
         }
     }

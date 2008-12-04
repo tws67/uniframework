@@ -115,7 +115,7 @@ namespace Uniframework.Client.ConnectionManagement
 
 		internal void RaiseConnectionStateChangedEvent(ConnectionStateChangedEventArgs e)
 		{
-			EventUtility.BroadcastEvent(ConnectionStateChanged, this, e);
+			EventHelper.BroadcastEvent(ConnectionStateChanged, this, e);
 		}
 
 		/// <summary>
