@@ -1,12 +1,43 @@
 using System;
 using System.Configuration.Provider;
 using System.Web.Security;
+using Db4objects.Db4o.Config.Attributes;
 
 namespace Uniframework.Services.db4oProviders
 {
     public class User : DataContainer
     {
-        public User(Guid PKID,
+        [Indexed]
+        public readonly Guid PKID;
+
+        [Indexed]
+        public string ApplicationName;
+
+        public string Comment;
+        public DateTime CreationDate;
+        [Indexed]
+        public string Email;
+        public int FailedPasswordAnswerAttemptCount;
+        public DateTime FailedPasswordAnswerAttemptWindowStart;
+        public int FailedPasswordAttemptCount;
+        public DateTime FailedPasswordAttemptWindowStart;
+        public bool IsApproved;
+        public bool IsLockedOut;
+        public bool IsOnLine;
+
+        [Indexed]
+        public DateTime LastActivityDate;
+        public DateTime LastLockedOutDate;
+
+        public DateTime LastLoginDate;
+        public DateTime LastPasswordChangedDate;
+        public string Password;
+        public string PasswordAnswer;
+        public string PasswordQuestion;
+        [Indexed]
+        public string Username;
+
+        public User(Guid pkid,
                     string username,
                     string password,
                     string email,
@@ -25,63 +56,31 @@ namespace Uniframework.Services.db4oProviders
                     int failedPasswordAnswerAttemptCount,
                     DateTime failedPasswordAnswerAttemptWindowStart)
         {
-            this.PKID = PKID;
-            this.Username = username;
-            this.Password = password;
-            this.Email = email;
-            this.PasswordQuestion = passwordQuestion;
-            this.PasswordAnswer = passwordAnswer;
-            this.IsApproved = isApproved;
-            this.Comment = comment;
-            this.CreationDate = creationDate;
-            this.LastPasswordChangedDate = lastPasswordChangedDate;
-            this.LastActivityDate = lastActivityDate;
-            this.ApplicationName = applicationName;
-            this.IsLockedOut = isLockedOut;
-            this.LastLockedOutDate = lastLockedOutDate;
-            this.FailedPasswordAttemptCount = failedPasswordAttemptCount;
-            this.FailedPasswordAttemptWindowStart = failedPasswordAttemptWindowStart;
-            this.FailedPasswordAnswerAttemptCount = failedPasswordAnswerAttemptCount;
-            this.FailedPasswordAnswerAttemptWindowStart = failedPasswordAnswerAttemptWindowStart;
+            PKID = pkid;
+            Username = username;
+            Password = password;
+            Email = email;
+            PasswordQuestion = passwordQuestion;
+            PasswordAnswer = passwordAnswer;
+            IsApproved = isApproved;
+            Comment = comment;
+            CreationDate = creationDate;
+            LastPasswordChangedDate = lastPasswordChangedDate;
+            LastActivityDate = lastActivityDate;
+            ApplicationName = applicationName;
+            IsLockedOut = isLockedOut;
+            LastLockedOutDate = lastLockedOutDate;
+            FailedPasswordAttemptCount = failedPasswordAttemptCount;
+            FailedPasswordAttemptWindowStart = failedPasswordAttemptWindowStart;
+            FailedPasswordAnswerAttemptCount = failedPasswordAnswerAttemptCount;
+            FailedPasswordAnswerAttemptWindowStart = failedPasswordAnswerAttemptWindowStart;
         }
-
-        [Db4objects.Db4o.Config.Attributes.Indexed]
-        public readonly Guid PKID;
-
-        [Db4objects.Db4o.Config.Attributes.Indexed]
-        public string Username;
-
-        [Db4objects.Db4o.Config.Attributes.Indexed]
-        public string Email;
-
-        [Db4objects.Db4o.Config.Attributes.Indexed]
-        public string ApplicationName;
-
-        public string Comment;
-        public string Password;
-        public string PasswordQuestion;
-        public string PasswordAnswer;
-        public bool IsApproved;
-
-        [Db4objects.Db4o.Config.Attributes.Indexed]
-        public DateTime LastActivityDate;
-
-        public DateTime LastLoginDate;
-        public DateTime LastPasswordChangedDate;
-        public DateTime CreationDate;
-        public bool IsOnLine;
-        public bool IsLockedOut;
-        public DateTime LastLockedOutDate;
-        public int FailedPasswordAttemptCount;
-        public DateTime FailedPasswordAttemptWindowStart;
-        public int FailedPasswordAnswerAttemptCount;
-        public DateTime FailedPasswordAnswerAttemptWindowStart;
 
         public override string ToString()
         {
             return string.Format("User:{0}:{1}",
-                                 this.Username,
-                                 this.ApplicationName);
+                                 Username,
+                                 ApplicationName);
         }
 
         public void UpdateFailureCount(string failureType, MembershipProvider provider)
@@ -91,13 +90,13 @@ namespace Uniframework.Services.db4oProviders
 
             if (failureType == "password")
             {
-                windowStart = this.FailedPasswordAttemptWindowStart;
-                failureCount = this.FailedPasswordAttemptCount;
+                windowStart = FailedPasswordAttemptWindowStart;
+                failureCount = FailedPasswordAttemptCount;
             }
             else if (failureType == "passwordAnswer")
             {
-                windowStart = this.FailedPasswordAnswerAttemptWindowStart;
-                failureCount = this.FailedPasswordAnswerAttemptCount;
+                windowStart = FailedPasswordAnswerAttemptWindowStart;
+                failureCount = FailedPasswordAnswerAttemptCount;
             }
             else
                 throw new ProviderException("Invalid failure type");
@@ -111,13 +110,13 @@ namespace Uniframework.Services.db4oProviders
 
                 if (failureType == "password")
                 {
-                    this.FailedPasswordAttemptCount = 1;
-                    this.FailedPasswordAttemptWindowStart = DateTime.Now;
+                    FailedPasswordAttemptCount = 1;
+                    FailedPasswordAttemptWindowStart = DateTime.Now;
                 }
                 else if (failureType == "passwordAnswer")
                 {
-                    this.FailedPasswordAnswerAttemptCount = 1;
-                    this.FailedPasswordAnswerAttemptWindowStart = DateTime.Now;
+                    FailedPasswordAnswerAttemptCount = 1;
+                    FailedPasswordAnswerAttemptWindowStart = DateTime.Now;
                 }
             }
             else
@@ -127,8 +126,8 @@ namespace Uniframework.Services.db4oProviders
                     // Password attempts have exceeded the failure threshold. Lock out
                     // the user.
 
-                    this.IsLockedOut = true;
-                    this.LastLockedOutDate = DateTime.Now;
+                    IsLockedOut = true;
+                    LastLockedOutDate = DateTime.Now;
                 }
                 else
                 {
@@ -137,11 +136,11 @@ namespace Uniframework.Services.db4oProviders
 
                     if (failureType == "password")
                     {
-                        this.FailedPasswordAttemptCount = failureCount;
+                        FailedPasswordAttemptCount = failureCount;
                     }
                     else if (failureType == "passwordAnswer")
                     {
-                        this.FailedPasswordAnswerAttemptCount = failureCount;
+                        FailedPasswordAnswerAttemptCount = failureCount;
                     }
                 }
             }

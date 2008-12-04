@@ -19,16 +19,12 @@ namespace Uniframework.Db4o
         /// 对象容器，用于存放db4o数据库内容
         /// </summary>
         IObjectContainer Container { get; }
+
         /// <summary>
-        /// 保存数据对象到数据库中
+        /// Stores the specified obj.
         /// </summary>
-        /// <param name="obj">待保存的数据对象</param>
-        void Save(object obj);
-        /// <summary>
-        /// 保存列表到数据库中
-        /// </summary>
-        /// <param name="list">待保存的数据列表</param>
-        void Save(IList<object> list);
+        /// <param name="obj">The obj.</param>
+        void Store(object obj);
         /// <summary>
         /// 删除数据库中指定的对象
         /// </summary>

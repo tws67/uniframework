@@ -9,15 +9,18 @@ namespace Uniframework.Services.db4oProviders
 
     public sealed class ConfigurationManagerConnectionStringStore : IConnectionStringStore
     {
+        #region IConnectionStringStore Members
+
         public string GetConnectionString(string connectionStringName)
         {
-            ConnectionStringSettings ConnectionStringSettings =
-                ConfigurationManager.ConnectionStrings[connectionStringName];
+            ConnectionStringSettings ConnectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
 
             if (ConnectionStringSettings == null || ConnectionStringSettings.ConnectionString.Trim() == "")
                 return null;
 
             return ConnectionStringSettings.ConnectionString;
         }
+
+        #endregion
     }
 }

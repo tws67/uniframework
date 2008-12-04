@@ -8,6 +8,7 @@ using System.Text;
 using Castle.DynamicProxy;
 using Uniframework.Client.ConnectionManagement;
 using Uniframework.Client.OfflineProxy;
+using Uniframework.Db4o;
 using Uniframework.Services;
 
 namespace Uniframework.Client
@@ -40,7 +41,7 @@ namespace Uniframework.Client
             }
         }
 
-        public void Initialize(IObjectDatabaseService databaseService)
+        public void Initialize(IDb4oDatabaseService databaseService)
         {
             requestManager.Initilize(databaseService);
         }

@@ -8,6 +8,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraPrinting;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
+using DevExpress.XtraTreeList;
 
 namespace Uniframework.SmartClient.Strategies
 {
@@ -45,7 +46,7 @@ namespace Uniframework.SmartClient.Strategies
             Guard.ArgumentNotNull(control, "control");
 
             foreach (Control ctrl in control.Controls) {
-                if (ctrl is IPrintable) {
+                if (ctrl is GridControl | ctrl is TreeList) {
                     if (register)
                         printableService.Register(ctrl);
                     else

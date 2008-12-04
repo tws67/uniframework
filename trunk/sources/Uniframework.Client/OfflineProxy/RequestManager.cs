@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading;
-using System.Net;
 
 using Uniframework.Client.ConnectionManagement;
+using Uniframework.Db4o;
 using Uniframework.Services;
 
 namespace Uniframework.Client.OfflineProxy
@@ -67,7 +68,7 @@ namespace Uniframework.Client.OfflineProxy
         /// 采用db4o数据库作为缓存队列存储方案
         /// </summary>
         /// <param name="databaseService">db4o数据库服务</param>
-        public void Initilize(IObjectDatabaseService databaseService)
+        public void Initilize(IDb4oDatabaseService databaseService)
         {
             this.requestQueue = new db4oRequestQueue(databaseService, "OfflineProxy.Requests.yap");
             this.deadLetterQueue = new db4oRequestQueue(databaseService, "OfflineProxy.DeadRequests.yap");
