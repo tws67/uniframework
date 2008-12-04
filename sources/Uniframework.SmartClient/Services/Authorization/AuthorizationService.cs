@@ -7,6 +7,7 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Services;
 
 using Uniframework.Services;
+using Uniframework.Security;
 
 namespace Uniframework.SmartClient
 {

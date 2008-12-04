@@ -8,7 +8,7 @@ namespace Uniframework
     /// <summary>
     /// 数组工具类
     /// </summary>
-    public static class ArrayUtility
+    public static class ArrayHelper
     {
         private static int buffer_size = 100;
 

@@ -49,7 +49,7 @@ namespace Uniframework.Client
                 return result;
             }
             catch (SoapException ex) {
-                throw ExceptionUtility.UnWrapException<Exception>(ex);
+                throw ExceptionHelper.UnWrapException<Exception>(ex);
             }
             catch (Exception)
             {

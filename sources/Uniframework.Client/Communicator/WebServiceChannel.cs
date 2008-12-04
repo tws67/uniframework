@@ -83,7 +83,7 @@ namespace Uniframework.Client
                 return ((byte[])(results[0]));
             }
             catch (SoapException ex) {
-                throw ExceptionUtility.UnWrapException<Exception>(ex);
+                throw ExceptionHelper.UnWrapException<Exception>(ex);
             }
         }
 

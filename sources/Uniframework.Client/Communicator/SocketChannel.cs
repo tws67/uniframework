@@ -60,10 +60,10 @@ namespace Uniframework.Client
             client.Connect(host, port);
             NetworkStream ns = client.GetStream();
 
-            byte[] sendData = ArrayUtility.ArrayMerge<byte>(BitConverter.GetBytes(data.Length), data);
+            byte[] sendData = ArrayHelper.ArrayMerge<byte>(BitConverter.GetBytes(data.Length), data);
             ns.Write(sendData, 0, sendData.Length);
 
-            byte[] buf = ArrayUtility.ReadAllBytesFromStream(ns);
+            byte[] buf = ArrayHelper.ReadAllBytesFromStream(ns);
             if (buf.Length == 0) return null;
             byte[] result = new byte[buf.Length - 1];
             Array.Copy(buf, 1, result, 0, result.Length);

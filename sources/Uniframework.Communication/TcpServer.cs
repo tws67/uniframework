@@ -37,7 +37,6 @@ namespace Uniframework.Communication
         protected override void OnReceivedData(TcpSession session, DataBlock dataBlock)
         {
             try {
-                logger.Debug(String.Format("在端口 \"{0}\" 接收到会话的请求", Port, session.ID));
                 base.OnReceivedData(session, dataBlock); // 接收客户端的请求
 
                 byte[] returns = null;

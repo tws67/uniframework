@@ -24,7 +24,10 @@ namespace Uniframework.Services
         /// <param name="filename">配置文件名称</param>
         public XMLConfigurationService(string filename)
         {
-            this.filename = filename;
+            this.filename = FileUtility.ConvertToFullPath(filename);
+            if (!File.Exists(this.filename))
+                throw new ArgumentException(String.Format("系统配置文件 \"{0}\" 未找到。"));
+
             FileStream fs = null;
 
             try {
@@ -92,7 +95,7 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回true，否则返回false</returns>
         public bool Exists(string path)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
             path = path.Trim();
             string nodepath = EncodePath(path);
 
@@ -108,10 +111,10 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回true，否则返回false</returns>
         public bool Exists(string path, string item)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
             path = path.Trim();
             string nodepath = EncodePath(path);
-            ArgumentUtility.AssertNotNull<string>(item, "item");
+            ArgumentHelper.AssertNotNull<string>(item, "item");
             item = item.Trim();
             XmlNode node = xml.SelectSingleNode(RootPath + nodepath);
             if (node == null) return false;
@@ -127,7 +130,7 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回true，否则返回false</returns>
         public bool HasChildren(string path)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
             path = path.Trim();
             string nodepath = EncodePath(path);
 
@@ -146,7 +149,7 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回指定路径下的节点，否则返回null</returns>
         public XmlNode GetItem(string path)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
             path = EncodePath(path);
             return xml.SelectSingleNode(RootPath + path);
         }
@@ -159,9 +162,9 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回指定路径下的节点，否则返回null</returns>
         public XmlNode GetItem(string path, KeyValuePair<string, string> item)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
-            ArgumentUtility.AssertNotNull<string>(item.Key, "item.Key");
-            ArgumentUtility.AssertNotNull<string>(item.Value, "item.Value");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(item.Key, "item.Key");
+            ArgumentHelper.AssertNotNull<string>(item.Value, "item.Value");
             path = EncodePath(path);
             XmlNode node = xml.SelectSingleNode(RootPath + path);
             return node == null ? null : node.SelectSingleNode("[" + item.Key + "='" + item.Value + "']");
@@ -191,7 +194,7 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回指定路径节点下的值，否则返回空字符串</returns>
         public string GetItemValue(string path)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
             path = EncodePath(path);
             XmlNode node = xml.SelectSingleNode(RootPath + path);
             return node == null ? string.Empty : node.InnerText;
@@ -205,8 +208,8 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回指定属性的值，否则返回空字符串</returns>
         public string GetItemAttribute(string path, string attribute)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
-            ArgumentUtility.AssertNotNull<string>(attribute, "attribute");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(attribute, "attribute");
 
             path = EncodePath(path);
             XmlNode node = xml.SelectSingleNode(RootPath + path);
@@ -230,7 +233,7 @@ namespace Uniframework.Services
         /// <returns>如果存在的话返回指定路径下的所有节点列表，否则返回null</returns>
         public XmlNodeList GetChildren(string path)
         {
-            ArgumentUtility.AssertNotNull<string>(path, "path");
+            ArgumentHelper.AssertNotNull<string>(path, "path");
             path = EncodePath(path);
 
             XmlNode node = xml.SelectSingleNode(RootPath + path);
@@ -246,7 +249,7 @@ namespace Uniframework.Services
         /// <returns>如果找到节点返回节点的路径，否则返回null</returns>
         public string SearchNode(string item)
         {
-            ArgumentUtility.AssertNotNull<string>(item, "item");
+            ArgumentHelper.AssertNotNull<string>(item, "item");
             item = EncodeNodeName(item.Trim());
 
             XmlNode node = xml.SelectSingleNode("//" + item);

@@ -11,8 +11,8 @@ using System.Text;
 using Castle.Core.Interceptor;
 using Castle.DynamicProxy;
 using Castle.DynamicProxy.Generators;
-
 using Uniframework.Client.OfflineProxy;
+using Uniframework.Security;
 using Uniframework.Services;
 
 namespace Uniframework.Client

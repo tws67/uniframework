@@ -14,7 +14,7 @@ namespace Uniframework
     /// <summary>
     /// Web端异常帮助类（AF吴頔）
     /// </summary>
-    public class ExceptionUtility
+    public class ExceptionHelper
     {
         /// <summary>
         /// Wraps the exception.
@@ -31,8 +31,7 @@ namespace Uniframework
             byte[] bs = ms.GetBuffer();
             //construct the string represents the exception(in bytes)
             string exceptionString = null;
-            for (int i = 0; i < bs.Length; i++)
-            {
+            for (int i = 0; i < bs.Length; i++) {
                 exceptionString += bs[i] + ".";
             }
             exceptionString = exceptionString.Substring(0, exceptionString.Length - 1);
@@ -65,16 +64,16 @@ namespace Uniframework
             //get each byte for the exception
             string[] bstr = exceptionString.Split('.');
             byte[] bs = new byte[bstr.Length];
-            for (int i = 0; i < bstr.Length; i++)
-            {
+            for (int i = 0; i < bstr.Length; i++) {
                 bs[i] = byte.Parse(bstr[i]);
             }
+            
             //deserialize the exception object
-            MemoryStream ms = new MemoryStream(bs);
-            BinaryFormatter formatter = new BinaryFormatter();
-            T exception = (T)formatter.Deserialize(ms);
-            ms.Close();
-            return exception;
+            using (MemoryStream ms = new MemoryStream(bs)) {
+                BinaryFormatter bf = new BinaryFormatter();
+                T exception = (T)bf.Deserialize(ms);
+                return exception;
+            }
         }
     }
 }

@@ -29,8 +29,9 @@ namespace Uniframework.Db4o
         {
             mutex = new Mutex(false, GetType() + dbfile.GetHashCode().ToString());
             mutex.WaitOne();
-            if (HttpContext.Current != null)
-                dbfile = HttpContext.Current.Server.MapPath(dbfile);
+            //if (HttpContext.Current != null)
+            //    dbfile = HttpContext.Current.Server.MapPath(dbfile);
+            dbfile = FileUtility.ConvertToFullPath(dbfile);
             container = Db4oFactory.OpenFile(dbfile);
         }
 
