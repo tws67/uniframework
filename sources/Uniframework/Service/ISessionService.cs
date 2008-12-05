@@ -4,33 +4,20 @@ using System.Text;
 
 namespace Uniframework.Services
 {
-    #region ServerVariables
+    #region Session Variables
+    
     /// <summary>
-    /// 服务器变量定义
+    /// 会话变量
     /// </summary>
-    public sealed class ServerVariables
+    public sealed class SessionVariables
     {
-        /// <summary>
-        /// 会话Id标识
-        /// </summary>
-        public const string SESSION_ID = "Uniframework.SessionService.SessionID";
-        /// <summary>
-        /// 登入事件标识
-        /// </summary>
-        public const string LOGGING_TIME = "Uniframework.SessionService.LoggingTime";
-        /// <summary>
-        /// 当前用户标识
-        /// </summary>
-        public const string CURRENT_USER = "Uniframework.SessionService.CurrentUser";
-        /// <summary>
-        /// 客户端IP标识
-        /// </summary>
-        public const string CLIENT_ADDRESS = "Uniframework.SessionService.ClientAddress";
-        /// <summary>
-        /// 会话密钥标识
-        /// </summary>
-        public const string ENCRYPT_KEY = "Uniframework.SessionService.EncryptKey";
+        public const string SESSION_ID             = "uf_session_id"; // 会话标识
+        public const string SESSION_LOGIN_TIME     = "uf_session_login_time"; // 登录时间
+        public const string SESSION_CURRENT_USER   = "uf_session_current_user"; // 建立会话的用户
+        public const string SESSION_CLIENT_ADDRESS = "uf_session_client_address"; // 客户端ip地址
+        public const string SESSION_ENCRYPTKEY     = "uf_session_encryptkey"; // 会话所使用的密钥
     }
+
     #endregion
     
     /// <summary>

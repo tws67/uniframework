@@ -29,7 +29,7 @@ namespace Uniframework.Services
         private bool isRunning = true;
 
         private readonly string SESSION_PAPH = "System/Services/SessionService";
-        private readonly string SESSION_DATABASE_NAME = "Session.yap";
+        private readonly string SESSION_DB = "Session.yap";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionService"/> class.
@@ -43,12 +43,11 @@ namespace Uniframework.Services
             //设置Session对象的级联删除
             Db4oFactory.Configure().ObjectClass(typeof(SessionStore)).CascadeOnDelete(true);
             logger = loggerFactory.CreateLogger<SessionService>("Framework");
-            db = databaseService.Open(SESSION_DATABASE_NAME);
+            db = databaseService.Open(SESSION_DB);
             sessions = new Dictionary<string, SessionState>();
 
             IList<SessionStore> stores = db.Load<SessionStore>();
-            foreach (SessionStore store in stores)
-            {
+            foreach (SessionStore store in stores) {
                 sessions.Add(store.Key, store.Session);
                 InitialSession(sessions[store.Key]);
             }
@@ -84,19 +83,15 @@ namespace Uniframework.Services
         /// </summary>
         private void CheckingTimeout()
         {
-            lock (sessions)
-            {
+            lock (syncObj) {
                 List<string> list = new List<string>();
-                foreach (string sessionKey in sessions.Keys)
-                {
-                    if (sessions[sessionKey].IsTimeouted)
-                    {
+                foreach (string sessionKey in sessions.Keys) {
+                    if (sessions[sessionKey].IsTimeouted) {
                         logger.Info("会话 [" + sessionKey + "] 超时");
                         list.Add(sessionKey);
                     }
                 }
-                foreach (string key in list)
-                {
+                foreach (string key in list) {
                     UnloadSession(key);
                 }
             }
@@ -108,7 +103,7 @@ namespace Uniframework.Services
         /// <param name="session">The session.</param>
         private void InitialSession(SessionState session)
         {
-            session.ValueChanged += new EventHandler(session_ValueChanged);
+            session.ValueChanged += new EventHandler(Session_ValueChanged);
         }
 
         /// <summary>
@@ -116,9 +111,9 @@ namespace Uniframework.Services
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void session_ValueChanged(object sender, EventArgs e)
+        private void Session_ValueChanged(object sender, EventArgs e)
         {
-            string id = ((SessionState)sender)[ServerVariables.SESSION_ID].ToString();
+            string id = ((SessionState)sender)[SessionVariables.SESSION_ID].ToString();
             SessionStore store = GetSessionFromDatabase(id);
             store.Session = (SessionState)sender;
             db.Store(store);
@@ -140,6 +135,7 @@ namespace Uniframework.Services
             if (stores.Count == 0) return null;
             return stores[0];
         }
+
         #endregion
 
         #region ISessionService Members
@@ -160,12 +156,13 @@ namespace Uniframework.Services
                     throw new ArgumentException("SessionManager中已经存在Key为 [" + sessionID + "] 的Session");
 
                 SessionState session = new SessionState(timeout, new Hashtable());
-                session[ServerVariables.SESSION_ID] = sessionID;
-                session[ServerVariables.CURRENT_USER] = userName;
-                session[ServerVariables.CLIENT_ADDRESS] = ipAddress;
-                session[ServerVariables.ENCRYPT_KEY] = encryptKey;
-                session[ServerVariables.LOGGING_TIME] = DateTime.Now;
+                session[SessionVariables.SESSION_ID]             = sessionID;
+                session[SessionVariables.SESSION_CURRENT_USER]   = userName;
+                session[SessionVariables.SESSION_CLIENT_ADDRESS] = ipAddress;
+                session[SessionVariables.SESSION_ENCRYPTKEY]     = encryptKey;
+                session[SessionVariables.SESSION_LOGIN_TIME]     = DateTime.Now;
                 sessions.Add(sessionID, session);
+
                 db.Store(new SessionStore(sessionID, session));
                 InitialSession(session);
             }

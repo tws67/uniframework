@@ -68,7 +68,7 @@ namespace Uniframework.Services
             get
             {
                 ISessionService service = kernel[typeof(ISessionService)] as ISessionService;
-                return service.CurrentSession[ServerVariables.SESSION_ID].ToString();
+                return service.CurrentSession[SessionVariables.SESSION_ID].ToString();
             }
         }
 

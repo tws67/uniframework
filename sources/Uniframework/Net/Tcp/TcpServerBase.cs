@@ -23,6 +23,7 @@ namespace Uniframework.Net
         where TSession : TcpSession, new()
     {
         #region 构造函数
+
         /// <summary>
         /// 无参数的构造函数，使用默认设置
         /// </summary>
@@ -54,20 +55,22 @@ namespace Uniframework.Net
         #endregion
 
         #region 字段
+
         private int port;
         private Socket socket;
         private List<TSession> sessions;
+
         #endregion
 
         #region 属性
+
         /// <summary>
         /// 会话容量（使用一个回话来表示一个客户端连接）
         /// </summary>
         public int Capacity
         {
             get { return sessions.Capacity; }
-            set
-            {
+            set {
                 if (IsRun)
                     throw new TcpException("指定新的回话容量，会导致回话数组的重新分配，所以需要在服务器停止的时候指定。");
 
@@ -92,8 +95,7 @@ namespace Uniframework.Net
         public int Port
         {
             get { return port; }
-            set
-            {
+            set {
                 if (IsRun)
                     throw new TcpException("需要在服务器停止的时候才能指定服务器监听的端口。");
 
@@ -147,17 +149,14 @@ namespace Uniframework.Net
         /// <param name="session">需要关闭的Session</param>
         protected virtual void CloseSession(TSession session)
         {
-            lock (Sessions)
-            {
-                if (Sessions.Contains(session))
-                {
+            lock (Sessions) {
+                if (Sessions.Contains(session)) {
                     Sessions.Remove(session);
                     NetDebuger.PrintDebugMessage(session, "Close");
                     NetDebuger.PrintDebugMessage(session, string.Format("Remove:{0}/{1}", SessionsCount, Capacity));
                     OnCloseSession(session); //关闭前调用
                     session.Close();
                 }
-
             }
         }
 
@@ -202,35 +201,30 @@ namespace Uniframework.Net
         {
             TSession session = default(TSession);
 
-            try
-            {
-                //创建新连接
+            try {
+                // 创建新连接
                 session = CreateSession(socket.EndAccept(parameter));
 
-                if (!Full)
-                {
-                    lock (Sessions)
-                    {
+                if (!Full) {
+                    lock (Sessions) {
                         Sessions.Add(session);
                     }
 
-                    //调用客户端生成函数，检查是否为合格的客户端
-                    if (!OnCreateSession(session))
-                    {
+                    // 调用客户端生成函数，检查是否为合格的客户端
+                    if (!OnCreateSession(session)) {
                         session.Close();
                         return;
                     }
 
-                    //开始注册客户端数据接收事件
+                    // 开始注册客户端数据接收事件
                     session.OnReceivedData += new EventHandler<DataBlockArgs>(SessionReceivedData);
-                    //开始接收客户端数据
+                    // 开始接收客户端数据
                     WaitForData(session);
 
                     NetDebuger.PrintDebugMessage(session, "Create");
                     NetDebuger.PrintDebugMessage(session, string.Format("Add:{0}/{1}", SessionsCount, Capacity));
                 }
-                else
-                {
+                else {
                     OnServerFull(session);
                     NetDebuger.PrintDebugMessage(session, "Server full");
                     session.Close();
@@ -238,17 +232,17 @@ namespace Uniframework.Net
             }
             catch (ObjectDisposedException)
             {
-                //监听的Socket已经关闭
+                // 监听的Socket已经关闭
             }
             catch (SocketException e)
             {
                 HandleSocketException(session, e);
 
-                CloseSession(session); //接收数据发送错误，需要关闭该Socket
+                CloseSession(session); // 接收数据发送错误，需要关闭该Socket
             }
             finally
             {
-                WaitForClient();//继续接收客户端连接
+                WaitForClient();// 继续接收客户端连接
             }
         }
 
@@ -258,8 +252,7 @@ namespace Uniframework.Net
         /// <returns></returns>
         public bool Full
         {
-            get
-            {
+            get {
                 return sessions.Count >= sessions.Capacity;
             }
         }
@@ -270,7 +263,6 @@ namespace Uniframework.Net
         /// <param name="session"></param>
         protected virtual void OnServerFull(TSession session)
         {
-
         }
 
         /// <summary>
@@ -292,8 +284,7 @@ namespace Uniframework.Net
         protected virtual void WaitForData(TSession session)
         {
             DataBlock Buffer = session.Buffer;
-            if (session.Socket != null)
-            {
+            if (session.Socket != null) {
                 session.recvResult = session.Socket.BeginReceive(Buffer.Buffer, Buffer.WriteIndex, Buffer.WritableLength,
                     SocketFlags.None, new AsyncCallback(ReceiveCallback), session);
             }
@@ -308,30 +299,26 @@ namespace Uniframework.Net
             TSession session = parameter.AsyncState as TSession;
             try
             {
-                if (session.Socket == null)
-                {
+                if (session.Socket == null) {
                     CloseSession(session);
                 }
 
-                session.recvResult = null; //已经使用该异步状态
-                if (session.Socket != null)
-                {
+                session.recvResult = null; // 已经使用该异步状态
+                if (session.Socket != null) {
                     int readCount = session.Socket.EndReceive(parameter);
 
-                    if (readCount == 0) //远端已经关闭
-                    {
+                    if (readCount == 0) { // 远端已经关闭
                         CloseSession(session);
                     }
-                    else
-                    {
+                    else {
                         session.ReceivedData(readCount);
-                        WaitForData(session); //继续接收数据
+                        WaitForData(session); // 继续接收数据
                     }
                 }
             }
             catch (ObjectDisposedException)
             {
-                //接收数据的Socket已经关闭
+                // 接收数据的Socket已经关闭
                 CloseSession(session);
             }
             catch (NullReferenceException e)
@@ -351,7 +338,7 @@ namespace Uniframework.Net
             }
             catch (Exception e)
             {
-                //普通异常，不需要断开与服务器的连接
+                // 普通异常不需要断开与服务器的连接
                 ReportError(session, e);
             }
         }
@@ -363,8 +350,7 @@ namespace Uniframework.Net
 
         public void AtomSend(TSession session, byte[] data, int startIndex, int length)
         {
-            try
-            {
+            try {
                 session.sendResult = session.Socket.BeginSend(data, startIndex, length, SocketFlags.None,
                     new AsyncCallback(SendCallback), session);
             }
@@ -407,8 +393,7 @@ namespace Uniframework.Net
         private void SendCallback(IAsyncResult parameter)
         {
             TSession session = (TSession)parameter.AsyncState;
-            try
-            {
+            try {
                 session.sendResult = null;
                 OnSendEnd(session, session.Socket.EndSend(parameter));
             }
@@ -434,9 +419,8 @@ namespace Uniframework.Net
 
         protected virtual void HandleSocketException(TSession session, SocketException e)
         {
-            //这些事件被认为是Socket关闭过程中的正常事件
-            if (e.ErrorCode != 10054 && e.ErrorCode != 10053 && e.ErrorCode != 10057 && e.ErrorCode != 10058)
-            {
+            // 这些事件被认为是Socket关闭过程中的正常事件
+            if (e.ErrorCode != 10054 && e.ErrorCode != 10053 && e.ErrorCode != 10057 && e.ErrorCode != 10058) {
                 ReportError(session, e);
             }
         }
@@ -472,13 +456,12 @@ namespace Uniframework.Net
         /// </summary>
         private void WaitForClient()
         {
-            try
-            {
+            try {
                 socket.BeginAccept(AcceptCallback, null);
             }
             catch (ObjectDisposedException)
             {
-                //服务器Socket已经关闭
+                // 服务器Socket已经关闭
             }
         }
 
@@ -490,20 +473,16 @@ namespace Uniframework.Net
         {
             List<TSession> closeSessions = new List<TSession>();
 
-            lock (Sessions)
-            {
-                foreach (TSession session in Sessions)
-                {
-                    if (!session.IsActive(HeartBeatPeriod)) //todo:是否需要修改到服务器方法
-                    {
+            lock (Sessions) {
+                foreach (TSession session in Sessions) {
+                    if (!session.IsActive(HeartBeatPeriod)) { // todo:是否需要修改到服务器方法
                         closeSessions.Add(session);
                         NetDebuger.PrintDebugMessage(session, "Heartbeat is timeout and add it to closing list");
                     }
                 }
             }
 
-            foreach (TSession session in closeSessions)
-            {
+            foreach (TSession session in closeSessions) {
                 CloseSession(session);
             }
         }
@@ -513,22 +492,19 @@ namespace Uniframework.Net
         /// </summary>
         protected override void OnStop()
         {
-            base.OnStop(); //关闭心跳检查功能
+            base.OnStop(); // 关闭心跳检查功能
 
-            lock (Sessions)
-            {
+            lock (Sessions) {
                 TSession[] array = Sessions.ToArray();
 
-                foreach (TSession session in array)
-                {
+                foreach (TSession session in array) {
                     CloseSession(session);
                 }
 
                 Sessions.Clear();
             }
 
-            try
-            {
+            try {
                 Socket.Close();
             }
             catch (ObjectDisposedException)

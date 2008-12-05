@@ -120,7 +120,7 @@ namespace Uniframework.Services
         /// <returns>返回当前用户可以加载的模块明细数组</returns>
         public ClientModuleInfo[] GetClientModules()
         {
-            string user = sessionService.CurrentSession[ServerVariables.CURRENT_USER].ToString();
+            string user = sessionService.CurrentSession[SessionVariables.SESSION_CURRENT_USER].ToString();
             List<ClientModuleInfo> list = new List<ClientModuleInfo>();
 
             IConfigurationService configService = kernal[typeof(IConfigurationService)] as IConfigurationService;

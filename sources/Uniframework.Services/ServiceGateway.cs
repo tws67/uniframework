@@ -50,7 +50,7 @@ namespace Uniframework.Services
         private string GetCryptKey(string sessionId)
         {
             ISessionService service = kernel[typeof(ISessionService)] as ISessionService;
-            return service.GetSession(sessionId)[ServerVariables.ENCRYPT_KEY].ToString();
+            return service.GetSession(sessionId)[SessionVariables.SESSION_ENCRYPTKEY].ToString();
         }
 
         private byte[] GetRemoteServices(NetworkInvokePackage pk)
@@ -112,6 +112,7 @@ namespace Uniframework.Services
                     PackageUtility.DecodeInvoke(package, encryptKey, out method, out parameters); 
 
                 // 调用
+                logger.Debug(String.Format("接收到会话 [{0}] 的远程调用请求, 调用的方法为 \"{1}\"", package.SessionID, method));
                 object result = Invoke(method, parameters);
 
                 // 返回服务器端方法执行结果

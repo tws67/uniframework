@@ -20,7 +20,7 @@ namespace Uniframework
     {
         #region Fields
 
-        private bool FDisposed = false;
+        private bool disposed = false;
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace Uniframework
         /// Indicates if was fired by user or GC.
         /// if disposedByUser = true you can dispose unmanaged and managed resources. if false, only unmanaged resources can be disposed.
         /// </param>
-        protected virtual void Free(bool dispodedByUser)
+        protected virtual void Free(bool disposing)
         {
             //-----
         }
@@ -43,12 +43,10 @@ namespace Uniframework
         /// </summary>
         public void Dispose()
         {
-            lock (this)
-            {
-                if (FDisposed == false)
-                {
+            lock (this) {
+                if (disposed == false) {
                     Free(true);
-                    FDisposed = true;
+                    disposed = true;
                     GC.SuppressFinalize(this);
                 }
             }
@@ -67,7 +65,7 @@ namespace Uniframework
             {
                 lock (this)
                 {
-                    return FDisposed;
+                    return disposed;
                 }
             }
         }
