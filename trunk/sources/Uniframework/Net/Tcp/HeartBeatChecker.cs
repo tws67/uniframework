@@ -54,8 +54,7 @@ namespace Uniframework.Net
         /// </summary>
         protected override void OnStart()
         {
-            if (EnableCheckHeartBeat)
-            {
+            if (EnableCheckHeartBeat) {
                 {
                     checkTimer = new Timer(new TimerCallback(CheckHeartBeatCallBack), null,
                         HeartBeatPeriod, HeartBeatPeriod);
@@ -69,12 +68,9 @@ namespace Uniframework.Net
         /// </summary>
         protected override void OnStop()
         {
-            if (EnableCheckHeartBeat && checkTimer != null)
-            {
-                lock (checkTimer)
-                {
-                    if (EnableCheckHeartBeat && checkTimer != null)
-                    {
+            if (EnableCheckHeartBeat && checkTimer != null) {
+                lock (checkTimer) {
+                    if (EnableCheckHeartBeat && checkTimer != null) {
                         NetDebuger.PrintDebugMessage("Stop heartbeat checker");
                         checkTimer.Dispose();
                         checkTimer = null;
@@ -87,20 +83,19 @@ namespace Uniframework.Net
         /// 释放资源
         /// </summary>
         /// <param name="dispodedByUser"></param>
-        protected override void Free(bool dispodedByUser)
+        protected override void Free(bool disposing)
         {
-            if (dispodedByUser)
-            {
+            if (disposing) {
                 Stop();
             }
 
-            base.Free(dispodedByUser);
+            base.Free(disposing);
         }
 
         /// <summary>
         /// 检查心跳的回调函数
         /// </summary>
         /// <param name="o">参数（未使用）</param>
-        protected abstract void CheckHeartBeatCallBack(object o);
+        protected abstract void CheckHeartBeatCallBack(object obj);
     }
 }

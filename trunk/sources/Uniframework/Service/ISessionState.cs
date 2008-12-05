@@ -16,18 +16,15 @@ namespace Uniframework.Services
         /// <param name="key">标识</param>
         /// <returns></returns>
         object this[object key] { get; set; }
-
         /// <summary>
         /// 移除所有会话状态
         /// </summary>
         void RemoveAll();
-
         /// <summary>
         /// 移除指定标识的实例
         /// </summary>
         /// <param name="key">标识</param>
         void Remove(object key);
-
         /// <summary>
         /// 判断是否存在该key值
         /// </summary>

@@ -112,11 +112,11 @@ namespace Uniframework.Services
                     extend.LoadFinished(components);
                 }
 
-                logger.Info("开始加载服务器网关服务");
+                logger.Info("开始加载应用服务器网关");
                 AddComponent("ServiceGateway", typeof(ServiceGateway));
 
                 systemReady = true;
-                logger.Info("服务启动完成");
+                logger.Info("应用服务器启动完成");
             }
             catch (Exception ex) {
                 logger.Fatal("注册组件时发生错误", ex);
