@@ -65,7 +65,7 @@ namespace Uniframework.Tests.Db4o
         }
 
         [Test]
-        public void SaveTest()
+        public void StoreTest()
         {
             using (Db4oDatabase db = new Db4oDatabase(dbfile1, container)) {
                 MockObject obj1 = new MockObject
@@ -78,7 +78,7 @@ namespace Uniframework.Tests.Db4o
                     }
                 };
 
-                db.Save(obj1);
+                db.Store(obj1);
 
                 Assert.IsNotNull(db.Load<MockObject>()[0]);
                 Assert.IsNotNull(db.Load<Address>()[0]);
@@ -93,7 +93,7 @@ namespace Uniframework.Tests.Db4o
 
                 MockObject obj2 = list[0];
                 obj2.Phone = "22228057";
-                db.Save(obj2);
+                db.Store(obj2);
                 Assert.AreEqual(1, db.Load<MockObject>(delegate(MockObject obj) {
                     return obj.Name == "Jacky";
                 }).Count);
@@ -109,7 +109,7 @@ namespace Uniframework.Tests.Db4o
                         Home = "BBG"
                     }
                 };
-                db.Save(obj3);
+                db.Store(obj3);
                 list.Clear();
                 list = db.Load<MockObject>(delegate(MockObject obj) {
                     return obj.Name == "Jacky";
@@ -122,7 +122,7 @@ namespace Uniframework.Tests.Db4o
         }
 
         [Test]
-        public void SaveIListTest()
+        public void StoreIListTest()
         {
             using (Db4oDatabase db = new Db4oDatabase(dbfile1, container)) {
                 IList<Address> list = new List<Address> { 
@@ -130,7 +130,7 @@ namespace Uniframework.Tests.Db4o
                     new Address { Office = "DHZ", Home = "GBB" }
                 };
 
-                db.Save(list);
+                db.Store(list);
                 Assert.AreEqual(2, db.Load<Address>().Count);
 
                 IList<Address> list2 = new List<Address> { 
@@ -139,7 +139,7 @@ namespace Uniframework.Tests.Db4o
                     new Address { Office = "ZDH3", Home = "BBG" }, 
                     new Address { Office = "ZDH4", Home = "BBG" }
                 };
-                db.Save(list2);
+                db.Store(list2);
                 Assert.AreEqual(6, db.Load<Address>().Count);
 
                 IList<Address> list3 = db.Load<Address>(delegate(Address addr) {
@@ -164,7 +164,7 @@ namespace Uniframework.Tests.Db4o
                     }
                 };
 
-                db.Save(obj1);
+                db.Store(obj1);
                 Assert.AreEqual(1, db.Load<MockObject>(delegate(MockObject obj) {
                     return obj.Name == "Jacky";
                 }).Count);

@@ -42,9 +42,9 @@ namespace Uniframework.Services
 
         #region ISystemService Members
 
-        public void RegisterSession(string sessionID, string userName, string ipAddress, string encryptKey)
+        public void RegisterSession(string sessionId, string userName, string ipAddress, string encryptKey)
         {
-            sessionService.Register(sessionID, userName, ipAddress, encryptKey);
+            sessionService.Register(sessionId, userName, ipAddress, encryptKey);
         }
 
         /// <summary>
@@ -108,10 +108,10 @@ namespace Uniframework.Services
         /// <summary>
         /// 注销会话
         /// </summary>
-        /// <param name="sessionID">会话标识</param>
-        public void UnRegisterSession(string sessionID)
+        /// <param name="sessionId">会话标识</param>
+        public void UnRegisterSession(string sessionId)
         {
-            sessionService.UnloadSession(sessionID);
+            sessionService.UnloadSession(sessionId);
         }
 
         /// <summary>
@@ -211,10 +211,10 @@ namespace Uniframework.Services
         /// <summary>
         /// 根据客户端类型获取指定的服务
         /// </summary>
-        /// <param name="sessionID">会话标识</param>
+        /// <param name="sessionId">会话标识</param>
         /// <param name="clientType">客户端类型</param>
         /// <returns>远程服务列表</returns>
-        public List<ServiceInfo> GetServices(string sessionID, ClientType clientType)
+        public List<ServiceInfo> GetServices(string sessionId, ClientType clientType)
         {
             List<ServiceInfo> systems = new List<ServiceInfo>();
             foreach (ServiceInfo system in subsystems.Values)

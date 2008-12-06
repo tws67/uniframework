@@ -258,11 +258,11 @@ namespace Uniframework.Services
         /// <summary>
         /// 向系统中注册会话
         /// </summary>
-        /// <param name="sessionID">会话标识</param>
+        /// <param name="sessionId">会话标识</param>
         /// <param name="userName">用户名称</param>
         /// <param name="ipAddress">调用方IP地址</param>
         /// <param name="encryptKey">密钥</param>
-        void RegisterSession(string sessionID, string userName, string ipAddress, string encryptKey);
+        void RegisterSession(string sessionId, string userName, string ipAddress, string encryptKey);
 
         /// <summary>
         /// 检查指定类型的服务
@@ -273,9 +273,9 @@ namespace Uniframework.Services
         /// <summary>
         /// 注销会话
         /// </summary>
-        /// <param name="sessionID">会话标识</param>
+        /// <param name="sessionId">会话标识</param>
         [RemoteMethod]
-        void UnRegisterSession(string sessionID);
+        void UnRegisterSession(string sessionId);
 
         /// <summary>
         /// 获取客户端配置信息
@@ -307,9 +307,9 @@ namespace Uniframework.Services
         /// <summary>
         /// 获取远程服务
         /// </summary>
-        /// <param name="sessionID">会话标识</param>
+        /// <param name="sessionId">会话标识</param>
         /// <param name="clientType">客户端类型</param>
         /// <returns></returns>
-        List<ServiceInfo> GetServices(string sessionID, ClientType clientType);
+        List<ServiceInfo> GetServices(string sessionId, ClientType clientType);
     }
 }

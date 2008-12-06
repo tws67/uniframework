@@ -38,13 +38,13 @@ namespace Uniframework.Communication
             }
             slotdata.CallBack = this.callback;
             Thread.SetData(slot, slotdata);
-            if (slotdata.SessionID == null)
+            if (slotdata.SessionId == null)
             {
                 logger.Debug(string.Format("为会话'{0}'创建wcf通讯实例。", "未知"));
             }
             else
             {
-                logger.Debug(string.Format("为会话'{0}'创建wcf通讯实例。", slotdata.SessionID.ToString()));
+                logger.Debug(string.Format("为会话'{0}'创建wcf通讯实例。", slotdata.SessionId.ToString()));
             }
             if (!callbackList.Contains(this.callback))
             {
@@ -113,6 +113,6 @@ namespace Uniframework.Communication
     {
         // Fields
         public IWcfCallback CallBack;
-        public string SessionID;
+        public string SessionId;
     }
 }

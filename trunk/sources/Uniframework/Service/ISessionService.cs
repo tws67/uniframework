@@ -43,7 +43,7 @@ namespace Uniframework.Services
         /// <summary>
         /// 根据会话标识获取会话实例
         /// </summary>
-        /// <param name="sessionID">会话标识</param>
+        /// <param name="sessionId">会话标识</param>
         /// <returns>会话实例</returns>
         ISessionState GetSession(string sessionId);
 

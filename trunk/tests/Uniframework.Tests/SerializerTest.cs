@@ -55,7 +55,7 @@ namespace Uniframework.Tests
 
             NetworkInvokePackage pk2 = serializer.Deserialize<NetworkInvokePackage>(buffer);
             Assert.IsNotNull(pk2);
-            Assert.AreEqual("123", pk2.SessionID);
+            Assert.AreEqual("123", pk2.SessionId);
             Assert.AreEqual("Jacky", (string)pk2.Context[PackageUtility.SESSION_USERNAME]);
             Assert.AreEqual("12345", (string)pk2.Context[PackageUtility.SESSION_PASSWORD]);
         }

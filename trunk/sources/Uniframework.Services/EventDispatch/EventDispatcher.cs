@@ -63,7 +63,7 @@ namespace Uniframework.Services
             subscribers.Remove(subscriberKey);
         }
 
-        private string SessionID
+        private string SessionId
         {
             get
             {
@@ -99,7 +99,7 @@ namespace Uniframework.Services
             {
                 try
                 {
-                    RegisterOuterEventSubscriber(info.SessionID, info.Topic, info.Location);
+                    RegisterOuterEventSubscriber(info.SessionId, info.Topic, info.Location);
                 }
                 catch
                 {
@@ -108,39 +108,39 @@ namespace Uniframework.Services
             });
         }
 
-        public void RegisterOuterEventSubscriber(string sessionID, string topic, SubscriberLocation location)
+        public void RegisterOuterEventSubscriber(string sessionId, string topic, SubscriberLocation location)
         {
-            if (subscribers.ContainsKey(sessionID + topic)) return;
+            if (subscribers.ContainsKey(sessionId + topic)) return;
 
             if (!events.ContainsKey(topic)) throw new ArgumentException("系统中没有topic为 [" + topic + "] 的事件");
             EventCollector collector;
-            if (eventCollectors.ContainsKey(sessionID))
-                collector = eventCollectors[sessionID];
+            if (eventCollectors.ContainsKey(sessionId))
+                collector = eventCollectors[sessionId];
             else
             {
                 collector = new EventCollector();
-                eventCollectors.Add(sessionID, collector);
+                eventCollectors.Add(sessionId, collector);
             }
             collector.RegisterEvent(topic, events[topic].EventInfo, kernel[events[topic].EventInfo.DeclaringType]);
             EventSubscriberInfo subInfo = new EventSubscriberInfo(topic, location, "", "");
-            AddEventSubscriber(sessionID + topic, subInfo);
-            if (!outerSubscriberMapping.ContainsKey(sessionID)) outerSubscriberMapping.Add(sessionID, new List<string>());
-            outerSubscriberMapping[sessionID].Add(topic);
-            AddOuterSubscriberToPublisherInfo(sessionID + topic, subInfo);
-            db.Store(new OuterEventInfo(sessionID, topic, location));
+            AddEventSubscriber(sessionId + topic, subInfo);
+            if (!outerSubscriberMapping.ContainsKey(sessionId)) outerSubscriberMapping.Add(sessionId, new List<string>());
+            outerSubscriberMapping[sessionId].Add(topic);
+            AddOuterSubscriberToPublisherInfo(sessionId + topic, subInfo);
+            db.Store(new OuterEventInfo(sessionId, topic, location));
         }
 
-        public void UnRegisterAnOuterEventSubscriber(string sessionID, string topic)
+        public void UnRegisterAnOuterEventSubscriber(string sessionId, string topic)
         {
-            if (eventCollectors.ContainsKey(sessionID))
+            if (eventCollectors.ContainsKey(sessionId))
             {
-                eventCollectors[sessionID].UnRegisterEvent(topic);
+                eventCollectors[sessionId].UnRegisterEvent(topic);
             }
-            RemoveEventSubscriber(sessionID + topic);
-            if (outerSubscriberMapping.ContainsKey(sessionID)) outerSubscriberMapping[sessionID].Remove(topic);
-            RemoveOuterSubscriberFromPublisherInfo(sessionID + topic);
+            RemoveEventSubscriber(sessionId + topic);
+            if (outerSubscriberMapping.ContainsKey(sessionId)) outerSubscriberMapping[sessionId].Remove(topic);
+            RemoveOuterSubscriberFromPublisherInfo(sessionId + topic);
             OuterEventInfo template = new OuterEventInfo();
-            template.SessionID = sessionID;
+            template.SessionId = sessionId;
             template.Topic = topic;
 
             IList<OuterEventInfo> events = db.Load<OuterEventInfo>(template);
@@ -150,14 +150,14 @@ namespace Uniframework.Services
             }
         }
 
-        public EventResultData[] GetOuterEventResults(string sessionID)
+        public EventResultData[] GetOuterEventResults(string sessionId)
         {
-            if (!eventCollectors.ContainsKey(sessionID))
-                throw new ArgumentException("请求事件的Session号[" + sessionID + "]没有被注册");
-            EventResultData[] results = eventCollectors[sessionID].GetCollectedEventArgs();
+            if (!eventCollectors.ContainsKey(sessionId))
+                throw new ArgumentException("请求事件的Session号[" + sessionId + "]没有被注册");
+            EventResultData[] results = eventCollectors[sessionId].GetCollectedEventArgs();
             if (results.Length == 0)
             {
-                logger.Info("会话 [" + sessionID + "] 的客户端事件请求超时");
+                logger.Info("会话 [" + sessionId + "] 的客户端事件请求超时");
             }
             return results;
         }
@@ -169,7 +169,7 @@ namespace Uniframework.Services
         [Serializable]
         class OuterEventInfo
         {
-            public string SessionID;
+            public string SessionId;
             public string Topic;
             public SubscriberLocation Location;
 
@@ -177,9 +177,9 @@ namespace Uniframework.Services
             {
             }
 
-            public OuterEventInfo(string sessionID, string topic, SubscriberLocation location)
+            public OuterEventInfo(string sessionId, string topic, SubscriberLocation location)
             {
-                this.SessionID = sessionID;
+                this.SessionId = sessionId;
                 this.Topic = topic;
                 this.Location = location;
             }
@@ -219,7 +219,7 @@ namespace Uniframework.Services
         /// <param name="location">订阅者位置</param>
         public void RegisterOuterEventSubscriber(string topic, SubscriberLocation location)
         {
-            RegisterOuterEventSubscriber(SessionID, topic, location);
+            RegisterOuterEventSubscriber(SessionId, topic, location);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Uniframework.Services
         /// <param name="topic">事件唯一名称</param>
         public void UnRegisterAnOuterEventSubscriber(string topic)
         {
-            UnRegisterAnOuterEventSubscriber(SessionID, topic);
+            UnRegisterAnOuterEventSubscriber(SessionId, topic);
         }
 
         /// <summary>
@@ -236,31 +236,31 @@ namespace Uniframework.Services
         /// </summary>
         public void UnRegisterAllOuterEventSubscriber()
         {
-            UnRegisterAllOuterEventSubscriber(SessionID);
+            UnRegisterAllOuterEventSubscriber(SessionId);
         }
 
         /// <summary>
         /// 注销指定会话的所有外部事件订阅者
         /// </summary>
-        /// <param name="sessionID">会话Id</param>
-        public void UnRegisterAllOuterEventSubscriber(string sessionID)
+        /// <param name="sessionId">会话Id</param>
+        public void UnRegisterAllOuterEventSubscriber(string sessionId)
         {
-            if (eventCollectors.ContainsKey(sessionID))
+            if (eventCollectors.ContainsKey(sessionId))
             {
-                eventCollectors[sessionID].Dispose();
-                if (outerSubscriberMapping.ContainsKey(sessionID))
+                eventCollectors[sessionId].Dispose();
+                if (outerSubscriberMapping.ContainsKey(sessionId))
                 {
-                    foreach (string topic in outerSubscriberMapping[sessionID])
+                    foreach (string topic in outerSubscriberMapping[sessionId])
                     {
-                        RemoveEventSubscriber(sessionID + topic);
-                        RemoveOuterSubscriberFromPublisherInfo(sessionID + topic);
+                        RemoveEventSubscriber(sessionId + topic);
+                        RemoveOuterSubscriberFromPublisherInfo(sessionId + topic);
                     }
                 }
-                eventCollectors.Remove(sessionID);
+                eventCollectors.Remove(sessionId);
             }
-            if (outerSubscriberMapping.ContainsKey(sessionID)) outerSubscriberMapping.Remove(sessionID);
+            if (outerSubscriberMapping.ContainsKey(sessionId)) outerSubscriberMapping.Remove(sessionId);
             OuterEventInfo template = new OuterEventInfo();
-            template.SessionID = sessionID;
+            template.SessionId = sessionId;
 
             IList<OuterEventInfo> events = db.Load<OuterEventInfo>(template);
             foreach (OuterEventInfo info in events)
@@ -289,7 +289,7 @@ namespace Uniframework.Services
         /// <returns>事件结果信息数组</returns>
         public EventResultData[] GetOuterEventResults()
         {
-            return GetOuterEventResults(SessionID);
+            return GetOuterEventResults(SessionId);
         }
 
         /// <summary>

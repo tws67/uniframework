@@ -79,8 +79,8 @@ namespace Uniframework.Services
         /// <summary>
         /// 注销指定会话的所有外部事件订阅者
         /// </summary>
-        /// <param name="sessionID">会话Id</param>
-        void UnRegisterAllOuterEventSubscriber(string sessionID);
+        /// <param name="sessionId">会话Id</param>
+        void UnRegisterAllOuterEventSubscriber(string sessionId);
 
         /// <summary>
         /// 获取所有事件发布者的描述

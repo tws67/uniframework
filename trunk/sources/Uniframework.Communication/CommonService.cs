@@ -35,7 +35,7 @@ namespace Uniframework.Communication
         private static bool Ping(NetworkInvokePackage ping)
         {
             if (DefaultContainer.SystemReady) {
-                Gateway.ActiviteSessioin(ping.SessionID);
+                Gateway.ActiviteSessioin(ping.SessionId);
                 return true;
             }
             else {
