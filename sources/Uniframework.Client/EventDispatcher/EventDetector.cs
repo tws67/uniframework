@@ -10,14 +10,14 @@ namespace Uniframework.Client
     public class EventDetector : IDisposable
     {
         Thread thread;
-        string sessionID;
+        string sessionId;
         ClientEventDispatcher clientDispatcher;
         log4net.ILog logger;
         bool isRunning = true;
 
-        public EventDetector(log4net.ILog logger, string sessionID, ClientEventDispatcher clientDispatcher)
+        public EventDetector(log4net.ILog logger, string sessionId, ClientEventDispatcher clientDispatcher)
         {
-            this.sessionID = sessionID;
+            this.sessionId = sessionId;
             this.clientDispatcher = clientDispatcher;
             this.logger = logger;
         }

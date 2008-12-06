@@ -16,10 +16,11 @@ namespace Uniframework.Db4o
     public interface IDb4oDatabase
     {
         /// <summary>
-        /// 对象容器，用于存放db4o数据库内容
+        /// Queries the by example.
         /// </summary>
-        IObjectContainer Container { get; }
-
+        /// <param name="template">The template.</param>
+        /// <returns></returns>
+        IObjectSet QueryByExample(object template);
         /// <summary>
         /// Stores the specified obj.
         /// </summary>
@@ -30,6 +31,11 @@ namespace Uniframework.Db4o
         /// </summary>
         /// <param name="obj">待删除的数据对象</param>
         void Delete(object obj);
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        /// <returns></returns>
+        bool Close();
         /// <summary>
         /// 查询符合条件的特定对象列表
         /// </summary>

@@ -58,7 +58,7 @@ namespace Uniframework.Services
             try
             {
                 ISystemService systemManager = kernel[typeof(ISystemService)] as ISystemService;
-                List<ServiceInfo> subsystems = systemManager.GetServices(pk.SessionID, pk.ClientType);
+                List<ServiceInfo> subsystems = systemManager.GetServices(pk.SessionId, pk.ClientType);
                 byte[] data = dataProcessor.Serialize<List<ServiceInfo>>(subsystems);
                 return data;
             }
@@ -95,8 +95,8 @@ namespace Uniframework.Services
         private byte[] InvokeCommand(NetworkInvokePackage package)
         {
             try {
-                ActiviteSessioin(package.SessionID);
-                String encryptKey = GetCryptKey(package.SessionID);
+                ActiviteSessioin(package.SessionId);
+                String encryptKey = GetCryptKey(package.SessionId);
                 MethodInfo method;
                 MethodInvokeInfo invokeInfo; 
                 object[] parameters;
@@ -112,7 +112,7 @@ namespace Uniframework.Services
                     PackageUtility.DecodeInvoke(package, encryptKey, out method, out parameters); 
 
                 // 调用
-                logger.Debug(String.Format("接收到会话 [{0}] 的远程调用请求, 调用的方法为 \"{1}\"", package.SessionID, method));
+                logger.Debug(String.Format("接收到会话 [{0}] 的远程调用请求, 调用的方法为 \"{1}\"", package.SessionId, method));
                 object result = Invoke(method, parameters);
 
                 // 返回服务器端方法执行结果
@@ -123,7 +123,7 @@ namespace Uniframework.Services
                 return buffer;
             }
             catch (Exception ex) {
-                logger.Error(String.Format("调用服务时发生错误, SessionId : {0}", package.SessionID), ex);
+                logger.Error(String.Format("调用服务时发生错误, SessionId : {0}", package.SessionId), ex);
                 throw;
             }
         }
@@ -180,7 +180,7 @@ namespace Uniframework.Services
                     string Password = (string)pk.Context[PackageUtility.SESSION_PASSWORD];
                     string IpAddress = (string)pk.Context[PackageUtility.SESSION_IPADDRESS];
                     string EncryptKey = (string)pk.Context[PackageUtility.SESSION_ENCTRYPTKEY];
-                    RegisterSession(pk.SessionID, UserName, Password, IpAddress, EncryptKey); // 注册会话
+                    RegisterSession(pk.SessionId, UserName, Password, IpAddress, EncryptKey); // 注册会话
                     return null;
 
                     // 获取远程服务

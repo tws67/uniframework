@@ -13,7 +13,7 @@ namespace Uniframework.Client
     public class CommunicateProxy
     {
         private static Serializer serializer = new Serializer();
-        private static string sessionID = null;
+        private static string sessionId = null;
         private static string encryptKey = null;
         private static string username = null;
         private static string password = null;
@@ -60,15 +60,15 @@ namespace Uniframework.Client
             password = passWord;
         }
 
-        public static string SessionID
+        public static string SessionId
         {
             get
             {
-                return sessionID;
+                return sessionId;
             }
             set
             {
-                sessionID = value;
+                sessionId = value;
             }
         }
 
@@ -105,7 +105,7 @@ namespace Uniframework.Client
         /// <returns></returns>
         public static object InvokeCommand(MethodInfo method, object parameter)
         {
-            ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "], SessionId 为 [" + sessionID + "], 用户 [" + username + "] ");
+            ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "], SessionId 为 [" + sessionId + "], 用户 [" + username + "] ");
            
             NetworkInvokePackage package = GetPackage(NetworkInvokeType.Invoke);
             PackageUtility.EncodeInvoke(method, parameter, encryptKey, ref package);
@@ -150,9 +150,9 @@ namespace Uniframework.Client
         private static NetworkInvokePackage GetPackage(NetworkInvokeType type)
         { 
 #if PocketPC || WindowsCE
-            return new NetworkInvokePackage(type, sessionID, ClientType.Mobile);
+            return new NetworkInvokePackage(type, sessionId, ClientType.Mobile);
 #else
-            return new NetworkInvokePackage(type, sessionID, ClientType.SmartClient);
+            return new NetworkInvokePackage(type, sessionId, ClientType.SmartClient);
 #endif
         }
 

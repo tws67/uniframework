@@ -100,17 +100,17 @@ namespace Uniframework.Services
         /// </summary>
         public void RemoveAll()
         {
-            object sessionID = ht[SessionVariables.SESSION_ID];
+            object sessionId = ht[SessionVariables.SESSION_ID];
             object username = ht[SessionVariables.SESSION_CURRENT_USER];
-            object ipAddress = ht[SessionVariables.CLIENT_ADDRESS];
+            object ipAddress = ht[SessionVariables.SESSION_CLIENT_ADDRESS];
             object encryptKey = ht[SessionVariables.SESSION_ENCRYPTKEY];
-            object loggingTime = ht[SessionVariables.LOGGING_TIME];
+            object loginTime = ht[SessionVariables.SESSION_LOGIN_TIME];
             ht.Clear();
-            ht[SessionVariables.SESSION_ID] = sessionID;
+            ht[SessionVariables.SESSION_ID] = sessionId;
             ht[SessionVariables.SESSION_CURRENT_USER] = username;
-            ht[SessionVariables.CLIENT_ADDRESS] = ipAddress;
+            ht[SessionVariables.SESSION_CLIENT_ADDRESS] = ipAddress;
             ht[SessionVariables.SESSION_ENCRYPTKEY] = encryptKey;
-            ht[SessionVariables.LOGGING_TIME] = loggingTime;
+            ht[SessionVariables.SESSION_LOGIN_TIME] = loginTime;
             Notify();
         }
 

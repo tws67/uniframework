@@ -12,7 +12,7 @@ namespace Uniframework
     public class NetworkInvokePackage
     {
         private NetworkInvokeType invokeType = NetworkInvokeType.Unknown;
-        private string sessionID;
+        private string sessionId;
         private ClientType clientType = ClientType.SmartClient;
         private HybridDictionary context;
 
@@ -20,11 +20,11 @@ namespace Uniframework
         /// 构造函数
         /// </summary>
         /// <param name="invokeType">调用类型</param>
-        /// <param name="sessionID">调用者会话标识</param>
-        public NetworkInvokePackage(NetworkInvokeType invokeType, string sessionID)
+        /// <param name="sessionId">调用者会话标识</param>
+        public NetworkInvokePackage(NetworkInvokeType invokeType, string sessionId)
         {
             this.invokeType = invokeType;
-            this.sessionID = sessionID;
+            this.sessionId = sessionId;
             context = new HybridDictionary();
         }
 
@@ -32,10 +32,10 @@ namespace Uniframework
         /// 构造函数（重载）
         /// </summary>
         /// <param name="invokeType">调用类型</param>
-        /// <param name="sessionID">调用者会话标识</param>
+        /// <param name="sessionId">调用者会话标识</param>
         /// <param name="clientType">客户端类型</param>
-        public NetworkInvokePackage(NetworkInvokeType invokeType, string sessionID, ClientType clientType)
-            : this(invokeType, sessionID)
+        public NetworkInvokePackage(NetworkInvokeType invokeType, string sessionId, ClientType clientType)
+            : this(invokeType, sessionId)
         {
             this.clientType = clientType;
         }
@@ -51,9 +51,9 @@ namespace Uniframework
         /// <summary>
         /// 调用者会话标识
         /// </summary>
-        public string SessionID
+        public string SessionId
         {
-            get { return sessionID; }
+            get { return sessionId; }
         }
 
         /// <summary>

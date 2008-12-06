@@ -115,7 +115,7 @@ namespace Uniframework.StartUp
             try
             {
                 CommunicateProxy.SetCredential(Username, Password);
-                CommunicateProxy.SessionID = Program.SessionID;
+                CommunicateProxy.SessionId = Program.SessionId;
                 CommunicateProxy.EncryptKey = Guid.NewGuid().ToString();
                 using (WaitCursor cursor = new WaitCursor(true))
                 {

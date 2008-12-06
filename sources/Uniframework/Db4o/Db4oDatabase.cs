@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,9 +30,10 @@ namespace Uniframework.Db4o
         {
             mutex = new Mutex(false, GetType() + dbfile.GetHashCode().ToString());
             mutex.WaitOne();
-            //if (HttpContext.Current != null)
-            //    dbfile = HttpContext.Current.Server.MapPath(dbfile);
             dbfile = FileUtility.ConvertToFullPath(dbfile);
+            if(!Directory.Exists(Path.GetDirectoryName(dbfile)))
+                Directory.CreateDirectory(Path.GetDirectoryName(dbfile));
+
             container = Db4oFactory.OpenFile(dbfile);
         }
 
@@ -42,20 +44,11 @@ namespace Uniframework.Db4o
         /// <param name="container">The container.</param>
         public Db4oDatabase(string dbfile, IObjectContainer container) {
             this.container = container;
-            this.mutex = new Mutex(false, this.ToString() + dbfile.GetHashCode().ToString());
+            this.mutex = new Mutex(false, GetType() + dbfile.GetHashCode().ToString());
             this.mutex.WaitOne();
         }
 
         #region IDb4oDatabase Members
-
-        /// <summary>
-        /// 对象容器，用于存放db4o数据库内容
-        /// </summary>
-        /// <value></value>
-        public IObjectContainer Container
-        {
-            get { return container; }
-        }
 
         /// <summary>
         /// 删除数据库中指定的对象

@@ -122,14 +122,14 @@ namespace Uniframework.Services
         /// <summary>
         /// Gets the session from database.
         /// </summary>
-        /// <param name="sessionID">The session ID.</param>
+        /// <param name="sessionId">The session ID.</param>
         /// <returns></returns>
-        private SessionStore GetSessionFromDatabase(string sessionID)
+        private SessionStore GetSessionFromDatabase(string sessionId)
         {
             IList<SessionStore> stores = db.Load<SessionStore>(new Predicate<SessionStore>(
                 delegate(SessionStore store)
                 {
-                    return store.Key == sessionID;
+                    return store.Key == sessionId;
                 }));
 
             if (stores.Count == 0) return null;
@@ -143,27 +143,27 @@ namespace Uniframework.Services
         /// <summary>
         /// Registers the specified session ID.
         /// </summary>
-        /// <param name="sessionID">The session ID.</param>
+        /// <param name="sessionId">The session ID.</param>
         /// <param name="userName">Name of the user.</param>
         /// <param name="ipAddress">The ip address.</param>
         /// <param name="encryptKey">The encrypt key.</param>
-        public void Register(string sessionID, string userName, string ipAddress, string encryptKey)
+        public void Register(string sessionId, string userName, string ipAddress, string encryptKey)
         {
             lock (syncObj)
             {
-                logger.Info("注册 [" + userName + "]：[" + ipAddress + "] 的会话 [" + sessionID + "]");
-                if (sessions.ContainsKey(sessionID))
-                    throw new ArgumentException("SessionManager中已经存在Key为 [" + sessionID + "] 的Session");
+                logger.Info("注册 [" + userName + "]：[" + ipAddress + "] 的会话 [" + sessionId + "]");
+                if (sessions.ContainsKey(sessionId))
+                    throw new ArgumentException("SessionManager中已经存在Key为 [" + sessionId + "] 的Session");
 
                 SessionState session = new SessionState(timeout, new Hashtable());
-                session[SessionVariables.SESSION_ID]             = sessionID;
+                session[SessionVariables.SESSION_ID]             = sessionId;
                 session[SessionVariables.SESSION_CURRENT_USER]   = userName;
                 session[SessionVariables.SESSION_CLIENT_ADDRESS] = ipAddress;
                 session[SessionVariables.SESSION_ENCRYPTKEY]     = encryptKey;
                 session[SessionVariables.SESSION_LOGIN_TIME]     = DateTime.Now;
-                sessions.Add(sessionID, session);
+                sessions.Add(sessionId, session);
 
-                db.Store(new SessionStore(sessionID, session));
+                db.Store(new SessionStore(sessionId, session));
                 InitialSession(session);
             }
         }
@@ -171,17 +171,17 @@ namespace Uniframework.Services
         /// <summary>
         /// Unloads the session.
         /// </summary>
-        /// <param name="sessionID">The session ID.</param>
-        public void UnloadSession(string sessionID)
+        /// <param name="sessionId">The session ID.</param>
+        public void UnloadSession(string sessionId)
         {
             lock (syncObj)
             {
-                if (sessions.ContainsKey(sessionID))
+                if (sessions.ContainsKey(sessionId))
                 {
-                    SessionStore store = GetSessionFromDatabase(sessionID);
+                    SessionStore store = GetSessionFromDatabase(sessionId);
                     db.Delete(store);
-                    dispatcher.UnRegisterAllOuterEventSubscriber(sessionID);
-                    sessions.Remove(sessionID);
+                    dispatcher.UnRegisterAllOuterEventSubscriber(sessionId);
+                    sessions.Remove(sessionId);
                 }
             }
         }
@@ -189,26 +189,26 @@ namespace Uniframework.Services
         /// <summary>
         /// Gets the session.
         /// </summary>
-        /// <param name="sessionID">The session ID.</param>
+        /// <param name="sessionId">The session ID.</param>
         /// <returns></returns>
-        public ISessionState GetSession(string sessionID)
+        public ISessionState GetSession(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionID)) 
-                throw new TimeoutException("SessionManager中不存在ID为 [" + sessionID + "] 的Session。该会话可能已经超时");
-            return sessions[sessionID];
+            if (!sessions.ContainsKey(sessionId)) 
+                throw new TimeoutException("SessionManager中不存在ID为 [" + sessionId + "] 的Session。该会话可能已经超时");
+            return sessions[sessionId];
         }
 
         /// <summary>
         /// Activates the specified session ID.
         /// </summary>
-        /// <param name="sessionID">The session ID.</param>
-        public void Activate(string sessionID)
+        /// <param name="sessionId">The session ID.</param>
+        public void Activate(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionID)) 
-                throw new ArgumentException("SessionManager中不存在ID为 [" + sessionID + "] 的Session。该会话可能已经超时");
+            if (!sessions.ContainsKey(sessionId)) 
+                throw new ArgumentException("SessionManager中不存在ID为 [" + sessionId + "] 的Session。该会话可能已经超时");
             LocalDataStoreSlot slot = Thread.GetNamedDataSlot(THREAD_SOLOT_NAME);
-            Thread.SetData(slot, sessionID);
-            sessions[sessionID].Activate();
+            Thread.SetData(slot, sessionId);
+            sessions[sessionId].Activate();
         }
 
         /// <summary>
@@ -220,8 +220,8 @@ namespace Uniframework.Services
             get
             {
                 LocalDataStoreSlot slot = Thread.GetNamedDataSlot(THREAD_SOLOT_NAME);
-                string sessionID = (string)Thread.GetData(slot);
-                ISessionState session = GetSession(sessionID);
+                string sessionId = (string)Thread.GetData(slot);
+                ISessionState session = GetSession(sessionId);
                 return session;
             }
         }

@@ -23,7 +23,7 @@ namespace Uniframework.StartUp
         private static readonly string LOGGER_CONFIGFILE = "log4net.config";
         private static ILog logger;
 
-        private static string sessionID;
+        private static string sessionId;
         private static EventDetector detector;
         private static frmLogin loginForm;
         private static Mutex mutex = new Mutex();
@@ -39,11 +39,11 @@ namespace Uniframework.StartUp
             }
         }
 
-        public static string SessionID
+        public static string SessionId
         {
             get
             {
-                return sessionID;
+                return sessionId;
             }
         }
 
@@ -52,14 +52,15 @@ namespace Uniframework.StartUp
         [STAThread]
         static void Main()
         {
+            CheckRunning(); // 检查应用程序是否已经运行
+
             BonusSkins.Register();
             //OfficeSkins.Register();
             SkinManager.EnableFormSkins();
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-CN");
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
 
-            CheckRunning();
-            sessionID = Guid.NewGuid().ToString();
+            sessionId = Guid.NewGuid().ToString();
             ChannelFactory.Url = ConfigurationManager.AppSettings["WebServiceUrl"];
             ChannelFactory.ServerAddress = ConfigurationManager.AppSettings["ServerAddress"];
             ChannelFactory.Port = int.Parse(ConfigurationManager.AppSettings["ServerPort"]);
@@ -70,12 +71,11 @@ namespace Uniframework.StartUp
 
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             ShellApplication application = null;
-            try
-            {
+            try {
                 SetInitialState("加载日志组件……");
                 XmlConfigurator.Configure(new FileInfo(LOGGER_CONFIGFILE));
                 logger = LogManager.GetLogger(typeof(Program));
-                logger.Info("****************应用程序启动，本次会话编号为[" + sessionID + "]****************");
+                logger.Info("****************应用程序启动，本次会话编号为[" + sessionId + "]****************");
                 ClientEventDispatcher.Instance.Logger = logger;
                 IncreaseProgressBar(10);
 
@@ -83,30 +83,26 @@ namespace Uniframework.StartUp
                 IncreaseProgressBar(10);
 
                 SetInitialState("启动客户端事件探测器……");
-                detector = new EventDetector(logger, Program.SessionID, ClientEventDispatcher.Instance);
+                detector = new EventDetector(logger, Program.SessionId, ClientEventDispatcher.Instance);
                 detector.Start();
                 IncreaseProgressBar(10);
 
                 application = new ShellApplication();
                 application.Run();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 logger.Fatal("运行客户端应用程序时发生错误", ex);
-                XtraMessageBox.Show("运行应用程序时发生错误，异常信息为：" + ex.Message, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show("运行应用程序时发生错误, 异常信息为 : " + ex.Message, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                try
-                {
+                try {
                     if (application != null) ClearResource();
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     logger.Warn("清理资源时发生错误", ex);
                 }
-                finally
-                {
+                finally {
                     Environment.Exit(0);
                 }
             }
@@ -119,7 +115,7 @@ namespace Uniframework.StartUp
         {
             detector.Dispose(); // 销毁事件探测器
             ISystemService systemService = ServiceRepository.Instance.GetService<ISystemService>();
-            systemService.UnRegisterSession(sessionID);
+            systemService.UnRegisterSession(sessionId);
             ServiceRepository.Instance.Dispose(); // 注销远程服务
         }
 
@@ -135,8 +131,7 @@ namespace Uniframework.StartUp
 
         public static void CloseLoginForm()
         {
-            if (loginForm.InvokeRequired)
-            {
+            if (loginForm.InvokeRequired) {
                 loginForm.Invoke(new MethodInvoker(CloseLoginForm));
             }
             else
@@ -162,10 +157,8 @@ namespace Uniframework.StartUp
                 return Assembly.LoadFile(Path.Combine(libPath, asmFile));
 
             List<string> files = FileUtility.SearchDirectory(FileUtility.GetParent(FileUtility.ApplicationRootPath), asmFile);
-            if (files.Count > 0)
-            {
-                try
-                {
+            if (files.Count > 0)  {
+                try {
                     AssemblyName asmName = AssemblyName.GetAssemblyName(files[0]);
                     if (asmName != null)
                         return Assembly.LoadFile(files[0]);
@@ -178,25 +171,20 @@ namespace Uniframework.StartUp
         private static void CheckRunning()
         {
             bool newMutexCreated = false;
-            using (new Mutex(true, Assembly.GetExecutingAssembly().FullName, out newMutexCreated))
-            {
-                if (!newMutexCreated)
-                {
-                    XtraMessageBox.Show("已经有一个系统实例在运行。");
-                    return;
+            using (new Mutex(true, Assembly.GetExecutingAssembly().FullName, out newMutexCreated)) {
+                if (!newMutexCreated) {
+                    Application.Exit();
                 }
             }
         }
 
         private static void loginForm_Cancelled(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 ClearResource();
             }
             catch { }
-            finally
-            {
+            finally {
                 Environment.Exit(0);
             }
         }

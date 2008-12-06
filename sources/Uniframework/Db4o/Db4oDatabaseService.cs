@@ -16,7 +16,7 @@ namespace Uniframework.Db4o
     /// </summary>
     public class Db4oDatabaseService : IDb4oDatabaseService, IDisposable
     {
-        private Dictionary<string, IObjectContainer> containers = new Dictionary<string, IObjectContainer>();
+        private Dictionary<string, IDb4oDatabase> databasese = new Dictionary<string, IDb4oDatabase>();
         private readonly static int MAX_TRYTIMES = 100;
         private readonly static string DB_EXT = ".yap";
         private string dbPath;
@@ -60,21 +60,21 @@ namespace Uniframework.Db4o
         /// <returns>打开的数据库对象<seealso cref="IDb4oDatabase"/></returns>
         public IDb4oDatabase Open(string dbName, IConfiguration config)
         {
-            if (!containers.ContainsKey(dbName)) {
-                IObjectContainer container = OpenDatabase(dbName, config);
-                if (container == null) {
+            if (!databasese.ContainsKey(dbName)) {
+                IDb4oDatabase db = OpenDatabase(dbName, config);
+                if (db == null) {
                     int counter = 0;
-                    while (container == null) {
-                        container = OpenDatabase(dbName, config);
+                    while (db == null) {
+                        db = OpenDatabase(dbName, config);
                         System.Threading.Thread.Sleep(1000);
                         counter++;
                         if (counter > MAX_TRYTIMES) 
-                            throw new UniframeworkException(String.Format("已经重试超过 \"{0}\" 次，数据库 \" {1} \"依然无法打开。", MAX_TRYTIMES, dbName));
+                            throw new UniframeworkException(String.Format("已经重试超过 \"{0}\" 次, 数据库 \" {1} \"依然无法打开.", MAX_TRYTIMES, dbName));
                     }
                 }
-                containers[dbName] = container;
+                databasese[dbName] = db;
             }
-            return new Db4oDatabase(dbName, containers[dbName]);
+            return databasese[dbName];
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace Uniframework.Db4o
         /// <param name="dbName">数据库名称</param>
         public void Close(string dbName)
         {
-            if (containers.ContainsKey(dbName)) {
-                containers[dbName].Close();
+            if (databasese.ContainsKey(dbName)) {
+                databasese[dbName].Close();
             }
         }
 
@@ -94,7 +94,7 @@ namespace Uniframework.Db4o
         /// <param name="dbName">数据库名称</param>
         public void Drop(string dbName)
         {
-            if (containers.ContainsKey(dbName)) {
+            if (databasese.ContainsKey(dbName)) {
                 Close(dbName);
 
                 string filename = String.IsNullOrEmpty(Path.GetExtension(dbName)) ? Path.Combine(dbPath, dbName + DB_EXT) : Path.Combine(dbPath, dbName);
@@ -116,7 +116,7 @@ namespace Uniframework.Db4o
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed && disposing) {
-                foreach (IObjectContainer container in containers.Values) {
+                foreach (IObjectContainer container in databasese.Values) {
                     container.Close();
                 }
                 disposed = true;
@@ -142,11 +142,12 @@ namespace Uniframework.Db4o
         /// <param name="dbName">Name of the db.</param>
         /// <param name="config">The config.</param>
         /// <returns></returns>
-        private IObjectContainer OpenDatabase(string dbName, IConfiguration config)
+        private IDb4oDatabase OpenDatabase(string dbName, IConfiguration config)
         {
             try {
                 string filename = String.IsNullOrEmpty(Path.GetExtension(dbName)) ? Path.Combine(dbPath, dbName + DB_EXT) : Path.Combine(dbPath, dbName);
-                return Db4oFactory.OpenFile(config, filename);
+                IObjectContainer container = Db4oFactory.OpenFile(config, filename);
+                return new Db4oDatabase(filename, container);
             }
             catch { 
             }
