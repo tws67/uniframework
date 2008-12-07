@@ -65,8 +65,7 @@ namespace Uniframework.Services
 
         private string SessionId
         {
-            get
-            {
+            get {
                 ISessionService service = kernel[typeof(ISessionService)] as ISessionService;
                 return service.CurrentSession[SessionVariables.SESSION_ID].ToString();
             }
@@ -74,10 +73,8 @@ namespace Uniframework.Services
 
         private void AddOuterSubscriberToPublisherInfo(string subscriberKey, EventSubscriberInfo subInfo)
         {
-            foreach (EventPublisherInfo publisher in this.events.Values)
-            {
-                if (publisher.Topic == subInfo.Topic)
-                {
+            foreach (EventPublisherInfo publisher in this.events.Values) {
+                if (publisher.Topic == subInfo.Topic) {
                     publisher.AddSubscriber(subscriberKey, subInfo);
                 }
             }
@@ -85,8 +82,7 @@ namespace Uniframework.Services
 
         private void RemoveOuterSubscriberFromPublisherInfo(string subscriberKey)
         {
-            foreach (EventPublisherInfo publisher in this.events.Values)
-            {
+            foreach (EventPublisherInfo publisher in this.events.Values) {
                 if (publisher.ContainsSubscriber(subscriberKey))
                     publisher.RemoveSubscriber(subscriberKey);
             }
@@ -95,14 +91,11 @@ namespace Uniframework.Services
         private void ReregisterOuterEvent()
         {
             List<OuterEventInfo> eventList = new List<OuterEventInfo>(db.Load<OuterEventInfo>());
-            eventList.ForEach(delegate(OuterEventInfo info)
-            {
-                try
-                {
+            eventList.ForEach(delegate(OuterEventInfo info) {
+                try {
                     RegisterOuterEventSubscriber(info.SessionId, info.Topic, info.Location);
                 }
-                catch
-                {
+                catch {
                     db.Delete(info);
                 }
             });
@@ -116,8 +109,7 @@ namespace Uniframework.Services
             EventCollector collector;
             if (eventCollectors.ContainsKey(sessionId))
                 collector = eventCollectors[sessionId];
-            else
-            {
+            else {
                 collector = new EventCollector();
                 eventCollectors.Add(sessionId, collector);
             }
@@ -132,8 +124,7 @@ namespace Uniframework.Services
 
         public void UnRegisterAnOuterEventSubscriber(string sessionId, string topic)
         {
-            if (eventCollectors.ContainsKey(sessionId))
-            {
+            if (eventCollectors.ContainsKey(sessionId)) {
                 eventCollectors[sessionId].UnRegisterEvent(topic);
             }
             RemoveEventSubscriber(sessionId + topic);
@@ -144,8 +135,7 @@ namespace Uniframework.Services
             template.Topic = topic;
 
             IList<OuterEventInfo> events = db.Load<OuterEventInfo>(template);
-            foreach (OuterEventInfo info in events)
-            {
+            foreach (OuterEventInfo info in events) {
                 db.Delete(info);
             }
         }
@@ -153,12 +143,11 @@ namespace Uniframework.Services
         public EventResultData[] GetOuterEventResults(string sessionId)
         {
             if (!eventCollectors.ContainsKey(sessionId))
-                throw new ArgumentException("请求事件的Session号[" + sessionId + "]没有被注册");
+                throw new ArgumentException("请求事件的Session [" + sessionId + "] 没有被注册");
             EventResultData[] results = eventCollectors[sessionId].GetCollectedEventArgs();
-            if (results.Length == 0)
-            {
-                logger.Info("会话 [" + sessionId + "] 的客户端事件请求超时");
-            }
+            //if (results.Length == 0) {
+            //    logger.Info("会话 [" + sessionId + "] 的客户端事件请求超时");
+            //}
             return results;
         }
 
@@ -248,10 +237,8 @@ namespace Uniframework.Services
             if (eventCollectors.ContainsKey(sessionId))
             {
                 eventCollectors[sessionId].Dispose();
-                if (outerSubscriberMapping.ContainsKey(sessionId))
-                {
-                    foreach (string topic in outerSubscriberMapping[sessionId])
-                    {
+                if (outerSubscriberMapping.ContainsKey(sessionId)) {
+                    foreach (string topic in outerSubscriberMapping[sessionId]) {
                         RemoveEventSubscriber(sessionId + topic);
                         RemoveOuterSubscriberFromPublisherInfo(sessionId + topic);
                     }
@@ -297,21 +284,16 @@ namespace Uniframework.Services
         /// </summary>
         public void ConnectInnerEvent()
         {
-            foreach (EventPublisherInfo publisher in this.events.Values)
-            {
-                foreach (string subscriberKey in subscribers.Keys)
-                {
+            foreach (EventPublisherInfo publisher in this.events.Values) {
+                foreach (string subscriberKey in subscribers.Keys) {
                     EventSubscriberInfo info = subscribers[subscriberKey];
-                    if (info.Location == SubscriberLocation.Local && publisher.Topic == info.Topic)
-                    {
-                        try
-                        {
+                    if (info.Location == SubscriberLocation.Local && publisher.Topic == info.Topic) {
+                        try {
                             Delegate handler = Delegate.CreateDelegate(publisher.EventInfo.EventHandlerType, kernel[info.ServiceType], info.MethodInfo);
                             publisher.EventInfo.AddEventHandler(kernel[publisher.EventInfo.DeclaringType], handler);
                             publisher.AddSubscriber(subscriberKey, info);
                         }
-                        catch (Exception ex)
-                        {
+                        catch (Exception ex) {
                             throw new Exception("在连接对象[" + info.MethodInfo.DeclaringType.Name +
                                 "]上的订阅者[" + info.Topic + "]到接口[" +
                                 publisher.EventInfo.DeclaringType.ToString() +

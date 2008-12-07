@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="SessionServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionStateTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\sources\Uniframework.Services\Uniframework.Services.csproj">
@@ -69,6 +70,16 @@
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
       <Name>Uniframework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Uniframework.Tests.Base\Uniframework.Tests.Base.csproj">
+      <Project>{62381CFD-7B25-4A7C-AB7D-E8D6F91B49E6}</Project>
+      <Name>Uniframework.Tests.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\sources\Uniframework.Web\Uniframework.config">
+      <Link>Uniframework.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

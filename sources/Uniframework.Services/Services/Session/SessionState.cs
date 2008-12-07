@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 
 namespace Uniframework.Services
@@ -11,47 +12,32 @@ namespace Uniframework.Services
     [Serializable]
     public class SessionState : ISessionState
     {
-        private int activeTime;
+        private readonly int DEFAULT_TIMEOUT = 180; // 默认超时值为3分钟
+
+        private string sessionId;
+        private int activeTime = 0;
         private int timeout;
-        private Hashtable ht;
+        private HybridDictionary context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionState"/> class.
         /// </summary>
-        /// <param name="timeout">The timeout.</param>
-        /// <param name="value">The value.</param>
-        public SessionState(int timeout, Hashtable value)
+        public SessionState()
         {
-            this.timeout = timeout;
-            this.ht = value;
+            timeout = DEFAULT_TIMEOUT;
+            context = new HybridDictionary();
         }
-
-        #region Assistant function
-        
         /// <summary>
-        /// 值变化事件
+        /// Initializes a new instance of the <see cref="SessionState"/> class.
         /// </summary>
-        [NonSerialized]
-        private EventHandler valueChangedHandler;
-        
-        public event EventHandler ValueChanged
+        /// <param name="timeout">The timeout.</param>
+        public SessionState(string sessionId, int timeout)
+            : this()
         {
-            add
-            {
-                valueChangedHandler += value;
-            }
-            remove
-            {
-                valueChangedHandler -= value;
-            }
+            this.sessionId = sessionId;
+            this.timeout = timeout;
         }
 
-        private void Notify()
-        {
-            if (this.valueChangedHandler != null)
-                valueChangedHandler(this, EventArgs.Empty);
-        }
-        #endregion
 
         /// <summary>
         /// Activates this instance.
@@ -79,19 +65,28 @@ namespace Uniframework.Services
         #region ISessionState Members
 
         /// <summary>
+        /// Gets or sets the session id.
+        /// </summary>
+        /// <value>The session id.</value>
+        public string SessionId
+        {
+            get { return sessionId; }
+            set { sessionId = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified key.
         /// </summary>
         /// <value></value>
         public object this[object key]
         {
-            get
-            {
-                return ht[key];
+            get {
+                return context[key];
             }
-            set
-            {
-                ht[key] = value;
-                Notify();
+
+            set {
+                context[key] = value;
+                OnContextChanged();
             }
         }
 
@@ -100,18 +95,20 @@ namespace Uniframework.Services
         /// </summary>
         public void RemoveAll()
         {
-            object sessionId = ht[SessionVariables.SESSION_ID];
-            object username = ht[SessionVariables.SESSION_CURRENT_USER];
-            object ipAddress = ht[SessionVariables.SESSION_CLIENT_ADDRESS];
-            object encryptKey = ht[SessionVariables.SESSION_ENCRYPTKEY];
-            object loginTime = ht[SessionVariables.SESSION_LOGIN_TIME];
-            ht.Clear();
-            ht[SessionVariables.SESSION_ID] = sessionId;
-            ht[SessionVariables.SESSION_CURRENT_USER] = username;
-            ht[SessionVariables.SESSION_CLIENT_ADDRESS] = ipAddress;
-            ht[SessionVariables.SESSION_ENCRYPTKEY] = encryptKey;
-            ht[SessionVariables.SESSION_LOGIN_TIME] = loginTime;
-            Notify();
+            object sessionId = context[SessionVariables.SESSION_ID];
+            object username = context[SessionVariables.SESSION_CURRENT_USER];
+            object ipAddress = context[SessionVariables.SESSION_CLIENT_ADDRESS];
+            object encryptKey = context[SessionVariables.SESSION_ENCRYPTKEY];
+            object loginTime = context[SessionVariables.SESSION_LOGIN_TIME];
+
+            context.Clear();
+
+            context[SessionVariables.SESSION_ID] = sessionId;
+            context[SessionVariables.SESSION_CURRENT_USER] = username;
+            context[SessionVariables.SESSION_CLIENT_ADDRESS] = ipAddress;
+            context[SessionVariables.SESSION_ENCRYPTKEY] = encryptKey;
+            context[SessionVariables.SESSION_LOGIN_TIME] = loginTime;
+            OnContextChanged();
         }
 
         /// <summary>
@@ -120,8 +117,8 @@ namespace Uniframework.Services
         /// <param name="key">标识</param>
         public void Remove(object key)
         {
-            ht.Remove(key);
-            Notify();
+            context.Remove(key);
+            OnContextChanged();
         }
 
         /// <summary>
@@ -131,9 +128,25 @@ namespace Uniframework.Services
         /// <returns></returns>
         public bool Exists(object key)
         {
-            return ht.Contains(key);
+            return context.Contains(key);
         }
 
         #endregion
+
+        #region Assistant function
+
+        /// <summary>
+        /// 会话状态上下文变化事件
+        /// </summary>
+        public event EventHandler ContextChanged;
+
+        protected void OnContextChanged()
+        {
+            if (ContextChanged != null)
+                ContextChanged(this, EventArgs.Empty);
+        }
+
+        #endregion
+
     }
 }

@@ -86,9 +86,6 @@
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\Exception.cs" />
     <Compile Include="Common\DynamicLatebound.cs" />
-    <Compile Include="Net\Wcf\ChatData.cs" />
-    <Compile Include="Net\Wcf\IWcfCallback.cs" />
-    <Compile Include="Net\Wcf\IWcfChannel.cs" />
     <Compile Include="Common\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
     <Compile Include="Db4o\Db4oDatabase.cs" />
@@ -127,7 +124,6 @@
     <Compile Include="Security\SymmetricCryptServiceBase.cs" />
     <Compile Include="Service\IImageService.cs" />
     <Compile Include="Service\ImageService.cs" />
-    <Compile Include="Net\Wcf\IWcfService.cs" />
     <Compile Include="Service\MethodInvokeInfo.cs" />
     <Compile Include="Utility\MyConvert.cs" />
     <Compile Include="Common\NetworkInvokePackage.cs" />

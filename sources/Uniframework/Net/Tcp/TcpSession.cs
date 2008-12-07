@@ -185,14 +185,14 @@ namespace Uniframework.Net
             }
         }
 
-        protected override void Free(bool dispodedByUser)
+        protected override void Free(bool disposing)
         {
-            if(dispodedByUser)
+            if(disposing)
             {
                 Close();
             }
 
-            base.Free(dispodedByUser);
+            base.Free(disposing);
         }
     }
    
