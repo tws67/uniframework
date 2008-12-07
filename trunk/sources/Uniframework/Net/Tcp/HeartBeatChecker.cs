@@ -28,7 +28,7 @@ namespace Uniframework.Net
         /// </summary>
         public HeartBeatChecker()
         {
-            heartBeatPeriod = 30000; //默认时间间隔30秒
+            heartBeatPeriod = 30000; // 默认时间间隔30秒
         }
 
         /// <summary>
@@ -55,11 +55,9 @@ namespace Uniframework.Net
         protected override void OnStart()
         {
             if (EnableCheckHeartBeat) {
-                {
-                    checkTimer = new Timer(new TimerCallback(CheckHeartBeatCallBack), null,
-                        HeartBeatPeriod, HeartBeatPeriod);
-                    NetDebuger.PrintDebugMessage("Start heartbeat checker, Period:" + HeartBeatPeriod + "(ms)");
-                }
+                checkTimer = new Timer(new TimerCallback(CheckHeartBeatCallBack), null,
+                    HeartBeatPeriod, HeartBeatPeriod);
+                NetDebuger.PrintDebugMessage("Start heartbeat checker, Period:" + HeartBeatPeriod + "(ms)");
             }
         }
 

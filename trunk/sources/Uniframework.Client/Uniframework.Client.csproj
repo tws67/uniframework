@@ -68,14 +68,11 @@
     </Compile>
     <Compile Include="ClientCacheDataReciver.cs" />
     <Compile Include="ClientCacheManager.cs" />
-    <Compile Include="Communicator\CallbackHandler.cs" />
     <Compile Include="Communicator\CommunicateProxy.cs" />
     <Compile Include="Communicator\CommunicatorFactory.cs" />
     <Compile Include="Communicator\ICommunicationChannel.cs" />
     <Compile Include="Communicator\SocketChannel.cs" />
     <Compile Include="Communicator\TcpChannel.cs" />
-    <Compile Include="Communicator\WcfChannel.cs" />
-    <Compile Include="Communicator\WcfChannelClient.cs" />
     <Compile Include="Communicator\WebServiceChannel.cs" />
     <Compile Include="EventDispatcher\ClientEventDispatcher.cs" />
     <Compile Include="EventDispatcher\EventDetector.cs" />

@@ -479,6 +479,7 @@ namespace Uniframework.Db4o
         #region IDisposable Members
 
         private bool disposed;
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed && disposing)

@@ -22,6 +22,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,11 +43,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\MockLoggerFactory.cs" />
     <Compile Include="Mocks\MockUIElementAdapter.cs" />
     <Compile Include="Mocks\MockUIElementAdapterFactory.cs" />
     <Compile Include="Mocks\MockWorkspace.cs" />
@@ -67,6 +72,10 @@
     <ProjectReference Include="..\..\sources\cab\ObjectBuilder\ObjectBuilder.csproj">
       <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
       <Name>ObjectBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sources\Uniframework\Uniframework.csproj">
+      <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
+      <Name>Uniframework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,297 +1,207 @@
-using System;
-using System.Collections;
+ï»¿using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Xml;
+using System.Web;
 
-using Db4objects.Db4o;
 using Uniframework.Db4o;
 
 namespace Uniframework.Services
 {
     /// <summary>
-    /// »á»°·şÎñ
+    /// ä¼šè¯æœåŠ¡
     /// </summary>
-    public class SessionService : ISessionService, IDisposable
+    public class SessionService : DisposableAndStartableBase, ISessionService
     {
-        private Dictionary<string, SessionState> sessions;
-        private IConfigurationService configService;
-        private ILogger logger;
-        private readonly string THREAD_SOLOT_NAME = "SessionThreadSlot";
+        private readonly string SESSION_SOLOTNAME = "SessionThreadSlot";
+        private readonly string SESSION_DB = "Session.yap";
+        private readonly string SESSION_PAPH = "System/Services/SessionService";
+        private readonly int    SESSION_DEFAULT_TIMEOUT = 180;
+        private readonly int    SESSION_DEFAULT_CHECKSPAN = 1000;
+
         private IEventDispatcher dispatcher;
+        private ILogger logger;
         private object syncObj = new object();
         private IDb4oDatabase db;
-
-        private int timeout;
+        private int timeOut;
         private int checkSpan;
-        private bool isRunning = true;
+        private string dbPath;
 
-        private readonly string SESSION_PAPH = "System/Services/SessionService";
-        private readonly string SESSION_DB = "Session.yap";
+        private Dictionary<string, SessionState> sessions = new Dictionary<string, SessionState>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SessionService"/> class.
+        /// Initializes a new instance of the <see cref="MySessionService"/> class.
         /// </summary>
-        /// <param name="databaseService">The database service.</param>
+        /// <param name="dbService">The db service.</param>
         /// <param name="configService">The config service.</param>
         /// <param name="loggerFactory">The logger factory.</param>
         /// <param name="dispatcher">The dispatcher.</param>
-        public SessionService(IDb4oDatabaseService databaseService, IConfigurationService configService, ILoggerFactory loggerFactory, IEventDispatcher dispatcher)
+        public SessionService(IDb4oDatabaseService dbService, IConfigurationService configService, ILoggerFactory loggerFactory, IEventDispatcher dispatcher)
         {
-            //ÉèÖÃSession¶ÔÏóµÄ¼¶ÁªÉ¾³ı
-            Db4oFactory.Configure().ObjectClass(typeof(SessionStore)).CascadeOnDelete(true);
-            logger = loggerFactory.CreateLogger<SessionService>("Framework");
-            db = databaseService.Open(SESSION_DB);
-            sessions = new Dictionary<string, SessionState>();
-
-            IList<SessionStore> stores = db.Load<SessionStore>();
-            foreach (SessionStore store in stores) {
-                sessions.Add(store.Key, store.Session);
-                InitialSession(sessions[store.Key]);
-            }
-
-            this.configService = configService;
             this.dispatcher = dispatcher;
-            try {
-                IConfiguration config = new XMLConfiguration(configService.GetItem(SESSION_PAPH));
-                timeout = config.Attributes["timeout"] != null ? Convert.ToInt32(config.Attributes["timeout"]) : 180;
-                checkSpan = config.Attributes["checkspan"] != null ? Convert.ToInt32(config.Attributes["checkspan"]) : 1000;
-            }
-            catch (Exception ex) {
-                logger.Warn("ÎŞ·¨´Ó×¢²á±í·şÎñÖĞ¶ÁÈ¡Session·şÎñµÄÉèÖÃ£¬²ÉÓÃÄ¬ÈÏÉèÖÃ", ex);
-                timeout = 180; // 3·ÖÖÓ³¬Ê±
-                checkSpan = 1000;
+            logger = loggerFactory.CreateLogger<SessionService>("Framework");
+            db = dbService.Open(SESSION_DB);
+
+            // åŠ è½½ä¼šè¯æ•°æ®åº“ä¸­çš„ä¼šè¯ä¿¡æ¯
+            foreach (SessionState session in db.Load<SessionState>()) {
+                sessions.Add(session.SessionId, session);
             }
 
-            Thread thread = new Thread(new ThreadStart(delegate
-            {
-                while (isRunning)
-                {
-                    CheckingTimeout();
-                    Thread.Sleep(checkSpan);
-                }
-            }));
-            thread.Start();
+            try {
+                IConfiguration conf = new XMLConfiguration(configService.GetItem(SESSION_PAPH));
+                timeOut = conf.Attributes["timeout"] != null ? Int32.Parse(conf.Attributes["timeout"]) : SESSION_DEFAULT_TIMEOUT;
+                checkSpan = conf.Attributes["checkspan"] != null ? Int32.Parse(conf.Attributes["checkspan"]) : SESSION_DEFAULT_CHECKSPAN;
+            }
+            catch {
+                timeOut = SESSION_DEFAULT_TIMEOUT;
+                checkSpan = SESSION_DEFAULT_CHECKSPAN;
+            }
+            Start(); // å¯åŠ¨ä¼šè¯ç®¡ç†
         }
 
-        #region Assistant function 
-
         /// <summary>
-        /// Checkings the timeout.
+        /// Called when [start].
         /// </summary>
-        private void CheckingTimeout()
+        protected override void OnStart()
         {
-            lock (syncObj) {
-                List<string> list = new List<string>();
-                foreach (string sessionKey in sessions.Keys) {
-                    if (sessions[sessionKey].IsTimeouted) {
-                        logger.Info("»á»° [" + sessionKey + "] ³¬Ê±");
-                        list.Add(sessionKey);
+            while (IsRun) {
+                foreach (SessionState session in sessions.Values) {
+                    if (session.IsTimeouted) {
+                        logger.Info("ä¼šè¯ [" + session.SessionId + "] è¶…æ—¶");
+                        UnloadSession(session.SessionId);
                     }
                 }
-                foreach (string key in list) {
-                    UnloadSession(key);
-                }
+
+                Thread.Sleep(checkSpan);
             }
         }
 
-        /// <summary>
-        /// Initials the session.
-        /// </summary>
-        /// <param name="session">The session.</param>
-        private void InitialSession(SessionState session)
+        protected override void OnStop()
         {
-            session.ValueChanged += new EventHandler(Session_ValueChanged);
         }
 
         /// <summary>
-        /// Handles the ValueChanged event of the session control.
+        /// This method is called when object is being disposed. Override this method to free resources.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Session_ValueChanged(object sender, EventArgs e)
+        /// <param name="disposing"></param>
+        protected override void Free(bool disposing)
         {
-            string id = ((SessionState)sender)[SessionVariables.SESSION_ID].ToString();
-            SessionStore store = GetSessionFromDatabase(id);
-            store.Session = (SessionState)sender;
-            db.Store(store);
+            Stop();
         }
-
-        /// <summary>
-        /// Gets the session from database.
-        /// </summary>
-        /// <param name="sessionId">The session ID.</param>
-        /// <returns></returns>
-        private SessionStore GetSessionFromDatabase(string sessionId)
-        {
-            IList<SessionStore> stores = db.Load<SessionStore>(new Predicate<SessionStore>(
-                delegate(SessionStore store)
-                {
-                    return store.Key == sessionId;
-                }));
-
-            if (stores.Count == 0) return null;
-            return stores[0];
-        }
-
-        #endregion
 
         #region ISessionService Members
 
         /// <summary>
-        /// Registers the specified session ID.
+        /// æ³¨å†Œä¼šè¯
         /// </summary>
-        /// <param name="sessionId">The session ID.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="ipAddress">The ip address.</param>
-        /// <param name="encryptKey">The encrypt key.</param>
-        public void Register(string sessionId, string userName, string ipAddress, string encryptKey)
+        /// <param name="sessionId">ä¼šè¯æ ‡è¯†</param>
+        /// <param name="user">ç”¨æˆ·å</param>
+        /// <param name="ipAddress">è°ƒç”¨æ–¹IPåœ°å€</param>
+        /// <param name="encryptKey">å¯†é’¥</param>
+        public void Register(string sessionId, string user, string ipAddress, string encryptKey)
         {
-            lock (syncObj)
-            {
-                logger.Info("×¢²á [" + userName + "]£º[" + ipAddress + "] µÄ»á»° [" + sessionId + "]");
+            lock (syncObj) {
                 if (sessions.ContainsKey(sessionId))
-                    throw new ArgumentException("SessionManagerÖĞÒÑ¾­´æÔÚKeyÎª [" + sessionId + "] µÄSession");
+                    throw new ArgumentException(String.Format("ä¼šè¯ç®¡ç†å™¨ä¸­å·²ç»å­˜åœ¨ [{0}] çš„ä¼šè¯", sessionId));
 
-                SessionState session = new SessionState(timeout, new Hashtable());
-                session[SessionVariables.SESSION_ID]             = sessionId;
-                session[SessionVariables.SESSION_CURRENT_USER]   = userName;
+                logger.Info(String.Format("æ³¨å†Œæ¥è‡ª {0} [{1}] çš„ä¼šè¯ : {2}", user, ipAddress, sessionId));
+                SessionState session = new SessionState(sessionId, timeOut);
+                session[SessionVariables.SESSION_ID] = sessionId;
+                session[SessionVariables.SESSION_CURRENT_USER] = user;
                 session[SessionVariables.SESSION_CLIENT_ADDRESS] = ipAddress;
-                session[SessionVariables.SESSION_ENCRYPTKEY]     = encryptKey;
-                session[SessionVariables.SESSION_LOGIN_TIME]     = DateTime.Now;
-                sessions.Add(sessionId, session);
+                session[SessionVariables.SESSION_ENCRYPTKEY] = encryptKey;
+                session[SessionVariables.SESSION_LOGIN_TIME] = DateTime.Now;
 
-                db.Store(new SessionStore(sessionId, session));
-                InitialSession(session);
+                // ä¼šè¯çŠ¶æ€ä¸Šä¸‹æ–‡å˜åŒ–äº‹ä»¶
+                session.ContextChanged += new EventHandler(delegate(object sender, EventArgs e) {
+                    string id = ((SessionState)sender).SessionId;
+                    IList<SessionState> list = db.Load<SessionState>(delegate(SessionState ss) {
+                        return ss.SessionId == id;
+                    });
+                    if (list.Count > 0)
+                        db.Delete(list[0]); // åˆ é™¤åŸæ¥çš„ä¼šè¯çŠ¶æ€æ•°æ®
+                    db.Store(sender);
+                });
+
+                // å°†æ–°æ³¨å†Œçš„ä¼šè¯èµ„æ–™ä¿å­˜åˆ°æ•°æ®åº“
+                db.Store(session);
+                sessions[sessionId] = session;
             }
         }
 
         /// <summary>
-        /// Unloads the session.
+        /// æ³¨é”€ä¼šè¯
         /// </summary>
-        /// <param name="sessionId">The session ID.</param>
+        /// <param name="sessionId">ä¼šè¯æ ‡è¯†</param>
         public void UnloadSession(string sessionId)
         {
-            lock (syncObj)
-            {
-                if (sessions.ContainsKey(sessionId))
-                {
-                    SessionStore store = GetSessionFromDatabase(sessionId);
-                    db.Delete(store);
-                    dispatcher.UnRegisterAllOuterEventSubscriber(sessionId);
-                    sessions.Remove(sessionId);
-                }
+            lock (sessions) {
+                IList<SessionState> list = db.Load<SessionState>(delegate(SessionState ss) {
+                    return ss.SessionId == sessionId;
+                });
+                if (list.Count > 0)
+                    db.Delete(list[0]); // ä»æ•°æ®åº“ä¸­åˆ é™¤ä¼šè¯
+                dispatcher.UnRegisterAllOuterEventSubscriber(sessionId);
+                sessions.Remove(sessionId);
             }
         }
 
         /// <summary>
-        /// Gets the session.
+        /// æ ¹æ®ä¼šè¯æ ‡è¯†è·å–ä¼šè¯å®ä¾‹
         /// </summary>
-        /// <param name="sessionId">The session ID.</param>
-        /// <returns></returns>
+        /// <param name="sessionId">ä¼šè¯æ ‡è¯†</param>
+        /// <returns>ä¼šè¯å®ä¾‹</returns>
         public ISessionState GetSession(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionId)) 
-                throw new TimeoutException("SessionManagerÖĞ²»´æÔÚIDÎª [" + sessionId + "] µÄSession¡£¸Ã»á»°¿ÉÄÜÒÑ¾­³¬Ê±");
+            if (!sessions.ContainsKey(sessionId))
+                throw new TimeoutException(String.Format("ä¸å­˜åœ¨ [{0}] çš„ä¼šè¯, è¯¥ä¼šè¯å¯èƒ½å·²ç»è¶…æ—¶.", sessionId));
+
             return sessions[sessionId];
         }
 
         /// <summary>
-        /// Activates the specified session ID.
+        /// æ¿€æ´»ä¼šè¯
         /// </summary>
-        /// <param name="sessionId">The session ID.</param>
+        /// <param name="sessionId">The session id.</param>
         public void Activate(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionId)) 
-                throw new ArgumentException("SessionManagerÖĞ²»´æÔÚIDÎª [" + sessionId + "] µÄSession¡£¸Ã»á»°¿ÉÄÜÒÑ¾­³¬Ê±");
-            LocalDataStoreSlot slot = Thread.GetNamedDataSlot(THREAD_SOLOT_NAME);
+            if (!sessions.ContainsKey(sessionId))
+                throw new TimeoutException(String.Format("ä¸å­˜åœ¨ [{0}] çš„ä¼šè¯, è¯¥ä¼šè¯å¯èƒ½å·²ç»è¶…æ—¶.", sessionId));
+
+            LocalDataStoreSlot slot = Thread.GetNamedDataSlot(SESSION_SOLOTNAME);
             Thread.SetData(slot, sessionId);
             sessions[sessionId].Activate();
         }
 
         /// <summary>
-        /// µ±Ç°»á»°ÊµÀı
+        /// å½“å‰ä¼šè¯å®ä¾‹
         /// </summary>
         /// <value></value>
         public ISessionState CurrentSession
         {
-            get
-            {
-                LocalDataStoreSlot slot = Thread.GetNamedDataSlot(THREAD_SOLOT_NAME);
+            get {
+                LocalDataStoreSlot slot = Thread.GetNamedDataSlot(SESSION_SOLOTNAME);
                 string sessionId = (string)Thread.GetData(slot);
                 ISessionState session = GetSession(sessionId);
                 return session;
-            }
+            } 
         }
 
         /// <summary>
-        /// »ñÈ¡ËùÓĞµÄ»á»°ÊµÀı
+        /// è·å–æ‰€æœ‰çš„ä¼šè¯å®ä¾‹
         /// </summary>
         /// <returns></returns>
         public ISessionState[] GetAllSessions()
         {
-            List<ISessionState> list = new List<ISessionState>();
-            foreach (ISessionState session in sessions.Values)
-            {
+            IList<SessionState> list = new List<SessionState>();
+            foreach (SessionState session in sessions.Values) {
                 list.Add(session);
             }
             return list.ToArray();
         }
 
         #endregion
-
-        #region IDisposable Members
-
-        public void Dispose()
-        {
-            isRunning = false;
-        }
-
-        #endregion
     }
-
-    #region Assistant class
-
-    /// <summary>
-    /// »á»°´æ´¢
-    /// </summary>
-    class SessionStore
-    {
-        private string key;
-        private SessionState session;
-
-        public SessionStore(string key, SessionState session)
-        {
-            this.key = key;
-            this.session = session;
-        }
-
-        /// <summary>
-        /// Gets the key.
-        /// </summary>
-        /// <value>The key.</value>
-        public string Key
-        {
-            get { return key; }
-        }
-
-        /// <summary>
-        /// Gets or sets the session.
-        /// </summary>
-        /// <value>The session.</value>
-        public SessionState Session
-        {
-            get
-            {
-                return session;
-            }
-            set
-            {
-                this.session = value;
-            }
-        }
-    }
-    #endregion
 }

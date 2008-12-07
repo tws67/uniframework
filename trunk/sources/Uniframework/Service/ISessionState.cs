@@ -9,7 +9,10 @@ namespace Uniframework.Services
     /// </summary>
     public interface ISessionState
     {
-        #region Interface Member
+        /// <summary>
+        /// 会话标识
+        /// </summary>
+        string SessionId { get; set; }
         /// <summary>
         /// 索引器
         /// </summary>
@@ -31,6 +34,5 @@ namespace Uniframework.Services
         /// <param name="key"></param>
         /// <returns></returns>
         bool Exists(object key);
-        #endregion
     }
 }
