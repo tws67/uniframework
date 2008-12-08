@@ -181,6 +181,7 @@ namespace Uniframework.Services
                     string IpAddress = (string)pk.Context[PackageUtility.SESSION_IPADDRESS];
                     string EncryptKey = (string)pk.Context[PackageUtility.SESSION_ENCTRYPTKEY];
                     RegisterSession(pk.SessionId, UserName, Password, IpAddress, EncryptKey); // 注册会话
+
                     return null;
 
                     // 获取远程服务
