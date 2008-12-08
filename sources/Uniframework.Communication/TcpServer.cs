@@ -54,8 +54,7 @@ namespace Uniframework.Communication
                     }
                     dataBlock.Reset();
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     logger.Error("调用服务错误", ex);
                     Exception exp = new Exception("调用服务错误", ex);
                     byte[] expResults = serializer.Serialize<Exception>(exp);
@@ -64,8 +63,7 @@ namespace Uniframework.Communication
                     expResults.CopyTo(returns, 1);
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 logger.Error("Tcp服务发生错误", ex);
             }
         }

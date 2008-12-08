@@ -112,24 +112,20 @@ namespace Uniframework.StartUp
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 CommunicateProxy.SetCredential(Username, Password);
                 CommunicateProxy.SessionId = Program.SessionId;
                 CommunicateProxy.EncryptKey = Guid.NewGuid().ToString();
-                using (WaitCursor cursor = new WaitCursor(true))
-                {
+                using (WaitCursor cursor = new WaitCursor(true)) {
                     CommunicateProxy.RegisterSession();
                 }
             }
-            catch (SecurityException)
-            {
+            catch (SecurityException) {
                 string errInfo = PasswordTryCount != 3 ? "您输入的用户名或密码不正确请确认后再试。" : "非授权用户不得使用本系统，请与系统管理员联系。";
                 XtraMessageBox.Show(errInfo);
                 txtPassword.Focus();
                 PasswordTryCount++;
-                if (PasswordTryCount >= 3)
-                {
+                if (PasswordTryCount >= 3) {
                     Environment.Exit(0);
                 }
                 else

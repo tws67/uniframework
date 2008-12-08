@@ -14,9 +14,10 @@ namespace Uniframework.Client
     {
         private static readonly int DEFAULT_TIMEOUT = 60000; // 默认的超时值为1分钟
 
-        private byte[] result = null;
+        private byte[] buffer = null;
         private int timeOut = DEFAULT_TIMEOUT;
         private AsyncAssistant assistant = new AsyncAssistant();
+        private Serializer serializer = new Serializer();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SocketChannel"/> class.
@@ -46,14 +47,36 @@ namespace Uniframework.Client
             try {
                 Send(data);
                 assistant.WaitAsyncResult(timeOut); // 等待服务器端返回
+                if (buffer.Length == 0)
+                    return null;
+
+                byte[] result = new byte[buffer.Length - 1];
+                Array.Copy(buffer, 1, result, 0, result.Length);
+                if (result[0] == 1) {
+                    Exception ex = serializer.Deserialize<Exception>(result);
+                    throw ex;
+                }
                 return result;
             }
             catch (SoapException ex) {
                 throw ExceptionHelper.UnWrapException<Exception>(ex);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 throw new UniframeworkException("服务器响应超时");
+            }
+        }
+
+        /// <summary>
+        /// 注册本次会话
+        /// </summary>
+        /// <param name="data">调用信息</param>
+        public void RegisterSession(byte[] data)
+        {
+            try {
+                Send(data);
+            }
+            catch (Exception ex) {
+                throw ex;
             }
         }
 
@@ -72,9 +95,9 @@ namespace Uniframework.Client
         protected override void OnReceivedData(DataBlock dataBlock)
         {
             base.OnReceivedData(dataBlock);
-            result = dataBlock.ToArray();
-            dataBlock.Reset();
+            buffer = dataBlock.ToArray();
             assistant.EndAsyncOperation(); // 完成调用准备返回
+            dataBlock.Reset();
         }
     }
 }
