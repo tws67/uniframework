@@ -26,13 +26,25 @@ namespace Uniframework.Db4o
         /// </summary>
         public Db4oDatabaseService()
         {
-            if (HttpContext.Current != null)
-                dbPath = HttpContext.Current.Server.MapPath("~/App_Data/");
-            else {
-                dbPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Data\";
-                if (!Directory.Exists(dbPath))
-                    Directory.CreateDirectory(dbPath);
-            }
+            dbPath = FileUtility.ConvertToFullPath(@".\App_Data\");
+            if (!Directory.Exists(dbPath))
+                Directory.CreateDirectory(dbPath);
+
+            Db4oFactory.Configure().UpdateDepth(Int32.MaxValue);
+            Db4oFactory.Configure().OptimizeNativeQueries(true);
+            Db4oFactory.Configure().DetectSchemaChanges(true); // 自动探测数据库模式的变化
+            Db4oFactory.Configure().ExceptionsOnNotStorable(true);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Db4oDatabaseService"/> class.
+        /// </summary>
+        /// <param name="dbPath">The db path.</param>
+        public Db4oDatabaseService(string dbPath)
+        {
+            this.dbPath = FileUtility.ConvertToFullPath(dbPath);
+            if (!Directory.Exists(this.dbPath))
+                Directory.CreateDirectory(this.dbPath);
 
             Db4oFactory.Configure().UpdateDepth(Int32.MaxValue);
             Db4oFactory.Configure().OptimizeNativeQueries(true);

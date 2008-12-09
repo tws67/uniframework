@@ -51,16 +51,23 @@ namespace Uniframework.Client
             return new TcpChannel(server, port);
         }
 
-        private static SocketChannel CreateSocketChannel()
+        private static bool WcfChannelCanUse()
         {
-            SocketChannel socket = new SocketChannel(server, port);
-            return socket;
+            WcfChannel channel = CreateWcfChannel();
+            NetworkInvokePackage pk = new NetworkInvokePackage(NetworkInvokeType.Ping, Guid.NewGuid().ToString());
+            try {
+                Serializer serializer = new Serializer();
+                byte[] data = channel.Invoke(serializer.Serialize<NetworkInvokePackage>(pk));
+                return serializer.Deserialize<bool>(data);
+            }
+            catch {
+                return false;
+            }
         }
 
-        private static bool CanSocketUse()
+        private static WcfChannel CreateWcfChannel()
         {
-            SocketChannel socket = CreateSocketChannel();
-            return socket.Available;
+            return new WcfChannel();
         }
 
         #endregion
@@ -102,17 +109,28 @@ namespace Uniframework.Client
         
         #endregion
 
+        /// <summary>
+        /// Gets the communication channel.
+        /// </summary>
+        /// <returns></returns>
         public static ICommunicationChannel GetCommunicationChannel()
         {
-            switch (communicationChannel)
-            {
-                case CommunicationChannel.WebService:
+            switch (communicationChannel) {
+                    // 创建WebService通道
+                case CommunicationChannel.WebService :
                     return CreateWebServiceChannel();
-                case CommunicationChannel.Socket:
+
+                    // 创建Tcp通道
+                case CommunicationChannel.Socket :
                     return CreateTcpChannel();
+
+                    // 创建Wcf通道
+                case CommunicationChannel.Wcf :
+                    return CreateWcfChannel();
+
                 default:
-                    if (CanSocketUse())
-                        return CreateTcpChannel();
+                    if (WcfChannelCanUse())
+                        return CreateWcfChannel();
                     else
                         return CreateWebServiceChannel();
             }

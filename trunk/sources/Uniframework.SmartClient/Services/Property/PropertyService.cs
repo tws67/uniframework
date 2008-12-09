@@ -24,7 +24,7 @@ namespace Uniframework.SmartClient
         /// </summary>
         public PropertyService()
         {
-            dbService = new Db4oDatabaseService();
+            dbService = new Db4oDatabaseService(@"..\Data\");
             db = dbService.Open(PROPERTY_DBFILE);
         }
 
