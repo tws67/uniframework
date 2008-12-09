@@ -14,12 +14,13 @@ using Castle.Windsor.Configuration.Interpreters;
 
 using Uniframework.Db4o;
 using Uniframework.Services.Facilities;
+using System.IO;
 
 namespace Uniframework.Services
 {
     public class DefaultContainer : WindsorContainer
     {
-        private static string CONFIG_FILENAME = "Uniframework.config";
+        private static string CONFIG_FILE = @".\Uniframework.config";
         private ILogger logger;
         private static bool systemReady = false;
         private static ILoggerFactory loggerFactory;
@@ -32,12 +33,10 @@ namespace Uniframework.Services
         /// <value>The logger factory.</value>
         public static ILoggerFactory LoggerFactory
         {
-            get
-            {
+            get {
                 return loggerFactory;
             }
-            set
-            {
+            set {
                 loggerFactory = value;
             }
         }
@@ -78,7 +77,7 @@ namespace Uniframework.Services
             // 加载服务器端的服务
             try {
                 logger.Info("开始加载注册表服务");
-                this.Kernel.AddComponentInstance("configService", typeof(IConfigurationService), new XMLConfigurationService(CONFIG_FILENAME));
+                this.Kernel.AddComponentInstance("configService", typeof(IConfigurationService), new XMLConfigurationService(CONFIG_FILE));
 
                 logger.Info("开始加载嵌入式对象数据库服务");
                 AddComponent("ObjectDatabaseService", typeof(IDb4oDatabaseService), typeof(Db4oDatabaseService));
@@ -100,9 +99,9 @@ namespace Uniframework.Services
 
                 CheckBuiltInService(); // 对远程服务及远程方法进行注入处理
 
-                AbstractExtend[] loadedExtends = AddExtends();
+                AbstractExtend[] loadedExtends = LoadFrameworkExtends();
 
-                string[] customServices = AddComponentFromConfiguration();
+                string[] customServices = LoadFrameworkComponents();
 
                 object[] components = ActivatingComponents();
 
@@ -129,66 +128,35 @@ namespace Uniframework.Services
         /// Adds the extends.
         /// </summary>
         /// <returns></returns>
-        private AbstractExtend[] AddExtends()
+        private AbstractExtend[] LoadFrameworkExtends()
         {
-            string extendsPath = "System/Extends";
-            IConfigurationService configService = this[typeof(IConfigurationService)] as IConfigurationService;
-            IConfiguration extends = new XMLConfiguration(configService.GetItem(extendsPath));
             List<AbstractExtend> list = new List<AbstractExtend>();
+            string extPath = "System/Extends";
+            IConfigurationService configService = this[typeof(IConfigurationService)] as IConfigurationService;
+            if (configService.Exists(extPath)) {
+                IConfiguration extends = new XMLConfiguration(configService.GetItem(extPath));
 
-            // 加载所有的扩展项
-            foreach (IConfiguration extend in extends.Children) {
-                if (extend.Attributes["class"] == null)
-                    throw new ArgumentException("系统扩展项配置不正确，没有配置[class]属性。");
+                // 加载所有的扩展项
+                foreach (IConfiguration extend in extends.Children) {
+                    if (extend.Attributes["class"] == null)
+                        throw new ArgumentException("系统扩展项配置不正确，没有配置[class]属性。");
 
-                string extendDef = extend.Attributes["class"];
-                Type type = Type.GetType(extendDef);
-                AbstractExtend ext = Activator.CreateInstance(type) as AbstractExtend;
-                ext.ConfigPath = extendsPath + extend.Name;
-                AddFacility(type.FullName, ext);
-                list.Add(ext);
+                    string extendDef = extend.Attributes["class"];
+                    Type type = Type.GetType(extendDef);
+                    AbstractExtend ext = Activator.CreateInstance(type) as AbstractExtend;
+                    ext.ConfigPath = extPath + extend.Name;
+                    AddFacility(type.FullName, ext);
+                    list.Add(ext);
+                }
             }
-
             return list.ToArray();
         }
 
         /// <summary>
-        /// Activatings the components.
-        /// </summary>
-        /// <returns></returns>
-        private object[] ActivatingComponents()
-        {
-            Castle.Core.GraphNode[] nodes = Kernel.GraphNodes;
-            ArrayList components = new ArrayList();
-
-            foreach (ComponentModel node in nodes)
-            {
-                try
-                {
-                    components.Add(Kernel[node.Service]);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("在激活组件 [" + node.Service + "] 的时候发生错误", ex);
-                }
-            }
-            return components.ToArray();
-        }
-
-        /// <summary>
-        /// Checks the built in service.
-        /// </summary>
-        private void CheckBuiltInService()
-        {
-            ISystemService systemService = this[typeof(ISystemService)] as ISystemService;
-            systemService.InspectService(typeof(IEventDispatcher));
-            systemService.InspectService(typeof(ISystemService));
-        }
-        /// <summary>
         /// Adds the component from configuration.
         /// </summary>
         /// <returns></returns>
-        private string[] AddComponentFromConfiguration()
+        private string[] LoadFrameworkComponents()
         {
             List<string> serviceList = new List<string>();
 
@@ -196,9 +164,9 @@ namespace Uniframework.Services
             IConfigurationService configService = this[typeof(IConfigurationService)] as IConfigurationService;
             IConfiguration services = new XMLConfiguration(configService.GetItem(servicesPath));
 
-            foreach (IConfiguration service in services.Children) {
-                try
-                {
+            foreach (IConfiguration service in services.Children)
+            {
+                try {
                     string inteDef = String.Empty;
                     string commDef = String.Empty;
                     Type inteType = null;
@@ -233,13 +201,45 @@ namespace Uniframework.Services
                         serviceList.Add(commDef);
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     logger.Error("在注册组件 [" + service.Name + "] 时发生错误", ex);
                 }
             }
 
             return serviceList.ToArray();
+        }
+
+        /// <summary>
+        /// Activatings the components.
+        /// </summary>
+        /// <returns></returns>
+        private object[] ActivatingComponents()
+        {
+            Castle.Core.GraphNode[] nodes = Kernel.GraphNodes;
+            ArrayList components = new ArrayList();
+
+            foreach (ComponentModel node in nodes)
+            {
+                try
+                {
+                    components.Add(Kernel[node.Service]);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("在激活组件 [" + node.Service + "] 的时候发生错误", ex);
+                }
+            }
+            return components.ToArray();
+        }
+
+        /// <summary>
+        /// Checks the built in service.
+        /// </summary>
+        private void CheckBuiltInService()
+        {
+            ISystemService systemService = this[typeof(ISystemService)] as ISystemService;
+            systemService.InspectService(typeof(IEventDispatcher));
+            systemService.InspectService(typeof(ISystemService));
         }
 
         /// <summary>

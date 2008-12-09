@@ -24,10 +24,9 @@ namespace Uniframework.Services
         private IEventDispatcher dispatcher;
         private ILogger logger;
         private object syncObj = new object();
-        //private IDb4oDatabase db;
+        private IDb4oDatabase db;
         private int timeOut;
         private int checkSpan;
-        private string dbPath;
 
         private Dictionary<string, SessionState> sessions = new Dictionary<string, SessionState>();
 
@@ -42,12 +41,12 @@ namespace Uniframework.Services
         {
             this.dispatcher = dispatcher;
             logger = loggerFactory.CreateLogger<SessionService>("Framework");
-            //db = dbService.Open(SESSION_DB);
+            db = dbService.Open(SESSION_DB);
 
-            //// 加载会话数据库中的会话信息
-            //foreach (SessionState session in db.Load<SessionState>()) {
-            //    sessions.Add(session.SessionId, session);
-            //}
+            // 加载会话数据库中的会话信息
+            foreach (SessionState session in db.Load<SessionState>()) {
+                sessions.Add(session.SessionId, session);
+            }
 
             try {
                 IConfiguration conf = new XMLConfiguration(configService.GetItem(SESSION_PAPH));
@@ -114,21 +113,19 @@ namespace Uniframework.Services
                 session[SessionVariables.SESSION_ENCRYPTKEY] = encryptKey;
                 session[SessionVariables.SESSION_LOGIN_TIME] = DateTime.Now;
 
-                //// 会话状态上下文变化事件
-                //session.ContextChanged += new EventHandler(delegate(object sender, EventArgs e)
-                //{
-                //    string id = ((SessionState)sender).SessionId;
-                //    IList<SessionState> list = db.Load<SessionState>(delegate(SessionState ss)
-                //    {
-                //        return ss.SessionId == id;
-                //    });
-                //    if (list.Count > 0)
-                //        db.Delete(list[0]); // 删除原来的会话状态数据
-                //    db.Store(sender);
-                //});
+                // 会话状态上下文变化事件
+                session.ContextChanged += new EventHandler(delegate(object sender, EventArgs e) {
+                    string id = ((SessionState)sender).SessionId;
+                    IList<SessionState> list = db.Load<SessionState>(delegate(SessionState ss) {
+                        return ss.SessionId == id;
+                    });
+                    if (list.Count > 0)
+                        db.Delete(list[0]); // 删除原来的会话状态数据
+                    db.Store(sender);
+                });
 
-                //// 将新注册的会话资料保存到数据库
-                //db.Store(session);
+                // 将新注册的会话资料保存到数据库
+                db.Store(session);
                 sessions[sessionId] = session;
             }
         }
@@ -140,11 +137,11 @@ namespace Uniframework.Services
         public void UnloadSession(string sessionId)
         {
             lock (sessions) {
-                //IList<SessionState> list = db.Load<SessionState>(delegate(SessionState ss) {
-                //    return ss.SessionId == sessionId;
-                //});
-                //if (list.Count > 0)
-                //    db.Delete(list[0]); // 从数据库中删除会话
+                IList<SessionState> list = db.Load<SessionState>(delegate(SessionState ss) {
+                    return ss.SessionId == sessionId;
+                });
+                if (list.Count > 0)
+                    db.Delete(list[0]); // 从数据库中删除会话
                 dispatcher.UnRegisterAllOuterEventSubscriber(sessionId);
                 sessions.Remove(sessionId);
             }
@@ -169,8 +166,10 @@ namespace Uniframework.Services
         /// <param name="sessionId">The session id.</param>
         public void Activate(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionId))
-                throw new TimeoutException(String.Format("不存在 [{0}] 的会话, 该会话可能已经超时.", sessionId));
+            if (!sessions.ContainsKey(sessionId)) {
+                logger.Debug(String.Format("不存在 [{0}] 的会话, 该会话可能已经超时无法激活此会话.", sessionId));
+                return;
+            }
 
             LocalDataStoreSlot slot = Thread.GetNamedDataSlot(SESSION_SOLOTNAME);
             Thread.SetData(slot, sessionId);

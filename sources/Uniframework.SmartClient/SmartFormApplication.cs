@@ -25,6 +25,8 @@ namespace Uniframework.SmartClient
         where TWorkItem : WorkItem, new()
         where TShell : Form
     {
+        private readonly string dbPath = @"..\Data\";
+
         private IAdapterFactoryCatalog<IEditHandler> editFactoryCatalog;
         private IAdapterFactoryCatalog<IPrintHandler> printFactoryCatalog;
         private IAdapterFactoryCatalog<IDocumentHandler> documentFactoryCatalog;
@@ -46,10 +48,11 @@ namespace Uniframework.SmartClient
             editFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IEditHandler>, IAdapterFactoryCatalog<IEditHandler>>();
             printFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IPrintHandler>, IAdapterFactoryCatalog<IPrintHandler>>();
             documentFactoryCatalog = RootWorkItem.Services.AddNew<AdapterFactoryCatalog<IDocumentHandler>, IAdapterFactoryCatalog<IDocumentHandler>>();
+            
+            RootWorkItem.Services.Add<IDb4oDatabaseService>(new Db4oDatabaseService(dbPath)); // Db4o数据库服务
 
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListViewHandler>, IAdapterFactoryCatalog<IDataListViewHandler>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
-            RootWorkItem.Services.AddOnDemand<Db4oDatabaseService, IDb4oDatabaseService>();
             RootWorkItem.Services.AddOnDemand<PropertyService, IPropertyService>();
             RootWorkItem.Services.AddOnDemand<SettingService, ISettingService>();
             RootWorkItem.Services.AddOnDemand<EntityTranslatorService, IEntityTranslatorService>();

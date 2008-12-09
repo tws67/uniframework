@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -17,6 +18,7 @@ namespace Uniframework.Communication
     {
         private static ILoggerFactory loggerFactory;
         private static ILogger logger;
+        private static ServiceHost host;
         private static TcpServer tcpServer;
         private static DefaultContainer container;
         private static object syncObj = new object();
@@ -34,6 +36,7 @@ namespace Uniframework.Communication
             DefaultContainer.LoggerFactory = loggerFactory;
             try
             {
+                StartHost();
                 int port = Convert.ToInt32(ConfigurationManager.AppSettings["ServerSocketPort"]);
                 int capacity = Convert.ToInt32(ConfigurationManager.AppSettings["Capactity"]);
 
@@ -54,7 +57,12 @@ namespace Uniframework.Communication
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void Application_OnEnd(object sender, EventArgs e)
         {
-            tcpServer.Stop();
+            if (tcpServer != null)
+                tcpServer.Stop();
+            if (host != null && host.State == CommunicationState.Opened)
+                host.Close();
+            if (container != null) // 销毁容器
+                container.Dispose();
         }
 
         /// <summary>
@@ -98,5 +106,61 @@ namespace Uniframework.Communication
                 return container;
             }
         }
+
+        public static List<IInvokeCallback> CallBacks
+        {
+            get
+            {
+                return WcfService.CallBacks;
+            }
+        }
+
+        /// <summary>
+        /// 启动Wcf服务宿主
+        /// </summary>
+        private void StartHost()
+        {
+            bool starthost = false;
+            try {
+                starthost = bool.Parse(ConfigurationManager.AppSettings["Starthost"].ToString());
+            }
+            catch {
+                starthost = false;
+            }
+
+            if (starthost)
+            {
+                StartHost(true);
+            }
+        }
+
+        private void StartHost(bool handleFault)
+        {
+            host = new ServiceHost(typeof(WcfService), new Uri[0]);
+            host.Opened += delegate {
+                logger.Info("Wcf 服务启动成功");
+            };
+
+            if (handleFault) {
+                host.Faulted += new EventHandler(host_Faulted);
+            }
+            try {
+                host.Open();
+            }
+            catch (Exception ex) {
+                logger.Error("创建Wcf服务宿主时出错", ex);
+                throw;
+            }
+        }
+
+        private void host_Faulted(object sender, EventArgs e)
+        {
+            logger.Error("WCF服务Faulted. 尝试重启...");
+            host = null;
+            this.StartHost(false);
+        }
+
+
+
     }
 }

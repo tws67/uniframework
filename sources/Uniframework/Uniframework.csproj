@@ -116,6 +116,8 @@
     <Compile Include="Net\Tcp\TcpException.cs" />
     <Compile Include="Net\Tcp\TcpServerBase.cs" />
     <Compile Include="Net\Tcp\TcpSession.cs" />
+    <Compile Include="Net\Wcf\IInvokeCallback.cs" />
+    <Compile Include="Net\Wcf\IInvokeChannel.cs" />
     <Compile Include="Security\IRSACryptService.cs" />
     <Compile Include="Security\ISymmetricCryptService.cs" />
     <Compile Include="Security\RSACryptServiceBase.cs" />

@@ -67,7 +67,9 @@
     <Compile Include="DefaultApplication.cs" />
     <Compile Include="DefaultHttpApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SlotData.cs" />
     <Compile Include="TcpServer.cs" />
+    <Compile Include="WcfService.cs" />
     <Compile Include="WebService.cs">
       <SubType>Component</SubType>
     </Compile>

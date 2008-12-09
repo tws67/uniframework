@@ -59,8 +59,7 @@ namespace Uniframework.Services
             if (path.EndsWith("/")) path = path.Remove(path.Length - 1, 1); // 去掉路径结尾的"/"
             string[] nodes = path.Split('/');
             string[] ns = new string[nodes.Length];
-            for (int i = 0; i < nodes.Length; i++)
-            {
+            for (int i = 0; i < nodes.Length; i++) {
                 ns[i] = XmlConvert.EncodeName(nodes[i]);
             }
             return "/" + string.Join("/", ns);
