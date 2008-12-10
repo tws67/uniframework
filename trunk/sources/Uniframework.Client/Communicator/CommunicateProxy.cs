@@ -105,8 +105,7 @@ namespace Uniframework.Client
         /// <returns></returns>
         public static object InvokeCommand(MethodInfo method, object parameter)
         {
-            ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "], SessionId 为 [" + sessionId + "], 用户 [" + username + "] ");
-           
+            //ClientEventDispatcher.Instance.Logger.Debug("提交请求[" + method.Name + "], SessionId 为 [" + sessionId + "], 用户 [" + username + "] ");
             NetworkInvokePackage package = GetPackage(NetworkInvokeType.Invoke);
             PackageUtility.EncodeInvoke(method, parameter, encryptKey, ref package);
             byte[] result = Communicator.Invoke(serializer.Serialize<NetworkInvokePackage>(package));
