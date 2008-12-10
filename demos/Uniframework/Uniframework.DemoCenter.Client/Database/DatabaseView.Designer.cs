@@ -58,8 +58,17 @@ namespace Uniframework.DemoCenter.Client.Database
             this.gridView1.GridControl = this.dataGrid;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView1.OptionsLayout.Columns.StoreAllOptions = true;
+            this.gridView1.OptionsLayout.Columns.StoreAppearance = true;
+            this.gridView1.OptionsLayout.StoreAllOptions = true;
+            this.gridView1.OptionsLayout.StoreAppearance = true;
+            this.gridView1.OptionsNavigation.AutoFocusNewRow = true;
+            this.gridView1.OptionsNavigation.EnterMoveNextColumn = true;
+            this.gridView1.OptionsPrint.EnableAppearanceEvenRow = true;
+            this.gridView1.OptionsPrint.EnableAppearanceOddRow = true;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsView.ShowFooter = true;
+            this.gridView1.ViewCaption = "Uniframework框架数据库服务演示";
             // 
             // simpleButton1
             // 

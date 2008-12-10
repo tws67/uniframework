@@ -24,25 +24,17 @@ namespace Uniframework.Services
         /// <param name="filename">配置文件名称</param>
         public XMLConfigurationService(string filename)
         {
-            this.filename = FileUtility.ConvertToFullPath(filename);
-            if (!File.Exists(this.filename))
-                throw new ArgumentException(String.Format("系统配置文件 \"{0}\" 未找到。"));
-
+            this.filename = filename;
             FileStream fs = null;
 
             try {
-                if (HttpContext.Current != null) {
-                    filename = (filename.IndexOf("~/") == -1) ? "~/" + filename : filename; // 添加相对路径
-                    fs = new FileStream(HttpContext.Current.Server.MapPath(filename), FileMode.Open);
-                }
-                else {
-                    fs = new FileStream(filename, FileMode.Open);
-                }
-
-                xml.Load(fs);
+                //if (HttpContext.Current != null)
+                //    this.filename = HttpContext.Current.Server.MapPath(this.filename);
+               fs = new FileStream(filename, FileMode.Open);
+               xml.Load(fs);
             }
-            catch {
-                xml.CreateElement("configuration");
+            catch (Exception ex) {
+                throw ex;
             }
             finally {
                 if (fs != null)

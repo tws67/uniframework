@@ -20,7 +20,6 @@ namespace Uniframework.Services
 {
     public class DefaultContainer : WindsorContainer
     {
-        private static string CONFIG_FILE = @".\Uniframework.config";
         private ILogger logger;
         private static bool systemReady = false;
         private static ILoggerFactory loggerFactory;
@@ -76,8 +75,9 @@ namespace Uniframework.Services
 
             // 加载服务器端的服务
             try {
+                string filename = FileUtility.ConvertToFullPath(@"Uniframework.config");
                 logger.Info("开始加载注册表服务");
-                this.Kernel.AddComponentInstance("configService", typeof(IConfigurationService), new XMLConfigurationService(CONFIG_FILE));
+                this.Kernel.AddComponentInstance("configService", typeof(IConfigurationService), new XMLConfigurationService(filename));
 
                 logger.Info("开始加载嵌入式对象数据库服务");
                 AddComponent("ObjectDatabaseService", typeof(IDb4oDatabaseService), typeof(Db4oDatabaseService));
