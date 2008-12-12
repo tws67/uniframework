@@ -84,7 +84,7 @@ namespace Uniframework.SmartClient.Strategies
 
         private string GetAuthorizeResourcePath(MethodInfo method)
         {
-            AuthorizationResourceAttribute[] attrs = (AuthorizationResourceAttribute[])method.DeclaringType.GetCustomAttributes(typeof(AuthorizationResourceAttribute), true);
+            AuthResourceAttribute[] attrs = (AuthResourceAttribute[])method.DeclaringType.GetCustomAttributes(typeof(AuthResourceAttribute), true);
             if (attrs.Length > 0)
                 return attrs[0].Path;
             else

@@ -178,6 +178,7 @@
     <Compile Include="Views\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\DataList\DataListController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpView.cs">

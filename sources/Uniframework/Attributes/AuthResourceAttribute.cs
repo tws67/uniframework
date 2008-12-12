@@ -9,7 +9,7 @@ namespace Uniframework
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple=true, Inherited=true)]
-    public class AuthorizationResourceAttribute : Attribute
+    public class AuthResourceAttribute : Attribute
     {
         private string name;
         private string path;
@@ -20,7 +20,7 @@ namespace Uniframework
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="path">路径</param>
-        public AuthorizationResourceAttribute(string name, string path)
+        public AuthResourceAttribute(string name, string path)
         {
             this.name = name;
             this.path = path;
@@ -32,7 +32,7 @@ namespace Uniframework
         /// <param name="name">名称</param>
         /// <param name="path">路径</param>
         /// <param name="description">分组</param>
-        public AuthorizationResourceAttribute(string name, string path, string catalog)
+        public AuthResourceAttribute(string name, string path, string catalog)
             : this(name, path)
         {
             this.catalog = catalog;
