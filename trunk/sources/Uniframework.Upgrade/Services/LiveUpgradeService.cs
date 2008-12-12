@@ -161,7 +161,7 @@ namespace Uniframework.Upgrade
             string upgradeLaunch = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), UPGRADELAUNCH_FILE);
             if (File.Exists(upgradeLaunch))
             {
-                string upgradePath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Upgrade\" + project.Product + @"\" + project.Version;
+                string upgradePath = FileUtility.ConvertToFullPath(@"..\Upgrade\") + project.Product + @"\" + project.Version;
                 Process.Start(upgradeLaunch, upgradePath);
                 Environment.Exit(0);
             }
@@ -173,7 +173,7 @@ namespace Uniframework.Upgrade
         /// <param name="project">更新项目</param>
         private void SerializeUpgrade(UpgradeProject project)
         {
-            string upgradeConfigfile = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Upgrade\" + project.Product + @"\" + project.Version + @"\Upgrade.dat";
+            string upgradeConfigfile = FileUtility.ConvertToFullPath(@"..\Upgrade\") + project.Product + @"\" + project.Version + @"\Upgrade.dat";
             Serializer serializer = new Serializer();
             try
             {

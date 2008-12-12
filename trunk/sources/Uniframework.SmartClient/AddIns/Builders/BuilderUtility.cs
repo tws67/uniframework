@@ -12,7 +12,7 @@ namespace Uniframework.SmartClient
 {
     public class BuilderUtility
     {
-        private static readonly string ResourcePath = @"\Resources\";
+        private static readonly string ResourcePath = @"..\Resources\";
         private static readonly string DEFAULT_IMAGE = "${gear}";
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Uniframework.SmartClient
         /// <returns></returns>
         public static String GetResourcePath()
         {
-            return FileUtility.GetParent(FileUtility.ApplicationRootPath) + ResourcePath;
+            return FileUtility.ConvertToFullPath(ResourcePath);
         }
 
         /// <summary>

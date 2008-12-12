@@ -11,7 +11,7 @@ namespace Uniframework
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple=true, Inherited=true)]
     public class AuthResourceAttribute : Attribute
     {
-        private string name;
+        private string module;
         private string path;
         private string catalog;
 
@@ -20,9 +20,9 @@ namespace Uniframework
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="path">路径</param>
-        public AuthResourceAttribute(string name, string path)
+        public AuthResourceAttribute(string module, string path)
         {
-            this.name = name;
+            this.module = module;
             this.path = path;
         }
 
@@ -32,18 +32,18 @@ namespace Uniframework
         /// <param name="name">名称</param>
         /// <param name="path">路径</param>
         /// <param name="description">分组</param>
-        public AuthResourceAttribute(string name, string path, string catalog)
-            : this(name, path)
+        public AuthResourceAttribute(string module, string path, string catalog)
+            : this(module, path)
         {
             this.catalog = catalog;
         }
 
         /// <summary>
-        /// 资源标识
+        /// 模块名称
         /// </summary>
-        public string Name
+        public string Module
         {
-            get { return name; }
+            get { return module; }
         }
 
         /// <summary>

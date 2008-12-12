@@ -28,7 +28,7 @@ namespace Uniframework.Upgrade
         {
             this.upgradeProject = upgradeProject;
             this.upgradeUrl = upgradeUrl;
-            this.upgradeTempPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Upgrade\" + upgradeProject.Product + @"\" + upgradeProject.Version + @"\";
+            this.upgradeTempPath = FileUtility.ConvertToFullPath(@"..\Upgrade\") + upgradeProject.Product + @"\" + upgradeProject.Version + @"\";
             if (!Directory.Exists(upgradeTempPath))
                 Directory.CreateDirectory(upgradeTempPath);
             downloadItems.Clear();
