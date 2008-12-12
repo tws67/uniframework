@@ -18,8 +18,8 @@ namespace Uniframework.Switch
         private readonly static Int32 DefaultSessionLimit = 1000;
         private readonly static object SyncObj = new object();
 
-        private String resourceDir = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Resources\";
-        private String projectsDir = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Projects\";
+        private String resourceDir = FileUtility.ConvertToFullPath(@"..\Resources\");
+        private String projectsDir = FileUtility.ConvertToFullPath(@"..\Projects\");
 
         private Dictionary<String, object> globalVars = new Dictionary<String, object>();
         private DateTime initialized = DateTime.Now;

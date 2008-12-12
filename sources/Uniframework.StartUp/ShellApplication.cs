@@ -172,7 +172,7 @@ namespace Uniframework.StartUp
                 addInTree.InsertAddIn(addIn);
             }
             else {
-                List<string> files = FileUtility.SearchDirectory(FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\AddIns\", addInfile);
+                List<string> files = FileUtility.SearchDirectory(FileUtility.ConvertToFullPath(@"..\AddIns\"), addInfile);
                 if (files.Count > 0) {
                     AddIn addIn = new AddIn(files[0], RootWorkItem);
                     addInTree.InsertAddIn(addIn);

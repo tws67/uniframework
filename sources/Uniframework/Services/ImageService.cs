@@ -147,7 +147,7 @@ namespace Uniframework
         {
             get {
                 if (String.IsNullOrEmpty(imagePath)) {
-                    imagePath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Resources\";
+                    imagePath = FileUtility.ConvertToFullPath(@"..\Resources\");
                     if (!Directory.Exists(imagePath))
                         Directory.CreateDirectory(imagePath);
                 }

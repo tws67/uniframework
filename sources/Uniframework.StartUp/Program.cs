@@ -152,11 +152,11 @@ namespace Uniframework.StartUp
             string asmFile = asmFileNameTokens[0] + ".dll";
 
             // 从系统预定义的外部库路径加载文件以提高系统性能
-            string libPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + @"\Libraries\";
+            string libPath = FileUtility.ConvertToFullPath(@"..\Libraries\");
             if(File.Exists(Path.Combine(libPath, asmFile)))
                 return Assembly.LoadFile(Path.Combine(libPath, asmFile));
 
-            List<string> files = FileUtility.SearchDirectory(FileUtility.GetParent(FileUtility.ApplicationRootPath), asmFile);
+            List<string> files = FileUtility.SearchDirectory(FileUtility.ConvertToFullPath(@"..\"), asmFile);
             if (files.Count > 0)  {
                 try {
                     AssemblyName asmName = AssemblyName.GetAssemblyName(files[0]);

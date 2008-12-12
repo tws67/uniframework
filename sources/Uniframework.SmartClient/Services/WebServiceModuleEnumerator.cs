@@ -16,7 +16,7 @@ namespace Uniframework.SmartClient
 {
     public class WebServiceModuleEnumerator : IModuleEnumerator
     {
-        private static readonly string AddinsPath = @"\AddIns\";
+        private static readonly string AddinsPath = @"..\AddIns\";
         bool hasMultiMainWorkspace = false;
         List<IModuleInfo> list = new List<IModuleInfo>();
 
@@ -37,7 +37,7 @@ namespace Uniframework.SmartClient
             {
                 if (!File.Exists(info.AssemblyFile))
                 {
-                    string addinsPath = FileUtility.GetParent(FileUtility.ApplicationRootPath) + AddinsPath;
+                    string addinsPath = FileUtility.ConvertToFullPath(AddinsPath);
                     List<string> files = FileUtility.SearchDirectory(addinsPath, info.AssemblyFile);
                     if (files.Count > 0)
                         info.AssemblyFile = files[0];
