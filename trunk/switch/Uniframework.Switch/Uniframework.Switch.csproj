@@ -74,7 +74,7 @@
     <Compile Include="..\..\sources\UniframeworkInfo.cs">
       <Link>UniframeworkInfo.cs</Link>
     </Compile>
-    <Compile Include="..\..\sources\Uniframework\Service\Configuration\XMLConfigurationService.cs">
+    <Compile Include="..\..\sources\Uniframework\Services\Configuration\XMLConfigurationService.cs">
       <Link>Services\Configuration\XMLConfigurationService.cs</Link>
     </Compile>
     <Compile Include="CallSession\CallerProfile.cs" />

@@ -29,6 +29,9 @@ namespace Uniframework.StartUp
 
             ControlledWorkItem<DynamicHelpController> dynamicWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<DynamicHelpController>>();
             dynamicWorkItem.Run();
+
+            ControlledWorkItem<DataListController> datalistWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<DataListController>>();
+            datalistWorkItem.Run();
         }
 
         #region Assistant functions

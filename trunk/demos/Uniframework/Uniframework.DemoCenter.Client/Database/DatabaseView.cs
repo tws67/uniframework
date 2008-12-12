@@ -10,6 +10,7 @@ using Microsoft.Practices.ObjectBuilder;
 
 namespace Uniframework.DemoCenter.Client.Database
 {
+    
     public partial class DatabaseView : DevExpress.XtraEditors.XtraUserControl
     {
         public DatabaseView()
