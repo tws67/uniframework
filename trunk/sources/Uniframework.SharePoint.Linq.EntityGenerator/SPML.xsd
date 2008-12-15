@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="SPML"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.codeplex.com/LINQtoSharePoint/SPML.xsd"
+           xmlns="http://www.codeplex.com/LINQtoSharePoint/SPML.xsd"
+           xmlns:mstns="http://www.codeplex.com/LINQtoSharePoint/SPML.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="SPType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Boolean"/>
+      <xs:enumeration value="Text"/>
+      <xs:enumeration value="Note"/>
+      <xs:enumeration value="DateTime"/>
+      <xs:enumeration value="Number"/>
+      <xs:enumeration value="Currency"/>
+      <xs:enumeration value="Counter"/>
+      <xs:enumeration value="URL"/>
+      <xs:enumeration value="Choice"/>
+      <xs:enumeration value="MultiChoice"/>
+      <xs:enumeration value="Lookup"/>
+      <xs:enumeration value="LookupMulti"/>
+      <xs:enumeration value="Note"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="SharePointDataContext">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Lists" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="List" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Fields" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Field" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="0">
+                                <xs:element name="Choices" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="Choice" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                              <xs:attribute name="Alias" type="xs:string" use="optional" />
+                                              <xs:attribute name="Description" type="xs:string" use="optional" />
+                                            </xs:extension>
+                                          </xs:simpleContent>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>                                    
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="Id" type="xs:string" use="required" />
+                              <xs:attribute name="Name" type="xs:string" use="required" />
+                              <xs:attribute name="Alias" type="xs:string" use="optional" />
+                              <xs:attribute name="Description" type="xs:string" use="optional" />
+                              <xs:attribute name="DisplayName" type="xs:string" use="required" />
+                              <xs:attribute name="Type" type="SPType" use="required" />
+                              <xs:attribute name="Required" type="xs:boolean" use="optional" />
+                              <xs:attribute name="LookupList" type="xs:string" use="optional" />
+                              <xs:attribute name="LookupField" type="xs:string" use="optional" />
+                              <xs:attribute name="ReadOnly" type="xs:boolean" use="optional" />
+                              <xs:attribute name="PrimaryKey" type="xs:boolean" use="optional" />
+                              <xs:attribute name="Calculated" type="xs:boolean" use="optional" />
+                              <xs:attribute name="FillInChoice" type="xs:boolean" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Id" type="xs:string" use="required" />
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Description" type="xs:string" use="optional" />
+                  <xs:attribute name="Version" type="xs:int" use="required" />
+                  <xs:attribute name="Path" type="xs:string" use="required" />
+                  <xs:attribute name="EntityAlias" type="xs:string" use="optional" />
+                  <xs:attribute name="ListAlias" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Connection" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="Url" type="xs:string" use="required" />
+            <xs:attribute name="User" type="xs:string" use="optional" />
+            <xs:attribute name="Password" type="xs:string" use="optional" />
+            <xs:attribute name="Domain" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Name" type="xs:string" use="optional" />
+      <xs:attribute name="Url" type="xs:string" use="required" />
+      <xs:attribute name="EnableObjectModelProvider" type="xs:boolean" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

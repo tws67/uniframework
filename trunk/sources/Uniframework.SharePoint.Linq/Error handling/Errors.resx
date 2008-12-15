@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AfterGrouping" xml:space="preserve">
+    <value>The {0} query expression can't be used after a grouping operation.</value>
+    <comment>SP0028</comment>
+  </data>
+  <data name="AfterProjection" xml:space="preserve">
+    <value>The {0} query expression can't be used after a projection operation.</value>
+    <comment>SP0003</comment>
+  </data>
+  <data name="CamlMethodsInvalidUse" xml:space="preserve">
+    <value>This method is not intended to be called directly; use it in LINQ query predicates only.</value>
+  </data>
+  <data name="CantNegate" xml:space="preserve">
+    <value>Can't negate a {0} query expression.</value>
+    <comment>SP0011</comment>
+  </data>
+  <data name="ConnectionExceptionWs" xml:space="preserve">
+    <value>Error occurred when connecting to the SharePoint web service at {0}.</value>
+    <comment>SP0104</comment>
+  </data>
+  <data name="DateRangesOverlapInvalidFieldReferences" xml:space="preserve">
+    <value>A call to DateRangesOverlap should have entity property references as its fields arguments, all referring to the same entity type.</value>
+    <comment>SP0019</comment>
+  </data>
+  <data name="DateRangesOverlapInvalidValueArgument" xml:space="preserve">
+    <value>A call to DateRangesOverlap should not have an entity property reference as its value argument.</value>
+    <comment>SP0004</comment>
+  </data>
+  <data name="DateRangesOverlapMissingFieldReferences" xml:space="preserve">
+    <value>A call to DateRangesOverlap should have one or more field references in its fields argument.</value>
+    <comment>SP0005</comment>
+  </data>
+  <data name="DuplicateSharePointListObject" xml:space="preserve">
+    <value>Cannot register two SharePointList objects for the same entity type.</value>
+    <comment>SP0119</comment>
+  </data>
+  <data name="EmptySequence" xml:space="preserve">
+    <value>Query did not return any results.</value>
+    <comment>SP0111</comment>
+  </data>
+  <data name="FatalError" xml:space="preserve">
+    <value>An unexpected error occurred in the predicate parser.</value>
+    <comment>SP9999</comment>
+  </data>
+  <data name="HelpLink" xml:space="preserve">
+    <value>http://www.codeplex.com/LINQtoSharePoint/Wiki/View.aspx?title=ErrorCode#{0}</value>
+  </data>
+  <data name="InvalidEntityReference" xml:space="preserve">
+    <value>Query predicate contains an entity reference that doesn't belong to a SharePoint list context: {0}.</value>
+    <comment>SP0008</comment>
+  </data>
+  <data name="InvalidLookupField" xml:space="preserve">
+    <value>Invalid lookup field type for property {0}. Lookup fields should have a type derived from SharePointListEntity.</value>
+    <comment>SP0105</comment>
+  </data>
+  <data name="InvalidLookupMultiContainsCall" xml:space="preserve">
+    <value>Contains expressions for LookupMulti fields should match the referenced entity type.</value>
+    <comment>SP0017</comment>
+  </data>
+  <data name="InvalidNullValuedCondition" xml:space="preserve">
+    <value>Null value encountered in query condition. Only equality and non-equality null checks are supported.</value>
+    <comment>SP0014</comment>
+  </data>
+  <data name="InvalidOtherChoiceFieldMapping" xml:space="preserve">
+    <value>Invalid OtherChoice field mapping for MultiChoice field {0}.</value>
+    <comment>SP0109</comment>
+  </data>
+  <data name="InvalidStoragePropertyFieldReference" xml:space="preserve">
+    <value>Invalid Storage property on the FieldAttribute for entity property {0}.</value>
+    <comment>SP0117</comment>
+  </data>
+  <data name="InvalidUriSpecified" xml:space="preserve">
+    <value>Invalid Uri specified.</value>
+    <comment>SP0120</comment>
+  </data>
+  <data name="InvalidUrlParseArgument" xml:space="preserve">
+    <value>Invalid SharePoint Url field value.</value>
+    <comment>SP0112</comment>
+  </data>
+  <data name="ListVersionMismatch" xml:space="preserve">
+    <value>List version mismatch between entity type and list definition on the server.</value>
+    <comment>SP0102</comment>
+  </data>
+  <data name="LookupFieldPatchError" xml:space="preserve">
+    <value>An unexpected error has occurred in the Lookup field patcher.</value>
+    <comment>SP0106</comment>
+  </data>
+  <data name="MissingFieldMappingAttribute" xml:space="preserve">
+    <value>Missing field mapping attribute for entity property {0}.</value>
+    <comment>SP0101</comment>
+  </data>
+  <data name="MissingListAttribute" xml:space="preserve">
+    <value>Missing ListAttribute on the entity type.</value>
+    <comment>SP0113</comment>
+  </data>
+  <data name="MissingLookupFieldSetting" xml:space="preserve">
+    <value>The Lookup field {0} doesn't have an associated LookupField attribute property set.</value>
+    <comment>SP0021</comment>
+  </data>
+  <data name="MissingOtherChoiceFieldMapping" xml:space="preserve">
+    <value>An unknown fill-in choice value was encountered for field {0} but an OtherChoice field mapping is missing. Is the entity mapping for the list outdated?</value>
+    <comment>SP0110</comment>
+  </data>
+  <data name="MissingPrimaryKey" xml:space="preserve">
+    <value>No primary key field found on entity type.</value>
+    <comment>SP0114</comment>
+  </data>
+  <data name="MoreThanOnePrimaryKey" xml:space="preserve">
+    <value>More than one primary key field found on entity type. There should only be one field marked as primary key on each entity type.</value>
+    <comment>SP0115</comment>
+  </data>
+  <data name="MultipleEntityReferencesInCondition" xml:space="preserve">
+    <value>Invalid query condition detected. Make sure references to entity type properties only occur on one side of a condition.</value>
+    <comment>SP0024</comment>
+  </data>
+  <data name="MultipleGroupings" xml:space="preserve">
+    <value>Multiple grouping clauses detected in query expression.</value>
+    <comment>SP0026</comment>
+  </data>
+  <data name="NonBoolConstantValueInPredicate" xml:space="preserve">
+    <value>Non-boolean constant values are not supported in query predicates.</value>
+    <comment>SP0002</comment>
+  </data>
+  <data name="NonExistingLookupField" xml:space="preserve">
+    <value>The Lookup field {0} links to a non-existing LookupField: {1}.</value>
+    <comment>SP0022</comment>
+  </data>
+  <data name="NonReadOnlyFieldWithoutSetter" xml:space="preserve">
+    <value>No property setter found on the non-read-only entity property {0}.</value>
+    <comment>SP0118</comment>
+  </data>
+  <data name="NonUniqueLookupField" xml:space="preserve">
+    <value>Lookup field subqueries are only supported for lookup fields that are unique. Field {0} violates this rule.</value>
+    <comment>SP0020</comment>
+  </data>
+  <data name="NonAddressPropertyCallOnUrlValue" xml:space="preserve">
+    <value>Only the Address property of Url fields is supported in query predicates.</value>
+    <comment>SP0025</comment>
+  </data>
+  <data name="NullValuedLookupField" xml:space="preserve">
+    <value>The Lookup field {0} has a null-valued LookupField: {1}. Did you mean a null-check on the Lookup field instead?</value>
+    <comment>SP0023</comment>
+  </data>
+  <data name="PredicateContainsNonEntityMethodCall" xml:space="preserve">
+    <value>Query predicate contains a method call on a non-entity property: {0}.</value>
+    <comment>SP0007</comment>
+  </data>
+  <data name="PredicateContainsNonEntityReference" xml:space="preserve">
+    <value>Query predicate contains a non-entity property reference: {0}.</value>
+    <comment>SP0006</comment>
+  </data>
+  <data name="SecondProjectionExpression" xml:space="preserve">
+    <value>Second projection expression encountered during parsing. Queries can only contain one projection expression.</value>
+    <comment>SP0018</comment>
+  </data>
+  <data name="StoragePropertyMissingOnReadOnlyField" xml:space="preserve">
+    <value>Missing Storage property on the FieldAttribute for read-only entity property {0}.</value>
+    <comment>SP0116</comment>
+  </data>
+  <data name="TooManyUnknownChoiceValues" xml:space="preserve">
+    <value>More than one unknown choice value encountered for field {0}. Only one fill-in value is supported. Is the entity mapping for the list outdated?</value>
+    <comment>SP0108</comment>
+  </data>
+  <data name="UnrecognizedEnumValue" xml:space="preserve">
+    <value>Unrecognized enumeration flags value.</value>
+    <comment>SP0015</comment>
+  </data>
+  <data name="UnrecognizedMappingType" xml:space="preserve">
+    <value>Unrecognized mapping type encountered: {0}.</value>
+    <comment>SP0107</comment>
+  </data>
+  <data name="UnsupportedBinary" xml:space="preserve">
+    <value>Unsupported binary expression detected in query predicate: {0}.</value>
+    <comment>SP0013</comment>
+  </data>
+  <data name="UnsupportedGrouping" xml:space="preserve">
+    <value>Unsupported grouping expression detected. Grouping expressions should only contain individual entity property expressions.</value>
+    <comment>SP0027</comment>
+  </data>
+  <data name="UnsupportedMethodCall" xml:space="preserve">
+    <value>Unsupported method call detected in query predicate: {0}.</value>
+    <comment>SP0010</comment>
+  </data>
+  <data name="UnsupportedOrdering" xml:space="preserve">
+    <value>Unsupported ordering expression detected. Ordering expressions should only contain individual entity property expressions.</value>
+    <comment>SP0016</comment>
+  </data>
+  <data name="UnsupportedQueryExpression" xml:space="preserve">
+    <value>Unsupported query expression detected.</value>
+    <comment>SP0099</comment>
+  </data>
+  <data name="UnsupportedQueryOperator" xml:space="preserve">
+    <value>Query operator {0} or used query operator overload is not supported.</value>
+    <comment>SP0001</comment>
+  </data>
+  <data name="UnsupportedStringMethodCall" xml:space="preserve">
+    <value>Unsupported string filtering query expression detected: {0}. Only the methods Contains and StartsWith are supported.</value>
+    <comment>SP0009</comment>
+  </data>
+  <data name="UnsupportedUnary" xml:space="preserve">
+    <value>Unsupported unary expression detected in query predicate: {0}.</value>
+    <comment>SP0012</comment>
+  </data>
+  <data name="AfterTake" xml:space="preserve">
+    <value>The {0} query expression can't be used after a take operation.</value>
+    <comment>SP0029</comment>
+  </data>
+  <data name="AnyOnNonLookupMultiField" xml:space="preserve">
+    <value>Calls to the LINQ extension method 'Any' are only supported on LookupMulti fields.</value>
+    <comment>SP0030</comment>
+  </data>
+  <data name="LookupMultiAnyOnNonPositiveContext" xml:space="preserve">
+    <value>LookupMulti subqueries are only supported in positive query predicate contexts.</value>
+    <comment>SP0032</comment>
+  </data>
+  <data name="UnsupportedExtensionMethod" xml:space="preserve">
+    <value>The {0} LINQ extension method is not supported in query predicates.</value>
+    <comment>SP0031</comment>
+  </data>
+  <data name="ConnectionExceptionSp" xml:space="preserve">
+    <value>Error occurred when connecting to the SharePoint site at {0}.</value>
+    <comment>SP0103</comment>
+  </data>
+  <data name="NoNetworkCredentialsForSom" xml:space="preserve">
+    <value>Cannot use network credentials when using the SharePoint object model as the data source.</value>
+  </data>
+</root>
