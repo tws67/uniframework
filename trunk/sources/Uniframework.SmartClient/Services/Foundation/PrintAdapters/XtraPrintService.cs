@@ -169,8 +169,7 @@ namespace Uniframework.SmartClient
         /// <param name="e">The <see cref="DevExpress.XtraPrinting.CreateAreaEventArgs"/> instance containing the event data.</param>
         private void pcl_CreateMarginalHeaderArea(object sender, CreateAreaEventArgs e)
         {
-            if (!String.IsNullOrEmpty(reportTitle))
-            {
+            if (!String.IsNullOrEmpty(reportTitle) && reportTitle.Length > 0) {
                 e.Graph.Font = new Font("宋体", 15, FontStyle.Bold);
                 e.Graph.BackColor = Color.Transparent;
                 RectangleF r = new RectangleF(0, 20, 0, e.Graph.Font.Height + 20);
@@ -179,8 +178,7 @@ namespace Uniframework.SmartClient
                 brick.AutoWidth = true;
             }
 
-            if (!String.IsNullOrEmpty(condition))
-            {
+            if (!String.IsNullOrEmpty(condition)) {
                 e.Graph.Font = new Font("宋体", 10);
                 e.Graph.BackColor = Color.Transparent;
                 RectangleF r = new RectangleF(0, 50, 0, e.Graph.Font.Height + 20);

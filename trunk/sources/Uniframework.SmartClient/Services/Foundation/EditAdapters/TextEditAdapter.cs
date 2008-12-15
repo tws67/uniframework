@@ -106,12 +106,10 @@ namespace Uniframework.SmartClient
         {
             get {
                 IDataObject data = Clipboard.GetDataObject();
-                try
-                {
+                try {
                     return data != null && data.GetDataPresent(DataFormats.Text);
                 }
-                catch (Exception)
-                {
+                catch {
                     return false;
                 }
             }
@@ -149,7 +147,6 @@ namespace Uniframework.SmartClient
 
         public void Search()
         {
-            
         }
 
         public bool CanReplace
@@ -159,7 +156,6 @@ namespace Uniframework.SmartClient
 
         public void Replace()
         {
-            
         }
 
         #endregion

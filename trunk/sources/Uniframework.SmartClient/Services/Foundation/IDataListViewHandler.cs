@@ -20,6 +20,10 @@ namespace Uniframework.SmartClient
         event EventHandler Leave;
 
         /// <summary>
+        /// Inits the data.
+        /// </summary>
+        void Initilize();
+        /// <summary>
         /// Gets a value indicating whether this instance can insert.
         /// </summary>
         /// <value>
@@ -94,71 +98,5 @@ namespace Uniframework.SmartClient
         /// Refreshes this instance.
         /// </summary>
         void Refresh();
-        /// <summary>
-        /// Gets a value indicating whether this instance can set detail view.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can set detail view; otherwise, <c>false</c>.
-        /// </value>
-        bool CanSetDetailView { get; }
-        /// <summary>
-        /// Sets the detail view.
-        /// </summary>
-        void SetDetailView();
-        /// <summary>
-        /// Gets a value indicating whether this instance can set layout view.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can set layout view; otherwise, <c>false</c>.
-        /// </value>
-        bool CanSetLayoutView { get; }
-        /// <summary>
-        /// Sets the layout view.
-        /// </summary>
-        void SetLayoutView();
-        /// <summary>
-        /// Gets a value indicating whether this instance can select layout view.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can select layout view; otherwise, <c>false</c>.
-        /// </value>
-        bool CanSelectLayoutView { get; }
-        /// <summary>
-        /// Selects the layout view.
-        /// </summary>
-        void SelectLayoutView();
-        /// <summary>
-        /// Gets a value indicating whether this instance can setting.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can setting; otherwise, <c>false</c>.
-        /// </value>
-        bool CanSetting { get; }
-        /// <summary>
-        /// Settings this instance.
-        /// </summary>
-        void Setting();
-        /// <summary>
-        /// Gets a value indicating whether this instance can show group panel.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can show group panel; otherwise, <c>false</c>.
-        /// </value>
-        bool CanShowGroupPanel { get; }
-        /// <summary>
-        /// Shows the group panel.
-        /// </summary>
-        void ShowGroupPanel();
-        /// <summary>
-        /// Gets a value indicating whether this instance can show footer.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance can show footer; otherwise, <c>false</c>.
-        /// </value>
-        bool CanShowFooter { get; }
-        /// <summary>
-        /// Shows the footer.
-        /// </summary>
-        void ShowFooter();
     }
 }

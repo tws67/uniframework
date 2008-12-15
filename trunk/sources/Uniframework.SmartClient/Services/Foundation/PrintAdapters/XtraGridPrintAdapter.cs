@@ -30,7 +30,7 @@ namespace Uniframework.SmartClient
         {
             this.adaptee = adaptee;
             this.workItem = workItem;
-            xtrapService = new XtraPrintService(adaptee);
+            xtrapService = new XtraPrintService(adaptee, adaptee.DefaultView.ViewCaption);
 
             RegisterEvent();
         }
