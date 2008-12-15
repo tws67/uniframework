@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using DevExpress.XtraBars;
 using DevExpress.XtraGrid;
 using DevExpress.XtraPrinting;
+using DevExpress.XtraTreeList;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
-using DevExpress.XtraTreeList;
 
 namespace Uniframework.SmartClient.Strategies
 {
@@ -20,7 +21,7 @@ namespace Uniframework.SmartClient.Strategies
             if (workItem != null) {
                 IPrintableService printableService = workItem.Services.Get<IPrintableService>();
                 if (printableService != null && existing is Control)
-                    RegisterPrintableAdapter(printableService, (Control)existing, true);
+                    RegisterPrintableAdapter(workItem, printableService, (Control)existing, true);
             }
 
             return base.BuildUp(context, typeToBuild, existing, idToBuild);
@@ -34,13 +35,13 @@ namespace Uniframework.SmartClient.Strategies
             {
                 IPrintableService printableService = workItem.Services.Get<IPrintableService>();
                 if (printableService != null && item is Control)
-                    RegisterPrintableAdapter(printableService, (Control)item, false);
+                    RegisterPrintableAdapter(workItem, printableService, (Control)item, false);
             }
 
             return base.TearDown(context, item);
         }
 
-        private void RegisterPrintableAdapter(IPrintableService printableService, Control control, bool register)
+        private void RegisterPrintableAdapter(WorkItem workItem, IPrintableService printableService, Control control, bool register)
         {
             Guard.ArgumentNotNull(printableService, "printableService");
             Guard.ArgumentNotNull(control, "control");
@@ -51,10 +52,17 @@ namespace Uniframework.SmartClient.Strategies
                         printableService.Register(ctrl);
                     else
                         printableService.UnRegister(ctrl);
+
+                    // 设置数据表格的BarManager以使相关的下拉菜单呈现相同的样式
+                    if (ctrl is GridControl && register) {
+                        BarManager barManager = workItem.RootWorkItem.Items.Get<BarManager>(UIExtensionSiteNames.Shell_Bar_Manager);
+                        if (barManager != null)
+                            ((GridControl)ctrl).MenuManager = barManager;
+                    }
                 }
 
                 if (ctrl.Controls.Count > 0)
-                    RegisterPrintableAdapter(printableService, ctrl, register);
+                    RegisterPrintableAdapter(workItem, printableService, ctrl, register);
             }
         }
 

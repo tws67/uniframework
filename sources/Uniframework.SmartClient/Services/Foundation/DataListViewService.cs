@@ -11,9 +11,9 @@ using Microsoft.Practices.CompositeUI.Commands;
 namespace Uniframework.SmartClient
 {
     /// <summary>
-    /// 数据表格视图服务
+    /// 数据列表服务
     /// </summary>
-    public class DataGridViewService : IDataListViewService
+    public class DataListViewService : IDataListViewService
     {
         private IDataListViewHandler activeView = null;
         private Dictionary<object, IDataListViewHandler> views = new Dictionary<object, IDataListViewHandler>();
@@ -42,7 +42,7 @@ namespace Uniframework.SmartClient
 
         #endregion
 
-        public DataGridViewService()
+        public DataListViewService()
         {
             Application.Idle += new EventHandler(Application_Idle);
         }
@@ -146,48 +146,6 @@ namespace Uniframework.SmartClient
             ActiveView.Collaspe();
         }
 
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_SHOWGROUPPANEL)]
-        public void OnShowGroupPanel(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.ShowGroupPanel();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_SHOWFOOTER)]
-        public void OnShowFooter(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.ShowFooter();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_SETDETAILVIEW)]
-        public void OnSetDetailView(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.SetDetailView();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_SETLAYOUTVIEW)]
-        public void OnSetLayoutView(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.SetLayoutView();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_SELECTLAYOUTVIEW)]
-        public void OnSelectLayoutView(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.SelectLayoutView();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_SETTING)]
-        public void OnSetting(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Setting();
-        }
-
         #endregion
 
         #region Assistant functions
@@ -215,12 +173,6 @@ namespace Uniframework.SmartClient
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && ActiveView.CanCollaspe);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_FILTER, enabled && ActiveView.CanFilter);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && ActiveView.CanRefresh);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SETDETAILVIEW, enabled && ActiveView.CanSetDetailView);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SETLAYOUTVIEW, enabled && ActiveView.CanSetLayoutView);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SELECTLAYOUTVIEW, enabled && ActiveView.CanSelectLayoutView);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SHOWGROUPPANEL, enabled && ActiveView.CanShowGroupPanel);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SHOWFOOTER, enabled && ActiveView.CanShowFooter);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_SETTING, enabled && ActiveView.CanSetting);
         }
 
         private void OnEnter(object sender, EventArgs e)

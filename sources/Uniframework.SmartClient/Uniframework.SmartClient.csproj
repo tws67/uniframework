@@ -46,6 +46,10 @@
     <Reference Include="DevExpress.XtraPivotGrid.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="Lephone.Data, Version=3.5.3270.37667, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Lephone.Data.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\log4net.dll</HintPath>
@@ -121,7 +125,7 @@
     </Compile>
     <Compile Include="Services\Authorization\AuthorizationService.cs" />
     <Compile Include="Services\Foundation\BrowserService.cs" />
-    <Compile Include="Services\Foundation\DataGridViewService.cs" />
+    <Compile Include="Services\Foundation\DataListViewService.cs" />
     <Compile Include="Services\Foundation\DocumentAdapters\TreeListDocumentAdapter.cs" />
     <Compile Include="Services\Foundation\DocumentAdapters\XtraDocumentAdapterFactory.cs" />
     <Compile Include="Services\Foundation\DocumentAdapters\XtraGridDocumentAdapter.cs" />
@@ -178,6 +182,7 @@
     <Compile Include="Views\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\DataList\DataListBase.cs" />
     <Compile Include="WorkItems\DataList\DataListController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
@@ -241,6 +246,10 @@
     <ProjectReference Include="..\Uniframework.Client\Uniframework.Client.csproj">
       <Project>{7423F696-7D41-47A6-94C8-AD951FF9BF5B}</Project>
       <Name>Uniframework.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Uniframework.Database\Uniframework.Database.csproj">
+      <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
+      <Name>Uniframework.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.XtraForms\Uniframework.XtraForms.csproj">
       <Project>{E9CBA808-D476-4034-9FD7-ABBF69D13B2B}</Project>
