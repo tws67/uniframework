@@ -46,10 +46,6 @@
     <Reference Include="DevExpress.XtraPivotGrid.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
-    <Reference Include="Lephone.Data, Version=3.5.3270.37667, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\assembly\Lephone.Data.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\log4net.dll</HintPath>
@@ -135,7 +131,7 @@
     <Compile Include="Services\Foundation\EditAdapters\XtraGridEditAdapter.cs" />
     <Compile Include="Services\Foundation\EditAdapters\XtraGridEditAdapterFactory.cs" />
     <Compile Include="Services\Foundation\IBrowserService.cs" />
-    <Compile Include="Services\Foundation\IDataListViewHandler.cs" />
+    <Compile Include="Services\Foundation\IDataListHandler.cs" />
     <Compile Include="Services\Foundation\IDataListViewService.cs" />
     <Compile Include="Services\Foundation\IDocumentService.cs" />
     <Compile Include="Services\Foundation\IEditHandler.cs" />
@@ -182,7 +178,12 @@
     <Compile Include="Views\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkItems\DataList\DataListBase.cs" />
+    <Compile Include="WorkItems\DataList\DataListBaseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\DataList\DataListBaseView.Designer.cs">
+      <DependentUpon>DataListBaseView.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\DataList\DataListController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
@@ -285,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\DataList\DataListBaseView.resx">
+      <DependentUpon>DataListBaseView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Help\DynamicHelpView.resx">
       <DependentUpon>DynamicHelpView.cs</DependentUpon>

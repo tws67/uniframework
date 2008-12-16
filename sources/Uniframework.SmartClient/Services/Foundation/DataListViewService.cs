@@ -15,11 +15,11 @@ namespace Uniframework.SmartClient
     /// </summary>
     public class DataListViewService : IDataListViewService
     {
-        private IDataListViewHandler activeView = null;
-        private Dictionary<object, IDataListViewHandler> views = new Dictionary<object, IDataListViewHandler>();
+        private IDataListHandler activeView = null;
+        private Dictionary<object, IDataListHandler> views = new Dictionary<object, IDataListHandler>();
 
         private WorkItem workItem;
-        private IAdapterFactoryCatalog<IDataListViewHandler> factoryCatalog;
+        private IAdapterFactoryCatalog<IDataListHandler> factoryCatalog;
         
         #region Dependency services
 
@@ -34,7 +34,7 @@ namespace Uniframework.SmartClient
         }
 
         [ServiceDependency]
-        public IAdapterFactoryCatalog<IDataListViewHandler> FactoryCatalog
+        public IAdapterFactoryCatalog<IDataListHandler> FactoryCatalog
         {
             get { return factoryCatalog; }
             set { factoryCatalog = value; }
@@ -52,7 +52,7 @@ namespace Uniframework.SmartClient
         /// Gets or sets the active view.
         /// </summary>
         /// <value>The active view.</value>
-        public IDataListViewHandler ActiveView
+        public IDataListHandler ActiveView
         {
             get { return activeView; }
             protected set { 
@@ -63,7 +63,7 @@ namespace Uniframework.SmartClient
 
         #region IDataGridViewService Members
 
-        public void Register(IDataListViewHandler handler)
+        public void Register(IDataListHandler handler)
         {
             Guard.ArgumentNotNull(handler, "Data grid view handler");
             handler.Enter += new EventHandler(OnLeave);
@@ -73,12 +73,12 @@ namespace Uniframework.SmartClient
 
         public void Register(object datagrid)
         {
-            IDataListViewHandler handler = FactoryCatalog.GetFactory(datagrid).GetAdapter(datagrid);
+            IDataListHandler handler = FactoryCatalog.GetFactory(datagrid).GetAdapter(datagrid);
             views.Add(datagrid, handler);
             Register(handler);
         }
 
-        public void UnRegister(IDataListViewHandler handler)
+        public void UnRegister(IDataListHandler handler)
         {
             Guard.ArgumentNotNull(handler, "Data grid view handler");
             handler.Enter -= OnLeave;
@@ -116,13 +116,6 @@ namespace Uniframework.SmartClient
         {
             Guard.ArgumentNotNull(ActiveView, "ActiveView");
             ActiveView.Delete();
-        }
-
-        [CommandHandler(CommandHandlerNames.CMD_DATAGRID_FILTER)]
-        public void OnFilter(object sender, EventArgs e)
-        {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Filter();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_REFRESH)]
@@ -171,7 +164,6 @@ namespace Uniframework.SmartClient
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_DELETE, enabled && ActiveView.CanDelete);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EXPAND, enabled && ActiveView.CanExpand);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && ActiveView.CanCollaspe);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_FILTER, enabled && ActiveView.CanFilter);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && ActiveView.CanRefresh);
         }
 
@@ -183,9 +175,9 @@ namespace Uniframework.SmartClient
 
         private void OnLeave(object sender, EventArgs e)
         {
-            Microsoft.Practices.CompositeUI.Utility.Guard.TypeIsAssignableFromType(sender.GetType(), typeof(IDataListViewHandler), "sender");
+            Microsoft.Practices.CompositeUI.Utility.Guard.TypeIsAssignableFromType(sender.GetType(), typeof(IDataListHandler), "sender");
 
-            activeView = (IDataListViewHandler)sender;
+            activeView = (IDataListHandler)sender;
             UpdateCommandStatus();
         }
 

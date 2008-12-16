@@ -51,7 +51,7 @@ namespace Uniframework.SmartClient
             
             RootWorkItem.Services.Add<IDb4oDatabaseService>(new Db4oDatabaseService(dbPath)); // Db4o数据库服务
 
-            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListViewHandler>, IAdapterFactoryCatalog<IDataListViewHandler>>();
+            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListHandler>, IAdapterFactoryCatalog<IDataListHandler>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
             RootWorkItem.Services.AddOnDemand<PropertyService, IPropertyService>();
             RootWorkItem.Services.AddOnDemand<SettingService, ISettingService>();
