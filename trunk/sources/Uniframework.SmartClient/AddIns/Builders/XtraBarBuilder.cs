@@ -63,7 +63,7 @@ namespace Uniframework.SmartClient
             if (element.Configuration.Attributes["register"] != null) {
                 bool register = bool.Parse(element.Configuration.Attributes["register"]);
                 if (register)
-                    context.UIExtensionSites.RegisterSite(BuilderUtility.CombinPath(element.Path, element.Id), item);
+                    context.UIExtensionSites.RegisterSite(BuilderUtility.CombinPath(element.Path, element.Id), item); // 此处可能抛出异常
             }
 
             return item;

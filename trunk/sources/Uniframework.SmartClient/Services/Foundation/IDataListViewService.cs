@@ -14,7 +14,7 @@ namespace Uniframework.SmartClient
         /// Registers the specified handler.
         /// </summary>
         /// <param name="handler">The handler.</param>
-        void Register(IDataListViewHandler handler);
+        void Register(IDataListHandler handler);
         /// <summary>
         /// Registers the specified datagrid.
         /// </summary>
@@ -24,7 +24,7 @@ namespace Uniframework.SmartClient
         /// Uns the register.
         /// </summary>
         /// <param name="handler">The handler.</param>
-        void UnRegister(IDataListViewHandler handler);
+        void UnRegister(IDataListHandler handler);
         /// <summary>
         /// Uns the register.
         /// </summary>
