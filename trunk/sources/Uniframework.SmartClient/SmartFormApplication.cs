@@ -76,7 +76,9 @@ namespace Uniframework.SmartClient
             builder.Strategies.AddNew<XtraGridEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraPrintAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraDocumentAdapterStrategy>(BuilderStage.Initialization);
+            builder.Strategies.AddNew<DataListStrategy>(BuilderStage.Initialization);
         }
+
         #region Assistant function
 
         /// <summary>
@@ -105,5 +107,6 @@ namespace Uniframework.SmartClient
         }
 
         #endregion
+
     }
 }

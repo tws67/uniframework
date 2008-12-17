@@ -43,7 +43,7 @@
 
   <AddIns>
     <Path name="/Shell" label="Uniframework" buildstartup="true">
-        <!--<Item id="Bar/Standard" name="Standard_toolBar" label="工具栏" command="" classname="XtraBar" dockstyle="Top"/>-->
+      <Item id="Bar/Standard" name="Standard_toolBar" label="工具栏" command="" classname="XtraBar" register="true" dockstyle="Top"/>
     </Path>
 
     <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
@@ -155,6 +155,82 @@
             tooltip="转到地址栏所指向的位置"
             imagefile="${nav_right_blue}"/>-->
       
+    </Path>
+
+    <Path name="/Shell/Bar/Standard" label="工具栏" buildstartup="true">
+      <Item id="New"
+            name="mmifNew"
+            label="新建(&amp;N)..."
+            command="/Shell/Module/Foundation/File/New"
+            classname="XtraButtonItem"
+            shortcut="CtrlN"
+            imagefile="${document}"/>
+
+      <Item id="Open"
+            name="mmifOpen"
+            label="打开(&amp;O)"
+            command="/Shell/Module/Foundation/File/Open"
+            classname="XtraButtonItem"
+            shortcut="CtrlO"
+            imagefile="${folder}"/>
+
+      <Item id="Save"
+            name="mmifSave"
+            label="保存(&amp;S)"
+            command="/Shell/Module/Foundation/File/Save"
+            classname="XtraButtonItem"
+            shortcut="CtrlS"
+            imagefile="${disk_blue}"/>
+
+      <Item id="Print"
+            name="mmifPrint"
+            label="打印(&amp;P)..."
+            command="/Shell/Module/Foundation/File/Print"
+            classname="XtraButtonItem"
+            shortcut="CtrlP"
+            begingroup="true"/>
+
+      <Item id="Preview"
+           name="mmifPreview"
+           label="预览(&amp;P)"
+           command="/Shell/Module/Foundation/File/Preview"
+           classname="XtraButtonItem"
+           shortcut="F8"
+           imagefile="${document_view}"/>
+
+      <Item id="Cut"
+            name="mmieCut"
+            label="剪切(&amp;T)"
+            command="/Shell/Module/Foundation/Edit/Cut"
+            classname="XtraButtonItem"
+            imagefile="${Cut}"
+            shortcut="CtrlX"
+            begingroup="true"/>
+
+      <Item id="Copy"
+            name="mmieCopy"
+            label="复制(&amp;C)"
+            command="/Shell/Module/Foundation/Edit/Copy"
+            classname="XtraButtonItem"
+            imagefile="${Copy}"
+            shortcut="CtrlC"/>
+
+      <Item id="Paste"
+            name="mmiePaste"
+            label="粘贴(&amp;P)"
+            command="/Shell/Module/Foundation/Edit/Paste"
+            classname="XtraButtonItem"
+            imagefile="${Paste}"
+            shortcut="CtrlP"/>
+
+      <Item id="Search"
+            name="mmieSearch"
+            label="查找(&amp;S)..."
+            command="/Shell/Module/Foundation/Edit/Search"
+            classname="XtraButtonItem"
+            begingroup="true"
+            shortcut="CtrlF"
+            imagefile="${find}"/>
     </Path>
     
     <Path name="/Shell/Bar/Mainmenu/File" label="文件菜单" buildstartup="true">
