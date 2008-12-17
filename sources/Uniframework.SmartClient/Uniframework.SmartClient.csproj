@@ -164,6 +164,7 @@
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="SmartFormApplication.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
+    <Compile Include="Strategies\DataListStrategy.cs" />
     <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Strategies\StrategyUtility.cs" />
     <Compile Include="Strategies\TextEditAdapterStrategy.cs" />

@@ -15,6 +15,7 @@ using System.IO;
 using DevExpress.Utils;
 using System.Threading;
 using DevExpress.XtraTreeList;
+using Uniframework.XtraForms.Workspaces;
 
 namespace Uniframework.SmartClient
 {
@@ -39,11 +40,18 @@ namespace Uniframework.SmartClient
         protected override void AddServices()
         {
             base.AddServices();
+            
+            // 注册WorkSpace的事件
+            MdiWorkspace mdiWp = WorkItem.Workspaces[UIExtensionSiteNames.Shell_Workspace_Main] as MdiWorkspace;
+            if (mdiWp != null) {
+                mdiWp.SmartPartActivated += new EventHandler<WorkspaceEventArgs>(DataList_SmartPartActivated);
+                mdiWp.SmartPartClosing += new EventHandler<WorkspaceCancelEventArgs>(DataList_SmartPartClosing);
+            }
 
-            MdiWorkspace workspace = WorkItem.Workspaces[UIExtensionSiteNames.Shell_Workspace_Main] as MdiWorkspace;
-            if (workspace != null) {
-                workspace.SmartPartActivated += new EventHandler<WorkspaceEventArgs>(DataList_SmartPartActivated);
-                workspace.SmartPartClosing += new EventHandler<WorkspaceCancelEventArgs>(DataList_SmartPartClosing);
+            DockManagerWorkspace dockWp = WorkItem.Workspaces[UIExtensionSiteNames.Shell_Workspace_Dockable] as DockManagerWorkspace;
+            if (dockWp != null) { 
+                dockWp.SmartPartActivated +=new EventHandler<WorkspaceEventArgs>(DataList_SmartPartActivated);
+                dockWp.SmartPartClosing += new EventHandler<WorkspaceCancelEventArgs>(DataList_SmartPartClosing);
             }
         }
 

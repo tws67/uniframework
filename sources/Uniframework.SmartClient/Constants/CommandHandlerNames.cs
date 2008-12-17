@@ -73,7 +73,7 @@ namespace Uniframework.SmartClient
         public const string CMD_HELP_CHECKUPGRADE             = "/Shell/Module/Foundation/Help/CheckUpgrade";
         public const string CMD_HELP_ABOUT                    = "/Shell/Module/Foundation/Help/About";
         
-        // 表格控件右键菜单命令
+        // 数据列表右键菜单命令
         public const string CMD_DATAGRID_INSERT               = "/Shell/Module/Foundation/DataGrid/Insert";
         public const string CMD_DATAGRID_EDIT                 = "/Shell/Module/Foundation/DataGrid/Edit";
         public const string CMD_DATAGRID_DELETE               = "/Shell/Module/Foundation/DataGrid/Delete";

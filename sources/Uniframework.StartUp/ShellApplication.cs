@@ -107,7 +107,6 @@ namespace Uniframework.StartUp
         protected override void AddBuilderStrategies(Builder builder)
         {
             base.AddBuilderStrategies(builder);
-
         }
 
         #region Assistant functions
