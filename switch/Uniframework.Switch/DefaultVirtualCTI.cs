@@ -46,7 +46,7 @@ namespace Uniframework.Switch
             IConfigurationService configService = workItem.Services.Get<IConfigurationService>();
             if (!configService.Exists(sectionPath))
             {
-                String errStr = "在系统配置文件中文件未找到 \"Uniframework\" 配置节。";
+                String errStr = "在系统配置文件中文件未找到 \"LightweightCTI\" 配置节。";
                 logger.Fatal(errStr);
                 throw new Exception(errStr);
             }
