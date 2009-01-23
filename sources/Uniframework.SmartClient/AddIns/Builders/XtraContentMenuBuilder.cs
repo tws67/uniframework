@@ -50,14 +50,21 @@ namespace Uniframework.SmartClient
             BarSubItem item = new BarSubItem();
             item.Name = element.Name;
             item.Tag = element.Path;
-            cmbService.RegisterContentMenu(item.Tag as string, item);
+            item.Manager = BuilderUtility.GetBarManager(context); // 设置工具栏管理器
+            string exPath = BuilderUtility.CombinPath(element.Path, element.Id);
+            cmbService.RegisterContentMenu(exPath, item);
+
+            // 添加插件元素
+            if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
+                context.UIExtensionSites[element.Path].Add(item);
             if (!String.IsNullOrEmpty(element.Command))
             {
                 Command cmd = BuilderUtility.GetCommand(context, element.Command);
                 if (cmd != null)
                     cmd.AddInvoker(item, "Popup");
             }
-            context.UIExtensionSites.RegisterSite(BuilderUtility.CombinPath(element.Path, element.Id), item);
+
+            context.UIExtensionSites.RegisterSite(exPath, item);
             return item;
         }
 

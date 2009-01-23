@@ -11,6 +11,9 @@ using DevExpress.XtraGrid;
 
 namespace Uniframework.SmartClient.Strategies
 {
+    /// <summary>
+    /// 数据表格编辑适配器
+    /// </summary>
     public class XtraGridEditAdapterStrategy : BuilderStrategy
     {
         /// <summary>

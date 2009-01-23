@@ -77,6 +77,7 @@ namespace Uniframework.SmartClient
             builder.Strategies.AddNew<XtraPrintAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraDocumentAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<DataListStrategy>(BuilderStage.Initialization);
+            builder.Strategies.AddNew<XtraContentMenuStrategy>(BuilderStage.Initialization);
         }
 
         #region Assistant function

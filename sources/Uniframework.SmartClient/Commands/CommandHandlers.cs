@@ -135,6 +135,26 @@ namespace Uniframework.SmartClient
             }
         }
 
+        /// <summary>
+        /// 显示系统用户管理视图
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_COMM_MEMBERSHIPUSER)]
+        public void OnShowMembershipUser(object sender, EventArgs e)
+        {
+            MembershipUserView view = WorkItem.SmartParts.Get<MembershipUserView>(SmartPartNames.SmartPart_Shell_MembershipUserView);
+            if (view == null)
+                view = WorkItem.SmartParts.AddNew<MembershipUserView>(SmartPartNames.SmartPart_Shell_MembershipUserView);
+
+            IWorkspace wp = WorkItem.Workspaces[UIExtensionSiteNames.Shell_Workspace_Main];
+            if (wp != null) {
+                WindowSmartPartInfo spi = new WindowSmartPartInfo();
+                spi.Title = "用户管理";
+                wp.Show(view, spi);
+            }
+        }
+
         #region Dependency services
 
         [ServiceDependency]
