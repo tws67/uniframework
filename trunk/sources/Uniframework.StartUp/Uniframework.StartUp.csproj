@@ -82,6 +82,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RootController.cs" />
+    <Compile Include="Services\RemoteServiceRegister.cs" />
+    <Compile Include="Services\WebServiceModuleEnumerator.cs" />
     <Compile Include="ShellApplication.cs" />
     <Compile Include="ShellForm.cs">
       <SubType>Form</SubType>
@@ -89,6 +91,7 @@
     <Compile Include="ShellForm.Designer.cs">
       <DependentUpon>ShellForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Strategies\EventConnectStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
@@ -167,7 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Services\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

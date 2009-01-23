@@ -11,7 +11,7 @@ using Microsoft.Practices.CompositeUI;
 using Uniframework.Client;
 using log4net;
 
-namespace Uniframework.SmartClient
+namespace Uniframework.StartUp
 {
     public class RemoteServiceRegister
     {
