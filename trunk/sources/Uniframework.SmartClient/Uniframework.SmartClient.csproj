@@ -168,6 +168,7 @@
     <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Strategies\StrategyUtility.cs" />
     <Compile Include="Strategies\TextEditAdapterStrategy.cs" />
+    <Compile Include="Strategies\XtraContentMenuStrategy.cs" />
     <Compile Include="Strategies\XtraDocumentAdapterStrategy.cs" />
     <Compile Include="Strategies\XtraGridEditAdapterStrategy.cs" />
     <Compile Include="Strategies\XtraPrintAdapterStrategy.cs" />
@@ -178,6 +179,13 @@
     </Compile>
     <Compile Include="Views\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MembershipUserPresenter.cs" />
+    <Compile Include="Views\MembershipUserView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MembershipUserView.Designer.cs">
+      <DependentUpon>MembershipUserView.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\DataList\DataListBaseView.cs">
       <SubType>UserControl</SubType>
@@ -287,6 +295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MembershipUserView.resx">
+      <DependentUpon>MembershipUserView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\DataList\DataListBaseView.resx">
       <DependentUpon>DataListBaseView.cs</DependentUpon>

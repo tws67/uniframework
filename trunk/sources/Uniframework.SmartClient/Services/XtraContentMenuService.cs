@@ -59,7 +59,8 @@ namespace Uniframework.SmartClient
         /// <returns></returns>
         public object GetContentMenu(string name)
         {
-            PopupMenu content = new PopupMenu(barManager);
+            PopupMenu content = new PopupMenu();
+            content.Manager = barManager;
             if (!contents.ContainsKey(name)) {
                 AddInTree addInTree = workItem.Services.Get<AddInTree>();
                 if(addInTree != null)
@@ -75,8 +76,10 @@ namespace Uniframework.SmartClient
                     }
             }
 
-            foreach (BarItemLink link in contents[name].ItemLinks) {
-                content.AddItem(link.Item);
+            if(contents.ContainsKey(name)) {
+                foreach (BarItemLink link in contents[name].ItemLinks) {
+                    content.AddItem(link.Item);
+                }
             }
                 
             return content;
