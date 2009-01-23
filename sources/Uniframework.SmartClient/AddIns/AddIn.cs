@@ -155,7 +155,7 @@ namespace Uniframework.SmartClient
             }
 
             XMLConfigurationService configService = new XMLConfigurationService(addInfile);
-            logger.Debug(String.Format("开始解析插件描述文件 \"{0}\"：", Path.GetFileName(addInfile)));
+            logger.Info(String.Format("开始解析插件描述文件 \"{0}\"：", Path.GetFileName(addInfile)));
             IConfiguration configuration = null;
 
             // 解析插件描述文件信息
@@ -198,7 +198,7 @@ namespace Uniframework.SmartClient
                 configuration = new XMLConfiguration(configService.GetItem(AddInPath));
                 ParseAddIn(configuration);
             }
-            logger.Debug(String.Format("完成解析插件描述文件 \"{0}\"", Path.GetFileName(addInfile)));
+            logger.Info(String.Format("完成解析插件描述文件 \"{0}\"", Path.GetFileName(addInfile)));
         }
 
         /// <summary>

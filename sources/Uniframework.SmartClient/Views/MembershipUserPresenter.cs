@@ -34,7 +34,6 @@ namespace Uniframework.SmartClient.Views
                 try
                 {
                     MembershipUserCollection users = MembershipService.GetAllUsers();
-                    //View.UsersList.DataSource = users;
                     View.SetDataSource(users);
                 }
                 finally

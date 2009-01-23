@@ -7,6 +7,10 @@ using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
 using DevExpress.XtraBars;
+using DevExpress.XtraTreeList;
+using System.Drawing;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace Uniframework.SmartClient.Strategies
 {
@@ -55,7 +59,7 @@ namespace Uniframework.SmartClient.Strategies
         }
 
         /// <summary>
-        /// 控件的鼠标释放事件
+        /// 控件的鼠标释放事件在这里处理架构右键菜单
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
@@ -68,8 +72,25 @@ namespace Uniframework.SmartClient.Strategies
                     IContentMenuService contentService = workItem.Services.Get<IContentMenuService>(); // 上下文菜单服务
                     if (!String.IsNullOrEmpty(exPath) && contentService != null) {
                         PopupMenu content = contentService.GetContentMenu(exPath) as PopupMenu;
-                        if (content != null)
-                            content.ShowPopup(Control.MousePosition);
+                        if (content != null) {
+                            // DevExpress TreeList 控件
+                            if (control is TreeList) {
+                                TreeListHitInfo hi = ((TreeList)control).CalcHitInfo(new Point(e.X, e.Y));
+                                if (hi.HitInfoType == HitInfoType.Row || hi.HitInfoType == HitInfoType.Cell || hi.HitInfoType == HitInfoType.Empty)
+                                    content.ShowPopup(Control.MousePosition);
+                            }
+                            else if (control is GridControl) { // DevExpress GridControl控件
+                                GridHitInfo hi = ((GridControl)control).MainView.CalcHitInfo(new Point(e.X, e.Y)) as GridHitInfo;
+                                if (hi != null) {
+                                    if (hi.InRow || hi.InRowCell)
+                                        content.ShowPopup(Control.MousePosition);
+                                }
+                                else
+                                    content.ShowPopup(Control.MousePosition);
+                            }
+                            else
+                                content.ShowPopup(Control.MousePosition);
+                        }
                     }
                 }
             }
