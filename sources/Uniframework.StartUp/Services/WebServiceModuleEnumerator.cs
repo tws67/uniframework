@@ -12,7 +12,7 @@ using Microsoft.Practices.CompositeUI.Services;
 using Uniframework.Client;
 using Uniframework.Services;
 
-namespace Uniframework.SmartClient
+namespace Uniframework.StartUp
 {
     public class WebServiceModuleEnumerator : IModuleEnumerator
     {

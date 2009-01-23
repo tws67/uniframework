@@ -157,15 +157,12 @@
     <Compile Include="Services\Property\Property.cs" />
     <Compile Include="Services\Property\PropertyChangedEventArgs.cs" />
     <Compile Include="Services\Property\PropertyService.cs" />
-    <Compile Include="Services\RemoteServiceRegister.cs" />
     <Compile Include="Services\UIExtensionService.cs" />
-    <Compile Include="Services\WebServiceModuleEnumerator.cs" />
     <Compile Include="Services\XtraContentMenuService.cs" />
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="SmartFormApplication.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
     <Compile Include="Strategies\DataListStrategy.cs" />
-    <Compile Include="Strategies\EventConnectStrategy.cs" />
     <Compile Include="Strategies\StrategyUtility.cs" />
     <Compile Include="Strategies\TextEditAdapterStrategy.cs" />
     <Compile Include="Strategies\XtraContentMenuStrategy.cs" />
@@ -252,10 +249,6 @@
     <ProjectReference Include="..\cab\ObjectBuilder\ObjectBuilder.csproj">
       <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
       <Name>ObjectBuilder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Uniframework.Client\Uniframework.Client.csproj">
-      <Project>{7423F696-7D41-47A6-94C8-AD951FF9BF5B}</Project>
-      <Name>Uniframework.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.Database\Uniframework.Database.csproj">
       <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>

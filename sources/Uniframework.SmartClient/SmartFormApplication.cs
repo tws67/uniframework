@@ -71,7 +71,7 @@ namespace Uniframework.SmartClient
         {
             base.AddBuilderStrategies(builder);
 
-            builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
+            //builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
             builder.Strategies.AddNew<TextEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraGridEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraPrintAdapterStrategy>(BuilderStage.Initialization);

@@ -28,6 +28,7 @@ using Uniframework.SmartClient;
 using Uniframework.XtraForms;
 using Uniframework.XtraForms.Workspaces;
 using Uniframework.SmartClient.WorkItems.Setting;
+using Uniframework.StartUp.Strategies;
 
 namespace Uniframework.StartUp
 {
@@ -107,6 +108,8 @@ namespace Uniframework.StartUp
         protected override void AddBuilderStrategies(Builder builder)
         {
             base.AddBuilderStrategies(builder);
+
+            builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
         }
 
         #region Assistant functions
