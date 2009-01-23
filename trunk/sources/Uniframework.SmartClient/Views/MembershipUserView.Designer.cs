@@ -103,7 +103,7 @@ namespace Uniframework.SmartClient.Views
             // colCreateDate
             // 
             this.colCreateDate.Caption = "创建时间";
-            this.colCreateDate.FieldName = "CreateDate";
+            this.colCreateDate.FieldName = "CreationDate";
             this.colCreateDate.MinWidth = 72;
             this.colCreateDate.Name = "colCreateDate";
             this.colCreateDate.Visible = true;

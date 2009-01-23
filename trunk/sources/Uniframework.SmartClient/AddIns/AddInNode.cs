@@ -58,8 +58,7 @@ namespace Uniframework.SmartClient
         public List<T> BuildChildItems<T>(object caller)
         {
             List<T> items = new List<T>(addInElements.Count);
-            foreach (AddInElement element in addInElements)
-            {
+            foreach (AddInElement element in addInElements) {
                 ArrayList subItems = null;
                 if (childNodes.ContainsKey(element.Id))
                     subItems = childNodes[element.Id].BuildChildItems(caller);
@@ -88,14 +87,11 @@ namespace Uniframework.SmartClient
         public ArrayList BuildChildItems(object caller)
         {
             ArrayList items = new ArrayList(addInElements.Count);
-            foreach (AddInElement element in addInElements)
-            {
+            foreach (AddInElement element in addInElements) {
                 // 由于CAB中添加子项目依赖于父路径，因此必须先创建当前元素才能再创建子项
-                // 此处乃BUG也！！！
                 object result = element.BuildItem(caller, null); 
                 ArrayList subItems = null;
-                if (childNodes.ContainsKey(element.Id))
-                {
+                if (childNodes.ContainsKey(element.Id)) {
                     subItems = childNodes[element.Id].BuildChildItems(caller);
                 }
 
@@ -119,8 +115,7 @@ namespace Uniframework.SmartClient
         /// <returns>返回创建好的插件单元</returns>
         public object BuildChildItem(string childId, object caller, ArrayList subItems)
         {
-            foreach (AddInElement element in addInElements)
-            {
+            foreach (AddInElement element in addInElements) {
                 if (element.Id == childId)
                     return element.BuildItem(caller, subItems);
             }

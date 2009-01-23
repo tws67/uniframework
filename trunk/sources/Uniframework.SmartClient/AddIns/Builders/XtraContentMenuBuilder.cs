@@ -54,7 +54,7 @@ namespace Uniframework.SmartClient
             string exPath = BuilderUtility.CombinPath(element.Path, element.Id);
             cmbService.RegisterContentMenu(exPath, item);
 
-            // 添加插件元素
+            // 添加插件单元到系统中
             if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
                 context.UIExtensionSites[element.Path].Add(item);
             if (!String.IsNullOrEmpty(element.Command))

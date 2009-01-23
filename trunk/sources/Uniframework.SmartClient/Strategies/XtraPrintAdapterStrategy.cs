@@ -54,10 +54,14 @@ namespace Uniframework.SmartClient.Strategies
                         printableService.UnRegister(ctrl);
 
                     // 设置数据表格的BarManager以使相关的下拉菜单呈现相同的样式
-                    if (ctrl is GridControl && register) {
+                    if (register) {
                         BarManager barManager = workItem.RootWorkItem.Items.Get<BarManager>(UIExtensionSiteNames.Shell_Bar_Manager);
-                        if (barManager != null)
-                            ((GridControl)ctrl).MenuManager = barManager;
+                        if (barManager != null) {
+                            if (ctrl is GridControl) // 表格控件
+                                ((GridControl)ctrl).MenuManager = barManager;
+                            if (ctrl is TreeList)    // 树视图
+                                ((TreeList)ctrl).MenuManager = barManager;
+                        }
                     }
                 }
 

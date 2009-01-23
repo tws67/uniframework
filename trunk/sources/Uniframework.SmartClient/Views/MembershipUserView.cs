@@ -11,6 +11,7 @@ using DevExpress.XtraTreeList;
 
 namespace Uniframework.SmartClient.Views
 {
+    [AuthResource("系统公共模块", "/Shell/Module/Foundation/MembershipUser")] 
     public partial class MembershipUserView : DevExpress.XtraEditors.XtraUserControl
     {
         public MembershipUserView()

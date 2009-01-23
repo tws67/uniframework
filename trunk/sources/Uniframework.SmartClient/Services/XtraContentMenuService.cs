@@ -53,15 +53,15 @@ namespace Uniframework.SmartClient
         }
 
         /// <summary>
-        /// Gets the content menu.
+        /// 获取指定名称的上下文菜单
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
+        /// <param name="name">上下文菜单名称</param>
+        /// <returns>返回正确的上下文菜单，如果不存在指定名称的上下文菜单则返回空的<see cref="PopupMenu"/>对象</returns>
         public object GetContentMenu(string name)
         {
             PopupMenu content = new PopupMenu();
             content.Manager = barManager;
-            if (!contents.ContainsKey(name)) {
+            if (contents.ContainsKey(name)) {
                 AddInTree addInTree = workItem.Services.Get<AddInTree>();
                 if(addInTree != null)
                     try
