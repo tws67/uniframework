@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Security;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
-
 using Uniframework.Services;
-using System.Web.Security;
 
-namespace Uniframework.SmartClient.Views
+namespace Uniframework.Common.WorkItems.Membership
 {
-    public class MembershipUserPresenter : Presenter<MembershipUserView>
+    public class MembershipUserListPresenter : Presenter<MembershipUserListView>
     {
         #region Dependency Services
 

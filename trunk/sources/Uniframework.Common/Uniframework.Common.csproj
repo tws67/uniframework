@@ -31,10 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichTextEdit.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1" />
+    <Reference Include="DevExpress.XtraTreeList.v8.2, Version=8.2.6.0, Culture=neutral, PublicKeyToken=9b171c9fd64da1d1, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -48,7 +61,32 @@
     <Compile Include="..\UniframeworkInfo.cs">
       <Link>UniframeworkInfo.cs</Link>
     </Compile>
+    <Compile Include="CommonController.cs" />
+    <Compile Include="Constants\CommandHandlerNames.cs" />
+    <Compile Include="Constants\SmartPartNames.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkItems\Membership\MembershipController.cs" />
+    <Compile Include="WorkItems\Membership\MembershipRoleListPresenter.cs" />
+    <Compile Include="WorkItems\Membership\MembershipRoleListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipRoleListView.Designer.cs">
+      <DependentUpon>MembershipRoleListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserListPresenter.cs" />
+    <Compile Include="WorkItems\Membership\MembershipUserListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserListView.Designer.cs">
+      <DependentUpon>MembershipUserListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserView.Designer.cs">
+      <DependentUpon>MembershipUserView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cab\CompositeUI.Common\CompositeUI.Common.csproj">
@@ -67,6 +105,10 @@
       <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
       <Name>ObjectBuilder</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Uniframework.Database\Uniframework.Database.csproj">
+      <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
+      <Name>Uniframework.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Uniframework.SmartClient\Uniframework.SmartClient.csproj">
       <Project>{3A800ABE-8658-460C-A471-D1C14FADF408}</Project>
       <Name>Uniframework.SmartClient</Name>
@@ -79,6 +121,26 @@
       <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
       <Name>Uniframework %28Sources\Uniframework%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Uniframework.Common.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="WorkItems\Membership\MembershipRoleListView.resx">
+      <DependentUpon>MembershipRoleListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipUserListView.resx">
+      <DependentUpon>MembershipUserListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipUserView.resx">
+      <DependentUpon>MembershipUserView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

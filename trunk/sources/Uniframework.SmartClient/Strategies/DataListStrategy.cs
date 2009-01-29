@@ -27,8 +27,10 @@ namespace Uniframework.SmartClient.Strategies
             if (workItem != null) {
                 IDataListViewService dataService = workItem.Services.Get<IDataListViewService>();
                 // 如果视图实现了数据列表服务则在系统中注册它
-                if (dataService != null && existing is IDataListHandler) 
-                    dataService.Register(existing);
+                if (dataService != null && existing is IDataListHandler) {
+                    IDataListHandler handler = existing as IDataListHandler;
+                    dataService.Register(handler);
+                }
             }
 
             return base.BuildUp(context, typeToBuild, existing, idToBuild);
@@ -45,8 +47,10 @@ namespace Uniframework.SmartClient.Strategies
             WorkItem workItem = StrategyUtility.GetWorkItem(context, item);
             if (workItem != null) {
                 IDataListViewService dataService = workItem.Services.Get<IDataListViewService>();
-                if (dataService != null && item is IDataListHandler)
-                    dataService.UnRegister(item);
+                if (dataService != null && item is IDataListHandler) {
+                    IDataListHandler handler = item as IDataListHandler;
+                    dataService.UnRegister(handler);
+                }
             }
 
             return base.TearDown(context, item);

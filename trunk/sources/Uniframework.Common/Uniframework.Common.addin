@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration name = "Uniframework.Common.addin"
+               author = "东成西就"
+               copyright = "Copyright by Sjteksoft"
+               url = "http://www.lightweightcti.cn"
+               description = "系统公共模块插件描述文件"
+               hideninmanager = "true">
+
+  <AddIns>
+
+    <Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
+      <Item id="MembershipRole"
+            name="mmivMembershipRole"
+            label="角色管理"
+            command="/Shell/Module/Foundation/Comm/MembershipRole"
+            classname="XtraButtonItem"
+            begingroup="true"
+            insertbefore="mmivSetting"/>
+      
+      <Item id="MembershipUser"
+            name="mmivMembershipUser"
+            label="用户管理"
+            command="/Shell/Module/Foundation/Comm/MembershipUser"
+            classname="XtraButtonItem"
+            insertbefore="mmivSetting"/>
+    </Path>
+    
+    <Path name="/Shell" label="右键菜单" buildstartup="true">
+      <Item id="Module/Foundation/ContentMenu/MembershipUser"
+            name="cmMembershipUser"
+            label="用户管理菜单"
+            command=""
+            classname="XtraContentMenu"/>
+
+      <Item id="Module/Foundation/ContentMenu/MembershipRole"
+            name="cmMembershipRole"
+            lable="角色管理菜单"
+            command=""
+            classname="XtraContentMenu"/>
+    </Path>
+
+    <Path name="/Shell/Module/Foundation/ContentMenu/MembershipRole" label="" buildstartup="false">
+      <Item id="New"
+            name="cmmNew"
+            label="新建角色(&amp;N)..."
+            command="/Shell/Module/Foundation/DataGrid/Insert"
+            classname="XtraButtonItem"/>
+
+      <Item id="Edit"
+            name="cmmEdit"
+            label="编辑当前选定角色(&amp;E)..."
+            command="/Shell/Module/Foundation/DataGrid/Edit"
+            classname="XtraButtonItem"/>
+
+      <Item id="Delete"
+            name="cmmDelete"
+            label="删除(&amp;D)"
+            command="/Shell/Module/Foundation/DataGrid/Delete"
+            classname="XtraButtonItem"
+            shortcut="Del"/>
+
+      <Item id="Refresh"
+            name="cmmRefresh"
+            label="刷新(&amp;E)"
+            command="/Shell/Module/Foundation/DataGrid/Refresh"
+            classname="XtraButtonItem"
+            begingroup="true"
+            shortcut="F5"
+            imagefile="${refresh}"/>
+    </Path>
+    
+    <Path name="/Shell/Module/Foundation/ContentMenu/MembershipUser" label="" buildstartup="false">
+      <Item id="New"
+            name="cmmNew"
+            label="新建用户(&amp;N)..."
+            command=""
+            classname="XtraButtonItem"/>
+
+      <Item id="Edit"
+            name="cmmEdit"
+            label="编辑当前选定用户(&amp;E)..."
+            command=""
+            classname="XtraButtonItem"/>
+
+      <Item id="Delete"
+            name="cmmDelete"
+            label="删除(&amp;D)"
+            command=""
+            classname="XtraButtonItem"
+            shortcut="Del"/>
+
+      <Item id="Refresh"
+            name="cmmRefresh"
+            label="刷新(&amp;E)"
+            command=""
+            classname="XtraButtonItem"
+            begingroup="true"
+            shortcut="F5"
+            imagefile="${refresh}"/>
+    </Path>
+    
+  </AddIns>
+</configuration>
