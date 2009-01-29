@@ -84,11 +84,11 @@ namespace Uniframework.SmartClient
         /// <value>
         /// 	返回<c>true</c>如果可以刷新的话; 否则为, <c>false</c>.
         /// </value>
-        bool CanRefresh { get; }
+        bool CanRefreshDataSource { get; }
         /// <summary>
         /// 刷新数据列表视图
         /// </summary>
-        void Refresh();
+        void RefreshDataSource();
 
         #endregion
 

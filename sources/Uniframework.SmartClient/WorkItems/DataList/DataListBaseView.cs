@@ -13,7 +13,6 @@ using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.ObjectBuilder;
 
 using Uniframework;
-using Uniframework.Database;
 using Uniframework.Services;
 
 namespace Uniframework.SmartClient
@@ -21,7 +20,7 @@ namespace Uniframework.SmartClient
     /// <summary>
     /// 数据列表基类
     /// </summary>
-    public abstract partial class DataListBaseView : DevExpress.XtraEditors.XtraUserControl, IDataListHandler
+    public partial class DataListBaseView : DevExpress.XtraEditors.XtraUserControl, IDataListHandler
     {
         public DataListBaseView()
         {
@@ -44,64 +43,88 @@ namespace Uniframework.SmartClient
         /// <summary>
         /// 初始化数据列表操作只在数据列表第一次加载时使用
         /// </summary>
-        public abstract void Initilize();
+        public virtual void Initilize() {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 获取一个值决定当前可否插入新的数据资料
         /// </summary>
         /// <value>返回<c>true</c>如果可以插入的话; 否则为, <c>false</c>.</value>
-        public abstract bool CanInsert { get; }
+        public virtual bool CanInsert {
+            get { throw new NotImplementedException(); }
+        }
         /// <summary>
         /// 插入新的数据资料
         /// </summary>
-        public abstract void Insert();
+        public virtual void Insert() {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 获取一个值决定当前可否编辑选定数据资料
         /// </summary>
         /// <value><c>true</c>如果可以编辑的话; 否则为, <c>false</c>.</value>
         /// 返回
-        public abstract bool CanEdit { get; }
+        public virtual bool CanEdit { 
+            get { throw new NotImplementedException(); } 
+        }
         /// <summary>
         /// 编辑选定数据资料
         /// </summary>
-        public abstract void Edit();
+        public virtual void Edit() {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 获取一个值决定当前可否删除选定数据资料
         /// </summary>
         /// <value>返回<c>true</c>如果可以删除的话; 否则为, <c>false</c>.</value>
-        public abstract bool CanDelete { get; }
+        public virtual bool CanDelete { 
+            get { throw new NotImplementedException(); } 
+        }
         /// <summary>
         /// 删除选定数据资料
         /// </summary>
-        public abstract void Delete();
+        public virtual void Delete() {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 获取一个值决定当前数据列表是否可以展开
         /// </summary>
         /// <value>返回<c>true</c>如果可以展开的话; 否则为, <c>false</c>.</value>
-        public abstract bool CanExpand { get; }
+        public virtual bool CanExpand { 
+            get { throw new NotImplementedException(); } 
+        }
         /// <summary>
         /// 展开数据列表视图
         /// </summary>
-        public abstract void Expand();
+        public virtual void Expand() {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 获取一个值决定当前数据列表是否可以折叠
         /// </summary>
         /// <value>返回<c>true</c>如果可以折叠的话; 否则为, <c>false</c>.</value>
-        public abstract bool CanCollaspe { get; }
+        public virtual bool CanCollaspe { 
+            get { throw new NotImplementedException(); } 
+        }
         /// <summary>
         /// 折叠数据列表视图
         /// </summary>
-        public abstract void Collaspe();
+        public virtual void Collaspe() {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 获取一个值决定当前数据列表是否可以刷新
         /// </summary>
         /// <value>返回<c>true</c>如果可以刷新的话; 否则为, <c>false</c>.</value>
-        public abstract bool CanRefresh { get; }
+        public virtual bool CanRefreshDataSource { 
+            get { throw new NotImplementedException(); }
+        }
         /// <summary>
         /// Forces the control to invalidate its client area and immediately redraw itself and any child controls.
         /// </summary>
@@ -111,7 +134,9 @@ namespace Uniframework.SmartClient
         /// 	<IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/>
         /// 	<IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
         /// </PermissionSet>
-        public new abstract void Refresh();
+        public virtual void RefreshDataSource() {
+            throw new NotImplementedException();
+        }
 
         #endregion
 

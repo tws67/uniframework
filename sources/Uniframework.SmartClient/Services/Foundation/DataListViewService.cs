@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 using Microsoft.Practices.CompositeUI;
-using Microsoft.Practices.CompositeUI.Common;
-using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI.Commands;
+using Microsoft.Practices.CompositeUI.Common;
 
 namespace Uniframework.SmartClient
 {
@@ -71,10 +71,10 @@ namespace Uniframework.SmartClient
         }
 
 
-        public void Register(object datagrid)
+        public void Register(object dataList)
         {
-            IDataListHandler handler = FactoryCatalog.GetFactory(datagrid).GetAdapter(datagrid);
-            views.Add(datagrid, handler);
+            IDataListHandler handler = FactoryCatalog.GetFactory(dataList).GetAdapter(dataList);
+            views.Add(dataList, handler);
             Register(handler);
         }
 
@@ -85,11 +85,11 @@ namespace Uniframework.SmartClient
             handler.Leave -= OnEnter;
         }
 
-        public void UnRegister(object datagrid)
+        public void UnRegister(object dataList)
         {
-            if (views.ContainsKey(datagrid)) {
-                UnRegister(views[datagrid]);
-                views.Remove(datagrid);
+            if (views.ContainsKey(dataList)) {
+                UnRegister(views[dataList]);
+                views.Remove(dataList);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Uniframework.SmartClient
         public void OnRefresh(object sender, EventArgs e)
         {
             Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Refresh();
+            ActiveView.RefreshDataSource();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_EXPAND)]
@@ -164,7 +164,7 @@ namespace Uniframework.SmartClient
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_DELETE, enabled && ActiveView.CanDelete);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EXPAND, enabled && ActiveView.CanExpand);
             SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && ActiveView.CanCollaspe);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && ActiveView.CanRefresh);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && ActiveView.CanRefreshDataSource);
         }
 
         private void OnEnter(object sender, EventArgs e)

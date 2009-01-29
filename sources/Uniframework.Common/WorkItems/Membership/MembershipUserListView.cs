@@ -1,27 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using Microsoft.Practices.ObjectBuilder;
-using DevExpress.XtraTreeList;
 
-namespace Uniframework.SmartClient.Views
+using DevExpress.XtraEditors;
+using DevExpress.XtraTreeList;
+using Microsoft.Practices.ObjectBuilder;
+
+namespace Uniframework.Common.WorkItems.Membership
 {
     [AuthResource("系统公共模块", "/Shell/Module/Foundation/MembershipUser")] 
-    public partial class MembershipUserView : DevExpress.XtraEditors.XtraUserControl
+    public partial class MembershipUserListView : DevExpress.XtraEditors.XtraUserControl
     {
-        public MembershipUserView()
+        public MembershipUserListView()
         {
             InitializeComponent();
         }
 
-        private MembershipUserPresenter presenter;
+        private MembershipUserListPresenter presenter;
         [CreateNew]
-        public MembershipUserPresenter Presenter
+        public MembershipUserListPresenter Presenter
         {
             get { return presenter; }
             set {

@@ -1,6 +1,6 @@
-namespace Uniframework.SmartClient.Views
+namespace Uniframework.Common.WorkItems.Membership
 {
-    partial class MembershipUserView
+    partial class MembershipUserListView
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Uniframework.SmartClient.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MembershipUserView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MembershipUserListView));
             this.tlBlending = new DevExpress.XtraTreeList.Blending.XtraTreeListBlending();
             this.tlUser = new DevExpress.XtraTreeList.TreeList();
             this.colUserName = new DevExpress.XtraTreeList.Columns.TreeListColumn();

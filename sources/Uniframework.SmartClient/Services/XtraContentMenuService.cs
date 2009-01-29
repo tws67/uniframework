@@ -78,7 +78,8 @@ namespace Uniframework.SmartClient
 
             if(contents.ContainsKey(name)) {
                 foreach (BarItemLink link in contents[name].ItemLinks) {
-                    content.AddItem(link.Item);
+                    BarItemLink barlink = content.AddItem(link.Item);
+                    barlink.BeginGroup = link.BeginGroup;
                 }
             }
                 

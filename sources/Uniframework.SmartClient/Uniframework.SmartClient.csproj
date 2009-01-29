@@ -177,13 +177,6 @@
     <Compile Include="Views\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MembershipUserPresenter.cs" />
-    <Compile Include="Views\MembershipUserView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\MembershipUserView.Designer.cs">
-      <DependentUpon>MembershipUserView.cs</DependentUpon>
-    </Compile>
     <Compile Include="WorkItems\DataList\DataListBaseView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -250,10 +243,6 @@
       <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
       <Name>ObjectBuilder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Uniframework.Database\Uniframework.Database.csproj">
-      <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
-      <Name>Uniframework.Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Uniframework.XtraForms\Uniframework.XtraForms.csproj">
       <Project>{E9CBA808-D476-4034-9FD7-ABBF69D13B2B}</Project>
       <Name>Uniframework.XtraForms</Name>
@@ -288,9 +277,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MembershipUserView.resx">
-      <DependentUpon>MembershipUserView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\DataList\DataListBaseView.resx">
       <DependentUpon>DataListBaseView.cs</DependentUpon>
