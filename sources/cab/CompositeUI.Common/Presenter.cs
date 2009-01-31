@@ -13,7 +13,7 @@ namespace Microsoft.Practices.CompositeUI.Common
         private WorkItem workItem;
 
         /// <summary>
-        /// 工作项，商业用例
+        /// 工作项
         /// </summary>
         [ServiceDependency]
         public WorkItem WorkItem
@@ -67,7 +67,7 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// <typeparam name="TView">The type of the smart part to create and show.</typeparam>
         /// <param name="workspaceName">The name of the workspace in which to show the smart part.</param>
         /// <returns>The new smart part instance.</returns>
-        protected virtual TView ShowViewInWorkspace<TView>(string workspaceName)
+        public virtual TView ShowViewInWorkspace<TView>(string workspaceName)
         {
             TView view = WorkItem.SmartParts.AddNew<TView>();
             IWorkspace wp = WorkItem.Workspaces.Get(workspaceName);
@@ -83,7 +83,7 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// <param name="workspaceName">Name of the workspace.</param>
         /// <param name="spi">The spi.</param>
         /// <returns></returns>
-        protected virtual TView ShowViewInWorkspace<TView>(string workspaceName, ISmartPartInfo spi)
+        public virtual TView ShowViewInWorkspace<TView>(string workspaceName, ISmartPartInfo spi)
         {
             TView view = WorkItem.SmartParts.AddNew<TView>();
             IWorkspace wp = WorkItem.Workspaces.Get(workspaceName);
@@ -101,7 +101,7 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// <param name="viewId">The id of the smart part in the <see cref="WorkItem.SmartParts"/> collection.</param>
         /// <param name="workspaceName">The name of the workspace in which to show the smart part.</param>
         /// <returns>The smart part instance.</returns>
-        protected virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName)
+        public virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName)
         {
             TView view = default(TView);
             if (WorkItem.SmartParts.Contains(viewId))
@@ -128,7 +128,7 @@ namespace Microsoft.Practices.CompositeUI.Common
         /// <param name="workspaceName">Name of the workspace.</param>
         /// <param name="spi">The spi.</param>
         /// <returns></returns>
-        protected virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName, ISmartPartInfo spi)
+        public virtual TView ShowViewInWorkspace<TView>(string viewId, string workspaceName, ISmartPartInfo spi)
         {
             TView view = default(TView);
             if (WorkItem.SmartParts.Contains(viewId))

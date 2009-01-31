@@ -208,6 +208,11 @@ namespace Uniframework.Services
             return Roles.GetRolesForUser(username);
         }
 
+        public string[] GetUsersForRole(string rolename)
+        {
+            return Roles.GetUsersInRole(rolename);
+        }
+
         /// <summary>
         /// 	<seealso cref="Roles.AddUserToRole"/>
         /// </summary>

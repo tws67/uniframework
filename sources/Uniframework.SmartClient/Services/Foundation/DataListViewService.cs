@@ -11,15 +11,15 @@ using Microsoft.Practices.CompositeUI.Common;
 namespace Uniframework.SmartClient
 {
     /// <summary>
-    /// 数据列表服务
+    /// 数据列表视图服务
     /// </summary>
     public class DataListViewService : IDataListViewService
     {
-        private IDataListHandler activeView = null;
-        private Dictionary<object, IDataListHandler> views = new Dictionary<object, IDataListHandler>();
+        private IDataListHandler handler = null;
+        private Dictionary<object, IDataListView> views = new Dictionary<object, IDataListView>();
 
         private WorkItem workItem;
-        private IAdapterFactoryCatalog<IDataListHandler> factoryCatalog;
+        private IAdapterFactoryCatalog<IDataListView> factoryCatalog;
         
         #region Dependency services
 
@@ -34,7 +34,7 @@ namespace Uniframework.SmartClient
         }
 
         [ServiceDependency]
-        public IAdapterFactoryCatalog<IDataListHandler> FactoryCatalog
+        public IAdapterFactoryCatalog<IDataListView> FactoryCatalog
         {
             get { return factoryCatalog; }
             set { factoryCatalog = value; }
@@ -52,37 +52,37 @@ namespace Uniframework.SmartClient
         /// Gets or sets the active view.
         /// </summary>
         /// <value>The active view.</value>
-        public IDataListHandler ActiveView
+        public IDataListHandler Handler
         {
-            get { return activeView; }
+            get { return handler; }
             protected set { 
-                activeView = value;
+                handler = value;
                 UpdateCommandStatus();
             }
         }
 
         #region IDataGridViewService Members
 
-        public void Register(IDataListHandler handler)
+        public void Register(IDataListView handler)
         {
             Guard.ArgumentNotNull(handler, "Data grid view handler");
-            handler.Enter += new EventHandler(OnLeave);
-            handler.Leave += new EventHandler(OnEnter);
+            handler.Enter += new EventHandler(OnEnter);
+            handler.Leave += new EventHandler(OnLeave);
         }
 
 
         public void Register(object dataList)
         {
-            IDataListHandler handler = FactoryCatalog.GetFactory(dataList).GetAdapter(dataList);
+            IDataListView handler = FactoryCatalog.GetFactory(dataList).GetAdapter(dataList);
             views.Add(dataList, handler);
             Register(handler);
         }
 
-        public void UnRegister(IDataListHandler handler)
+        public void UnRegister(IDataListView handler)
         {
             Guard.ArgumentNotNull(handler, "Data grid view handler");
-            handler.Enter -= OnLeave;
-            handler.Leave -= OnEnter;
+            handler.Enter -= OnEnter;
+            handler.Leave -= OnLeave;
         }
 
         public void UnRegister(object dataList)
@@ -100,43 +100,43 @@ namespace Uniframework.SmartClient
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_INSERT)]
         public void OnInsert(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Insert();
+            Guard.ArgumentNotNull(Handler, "Handler");
+            Handler.Insert();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_EDIT)]
         public void OnEdit(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Edit();
+            Guard.ArgumentNotNull(Handler, "Handler");
+            Handler.Edit();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_DELETE)]
         public void OnDelete(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Delete();
+            Guard.ArgumentNotNull(Handler, "Handler");
+            Handler.Delete();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_REFRESH)]
         public void OnRefresh(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.RefreshDataSource();
+            Guard.ArgumentNotNull(Handler, "Handler");
+            Handler.RefreshDataSource();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_EXPAND)]
         public void OnExpand(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Expand();
+            Guard.ArgumentNotNull(Handler, "Handler");
+            Handler.Expand();
         }
 
         [CommandHandler(CommandHandlerNames.CMD_DATAGRID_COLLAPSE)]
         public void OnCollapse(object sender, EventArgs e)
         {
-            Guard.ArgumentNotNull(ActiveView, "ActiveView");
-            ActiveView.Collaspe();
+            Guard.ArgumentNotNull(Handler, "Handler");
+            Handler.Collaspe();
         }
 
         #endregion
@@ -157,27 +157,31 @@ namespace Uniframework.SmartClient
 
         private void UpdateCommandStatus()
         {
-            bool enabled = ActiveView != null;
+            bool enabled = Handler != null;
 
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_INSERT, enabled && ActiveView.CanInsert);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EDIT, enabled && ActiveView.CanEdit);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_DELETE, enabled && ActiveView.CanDelete);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EXPAND, enabled && ActiveView.CanExpand);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && ActiveView.CanCollaspe);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && ActiveView.CanRefreshDataSource);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_INSERT, enabled && Handler.CanInsert);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EDIT, enabled && Handler.CanEdit);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_DELETE, enabled && Handler.CanDelete);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EXPAND, enabled && Handler.CanExpand);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && Handler.CanCollaspe);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && Handler.CanRefreshDataSource);
         }
 
         private void OnEnter(object sender, EventArgs e)
         {
-            activeView = null;
-            UpdateCommandStatus();
+            Microsoft.Practices.CompositeUI.Utility.Guard.TypeIsAssignableFromType(sender.GetType(), typeof(IDataListView), "sender");
+
+            // 获得当前视图的控制器
+            handler = null;
+            IDataListView view = sender as IDataListView;
+            if (view != null)
+                handler = view.DataListHandler;
+            UpdateCommandStatus(); // 更新相关命令项的状态
         }
 
         private void OnLeave(object sender, EventArgs e)
         {
-            Microsoft.Practices.CompositeUI.Utility.Guard.TypeIsAssignableFromType(sender.GetType(), typeof(IDataListHandler), "sender");
-
-            activeView = (IDataListHandler)sender;
+            handler = null;
             UpdateCommandStatus();
         }
 

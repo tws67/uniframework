@@ -7,10 +7,11 @@ using System.Web.Security;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 using Uniframework.Services;
+using Uniframework.SmartClient;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
-    public class MembershipUserListPresenter : Presenter<MembershipUserListView>
+    public class MembershipUserListPresenter : DataListPresenter<MembershipUserListView>
     {
         #region Dependency Services
 
@@ -40,6 +41,18 @@ namespace Uniframework.Common.WorkItems.Membership
                     View.UsersList.EndUpdate();
                 }
             }
+        }
+
+        public override void OnViewReady()
+        {
+            base.OnViewReady();
+            RefreshMembershipUsers();
+        }
+
+        public override void RefreshDataSource()
+        {
+            base.RefreshDataSource();
+            RefreshMembershipUsers();
         }
     }
 }

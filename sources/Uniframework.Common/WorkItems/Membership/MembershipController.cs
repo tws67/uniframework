@@ -27,7 +27,7 @@ namespace Uniframework.Common.WorkItems.Membership
             WindowSmartPartInfo spi = new WindowSmartPartInfo();
             spi.Title = "用户管理";
 
-            ShowViewInWorkspace<MembershipUserListView>(SmartPartNames.SmartPart_Shell_MembershipUserView, UIExtensionSiteNames.Shell_Workspace_Main, spi);
+            ShowViewInWorkspace<MembershipUserListView>(SmartPartNames.MembershipUserListView, UIExtensionSiteNames.Shell_Workspace_Main, spi);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Uniframework.Common.WorkItems.Membership
             WindowSmartPartInfo spi = new WindowSmartPartInfo();
             spi.Title = "角色管理";
 
-            ShowViewInWorkspace<MembershipRoleListView>(SmartPartNames.SmartPart_Shell_MembershipRoleView, UIExtensionSiteNames.Shell_Workspace_Main, spi);
+            ShowViewInWorkspace<MembershipRoleListView>(SmartPartNames.MembershipRoleListView, UIExtensionSiteNames.Shell_Workspace_Main, spi);
         }
     }
 }

@@ -105,6 +105,13 @@ namespace Uniframework.Services
         [RemoteMethod("FUNC://Membership/GetRolesForUser")]
         string[] GetRolesForUser(string username);
         /// <summary>
+        /// Gets the users for role.
+        /// </summary>
+        /// <param name="rolename">The rolename.</param>
+        /// <returns></returns>
+        [RemoteMethod("FUNC://Membership/GetUsersForRole")]
+        string[] GetUsersForRole(string rolename);
+        /// <summary>
         /// <seealso cref="Roles.AddUserToRole"/>
         /// </summary>
         [RemoteMethod("FUNC://Membership/AddUserToRole")]

@@ -15,7 +15,7 @@ namespace Uniframework.XtraForms.Workspaces
     /// </summary>
     public class XtraWindowWorkspace : Workspace<Control, XtraWindowSmartPartInfo>
     {
-        private readonly Dictionary<Control, XtraForm> windowDictionary = new Dictionary<Control, XtraForm>();
+        private readonly Dictionary<Control, XtraForm> windows = new Dictionary<Control, XtraForm>();
         private bool fireActivatedFromForm = true;
         readonly IWin32Window ownerForm;
 
@@ -40,7 +40,7 @@ namespace Uniframework.XtraForms.Workspaces
         [Browsable(false)]
         public ReadOnlyDictionary<Control, XtraForm> Windows
         {
-            get { return new ReadOnlyDictionary<Control, XtraForm>(windowDictionary); }
+            get { return new ReadOnlyDictionary<Control, XtraForm>(windows); }
         }
 
         /// <summary>
@@ -50,19 +50,18 @@ namespace Uniframework.XtraForms.Workspaces
         /// <returns></returns>
         protected Form GetOrCreateForm(Control control)
         {
-            XtraWindowForm form;
-            if (windowDictionary.ContainsKey(control))
-            {
-                form = (XtraWindowForm)windowDictionary[control];
+            XtraWindowForm form = null;
+            if (windows.ContainsKey(control)) {
+                form = windows[control] as XtraWindowForm;
             }
-            else
-            {
+            else {
                 form = new XtraWindowForm();
-                windowDictionary.Add(control, form);
+                windows.Add(control, form);
                 form.Controls.Add(control);
                 CalculateSize(control, form);
                 control.Dock = DockStyle.Fill;
                 control.Disposed += ControlDisposed;
+                control.Show();
                 WireUpForm(form);
             }
 
@@ -101,6 +100,8 @@ namespace Uniframework.XtraForms.Workspaces
             // be if it's FormStartPosition.CenterParent position is set
             if (info.StartPosition != FormStartPosition.CenterParent)
                 form.Location = info.Location;
+            else
+                form.StartPosition = FormStartPosition.CenterParent;
         }
 
         private void ControlDisposed(object sender, EventArgs e)
@@ -130,7 +131,10 @@ namespace Uniframework.XtraForms.Workspaces
 
         private void WindowFormClosed(object sender, WorkspaceEventArgs e)
         {
-            RemoveEntry((Control)e.SmartPart);
+            XtraForm form = windows[(Control)e.SmartPart];
+            if (form != null)
+                form.Controls.Remove((Control)e.SmartPart);
+            windows.Remove((Control)e.SmartPart);
             InnerSmartParts.Remove((Control)e.SmartPart);
         }
 
@@ -146,7 +150,7 @@ namespace Uniframework.XtraForms.Workspaces
 
         private void RemoveEntry(Control spcontrol)
         {
-            windowDictionary.Remove(spcontrol);
+            windows.Remove(spcontrol);
         }
 
     	private void ShowForm(Form form, XtraWindowSmartPartInfo smartPartInfo)
@@ -254,7 +258,7 @@ namespace Uniframework.XtraForms.Workspaces
             try
             {
                 fireActivatedFromForm = false;	// Prevent double firing from composer Workspace class and form
-                Form form = windowDictionary[smartPart];
+                Form form = windows[smartPart];
                 form.BringToFront();
                 form.Show();
             }
@@ -269,7 +273,7 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnHide(Control smartPart)
         {
-            Form form = windowDictionary[smartPart];
+            Form form = windows[smartPart];
             form.Hide();
         }
 
@@ -278,13 +282,12 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnClose(Control smartPart)
         {
-            Form form = windowDictionary[smartPart];
+            Form form = windows[smartPart];
+            form.Controls.Remove(smartPart);	// Remove the smartPart from the form to avoid disposing it.
             smartPart.Disposed -= ControlDisposed;
 
-            form.Controls.Remove(smartPart);	// Remove the smartPart from the form to avoid disposing it.
-
             form.Close();
-            windowDictionary.Remove(smartPart);
+            windows.Remove(smartPart);
         }
 
         /// <summary>
@@ -293,7 +296,7 @@ namespace Uniframework.XtraForms.Workspaces
         /// </summary>
         protected override void OnApplySmartPartInfo(Control smartPart, XtraWindowSmartPartInfo smartPartInfo)
         {
-            Form form = windowDictionary[smartPart];
+            Form form = windows[smartPart];
             SetWindowProperties(form, smartPartInfo);
             SetWindowLocation(form, smartPartInfo);
         }

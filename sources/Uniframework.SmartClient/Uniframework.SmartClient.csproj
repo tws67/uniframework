@@ -162,7 +162,7 @@
     <Compile Include="SmartClientEnvironment.cs" />
     <Compile Include="SmartFormApplication.cs" />
     <Compile Include="Strategies\AuthorizationStrategy.cs" />
-    <Compile Include="Strategies\DataListStrategy.cs" />
+    <Compile Include="Strategies\DataListViewStrategy.cs" />
     <Compile Include="Strategies\StrategyUtility.cs" />
     <Compile Include="Strategies\TextEditAdapterStrategy.cs" />
     <Compile Include="Strategies\XtraContentMenuStrategy.cs" />
@@ -177,13 +177,9 @@
     <Compile Include="Views\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkItems\DataList\DataListBaseView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WorkItems\DataList\DataListBaseView.Designer.cs">
-      <DependentUpon>DataListBaseView.cs</DependentUpon>
-    </Compile>
     <Compile Include="WorkItems\DataList\DataListController.cs" />
+    <Compile Include="WorkItems\DataList\DataListPresenter.cs" />
+    <Compile Include="WorkItems\DataList\IDataListView.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpView.cs">
@@ -277,9 +273,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WorkItems\DataList\DataListBaseView.resx">
-      <DependentUpon>DataListBaseView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Help\DynamicHelpView.resx">
       <DependentUpon>DynamicHelpView.cs</DependentUpon>
