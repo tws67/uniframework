@@ -9,11 +9,12 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTreeList;
 using Microsoft.Practices.ObjectBuilder;
+using Uniframework.SmartClient;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
     [AuthResource("系统公共模块", "/Shell/Module/Foundation/MembershipUser")] 
-    public partial class MembershipUserListView : DevExpress.XtraEditors.XtraUserControl
+    public partial class MembershipUserListView : DevExpress.XtraEditors.XtraUserControl, IDataListView
     {
         public MembershipUserListView()
         {
@@ -25,7 +26,8 @@ namespace Uniframework.Common.WorkItems.Membership
         public MembershipUserListPresenter Presenter
         {
             get { return presenter; }
-            set {
+            set
+            {
                 presenter = value;
                 presenter.View = this;
             }
@@ -41,9 +43,25 @@ namespace Uniframework.Common.WorkItems.Membership
             bsUser.DataSource = datasource;
         }
 
-        private void MembershipUserView_Load(object sender, EventArgs e)
+        private void MembershipUserListView_Load(object sender, EventArgs e)
         {
-            Presenter.RefreshMembershipUsers();
+            Presenter.OnViewReady();
         }
+
+        #region IDataListView Members
+
+        public IDataListHandler DataListHandler
+        {
+            get {
+                return Presenter as IDataListHandler;
+            }
+        }
+
+        public bool ReadOnly
+        {
+            get { return false; }
+        }
+
+        #endregion
     }
 }

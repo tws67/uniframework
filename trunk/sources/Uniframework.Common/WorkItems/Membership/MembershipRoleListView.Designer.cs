@@ -29,32 +29,51 @@ namespace Uniframework.Common.WorkItems.Membership
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MembershipRoleListView));
             this.tlRole = new DevExpress.XtraTreeList.TreeList();
-            this.colRole = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.bsRole = new System.Windows.Forms.BindingSource(this.components);
+            this.colRoleName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.ilRoles = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tlRole)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsRole)).BeginInit();
             this.SuspendLayout();
             // 
             // tlRole
             // 
             this.tlRole.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
-            this.colRole});
-            this.tlRole.DataSource = this.bsRole;
+            this.colRoleName});
+            this.tlRole.ColumnsImageList = this.ilRoles;
             this.tlRole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlRole.Location = new System.Drawing.Point(0, 0);
             this.tlRole.Name = "tlRole";
-            this.tlRole.Size = new System.Drawing.Size(670, 383);
-            this.tlRole.TabIndex = 0;
+            this.tlRole.OptionsBehavior.AutoMoveRowFocus = true;
+            this.tlRole.OptionsBehavior.Editable = false;
+            this.tlRole.OptionsBehavior.KeepSelectedOnClick = false;
+            this.tlRole.OptionsBehavior.SmartMouseHover = false;
+            this.tlRole.OptionsView.ShowHorzLines = false;
+            this.tlRole.OptionsView.ShowIndicator = false;
+            this.tlRole.OptionsView.ShowRoot = false;
+            this.tlRole.OptionsView.ShowVertLines = false;
+            this.tlRole.Size = new System.Drawing.Size(690, 435);
+            this.tlRole.StateImageList = this.ilRoles;
+            this.tlRole.TabIndex = 1;
             this.tlRole.Tag = "/Shell/Module/Foundation/ContentMenu/MembershipRole";
+            this.tlRole.AfterFocusNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tlRole_AfterFocusNode);
             // 
-            // colRole
+            // colRoleName
             // 
-            this.colRole.Caption = "角色名称";
-            this.colRole.Name = "colRole";
-            this.colRole.OptionsColumn.AllowSize = false;
-            this.colRole.Visible = true;
-            this.colRole.VisibleIndex = 0;
+            this.colRoleName.Caption = "角色名称";
+            this.colRoleName.FieldName = "RoleName";
+            this.colRoleName.Name = "colRoleName";
+            this.colRoleName.OptionsColumn.AllowSize = false;
+            this.colRoleName.SortOrder = System.Windows.Forms.SortOrder.Ascending;
+            this.colRoleName.Visible = true;
+            this.colRoleName.VisibleIndex = 0;
+            this.colRoleName.Width = 256;
+            // 
+            // ilRoles
+            // 
+            this.ilRoles.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilRoles.ImageStream")));
+            this.ilRoles.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilRoles.Images.SetKeyName(0, "businessmen.ico");
             // 
             // MembershipRoleListView
             // 
@@ -62,10 +81,9 @@ namespace Uniframework.Common.WorkItems.Membership
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tlRole);
             this.Name = "MembershipRoleListView";
-            this.Size = new System.Drawing.Size(670, 383);
+            this.Size = new System.Drawing.Size(690, 435);
             this.Load += new System.EventHandler(this.MembershipRoleListView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tlRole)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsRole)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -73,8 +91,7 @@ namespace Uniframework.Common.WorkItems.Membership
         #endregion
 
         private DevExpress.XtraTreeList.TreeList tlRole;
-        private DevExpress.XtraTreeList.Columns.TreeListColumn colRole;
-        private System.Windows.Forms.BindingSource bsRole;
-
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colRoleName;
+        private System.Windows.Forms.ImageList ilRoles;
     }
 }

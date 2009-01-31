@@ -81,7 +81,11 @@ namespace Uniframework.SmartClient
             }
             if (element.Configuration.Attributes["shortcut"] != null) {
                 string key = element.Configuration.Attributes["shortcut"];
-                item.ItemShortcut = new BarShortcut((Shortcut)Enum.Parse(typeof(Shortcut), key));
+                try {
+                    item.ItemShortcut = new BarShortcut((Shortcut)Enum.Parse(typeof(Shortcut), key));
+                }
+                catch { 
+                }
             }
 
             BarItemExtend extend = new BarItemExtend();

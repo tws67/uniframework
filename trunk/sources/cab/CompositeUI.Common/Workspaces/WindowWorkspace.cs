@@ -168,6 +168,11 @@ namespace Microsoft.Practices.CompositeUI.Common
             }
         }
 
+        /// <summary>
+        /// 此处修复了Window Workspace视图关闭后再次打开出错的问题
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WindowFormClosed(object sender, WorkspaceEventArgs e)
         {
             Form form = windows[(Control)e.SmartPart];

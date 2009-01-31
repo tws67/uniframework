@@ -72,6 +72,7 @@ namespace Uniframework.StartUp
             RootWorkItem.Workspaces.Add(new MdiWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Main);
             RootWorkItem.Workspaces.Add(Shell.DockWorkspace, UIExtensionSiteNames.Shell_Workspace_Dockable);
             RootWorkItem.Workspaces.Add(Shell.NaviWorkspace, UIExtensionSiteNames.Shell_Workspace_NaviPane);
+            RootWorkItem.Workspaces.Add(new XtraWindowWorkspace(Shell), UIExtensionSiteNames.Shell_Workspace_Window);
 
             Program.SetInitialState("正在初始化用户使用界面……");
             RegisterCommandHandler();

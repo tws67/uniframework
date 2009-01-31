@@ -13,15 +13,6 @@ namespace Uniframework.SmartClient
         #region Methods && Properties
 
         /// <summary>
-        /// Occurs when [data grid actived].
-        /// </summary>
-        event EventHandler Enter;
-        /// <summary>
-        /// Occurs when [data grid deactived].
-        /// </summary>
-        event EventHandler Leave;
-
-        /// <summary>
         /// 初始化数据列表操作只在数据列表第一次加载时使用
         /// </summary>
         void Initilize();

@@ -11,7 +11,7 @@ namespace Uniframework.SmartClient.Strategies
     /// <summary>
     /// 数据列表连接器
     /// </summary>
-    public class DataListStrategy : BuilderStrategy
+    public class DataListViewStrategy : BuilderStrategy
     {
         /// <summary>
         /// See <see cref="IBuilderStrategy.BuildUp"/> for more information.
@@ -26,9 +26,10 @@ namespace Uniframework.SmartClient.Strategies
             WorkItem workItem = StrategyUtility.GetWorkItem(context, existing);
             if (workItem != null) {
                 IDataListViewService dataService = workItem.Services.Get<IDataListViewService>();
+
                 // 如果视图实现了数据列表服务则在系统中注册它
-                if (dataService != null && existing is IDataListHandler) {
-                    IDataListHandler handler = existing as IDataListHandler;
+                if (dataService != null && existing is IDataListView) {
+                    IDataListView handler = existing as IDataListView;
                     dataService.Register(handler);
                 }
             }
@@ -47,8 +48,9 @@ namespace Uniframework.SmartClient.Strategies
             WorkItem workItem = StrategyUtility.GetWorkItem(context, item);
             if (workItem != null) {
                 IDataListViewService dataService = workItem.Services.Get<IDataListViewService>();
-                if (dataService != null && item is IDataListHandler) {
-                    IDataListHandler handler = item as IDataListHandler;
+
+                if (dataService != null && item is IDataListView) {
+                    IDataListView handler = item as IDataListView;
                     dataService.UnRegister(handler);
                 }
             }

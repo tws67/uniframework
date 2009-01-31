@@ -51,7 +51,8 @@ namespace Uniframework.SmartClient
             
             RootWorkItem.Services.Add<IDb4oDatabaseService>(new Db4oDatabaseService(dbPath)); // Db4o数据库服务
 
-            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListHandler>, IAdapterFactoryCatalog<IDataListHandler>>();
+            //RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListHandler>, IAdapterFactoryCatalog<IDataListHandler>>();
+            RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListView>, IAdapterFactoryCatalog<IDataListView>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
             RootWorkItem.Services.AddOnDemand<PropertyService, IPropertyService>();
             RootWorkItem.Services.AddOnDemand<SettingService, ISettingService>();
@@ -71,12 +72,11 @@ namespace Uniframework.SmartClient
         {
             base.AddBuilderStrategies(builder);
 
-            //builder.Strategies.AddNew<EventConnectStrategy>(BuilderStage.Initialization); // 添加远程事件连接策略
             builder.Strategies.AddNew<TextEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraGridEditAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraPrintAdapterStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraDocumentAdapterStrategy>(BuilderStage.Initialization);
-            builder.Strategies.AddNew<DataListStrategy>(BuilderStage.Initialization);
+            builder.Strategies.AddNew<DataListViewStrategy>(BuilderStage.Initialization);
             builder.Strategies.AddNew<XtraContentMenuStrategy>(BuilderStage.Initialization);
         }
 

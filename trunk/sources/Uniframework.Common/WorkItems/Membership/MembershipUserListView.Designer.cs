@@ -66,6 +66,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlUser.OptionsView.ShowRoot = false;
             this.tlUser.OptionsView.ShowVertLines = false;
             this.tlUser.ParentFieldName = "";
+            this.tlUser.SelectImageList = this.ilUsers;
             this.tlUser.Size = new System.Drawing.Size(779, 463);
             this.tlUser.TabIndex = 0;
             this.tlUser.Tag = "/Shell/Module/Foundation/ContentMenu/MembershipUser";
@@ -76,6 +77,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.colUserName.FieldName = "UserName";
             this.colUserName.MinWidth = 128;
             this.colUserName.Name = "colUserName";
+            this.colUserName.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.colUserName.Visible = true;
             this.colUserName.VisibleIndex = 0;
             this.colUserName.Width = 133;
@@ -116,14 +118,14 @@ namespace Uniframework.Common.WorkItems.Membership
             this.ilUsers.TransparentColor = System.Drawing.Color.Transparent;
             this.ilUsers.Images.SetKeyName(0, "businessman.ico");
             // 
-            // MembershipUserView
+            // MembershipUserListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tlUser);
-            this.Name = "MembershipUserView";
+            this.Name = "MembershipUserListView";
             this.Size = new System.Drawing.Size(779, 463);
-            this.Load += new System.EventHandler(this.MembershipUserView_Load);
+            this.Load += new System.EventHandler(this.MembershipUserListView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tlUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsUser)).EndInit();
             this.ResumeLayout(false);

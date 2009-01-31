@@ -63,16 +63,47 @@
     </Compile>
     <Compile Include="CommonController.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
+    <Compile Include="Constants\EventNames.cs" />
     <Compile Include="Constants\SmartPartNames.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\frmMembershipRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\frmMembershipRole.Designer.cs">
+      <DependentUpon>frmMembershipRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipRolePresenter.cs" />
+    <Compile Include="WorkItems\Membership\MembershipUserChoiseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserChoiseView.Designer.cs">
+      <DependentUpon>MembershipUserChoiseView.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Membership\MembershipController.cs" />
+    <Compile Include="WorkItems\Membership\MembershipRoleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipRoleControl.Designer.cs">
+      <DependentUpon>MembershipRoleControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Membership\MembershipRoleListPresenter.cs" />
     <Compile Include="WorkItems\Membership\MembershipRoleListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkItems\Membership\MembershipRoleListView.Designer.cs">
       <DependentUpon>MembershipRoleListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipRoleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipRoleView.Designer.cs">
+      <DependentUpon>MembershipRoleView.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Membership\MembershipUserListPresenter.cs" />
     <Compile Include="WorkItems\Membership\MembershipUserListView.cs">
@@ -123,14 +154,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\businessmen.ico" />
     <Content Include="Uniframework.Common.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\frmMembershipRole.resx">
+      <DependentUpon>frmMembershipRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipUserChoiseView.resx">
+      <DependentUpon>MembershipUserChoiseView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipRoleControl.resx">
+      <DependentUpon>MembershipRoleControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\MembershipRoleListView.resx">
       <DependentUpon>MembershipRoleListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipRoleView.resx">
+      <DependentUpon>MembershipRoleView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\MembershipUserListView.resx">
       <DependentUpon>MembershipUserListView.cs</DependentUpon>

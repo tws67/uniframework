@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="UIElements\XtraTreeUIAdapterFactory.cs" />
     <Compile Include="Workspaces\DockManagerWorkspace.cs" />
+    <Compile Include="Workspaces\XtraMdiWorkspace.cs" />
     <Compile Include="Workspaces\XtraNavBarWorkspace.cs">
       <SubType>Component</SubType>
     </Compile>
