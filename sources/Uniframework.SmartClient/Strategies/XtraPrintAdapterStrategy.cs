@@ -10,9 +10,13 @@ using DevExpress.XtraPrinting;
 using DevExpress.XtraTreeList;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.ObjectBuilder;
+using DevExpress.XtraLayout;
 
 namespace Uniframework.SmartClient.Strategies
 {
+    /// <summary>
+    /// Xtra打印适配器，在此注册框架中允许直接打印的Xtra控件并设置相关控件的弹出菜单样式
+    /// </summary>
     public class XtraPrintAdapterStrategy : BuilderStrategy
     {
         public override object BuildUp(IBuilderContext context, Type typeToBuild, object existing, string idToBuild)
@@ -61,6 +65,8 @@ namespace Uniframework.SmartClient.Strategies
                                 ((GridControl)ctrl).MenuManager = barManager;
                             if (ctrl is TreeList)    // 树视图
                                 ((TreeList)ctrl).MenuManager = barManager;
+                            if (ctrl is LayoutControl) // 布局控件
+                                ((LayoutControl)ctrl).MenuManager = barManager;
                         }
                     }
                 }

@@ -71,8 +71,8 @@ namespace Uniframework.SmartClient
                             addInNode.BuildChildItems(this);
                         }
                     }
-                    catch (Exception) {
-                        throw new UniframeworkException(String.Format("无法创建指定路径 \"{0} \" 的插件单元。", name));
+                    catch (Exception ex) {
+                        throw new UniframeworkException(String.Format("无法创建指定路径 \"{0} \" 的插件单元，{1}", name, ex.Message));
                     }
             }
 

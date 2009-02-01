@@ -29,10 +29,14 @@ namespace Uniframework.Common.WorkItems.Membership
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.CompareAgainstControlValidationRule compareAgainstControlValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.CompareAgainstControlValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            this.txtPassword = new DevExpress.XtraEditors.TextEdit();
             this.lcView = new DevExpress.XtraLayout.LayoutControl();
             this.txtEmail = new DevExpress.XtraEditors.TextEdit();
             this.txtConfirmPassword = new DevExpress.XtraEditors.TextEdit();
-            this.txtPassword = new DevExpress.XtraEditors.TextEdit();
             this.txtUserName = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -41,12 +45,15 @@ namespace Uniframework.Common.WorkItems.Membership
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.dxErrorProvider = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.dxValidation = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnOK = new DevExpress.XtraEditors.SimpleButton();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcView)).BeginInit();
             this.lcView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtConfirmPassword.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -55,8 +62,25 @@ namespace Uniframework.Common.WorkItems.Membership
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dxValidation)).BeginInit();
             this.SuspendLayout();
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.EditValue = "";
+            this.txtPassword.EnterMoveNextControl = true;
+            this.txtPassword.Location = new System.Drawing.Point(101, 39);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Properties.NullText = "用户登录使用的密码";
+            this.txtPassword.Properties.PasswordChar = '●';
+            this.txtPassword.Size = new System.Drawing.Size(188, 21);
+            this.txtPassword.StyleController = this.lcView;
+            this.txtPassword.TabIndex = 5;
+            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule3.ErrorText = "请为新帐户提供初始密码";
+            this.dxValidation.SetValidationRule(this.txtPassword, conditionValidationRule3);
             // 
             // lcView
             // 
@@ -65,60 +89,56 @@ namespace Uniframework.Common.WorkItems.Membership
             this.lcView.Controls.Add(this.txtPassword);
             this.lcView.Controls.Add(this.txtUserName);
             this.lcView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lcView.Location = new System.Drawing.Point(0, 0);
+            this.lcView.Location = new System.Drawing.Point(2, 2);
             this.lcView.Name = "lcView";
             this.lcView.Root = this.layoutControlGroup1;
-            this.lcView.Size = new System.Drawing.Size(485, 303);
-            this.lcView.TabIndex = 0;
+            this.lcView.Size = new System.Drawing.Size(556, 277);
+            this.lcView.TabIndex = 1;
             // 
             // txtEmail
             // 
+            this.txtEmail.EditValue = "";
             this.txtEmail.EnterMoveNextControl = true;
-            this.dxErrorProvider.SetError(this.txtEmail, "请为用户指定使用的唯一邮箱地址");
-            this.dxErrorProvider.SetErrorType(this.txtEmail, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
-            this.txtEmail.Location = new System.Drawing.Point(88, 103);
+            this.txtEmail.Location = new System.Drawing.Point(101, 103);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Properties.NullText = "用户唯一的邮箱地址";
-            this.txtEmail.Size = new System.Drawing.Size(391, 21);
+            this.txtEmail.Size = new System.Drawing.Size(449, 21);
             this.txtEmail.StyleController = this.lcView;
             this.txtEmail.TabIndex = 7;
-            this.txtEmail.EditValueChanged += new System.EventHandler(this.txtEmail_EditValueChanged);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.Contains;
+            conditionValidationRule1.ErrorText = "请提供有效的电子邮箱地址";
+            conditionValidationRule1.Value1 = "@";
+            this.dxValidation.SetValidationRule(this.txtEmail, conditionValidationRule1);
             // 
             // txtConfirmPassword
             // 
+            this.txtConfirmPassword.EditValue = "";
             this.txtConfirmPassword.EnterMoveNextControl = true;
-            this.dxErrorProvider.SetError(this.txtConfirmPassword, "您输入的密码前后不一致");
-            this.dxErrorProvider.SetErrorType(this.txtConfirmPassword, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
-            this.txtConfirmPassword.Location = new System.Drawing.Point(88, 71);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(101, 71);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Properties.NullText = "再次确认密码";
-            this.txtConfirmPassword.Size = new System.Drawing.Size(201, 21);
+            this.txtConfirmPassword.Properties.PasswordChar = '●';
+            this.txtConfirmPassword.Size = new System.Drawing.Size(188, 21);
             this.txtConfirmPassword.StyleController = this.lcView;
             this.txtConfirmPassword.TabIndex = 6;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.EnterMoveNextControl = true;
-            this.dxErrorProvider.SetError(this.txtPassword, "请为用户指定登录使用的密码");
-            this.dxErrorProvider.SetErrorType(this.txtPassword, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
-            this.txtPassword.Location = new System.Drawing.Point(88, 39);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Properties.NullText = "用户登录使用的密码";
-            this.txtPassword.Size = new System.Drawing.Size(201, 21);
-            this.txtPassword.StyleController = this.lcView;
-            this.txtPassword.TabIndex = 5;
+            compareAgainstControlValidationRule1.CompareControlOperator = DevExpress.XtraEditors.DXErrorProvider.CompareControlOperator.Equals;
+            compareAgainstControlValidationRule1.Control = this.txtPassword;
+            compareAgainstControlValidationRule1.ErrorText = "前后输入的密码不一致";
+            this.dxValidation.SetValidationRule(this.txtConfirmPassword, compareAgainstControlValidationRule1);
             // 
             // txtUserName
             // 
+            this.txtUserName.EditValue = "";
             this.txtUserName.EnterMoveNextControl = true;
-            this.dxErrorProvider.SetError(this.txtUserName, "必须为新建登录指定一个唯一的名称");
-            this.dxErrorProvider.SetErrorType(this.txtUserName, DevExpress.XtraEditors.DXErrorProvider.ErrorType.Default);
-            this.txtUserName.Location = new System.Drawing.Point(88, 7);
+            this.txtUserName.Location = new System.Drawing.Point(101, 7);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Properties.NullText = "用户登录名称";
-            this.txtUserName.Size = new System.Drawing.Size(391, 21);
+            this.txtUserName.Size = new System.Drawing.Size(449, 21);
             this.txtUserName.StyleController = this.lcView;
             this.txtUserName.TabIndex = 4;
+            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule2.ErrorText = "必须为登录帐户输入一个唯一的名称";
+            this.dxValidation.SetValidationRule(this.txtUserName, conditionValidationRule2);
             // 
             // layoutControlGroup1
             // 
@@ -132,7 +152,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.layoutControlItem4});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(485, 303);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(556, 277);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -143,10 +163,10 @@ namespace Uniframework.Common.WorkItems.Membership
             this.layoutControlItem1.CustomizationFormText = "登录名称:";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(483, 32);
-            this.layoutControlItem1.Text = "登录名称:";
+            this.layoutControlItem1.Size = new System.Drawing.Size(554, 32);
+            this.layoutControlItem1.Text = "登录名称(&U)";
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(76, 20);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(89, 20);
             // 
             // layoutControlItem2
             // 
@@ -158,9 +178,9 @@ namespace Uniframework.Common.WorkItems.Membership
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(293, 32);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem2.Text = "密码:";
+            this.layoutControlItem2.Text = "密码(&P)";
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(76, 20);
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(89, 20);
             // 
             // layoutControlItem3
             // 
@@ -172,16 +192,16 @@ namespace Uniframework.Common.WorkItems.Membership
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(293, 32);
             this.layoutControlItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem3.Text = "再次确认密码:";
+            this.layoutControlItem3.Text = "再次确认密码(&C)";
             this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(76, 20);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(89, 20);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
             this.emptySpaceItem2.Location = new System.Drawing.Point(293, 32);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(190, 32);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(261, 32);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -190,7 +210,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.emptySpaceItem3.CustomizationFormText = "emptySpaceItem3";
             this.emptySpaceItem3.Location = new System.Drawing.Point(293, 64);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(190, 32);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(261, 32);
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -200,27 +220,57 @@ namespace Uniframework.Common.WorkItems.Membership
             this.layoutControlItem4.CustomizationFormText = "电子邮箱:";
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 96);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(483, 205);
-            this.layoutControlItem4.Text = "电子邮箱:";
+            this.layoutControlItem4.Size = new System.Drawing.Size(554, 179);
+            this.layoutControlItem4.Text = "电子邮箱(&E)";
             this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(76, 20);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(89, 20);
             // 
-            // dxErrorProvider
+            // panelControl1
             // 
-            this.dxErrorProvider.ContainerControl = this;
+            this.panelControl1.Controls.Add(this.lcView);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(560, 281);
+            this.panelControl1.TabIndex = 0;
+            // 
+            // dxValidation
+            // 
+            this.dxValidation.ValidationMode = DevExpress.XtraEditors.DXErrorProvider.ValidationMode.Auto;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(477, 289);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "取消";
+            // 
+            // btnOK
+            // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Location = new System.Drawing.Point(395, 289);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 2;
+            this.btnOK.Text = "确定(&O)";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // MembershipUserView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lcView);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.panelControl1);
             this.Name = "MembershipUserView";
-            this.Size = new System.Drawing.Size(485, 303);
+            this.Size = new System.Drawing.Size(560, 320);
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcView)).EndInit();
             this.lcView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtConfirmPassword.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -229,25 +279,30 @@ namespace Uniframework.Common.WorkItems.Membership
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dxValidation)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraLayout.LayoutControl lcView;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private DevExpress.XtraEditors.TextEdit txtUserName;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraEditors.TextEdit txtEmail;
         private DevExpress.XtraEditors.TextEdit txtConfirmPassword;
         private DevExpress.XtraEditors.TextEdit txtPassword;
+        private DevExpress.XtraEditors.TextEdit txtUserName;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
-        private DevExpress.XtraEditors.TextEdit txtEmail;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider dxErrorProvider;
+        private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidation;
+        private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraEditors.SimpleButton btnOK;
     }
 }

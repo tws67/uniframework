@@ -40,7 +40,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.colUserName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.ilMembers = new System.Windows.Forms.ImageList(this.components);
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
-            this.membershipRole = new Uniframework.Common.WorkItems.Membership.MembershipRoleControl();
+            this.membershipRole = new Uniframework.Common.WorkItems.Membership.MembershipRoleEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
@@ -50,7 +50,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(399, 311);
+            this.btnOK.Location = new System.Drawing.Point(399, 287);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 9;
@@ -59,7 +59,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(480, 311);
+            this.btnCancel.Location = new System.Drawing.Point(480, 287);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 10;
@@ -67,10 +67,10 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // xtraTabControl1
             // 
-            this.xtraTabControl1.Location = new System.Drawing.Point(13, 58);
+            this.xtraTabControl1.Location = new System.Drawing.Point(13, 56);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage3;
-            this.xtraTabControl1.Size = new System.Drawing.Size(542, 247);
+            this.xtraTabControl1.Size = new System.Drawing.Size(542, 223);
             this.xtraTabControl1.TabIndex = 11;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage3,
@@ -82,12 +82,12 @@ namespace Uniframework.Common.WorkItems.Membership
             this.xtraTabPage3.Controls.Add(this.btnAdd);
             this.xtraTabPage3.Controls.Add(this.tlMembers);
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(533, 215);
+            this.xtraTabPage3.Size = new System.Drawing.Size(533, 191);
             this.xtraTabPage3.Text = "所有成员";
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(84, 189);
+            this.btnDelete.Location = new System.Drawing.Point(85, 163);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 8;
@@ -96,7 +96,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(3, 189);
+            this.btnAdd.Location = new System.Drawing.Point(4, 163);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 7;
@@ -115,7 +115,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlMembers.OptionsView.ShowIndicator = false;
             this.tlMembers.OptionsView.ShowRoot = false;
             this.tlMembers.OptionsView.ShowVertLines = false;
-            this.tlMembers.Size = new System.Drawing.Size(539, 180);
+            this.tlMembers.Size = new System.Drawing.Size(539, 153);
             this.tlMembers.StateImageList = this.ilMembers;
             this.tlMembers.TabIndex = 0;
             // 
@@ -141,6 +141,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // membershipRole
             // 
+            this.membershipRole.Editable = false;
             this.membershipRole.Location = new System.Drawing.Point(10, 3);
             this.membershipRole.Name = "membershipRole";
             this.membershipRole.Role = "在此处输入唯一的角色名称";
@@ -156,7 +157,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Name = "MembershipRoleView";
-            this.Size = new System.Drawing.Size(566, 342);
+            this.Size = new System.Drawing.Size(566, 320);
             this.Load += new System.EventHandler(this.MembershipRoleView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
@@ -177,7 +178,7 @@ namespace Uniframework.Common.WorkItems.Membership
         private DevExpress.XtraTreeList.TreeList tlMembers;
         private DevExpress.XtraTreeList.Columns.TreeListColumn colUserName;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
-        private MembershipRoleControl membershipRole;
+        private MembershipRoleEdit membershipRole;
         private System.Windows.Forms.ImageList ilMembers;
     }
 }

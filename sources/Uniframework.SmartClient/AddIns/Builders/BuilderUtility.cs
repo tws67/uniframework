@@ -98,9 +98,14 @@ namespace Uniframework.SmartClient
             Size size = new Size(width, height);
             IImageService imageService = workItem.Services.Get<IImageService>();
             if (imageService != null) {
-                Bitmap bitmap = imageService.GetBitmap(filename, size);
-                if (bitmap == null)
+                Bitmap bitmap = null;
+                try {
+                    bitmap = imageService.GetBitmap(filename, size);
+                }
+                catch {
                     bitmap = imageService.GetBitmap(DEFAULT_IMAGE, size);
+                    return bitmap;
+                }
                 return bitmap;
             }
             throw new UniframeworkException("没有加载 ImageService 服务不能获取指定的图像资源。");

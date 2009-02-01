@@ -30,7 +30,7 @@ namespace Uniframework.Common.WorkItems.Membership
         {
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
-            this.txtRole = new Uniframework.Common.WorkItems.Membership.MembershipRoleControl();
+            this.txtRole = new Uniframework.Common.WorkItems.Membership.MembershipRoleEdit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -81,7 +81,7 @@ namespace Uniframework.Common.WorkItems.Membership
 
         #endregion
 
-        private MembershipRoleControl txtRole;
+        private MembershipRoleEdit txtRole;
         private DevExpress.XtraEditors.SimpleButton btnOK;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
     }

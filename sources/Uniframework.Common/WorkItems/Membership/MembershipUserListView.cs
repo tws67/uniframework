@@ -8,6 +8,8 @@ using System.Windows.Forms;
 
 using DevExpress.XtraEditors;
 using DevExpress.XtraTreeList;
+using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.ObjectBuilder;
 using Uniframework.SmartClient;
 
@@ -31,6 +33,21 @@ namespace Uniframework.Common.WorkItems.Membership
                 presenter = value;
                 presenter.View = this;
             }
+        }
+
+        /// <summary>
+        /// 当前选择的用户变化事件
+        /// </summary>
+        [EventPublication(EventNames.Membership_CurrentUserChanged, PublicationScope.WorkItem)]
+        public event EventHandler<EventArgs<string>> CurrentUserChanged;
+        protected void OnCurrentUserChanged(object sender, EventArgs<string> e)
+        {
+            Presenter.WorkItem.State.Remove(Constants.CurrentUser);
+            Presenter.WorkItem.State[Constants.CurrentUser] = e.Data;
+
+            // 触发事件
+            if (CurrentUserChanged != null)
+                CurrentUserChanged(sender, e);
         }
 
         public TreeList UsersList
@@ -63,5 +80,16 @@ namespace Uniframework.Common.WorkItems.Membership
         }
 
         #endregion
+
+        /// <summary>
+        /// 触发当前选择的用户变化事件
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DevExpress.XtraTreeList.FocusedNodeChangedEventArgs"/> instance containing the event data.</param>
+        private void tlUser_FocusedNodeChanged(object sender, FocusedNodeChangedEventArgs e)
+        {
+            if (e.Node != null)
+                OnCurrentUserChanged(this, new EventArgs<string>(e.Node.GetDisplayText(colUserName)));
+        }
     }
 }

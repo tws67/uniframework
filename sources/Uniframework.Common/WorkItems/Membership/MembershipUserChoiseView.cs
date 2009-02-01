@@ -79,21 +79,21 @@ namespace Uniframework.Common.WorkItems.Membership
             }
         }
 
-        private void MembershipUserChoiseView_Load(object sender, EventArgs e)
-        {
-            if (WorkItem.State["CurrentRole"] != null)
-                GetUsersNotInRole(WorkItem.State["CurrentRole"] as String);
-        }
-
         private void btnOK_Click(object sender, EventArgs e)
         {
-            string role = WorkItem.State["CurrentRole"] as String;
+            string role = WorkItem.State[Constants.CurrentRole] as String;
             if (!String.IsNullOrEmpty(role)) {
                 foreach (string user in SelectedUsers) {
                     if (!MembershipService.IsUserInRole(user, role))
                         MembershipService.AddUserToRole(user, role);
                 }
             }
+        }
+
+        private void MembershipUserChoiseView_Enter(object sender, EventArgs e)
+        {
+            if (WorkItem.State[Constants.CurrentRole] != null)
+                GetUsersNotInRole(WorkItem.State[Constants.CurrentRole] as String);
         }
     }
 }

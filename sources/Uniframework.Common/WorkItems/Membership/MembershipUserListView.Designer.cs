@@ -69,7 +69,8 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlUser.SelectImageList = this.ilUsers;
             this.tlUser.Size = new System.Drawing.Size(779, 463);
             this.tlUser.TabIndex = 0;
-            this.tlUser.Tag = "/Shell/Module/Foundation/ContentMenu/MembershipUser";
+            this.tlUser.Tag = "/Shell/Module/Foundation/Common/Membership/User/ContentMenu";
+            this.tlUser.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tlUser_FocusedNodeChanged);
             // 
             // colUserName
             // 
