@@ -60,9 +60,23 @@ namespace Uniframework.Common.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap businessman {
+            get {
+                object obj = ResourceManager.GetObject("businessman", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap businessmen {
             get {
                 object obj = ResourceManager.GetObject("businessmen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap keys {
+            get {
+                object obj = ResourceManager.GetObject("keys", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

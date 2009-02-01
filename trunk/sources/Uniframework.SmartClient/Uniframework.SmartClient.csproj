@@ -179,7 +179,9 @@
     </Compile>
     <Compile Include="WorkItems\DataList\DataListController.cs" />
     <Compile Include="WorkItems\DataList\DataListPresenter.cs" />
+    <Compile Include="WorkItems\DataList\DataPresenter.cs" />
     <Compile Include="WorkItems\DataList\IDataListView.cs" />
+    <Compile Include="WorkItems\DataList\IDataView.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpController.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpPresenter.cs" />
     <Compile Include="WorkItems\Help\DynamicHelpView.cs">

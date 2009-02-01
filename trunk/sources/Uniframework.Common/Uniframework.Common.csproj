@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="CommonController.cs" />
     <Compile Include="Constants\CommandHandlerNames.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\EventNames.cs" />
     <Compile Include="Constants\SmartPartNames.cs" />
     <Compile Include="Module.cs" />
@@ -78,6 +79,12 @@
     <Compile Include="WorkItems\Membership\frmMembershipRole.Designer.cs">
       <DependentUpon>frmMembershipRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\Membership\frmSetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\frmSetPassword.Designer.cs">
+      <DependentUpon>frmSetPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Membership\MembershipRolePresenter.cs" />
     <Compile Include="WorkItems\Membership\MembershipUserChoiseView.cs">
       <SubType>UserControl</SubType>
@@ -86,11 +93,11 @@
       <DependentUpon>MembershipUserChoiseView.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Membership\MembershipController.cs" />
-    <Compile Include="WorkItems\Membership\MembershipRoleControl.cs">
+    <Compile Include="WorkItems\Membership\MembershipRoleEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkItems\Membership\MembershipRoleControl.Designer.cs">
-      <DependentUpon>MembershipRoleControl.cs</DependentUpon>
+    <Compile Include="WorkItems\Membership\MembershipRoleEdit.Designer.cs">
+      <DependentUpon>MembershipRoleEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Membership\MembershipRoleListPresenter.cs" />
     <Compile Include="WorkItems\Membership\MembershipRoleListView.cs">
@@ -104,6 +111,18 @@
     </Compile>
     <Compile Include="WorkItems\Membership\MembershipRoleView.Designer.cs">
       <DependentUpon>MembershipRoleView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserEdit.Designer.cs">
+      <DependentUpon>MembershipUserEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserEditView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Membership\MembershipUserEditView.Designer.cs">
+      <DependentUpon>MembershipUserEditView.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Membership\MembershipUserListPresenter.cs" />
     <Compile Include="WorkItems\Membership\MembershipUserListView.cs">
@@ -155,6 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\businessmen.ico" />
+    <None Include="Resources\businessman.ico" />
+    <None Include="Resources\keys.ico" />
     <Content Include="Uniframework.Common.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -168,17 +189,26 @@
     <EmbeddedResource Include="WorkItems\Membership\frmMembershipRole.resx">
       <DependentUpon>frmMembershipRole.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\frmSetPassword.resx">
+      <DependentUpon>frmSetPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\MembershipUserChoiseView.resx">
       <DependentUpon>MembershipUserChoiseView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkItems\Membership\MembershipRoleControl.resx">
-      <DependentUpon>MembershipRoleControl.cs</DependentUpon>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipRoleEdit.resx">
+      <DependentUpon>MembershipRoleEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\MembershipRoleListView.resx">
       <DependentUpon>MembershipRoleListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\MembershipRoleView.resx">
       <DependentUpon>MembershipRoleView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipUserEdit.resx">
+      <DependentUpon>MembershipUserEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Membership\MembershipUserEditView.resx">
+      <DependentUpon>MembershipUserEditView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\MembershipUserListView.resx">
       <DependentUpon>MembershipUserListView.cs</DependentUpon>

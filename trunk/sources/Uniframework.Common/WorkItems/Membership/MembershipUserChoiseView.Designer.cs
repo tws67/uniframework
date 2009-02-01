@@ -60,7 +60,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(394, 309);
+            this.btnOK.Location = new System.Drawing.Point(394, 288);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 3;
@@ -70,7 +70,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(479, 309);
+            this.btnCancel.Location = new System.Drawing.Point(479, 288);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -88,7 +88,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlUsers.OptionsView.ShowIndicator = false;
             this.tlUsers.OptionsView.ShowRoot = false;
             this.tlUsers.OptionsView.ShowVertLines = false;
-            this.tlUsers.Size = new System.Drawing.Size(542, 266);
+            this.tlUsers.Size = new System.Drawing.Size(542, 244);
             this.tlUsers.StateImageList = this.ilUsers;
             this.tlUsers.TabIndex = 5;
             // 
@@ -116,8 +116,8 @@ namespace Uniframework.Common.WorkItems.Membership
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelControl1);
             this.Name = "MembershipUserChoiseView";
-            this.Size = new System.Drawing.Size(566, 340);
-            this.Load += new System.EventHandler(this.MembershipUserChoiseView_Load);
+            this.Size = new System.Drawing.Size(566, 320);
+            this.Enter += new System.EventHandler(this.MembershipUserChoiseView_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.tlUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

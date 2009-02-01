@@ -92,8 +92,8 @@ namespace Uniframework.Common.WorkItems.Membership
 
         private void MembershipRoleView_Load(object sender, EventArgs e)
         {
-            if (WorkItem.State["CurrentRole"] != null) {
-                string role = (string)WorkItem.State["CurrentRole"];
+            if (WorkItem.State[Constants.CurrentRole] != null) {
+                string role = (string)WorkItem.State[Constants.CurrentRole];
                 RefreshCurrentRole(role);
             }
         }
@@ -116,7 +116,7 @@ namespace Uniframework.Common.WorkItems.Membership
 
             Presenter.ShowViewInWorkspace<MembershipUserChoiseView>(SmartPartNames.MembershipUserChoiseView, 
                 UIExtensionSiteNames.Shell_Workspace_Window, spi);
-            RefreshCurrentRole((string)WorkItem.State["CurrentRole"]); // 刷新当前角色下的成员
+            RefreshCurrentRole((string)WorkItem.State[Constants.CurrentRole]); // 刷新当前角色下的成员
         }
 
         /// <summary>

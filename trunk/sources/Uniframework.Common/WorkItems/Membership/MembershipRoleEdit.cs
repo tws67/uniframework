@@ -13,9 +13,9 @@ namespace Uniframework.Common.WorkItems.Membership
     /// <summary>
     /// ½ÇÉ«±à¼­¿Ø¼þ
     /// </summary>
-    public partial class MembershipRoleControl : DevExpress.XtraEditors.XtraUserControl
+    public partial class MembershipRoleEdit : DevExpress.XtraEditors.XtraUserControl
     {
-        public MembershipRoleControl()
+        public MembershipRoleEdit()
         {
             InitializeComponent();
         }

@@ -12,7 +12,7 @@
       <Item id="MembershipRole"
             name="mmivMembershipRole"
             label="角色管理(&amp;R)"
-            command="/Shell/Module/Foundation/Comm/MembershipRole"
+            command="/Shell/Module/Foundation/Common/Membership/Role"
             classname="XtraButtonItem"
             begingroup="true"
             insertbefore="mmivSetting"/>
@@ -20,64 +20,72 @@
       <Item id="MembershipUser"
             name="mmivMembershipUser"
             label="用户管理(&amp;U)"
-            command="/Shell/Module/Foundation/Comm/MembershipUser"
+            command="/Shell/Module/Foundation/Common/Membership/User"
             classname="XtraButtonItem"
             insertbefore="mmivSetting"/>
     </Path>
     
     <Path name="/Shell" label="右键菜单" buildstartup="true">
-      <Item id="Module/Foundation/ContentMenu/MembershipUser"
+      <Item id="Module/Foundation/Common/Membership/User/ContentMenu"
             name="cmMembershipUser"
             label="用户管理菜单"
             command=""
             classname="XtraContentMenu"/>
 
-      <Item id="Module/Foundation/ContentMenu/MembershipRole"
+      <Item id="Module/Foundation/Common/Membership/Role/ContentMenu"
             name="cmMembershipRole"
             lable="角色管理菜单"
             command=""
             classname="XtraContentMenu"/>
     </Path>
 
-    <Path name="/Shell/Module/Foundation/ContentMenu/MembershipRole" label="" buildstartup="false">
+    <Path name="/Shell/Module/Foundation/Common/Membership/Role/ContentMenu" label="" buildstartup="false">
       <Item id="New"
             name="cmmNew"
             label="新建角色(&amp;N)..."
-            command="/Shell/Module/Foundation/DataGrid/Insert"
+            command="/Shell/Module/Foundation/DataList/Insert"
             classname="XtraButtonItem"
             shortcut="CtrlIns"/>
 
       <Item id="Edit"
             name="cmmEdit"
             label="编辑当前选定角色(&amp;E)..."
-            command="/Shell/Module/Foundation/DataGrid/Edit"
+            command="/Shell/Module/Foundation/DataList/Edit"
             classname="XtraButtonItem"
             shortcut="F4"/>
 
       <Item id="Delete"
             name="cmmDelete"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/DataGrid/Delete"
+            command="/Shell/Module/Foundation/DataList/Delete"
             classname="XtraButtonItem"
             shortcut="Del"/>
 
       <Item id="Refresh"
             name="cmmRefresh"
             label="刷新(&amp;E)"
-            command="/Shell/Module/Foundation/DataGrid/Refresh"
+            command="/Shell/Module/Foundation/DataList/Refresh"
             classname="XtraButtonItem"
             begingroup="true"
             shortcut="F5"
             imagefile="${refresh}"/>
     </Path>
     
-    <Path name="/Shell/Module/Foundation/ContentMenu/MembershipUser" label="" buildstartup="false">
+    <Path name="/Shell/Module/Foundation/Common/Membership/User/ContentMenu" label="" buildstartup="false">
+      <Item id="SetPassword"
+            name="cmmSetPassword"
+            label="设置密码(&amp;S)..."
+            command="/Shell/Module/Foundation/Common/Membership/User/SetPassword"
+            classname="XtraButtonItem"
+            imagefile="${keys}"/>
+      
       <Item id="New"
             name="cmmNew"
             label="新建用户(&amp;N)..."
-            command="/Shell/Module/Foundation/DataGrid/Insert"
+            command="/Shell/Module/Foundation/DataList/Insert"
             classname="XtraButtonItem"
-            shortcut="CtrlIns"/>
+            shortcut="CtrlIns"
+            begingroup="true"/>
 
       <Item id="Edit"
             name="cmmEdit"
@@ -89,14 +97,14 @@
       <Item id="Delete"
             name="cmmDelete"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/DataGrid/Delete"
+            command="/Shell/Module/Foundation/DataList/Delete"
             classname="XtraButtonItem"
             shortcut="Del"/>
 
       <Item id="Refresh"
             name="cmmRefresh"
             label="刷新(&amp;E)"
-            command="/Shell/Module/Foundation/DataGrid/Refresh"
+            command="/Shell/Module/Foundation/DataList/Refresh"
             classname="XtraButtonItem"
             begingroup="true"
             shortcut="F5"

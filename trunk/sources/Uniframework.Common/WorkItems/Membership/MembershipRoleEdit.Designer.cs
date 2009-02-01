@@ -1,6 +1,6 @@
 namespace Uniframework.Common.WorkItems.Membership
 {
-    partial class MembershipRoleControl
+    partial class MembershipRoleEdit
     {
         /// <summary> 
         /// Required designer variable.

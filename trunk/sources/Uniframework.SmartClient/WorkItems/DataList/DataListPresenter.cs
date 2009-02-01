@@ -10,7 +10,7 @@ namespace Uniframework.SmartClient
     /// 数据列表视图控制器，通过此控制器的继承类来实现对数据列表的添加、编辑、删除等功能
     /// </summary>
     /// <typeparam name="TView">数据列表视图模板类，数据视图必须实现<seealso cref="IDataListView"/>接口</typeparam>
-    public class DataListPresenter<TView> : Presenter<TView> , IDataListHandler
+    public class DataListPresenter<TView> : DataPresenter<TView> , IDataListHandler
         where TView : IDataListView
     {
         #region IDataListHandler Members

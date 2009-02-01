@@ -74,19 +74,19 @@ namespace Uniframework.SmartClient
         public const string CMD_HELP_ABOUT                    = "/Shell/Module/Foundation/Help/About";
         
         // 数据列表右键菜单命令
-        public const string CMD_DATAGRID_INSERT               = "/Shell/Module/Foundation/DataGrid/Insert";
-        public const string CMD_DATAGRID_EDIT                 = "/Shell/Module/Foundation/DataGrid/Edit";
-        public const string CMD_DATAGRID_DELETE               = "/Shell/Module/Foundation/DataGrid/Delete";
-        public const string CMD_DATAGRID_EXPAND               = "/Shell/Module/Foundation/DataGrid/Expand";
-        public const string CMD_DATAGRID_COLLAPSE             = "/Shell/Module/Foundation/DataGrid/Collapse";
-        public const string CMD_DATAGRID_FILTER               = "/Shell/Module/Foundation/DataGrid/Filter";
-        public const string CMD_DATAGRID_REFRESH              = "/Shell/Module/Foundation/DataGrid/Refresh";
-        public const string CMD_DATAGRID_SETDETAILVIEW        = "/Shell/Module/Foundation/DataGrid/SetDetailView";
-        public const string CMD_DATAGRID_SETLAYOUTVIEW        = "/Shell/Module/Foundation/DataGrid/SetLayoutView";
-        public const string CMD_DATAGRID_SELECTLAYOUTVIEW     = "/Shell/Module/Foundation/DataGrid/SelectLayoutView";
-        public const string CMD_DATAGRID_SETTING              = "/Shell/Module/Foundation/DataGrid/Setting";
-        public const string CMD_DATAGRID_SHOWGROUPPANEL       = "/Shell/Module/Foundation/DataGrid/ShowGroupPanel";
-        public const string CMD_DATAGRID_SHOWFOOTER           = "/Shell/Module/Foundation/DataGrid/ShowFooter";
+        public const string CMD_DATAGRID_INSERT               = "/Shell/Module/Foundation/DataList/Insert";
+        public const string CMD_DATAGRID_EDIT                 = "/Shell/Module/Foundation/DataList/Edit";
+        public const string CMD_DATAGRID_DELETE               = "/Shell/Module/Foundation/DataList/Delete";
+        public const string CMD_DATAGRID_EXPAND               = "/Shell/Module/Foundation/DataList/Expand";
+        public const string CMD_DATAGRID_COLLAPSE             = "/Shell/Module/Foundation/DataList/Collapse";
+        public const string CMD_DATAGRID_FILTER               = "/Shell/Module/Foundation/DataList/Filter";
+        public const string CMD_DATAGRID_REFRESH              = "/Shell/Module/Foundation/DataList/Refresh";
+        public const string CMD_DATAGRID_SETDETAILVIEW        = "/Shell/Module/Foundation/DataList/SetDetailView";
+        public const string CMD_DATAGRID_SETLAYOUTVIEW        = "/Shell/Module/Foundation/DataList/SetLayoutView";
+        public const string CMD_DATAGRID_SELECTLAYOUTVIEW     = "/Shell/Module/Foundation/DataList/SelectLayoutView";
+        public const string CMD_DATAGRID_SETTING              = "/Shell/Module/Foundation/DataList/Setting";
+        public const string CMD_DATAGRID_SHOWGROUPPANEL       = "/Shell/Module/Foundation/DataList/ShowGroupPanel";
+        public const string CMD_DATAGRID_SHOWFOOTER           = "/Shell/Module/Foundation/DataList/ShowFooter";
 
 
     }
