@@ -70,7 +70,7 @@ namespace Uniframework.SmartClient
                 bool result = false;
                 foreach (AuthorizationResource ar in authorizationResources.Values)
                 {
-                    result = ar[SecurityUtility.HashObject(command)] == AuthorizationAction.Enable;
+                    result = ar[SecurityUtility.HashObject(command)] == AuthorizationAction.Allow;
                     if (result == true)
                         break;
                 }

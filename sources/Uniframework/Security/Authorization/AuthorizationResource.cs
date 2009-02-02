@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Uniframework.Security;
 
 namespace Uniframework.Services
 {
@@ -30,7 +31,7 @@ namespace Uniframework.Services
         public AuthorizationAction this[string index]
         {
             get {
-                return authorizations.ContainsKey(index) ? authorizations[index] : AuthorizationAction.Disable;
+                return authorizations.ContainsKey(index) ? authorizations[index] : AuthorizationAction.Deny;
             }
             set {
                 authorizations[index] = value;

@@ -66,6 +66,7 @@
     <Compile Include="..\UniframeworkInfo.cs">
       <Link>UniframeworkInfo.cs</Link>
     </Compile>
+    <Compile Include="Attributes\AuthorizationAttribute.cs" />
     <Compile Include="Attributes\AuthResourceAttribute.cs" />
     <Compile Include="Attributes\ClientCacheAttribute.cs" />
     <Compile Include="Attributes\ClientModuleAttribute.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Net\Tcp\TcpSession.cs" />
     <Compile Include="Net\Wcf\IInvokeCallback.cs" />
     <Compile Include="Net\Wcf\IInvokeChannel.cs" />
+    <Compile Include="Security\Authorization\AuthorizationStore.cs" />
     <Compile Include="Security\IRSACryptService.cs" />
     <Compile Include="Security\ISymmetricCryptService.cs" />
     <Compile Include="Security\RSACryptServiceBase.cs" />
@@ -137,9 +139,9 @@
     <Compile Include="Common\Startable.cs" />
     <Compile Include="Utility\StringEx.cs" />
     <Compile Include="Common\TEventArgs.cs" />
-    <Compile Include="Services\Authoriza\AuthorizationAction.cs" />
-    <Compile Include="Services\Authoriza\AuthorizationResource.cs" />
-    <Compile Include="Services\Authoriza\IAuthorizationStoreService.cs" />
+    <Compile Include="Security\Authorization\AuthorizationAction.cs" />
+    <Compile Include="Security\Authorization\AuthorizationResource.cs" />
+    <Compile Include="Security\Authorization\IAuthorizationStoreService.cs" />
     <Compile Include="Services\Configuration\AbstractConfiguration.cs" />
     <Compile Include="Services\Configuration\ConfigurationCollection.cs" />
     <Compile Include="Services\Configuration\IConfiguration.cs" />
