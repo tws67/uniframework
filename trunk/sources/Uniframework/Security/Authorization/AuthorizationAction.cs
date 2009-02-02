@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Uniframework.Services
+namespace Uniframework.Security
 { 
     /// <summary>
     /// 对资源的授权操作
@@ -12,10 +12,10 @@ namespace Uniframework.Services
         /// <summary>
         /// 禁用
         /// </summary>
-        Disable,
+        Deny,
         /// <summary>
         /// 可用
         /// </summary>
-        Enable
+        Allow
     }
 }
