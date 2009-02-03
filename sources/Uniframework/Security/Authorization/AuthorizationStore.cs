@@ -12,9 +12,21 @@ namespace Uniframework.Security
     public class AuthorizationStore
     {
         private string role;
-        private Dictionary<string, AuthorizationAction> authorizations = new Dictionary<string, AuthorizationAction>();
+        private Dictionary<string, AuthorizationNode> authorizations = new Dictionary<string, AuthorizationNode>();
+        private Dictionary<string, AuthorizationAction> actions = new Dictionary<string, AuthorizationAction>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizationStore"/> class.
+        /// </summary>
+        public AuthorizationStore()
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizationStore"/> class.
+        /// </summary>
+        /// <param name="role">The role.</param>
         public AuthorizationStore(string role)
+            : this()
         {
             this.role = role;
         }
@@ -31,15 +43,64 @@ namespace Uniframework.Security
         }
 
         /// <summary>
-        /// 索引器
+        /// 添加授权节点信息
         /// </summary>
-        /// <value>返回指定资源是否可用</value>
-        public AuthorizationAction this[string index]
+        /// <param name="node">授权节点</param>
+        public void Add(AuthorizationNode node)
         {
-            get {
-                return authorizations.ContainsKey(index) ? authorizations[index] : AuthorizationAction.Deny;
-            }
-            set { authorizations[index] = value; }
+            Guard.ArgumentNotNull(node, "Authorization node");
+            Guard.ArgumentNotNull(node.AuthorizationUri, "Authorization uri");
+
+            authorizations[node.AuthorizationUri] = node;
+            actions[node.AuthorizationUri] = AuthorizationAction.Deny;
+        }
+
+        /// <summary>
+        /// 添加授权节点信息
+        /// </summary>
+        /// <param name="node">授权节点</param>
+        /// <param name="action">授权动作</param>
+        public void Add(AuthorizationNode node, AuthorizationAction action)
+        {
+            Add(node);
+            actions[node.AuthorizationUri] = action;
+        }
+
+        /// <summary>
+        /// 删除授权节点信息
+        /// </summary>
+        /// <param name="authorizationUri">授权路径</param>
+        public void Remove(string authorizationUri)
+        {
+            if (authorizations.ContainsKey(authorizationUri))
+                authorizations.Remove(authorizationUri);
+            if (actions.ContainsKey(authorizationUri))
+                actions.Remove(authorizationUri);
+        }
+
+        /// <summary>
+        /// 删除授权节点信息
+        /// </summary>
+        /// <param name="node">授权节点</param>
+        public void Remove(AuthorizationNode node)
+        {
+            if (node != null && !String.IsNullOrEmpty(node.AuthorizationUri))
+                Remove(node.AuthorizationUri);
+        }
+
+        /// <summary>
+        /// 检查当前角色是否可以执行特定路径下的命令
+        /// </summary>
+        /// <param name="authorizationUri">授权路径</param>
+        /// <returns>
+        /// 	如果当前角色拥有相关权限返回<c>true</c>；否则返回<c>false</c>.
+        /// </returns>
+        public bool CanExecute(string authorizationUri)
+        {
+            bool result = false;
+            if (actions.ContainsKey(authorizationUri))
+                result = actions[authorizationUri] == AuthorizationAction.Allow;
+            return result;
         }
     }
 }

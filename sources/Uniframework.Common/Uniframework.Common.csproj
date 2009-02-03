@@ -73,6 +73,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\Authorization\AuthorizationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\AuthorizationControl.Designer.cs">
+      <DependentUpon>AuthorizationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\AuthorizationController.cs" />
     <Compile Include="WorkItems\Membership\frmMembershipRole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +192,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Authorization\AuthorizationControl.resx">
+      <DependentUpon>AuthorizationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\frmMembershipRole.resx">
       <DependentUpon>frmMembershipRole.cs</DependentUpon>

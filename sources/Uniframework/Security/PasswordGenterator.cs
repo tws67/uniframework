@@ -2,8 +2,11 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Uniframework
+namespace Uniframework.Security
 {
+    /// <summary>
+    /// 随机密码生成器
+    /// </summary>
     public sealed class PasswordGenerator
     {
         public PasswordGenerator()

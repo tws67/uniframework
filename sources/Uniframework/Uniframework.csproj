@@ -87,8 +87,12 @@
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\Exception.cs" />
     <Compile Include="Common\DynamicLatebound.cs" />
-    <Compile Include="Common\PasswordGenterator.cs" />
+    <Compile Include="Security\Authorization\AuthorizationNode.cs" />
+    <Compile Include="Security\Authorization\IAuthorizationNode.cs" />
+    <Compile Include="Security\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
+    <Compile Include="Constants\GlobalConstants.cs" />
+    <Compile Include="Constants\GlobalEventNames.cs" />
     <Compile Include="Db4o\Db4oDatabase.cs" />
     <Compile Include="Db4o\Db4oDatabaseService.cs" />
     <Compile Include="Db4o\Db4oEnlist.cs" />
@@ -120,6 +124,7 @@
     <Compile Include="Net\Wcf\IInvokeCallback.cs" />
     <Compile Include="Net\Wcf\IInvokeChannel.cs" />
     <Compile Include="Security\Authorization\AuthorizationStore.cs" />
+    <Compile Include="Security\Authorization\IUfAuthorizationSoteService.cs" />
     <Compile Include="Security\IRSACryptService.cs" />
     <Compile Include="Security\ISymmetricCryptService.cs" />
     <Compile Include="Security\RSACryptServiceBase.cs" />
@@ -190,9 +195,6 @@
     <Compile Include="Utility\Task.cs" />
     <Compile Include="Utility\TimeCounter.cs" />
     <Compile Include="Common\WorkThread.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
