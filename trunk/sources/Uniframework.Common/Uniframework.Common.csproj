@@ -73,6 +73,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\Authorization\AuthorizationCommandView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\AuthorizationCommandView.Designer.cs">
+      <DependentUpon>AuthorizationCommandView.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Authorization\AuthorizationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -80,6 +86,20 @@
       <DependentUpon>AuthorizationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Authorization\AuthorizationController.cs" />
+    <Compile Include="WorkItems\Authorization\AuthorizationStoreListPresenter.cs" />
+    <Compile Include="WorkItems\Authorization\AuthorizationStoreListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\AuthorizationStoreListView.Designer.cs">
+      <DependentUpon>AuthorizationStoreListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\CommandListPresenter.cs" />
+    <Compile Include="WorkItems\Authorization\CommandListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\CommandListView.Designer.cs">
+      <DependentUpon>CommandListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Membership\frmMembershipRole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,8 +213,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Authorization\AuthorizationCommandView.resx">
+      <DependentUpon>AuthorizationCommandView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Authorization\AuthorizationControl.resx">
       <DependentUpon>AuthorizationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Authorization\AuthorizationStoreListView.resx">
+      <DependentUpon>AuthorizationStoreListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Authorization\CommandListView.resx">
+      <DependentUpon>CommandListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\frmMembershipRole.resx">
       <DependentUpon>frmMembershipRole.cs</DependentUpon>

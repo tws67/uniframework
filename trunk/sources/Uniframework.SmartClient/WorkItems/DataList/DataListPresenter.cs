@@ -28,7 +28,7 @@ namespace Uniframework.SmartClient
         /// <value>返回<c>true</c>如果可以插入的话; 否则为, <c>false</c>.</value>
         public virtual bool CanInsert
         {
-            get { return true; }
+            get { return !View.ReadOnly; }
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Uniframework.SmartClient
         /// 返回
         public virtual bool CanEdit
         {
-            get { return true; }
+            get { return !View.ReadOnly; }
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Uniframework.SmartClient
         /// <value>返回<c>true</c>如果可以删除的话; 否则为, <c>false</c>.</value>
         public virtual bool CanDelete
         {
-            get { return true; }
+            get { return !View.ReadOnly; }
         }
 
         /// <summary>
