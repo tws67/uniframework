@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Uniframework.Security.Authorization
+namespace Uniframework.Security
 {
     /// <summary>
     /// 框架授权信息服务器端存储服务接口
     /// </summary>
     [RemoteService("授权信息存储接口", ServiceType.Infrustructure, ServiceScope.Global)]
-    public interface IUfAuthorizationSoteService
+    public interface IAuthorizationSoteService
     {
         #region 角色授权操作
 
@@ -19,14 +19,14 @@ namespace Uniframework.Security.Authorization
         /// <param name="username">用户名称</param>
         /// <returns>返回特定用户的授权信息</returns>
         [RemoteMethod]
-        List<AuthorizationStore> GetAuthorizationsByUser(string username);
+        IList<AuthorizationStore> GetAuthorizationsByUser(string username);
         /// <summary>
         /// 获取指定角色的授权信息
         /// </summary>
         /// <param name="role">角色名称</param>
         /// <returns>特定角色的授权信息</returns>
         [RemoteMethod]
-        List<AuthorizationStore> GetAuthorizationsByRole(string role);
+        IList<AuthorizationStore> GetAuthorizationsByRole(string role);
         /// <summary>
         /// 保存授权信息
         /// </summary>
@@ -66,8 +66,12 @@ namespace Uniframework.Security.Authorization
         /// </summary>
         [RemoteMethod]
         void Clear();
-
-
+        /// <summary>
+        /// 获取系统中所有的授权节点信息
+        /// </summary>
+        /// <returns>授权节点列表</returns>
+        [RemoteMethod]
+        IList<AuthorizationNode> GetAuthorizationNodes();
 
         #endregion
     }

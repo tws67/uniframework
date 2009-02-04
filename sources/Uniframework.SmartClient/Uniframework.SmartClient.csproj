@@ -119,7 +119,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\Authorization\AuthorizationService.cs" />
+    <Compile Include="Security\AuthorizationService.cs" />
     <Compile Include="Services\Foundation\BrowserService.cs" />
     <Compile Include="Services\Foundation\DataListViewService.cs" />
     <Compile Include="Services\Foundation\DocumentAdapters\TreeListDocumentAdapter.cs" />

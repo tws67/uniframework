@@ -171,6 +171,11 @@ namespace Uniframework.Security
     public class AuthorizationCommand
     {
         /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
+        /// <value>The category.</value>
+        public string Category { get; set; }
+        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
