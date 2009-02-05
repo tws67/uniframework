@@ -6,7 +6,6 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Uniframework;
 using Uniframework.Services;
-using Uniframework.SmartClient;
 
 namespace Uniframework.Switch
 {

@@ -189,7 +189,7 @@ namespace Uniframework.Security
         /// Gets or sets the image file.
         /// </summary>
         /// <value>The image file.</value>
-        public string ImageFile { get; set; }
+        public string Image { get; set; }
         /// <summary>
         /// Gets or sets the action.
         /// </summary>

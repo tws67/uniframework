@@ -9,7 +9,7 @@ namespace Uniframework.Security
     /// 框架授权信息服务器端存储服务接口
     /// </summary>
     [RemoteService("授权信息存储接口", ServiceType.Infrustructure, ServiceScope.Global)]
-    public interface IAuthorizationSoteService
+    public interface IAuthorizationStoreService
     {
         #region 角色授权操作
 
@@ -73,6 +73,53 @@ namespace Uniframework.Security
         [RemoteMethod]
         IList<AuthorizationNode> GetAuthorizationNodes();
 
+        #endregion
+
+        #region 命令操作
+        /// <summary>
+        /// 保存操作命令
+        /// </summary>
+        /// <param name="command">命令</param>
+        [RemoteMethod]
+        void SaveCommand(AuthorizationCommand command);
+        /// <summary>
+        /// 删除操作命令
+        /// </summary>
+        /// <param name="command">命令</param>
+        [RemoteMethod]
+        void DeleteCommand(AuthorizationCommand command);
+        /// <summary>
+        /// 删除操作命令
+        /// </summary>
+        /// <param name="commandUri">命令Uri</param>
+        [RemoteMethod]
+        void DeleteCommand(string commandUri);
+        /// <summary>
+        /// 清除所有的操作命令
+        /// </summary>
+        [RemoteMethod]
+        void ClearCommand();
+        /// <summary>
+        /// 获取操作命令
+        /// </summary>
+        /// <param name="name">命令名称</param>
+        /// <param name="commandUri">命令URI.</param>
+        /// <returns></returns>
+        [RemoteMethod]
+        AuthorizationCommand GetCommand(string name, string commandUri);
+        /// <summary>
+        /// 获取命令列表
+        /// </summary>
+        /// <param name="category">命令分组</param>
+        /// <returns>命令列表</returns>
+        [RemoteMethod]
+        IList<AuthorizationCommand> GetCommand(string category);
+        /// <summary>
+        /// 获取所有命令列表
+        /// </summary>
+        /// <returns>命令列表</returns>
+        [RemoteMethod]
+        IList<AuthorizationCommand> GetCommands();
         #endregion
     }
 }

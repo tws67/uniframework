@@ -7,7 +7,6 @@ using log4net;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Uniframework.Services;
-using Uniframework.SmartClient;
 
 namespace Uniframework.Switch
 {
