@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Uniframework.SmartClient;
 using Microsoft.Practices.ObjectBuilder;
+using DevExpress.XtraGrid;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
@@ -27,6 +28,11 @@ namespace Uniframework.Common.WorkItems.Authorization
                 presenter = value;
                 presenter.View = this;
             }
+        }
+
+        public GridControl DataGrid
+        {
+            get { return dataGrid; }
         }
 
         #region IDataListView Members

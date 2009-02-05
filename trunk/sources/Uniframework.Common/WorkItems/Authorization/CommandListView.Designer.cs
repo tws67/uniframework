@@ -33,7 +33,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCommandUri = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colImageFile = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colImage = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).BeginInit();
             this.SuspendLayout();
@@ -55,7 +55,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colCategory,
             this.colName,
             this.colCommandUri,
-            this.colImageFile});
+            this.colImage});
             this.lvCommands.GridControl = this.dataGrid;
             this.lvCommands.Name = "lvCommands";
             this.lvCommands.OptionsBehavior.Editable = false;
@@ -86,14 +86,14 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colCommandUri.Visible = true;
             this.colCommandUri.VisibleIndex = 2;
             // 
-            // colImageFile
+            // colImage
             // 
-            this.colImageFile.Caption = "图标文件";
-            this.colImageFile.FieldName = "ImageFile";
-            this.colImageFile.Name = "colImageFile";
-            this.colImageFile.Visible = true;
-            this.colImageFile.VisibleIndex = 3;
-            this.colImageFile.Width = 117;
+            this.colImage.Caption = "图标文件";
+            this.colImage.FieldName = "Image";
+            this.colImage.Name = "colImage";
+            this.colImage.Visible = true;
+            this.colImage.VisibleIndex = 3;
+            this.colImage.Width = 117;
             // 
             // CommandListView
             // 
@@ -115,7 +115,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         private DevExpress.XtraGrid.Columns.GridColumn colCategory;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colCommandUri;
-        private DevExpress.XtraGrid.Columns.GridColumn colImageFile;
+        private DevExpress.XtraGrid.Columns.GridColumn colImage;
 
 
 

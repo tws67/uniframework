@@ -13,5 +13,8 @@ namespace Uniframework.Common
         public const string MembershipUserEditView = "/Shell/Module/Foundation/Views/MemebershipUserEditView";
         public const string MembershipRoleListView = "/Shell/Module/Foundation/Views/MembershipRoleListView";
         public const string MembershipRoleView = "/Shell/Module/Foundation/Views/MembershipRoleView";
+
+        public const string AuthorizationCommandListView = "/Shell/Module/Foundation/Views/AuthorizationCommandListView";
+        public const string AuthorizationCommandView = "/Shell/Module/Foundation/Views/AuthorzationCommandView";
     }
 }

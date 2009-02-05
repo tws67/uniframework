@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using Microsoft.Practices.CompositeUI;
-using Uniframework.SmartClient;
 
 namespace Uniframework.Switch
 {

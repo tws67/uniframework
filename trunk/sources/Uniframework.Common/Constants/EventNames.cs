@@ -12,5 +12,6 @@ namespace Uniframework.Common
     {
         public const string Membership_CurrentRoleChanged = "topic://Shell/Module/Foundation/Membership/CurrentRoleChanged";
         public const string Membership_CurrentUserChanged = "topic://Shell/Module/Foundation/Membership/CurrentUserChanged";
+        public const string Authorization_CurrentCommandChanged = "topic://Shell/Module/Foundation/Membership/CurrentCommandChanged";
     }
 }

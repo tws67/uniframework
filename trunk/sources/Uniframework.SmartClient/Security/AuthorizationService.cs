@@ -13,28 +13,28 @@ namespace Uniframework.SmartClient
 {
     public class AuthorizationService : IAuthorizationService
     {
-        //private WorkItem workItem;
-        //private IAuthorizationStoreService authorizationStoreService = null;
+        private WorkItem workItem;
+        private IAuthorizationStoreService authorizationStoreService = null;
         //private Dictionary<string, AuthorizationResource> authorizationResources = new Dictionary<string, AuthorizationResource>();
 
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="AuthorizationService"/> class.
-        ///// </summary>
-        ///// <param name="workItem">The work item.</param>
-        //public AuthorizationService([ServiceDependency]WorkItem workItem)
-        //{
-        //    this.workItem = workItem;
-        //    authorizationStoreService = workItem.Services.Get<IAuthorizationStoreService>();
-        //    if (authorizationStoreService != null)
-        //    {
-        //        List<AuthorizationResource> ars = new List<AuthorizationResource>();
-        //        ars = authorizationStoreService.GetAuthorizationResources(Thread.CurrentPrincipal.Identity.Name);
-        //        foreach (AuthorizationResource ar in ars)
-        //        {
-        //            authorizationResources[ar.Role] = ar;
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizationService"/> class.
+        /// </summary>
+        /// <param name="workItem">The work item.</param>
+        public AuthorizationService([ServiceDependency]WorkItem workItem)
+        {
+            this.workItem = workItem;
+            authorizationStoreService = workItem.Services.Get<IAuthorizationStoreService>();
+            //if (authorizationStoreService != null)
+            //{
+            //    List<AuthorizationResource> ars = new List<AuthorizationResource>();
+            //    ars = authorizationStoreService.GetAuthorizationResources(Thread.CurrentPrincipal.Identity.Name);
+            //    foreach (AuthorizationResource ar in ars)
+            //    {
+            //        authorizationResources[ar.Role] = ar;
+            //    }
+            //}
+        }
 
         ///// <summary>
         ///// 系统角色授权信息变化事件订阅器

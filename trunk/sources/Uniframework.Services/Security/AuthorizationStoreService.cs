@@ -9,7 +9,7 @@ using Uniframework.Services;
 
 namespace Uniframework.Security
 {
-    public class AuthorizationStoreService : IAuthorizationSoteService
+    public class AuthorizationStoreService : IAuthorizationStoreService
     {
         private readonly string AUTHORIZATION_DBNAME = "Authorization.yap";
         private ILogger logger;
@@ -129,6 +129,82 @@ namespace Uniframework.Security
         public IList<AuthorizationNode> GetAuthorizationNodes()
         {
             return db.Query<AuthorizationNode>();
+        }
+
+        /// <summary>
+        /// 保存操作命令
+        /// </summary>
+        /// <param name="command">命令</param>
+        public void SaveCommand(AuthorizationCommand command)
+        {
+            DeleteCommand(command.CommandUri);
+            db.Store(command);
+        }
+
+        /// <summary>
+        /// 删除操作命令
+        /// </summary>
+        /// <param name="command">命令</param>
+        public void DeleteCommand(AuthorizationCommand command)
+        {
+            DeleteCommand(command.CommandUri);
+        }
+
+        /// <summary>
+        /// 删除操作命令
+        /// </summary>
+        /// <param name="commandUri">命令Uri</param>
+        public void DeleteCommand(string commandUri) 
+        {
+            IList<AuthorizationCommand> results = db.Query<AuthorizationCommand>((AuthorizationCommand cmd) => cmd.CommandUri == commandUri);
+            foreach (AuthorizationCommand cmd in results) {
+                db.Delete(cmd);
+            }
+        }
+
+        /// <summary>
+        /// 清除所有的操作命令
+        /// </summary>
+        public void ClearCommand()
+        {
+            IList<AuthorizationCommand> results = db.Query<AuthorizationCommand>();
+            foreach (AuthorizationCommand cmd in results) {
+                db.Delete(cmd);
+            }
+        }
+
+        /// <summary>
+        /// 获取操作命令
+        /// </summary>
+        /// <param name="name">命令名称</param>
+        /// <param name="commandUri">命令URI.</param>
+        /// <returns></returns>
+        public AuthorizationCommand GetCommand(string name, string commandUri)
+        {
+            IList<AuthorizationCommand> results = db.Query<AuthorizationCommand>((AuthorizationCommand command) => command.Name == name &&
+                command.CommandUri == commandUri);
+            if (results.Count > 0)
+                return results[0];
+            return null;
+        }
+
+        /// <summary>
+        /// 获取命令列表
+        /// </summary>
+        /// <param name="category">命令分组</param>
+        /// <returns>命令列表</returns>
+        public IList<AuthorizationCommand> GetCommand(string category)
+        {
+            return db.Query<AuthorizationCommand>((AuthorizationCommand command) => command.Category == category);
+        }
+
+        /// <summary>
+        /// 获取所有命令列表
+        /// </summary>
+        /// <returns>命令列表</returns>
+        public IList<AuthorizationCommand> GetCommands()
+        {
+            return db.Query<AuthorizationCommand>();
         }
 
         #endregion

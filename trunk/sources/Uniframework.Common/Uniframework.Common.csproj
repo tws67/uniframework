@@ -73,11 +73,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WorkItems\Authorization\AuthorizationCommandView.cs">
+    <Compile Include="WorkItems\Authorization\CommandPresenter.cs" />
+    <Compile Include="WorkItems\Authorization\CommandView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorkItems\Authorization\AuthorizationCommandView.Designer.cs">
-      <DependentUpon>AuthorizationCommandView.cs</DependentUpon>
+    <Compile Include="WorkItems\Authorization\CommandView.Designer.cs">
+      <DependentUpon>CommandView.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkItems\Authorization\AuthorizationControl.cs">
       <SubType>UserControl</SubType>
@@ -203,6 +204,7 @@
     <None Include="Resources\businessmen.ico" />
     <None Include="Resources\businessman.ico" />
     <None Include="Resources\keys.ico" />
+    <None Include="Resources\gear.ico" />
     <Content Include="Uniframework.Common.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -213,8 +215,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkItems\Authorization\AuthorizationCommandView.resx">
-      <DependentUpon>AuthorizationCommandView.cs</DependentUpon>
+    <EmbeddedResource Include="WorkItems\Authorization\CommandView.resx">
+      <DependentUpon>CommandView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Authorization\AuthorizationControl.resx">
       <DependentUpon>AuthorizationControl.cs</DependentUpon>
