@@ -28,18 +28,22 @@ namespace Uniframework.Common.WorkItems.Authorization
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGrid = new DevExpress.XtraGrid.GridControl();
             this.lvCommands = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCommandUri = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colImage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.bsCommands = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCommands)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGrid
             // 
+            this.dataGrid.DataSource = this.bsCommands;
             this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGrid.Location = new System.Drawing.Point(0, 0);
             this.dataGrid.MainView = this.lvCommands;
@@ -95,6 +99,10 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colImage.VisibleIndex = 3;
             this.colImage.Width = 117;
             // 
+            // bsCommands
+            // 
+            this.bsCommands.CurrentChanged += new System.EventHandler(this.bsCommands_CurrentChanged);
+            // 
             // CommandListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -104,6 +112,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.Size = new System.Drawing.Size(760, 467);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCommands)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -116,6 +125,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colCommandUri;
         private DevExpress.XtraGrid.Columns.GridColumn colImage;
+        private System.Windows.Forms.BindingSource bsCommands;
 
 
 
