@@ -15,6 +15,11 @@ namespace Uniframework.Security
         private ILogger logger;
         private IDb4oDatabase db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthorizationStoreService"/> class.
+        /// </summary>
+        /// <param name="dbService">The db service.</param>
+        /// <param name="loggerFactory">The logger factory.</param>
         public AuthorizationStoreService(IDb4oDatabaseService dbService, ILoggerFactory loggerFactory)
         {
             logger = loggerFactory.CreateLogger<AuthorizationStoreService>("AuthorizationStoreService");
