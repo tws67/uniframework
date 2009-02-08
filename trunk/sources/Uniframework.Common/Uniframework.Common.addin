@@ -8,6 +8,22 @@
 
   <AddIns>
 
+    <Path name="/Shell/NaviPane/Configuration" label="系统配置管理" buildstartup="true">
+      <Item id="MembershipRole"
+            name="nbMembershipRole"
+            label="角色管理"
+            command="/Shell/Module/Foundation/Common/Membership/Role"
+            classname="XtraNavBarItem"
+            largeimage="${businessmen}"/>
+
+      <Item id="MembershipUser"
+            name="nbMembershipUser"
+            label="用户管理"
+            command="/Shell/Module/Foundation/Common/Membership/User"
+            classname="XtraNavBarItem"
+            largeimage="${businessman}"/>
+    </Path>
+    
     <Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
       <Item id="MembershipRole"
             name="mmivMembershipRole"
@@ -90,7 +106,7 @@
       <Item id="Edit"
             name="cmmEdit"
             label="编辑当前选定用户(&amp;E)..."
-            command=""
+            command="/Shell/Module/Foundation/DataList/Edit"
             classname="XtraButtonItem"
             shortcut="F4"/>
 
@@ -110,6 +126,14 @@
             shortcut="F5"
             imagefile="${refresh}"/>
     </Path>
-    
+
+    <Path name="/Shell/Bar/Mainmenu/Tool" label="工具菜单" buildstartup="true">
+      <Item id="ChangeMyPassword"
+            name="mmiChangeMyPassword"
+            label="修改我的密码(&amp;P)..."
+            command="/Shell/Module/Foundation/Common/Membership/ChangedPassword"
+            classname="XtraButtonItem"
+            imagefile="${keys}"/>
+    </Path>
   </AddIns>
 </configuration>

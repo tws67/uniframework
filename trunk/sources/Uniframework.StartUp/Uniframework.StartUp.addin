@@ -43,18 +43,25 @@
 
   <AddIns>
     <Path name="/Shell" label="Uniframework" buildstartup="true">
-      <Item id="Bar/Standard" name="Standard_toolBar" label="工具栏" command="" classname="XtraBar" register="true" dockstyle="Top"/>
+      <Item id="Bar/Standard" 
+            name="Standard_toolBar" 
+            label="工具栏" 
+            command="" 
+            classname="XtraBar" 
+            register="true" 
+            dockstyle="Top" 
+            wholerow="true"/>
     </Path>
 
     <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
-      <!--<Item id="MyWorkspace" 
-            name="naviMyWorkspace" 
-            label="快速启动栏" 
-            command="" 
-            classname="XtraNavBarGroup" 
+      <Item id="Configuration"
+            name="naviConfiguration"
+            label="系统配置管理"
+            command=""
+            classname="XtraNavBarGroup"
             navipane="/Shell/NaviPane/Navibar"
-            largeimage="${magic-wand}" 
-            register="true"/>-->
+            largeimage="${wrench}"
+            register="true"/>
     </Path>
 
     <Path name="/Shell/Bar/Mainmenu" label="主菜单" buildstartup="true">

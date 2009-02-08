@@ -67,8 +67,10 @@ namespace Uniframework.SmartClient.Strategies
             foreach (Control ctrl in control.Controls) {
                 if (ctrl is TextEdit)
                 {
-                    if (register)
+                    if (register) {
                         editableService.Register(ctrl);
+                        ((TextEdit)ctrl).EnterMoveNextControl = true; // 设置可以通过Enter键将焦点移到下一控件
+                    }
                     else
                         editableService.UnRegister(ctrl);
                 }
