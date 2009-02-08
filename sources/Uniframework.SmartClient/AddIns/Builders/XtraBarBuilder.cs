@@ -60,6 +60,12 @@ namespace Uniframework.SmartClient
                 string dockStyle = element.Configuration.Attributes["dockstyle"];
                 item.DockStyle = (BarDockStyle)Enum.Parse(typeof(BarDockStyle), dockStyle);
             }
+
+            // 是否让工具栏显示整行
+            if (element.Configuration.Attributes["wholerow"] != null)
+                item.OptionsBar.UseWholeRow = bool.Parse(element.Configuration.Attributes["wholerow"]);
+            if (element.Configuration.Attributes["allowcustomization"] != null)
+                item.OptionsBar.AllowQuickCustomization = bool.Parse(element.Configuration.Attributes["allowcustomization"]);
             if (element.Configuration.Attributes["register"] != null) {
                 bool register = bool.Parse(element.Configuration.Attributes["register"]);
                 if (register)

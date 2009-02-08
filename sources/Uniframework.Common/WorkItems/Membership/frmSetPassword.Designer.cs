@@ -29,14 +29,14 @@ namespace Uniframework.Common.WorkItems.Membership
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
-            DevExpress.XtraEditors.DXErrorProvider.CompareAgainstControlValidationRule compareAgainstControlValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.CompareAgainstControlValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.CompareAgainstControlValidationRule compareAgainstControlValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.CompareAgainstControlValidationRule();
+            this.edtPassword = new DevExpress.XtraEditors.TextEdit();
             this.edtUser = new Uniframework.Common.WorkItems.Membership.MembershipUserEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.edtPassword = new DevExpress.XtraEditors.TextEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.edtConfigrationPassword = new DevExpress.XtraEditors.TextEdit();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,11 +45,23 @@ namespace Uniframework.Common.WorkItems.Membership
             this.btnOK = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.dxValidationProvider = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPassword.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtConfigrationPassword.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider)).BeginInit();
             this.SuspendLayout();
+            // 
+            // edtPassword
+            // 
+            this.edtPassword.EnterMoveNextControl = true;
+            this.edtPassword.Location = new System.Drawing.Point(150, 76);
+            this.edtPassword.Name = "edtPassword";
+            this.edtPassword.Properties.PasswordChar = '●';
+            this.edtPassword.Size = new System.Drawing.Size(264, 21);
+            this.edtPassword.TabIndex = 0;
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule1.ErrorText = "密码不能为空";
+            this.dxValidationProvider.SetValidationRule(this.edtPassword, conditionValidationRule1);
             // 
             // edtUser
             // 
@@ -94,16 +106,6 @@ namespace Uniframework.Common.WorkItems.Membership
             this.labelControl3.TabIndex = 7;
             this.labelControl3.Text = "新密码(&P)";
             // 
-            // edtPassword
-            // 
-            this.edtPassword.Location = new System.Drawing.Point(150, 76);
-            this.edtPassword.Name = "edtPassword";
-            this.edtPassword.Size = new System.Drawing.Size(264, 21);
-            this.edtPassword.TabIndex = 0;
-            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule2.ErrorText = "密码不能为空";
-            this.dxValidationProvider.SetValidationRule(this.edtPassword, conditionValidationRule2);
-            // 
             // labelControl4
             // 
             this.labelControl4.Location = new System.Drawing.Point(67, 103);
@@ -114,14 +116,16 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // edtConfigrationPassword
             // 
+            this.edtConfigrationPassword.EnterMoveNextControl = true;
             this.edtConfigrationPassword.Location = new System.Drawing.Point(150, 103);
             this.edtConfigrationPassword.Name = "edtConfigrationPassword";
+            this.edtConfigrationPassword.Properties.PasswordChar = '●';
             this.edtConfigrationPassword.Size = new System.Drawing.Size(264, 21);
             this.edtConfigrationPassword.TabIndex = 1;
-            compareAgainstControlValidationRule2.CompareControlOperator = DevExpress.XtraEditors.DXErrorProvider.CompareControlOperator.Equals;
-            compareAgainstControlValidationRule2.Control = this.edtPassword;
-            compareAgainstControlValidationRule2.ErrorText = "前后输入的密码不一致";
-            this.dxValidationProvider.SetValidationRule(this.edtConfigrationPassword, compareAgainstControlValidationRule2);
+            compareAgainstControlValidationRule1.CompareControlOperator = DevExpress.XtraEditors.DXErrorProvider.CompareControlOperator.Equals;
+            compareAgainstControlValidationRule1.Control = this.edtPassword;
+            compareAgainstControlValidationRule1.ErrorText = "前后输入的密码不一致";
+            this.dxValidationProvider.SetValidationRule(this.edtConfigrationPassword, compareAgainstControlValidationRule1);
             // 
             // label2
             // 
@@ -195,8 +199,8 @@ namespace Uniframework.Common.WorkItems.Membership
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "设置密码";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPassword.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtConfigrationPassword.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider)).EndInit();
             this.ResumeLayout(false);

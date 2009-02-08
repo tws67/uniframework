@@ -67,6 +67,10 @@ namespace Uniframework.SmartClient
             if (barManager != null)
                 item.Id = barManager.GetNewItemId(); // 为BarItem设置Id方便正确的保存和恢复其状态
 
+            if (element.Configuration.Attributes["alignment"] != null)
+                item.Alignment = (BarItemLinkAlignment)Enum.Parse(typeof(BarItemLinkAlignment), element.Configuration.Attributes["alignment"]);
+            if (element.Configuration.Attributes["paintstyle"] != null)
+                item.PaintStyle = (BarItemPaintStyle)Enum.Parse(typeof(BarItemPaintStyle), element.Configuration.Attributes["paintstyle"]);
             if (element.Configuration.Attributes["tooltip"] != null)
                 item.Hint = element.Configuration.Attributes["tooltip"];
             else
