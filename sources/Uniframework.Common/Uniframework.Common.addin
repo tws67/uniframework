@@ -22,9 +22,23 @@
             command="/Shell/Module/Foundation/Common/Membership/User"
             classname="XtraNavBarItem"
             largeimage="${businessman}"/>
+
+      <Item id="CommandList"
+            name="nbCommandList"
+            label="命令列表"
+            command="/Shell/Module/Foundation/Command/Authorization/Command"
+            classname="XtraNavBarItem"
+            largeimage="${gear}"/>
+
+      <Item id="Options"
+            name="nbOptions"
+            label="系统选项"
+            command="/Shell/Module/Foundation/View/Setting"
+            classname="XtraNavBarItem"
+            largeimage="${preferences}"/>
     </Path>
     
-    <Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
+    <!--<Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
       <Item id="MembershipRole"
             name="mmivMembershipRole"
             label="角色管理(&amp;R)"
@@ -39,7 +53,7 @@
             command="/Shell/Module/Foundation/Common/Membership/User"
             classname="XtraButtonItem"
             insertbefore="mmivSetting"/>
-    </Path>
+    </Path>-->
     
     <Path name="/Shell" label="右键菜单" buildstartup="true">
       <Item id="Module/Foundation/Common/Membership/User/ContentMenu"
