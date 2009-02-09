@@ -8,6 +8,7 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
 using Uniframework.Common.WorkItems.Membership;
 using Uniframework.SmartClient;
+using Uniframework.Common.WorkItems.Authorization;
 
 namespace Uniframework.Common
 {
@@ -24,8 +25,13 @@ namespace Uniframework.Common
         {
             base.AddServices();
 
+            // 成员管理
             ControlledWorkItem<MembershipController> membershipWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<MembershipController>>("MembershipController");
             membershipWorkItem.Run();
+
+            // 权限管理
+            ControlledWorkItem<AuthorizationController> authWorkItem = WorkItem.WorkItems.AddNew<ControlledWorkItem<AuthorizationController>>("AuthorizationController");
+            authWorkItem.Run();
         }
 
         protected override void AddUIElements()

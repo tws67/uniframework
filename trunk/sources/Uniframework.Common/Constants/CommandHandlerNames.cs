@@ -13,5 +13,6 @@ namespace Uniframework.Common
         public const string CMD_COMM_MEMBERSHIP_CHANGEPASSWORD = "/Shell/Module/Foundation/Common/Membership/ChangedPassword";
 
         public const string CMD_COMM_MEMBERSHIP_ROLE = "/Shell/Module/Foundation/Common/Membership/Role";
+        public const string CMD_COMM_AUTHORIZATION_COMMAND = "/Shell/Module/Foundation/Command/Authorization/Command";
     }
 }
