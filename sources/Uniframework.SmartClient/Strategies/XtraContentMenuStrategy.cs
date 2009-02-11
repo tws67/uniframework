@@ -19,6 +19,7 @@ namespace Uniframework.SmartClient.Strategies
     /// </summary>
     public class XtraContentMenuStrategy : BuilderStrategy
     {
+        private static readonly string EMPTYROW = "EmptyRow";
         private WorkItem workItem = null;
 
         public override object BuildUp(IBuilderContext context, Type typeToBuild, object existing, string idToBuild)
@@ -82,7 +83,8 @@ namespace Uniframework.SmartClient.Strategies
                             else if (control is GridControl) { // DevExpress GridControl控件
                                 GridHitInfo hi = ((GridControl)control).MainView.CalcHitInfo(new Point(e.X, e.Y)) as GridHitInfo;
                                 if (hi != null) {
-                                    if (hi.InRow || hi.InRowCell)
+                                    string hitTest = hi.HitTest.ToString();
+                                    if (hi.InRow || hi.InRowCell || hitTest == EMPTYROW)
                                         content.ShowPopup(Control.MousePosition);
                                 }
                                 else

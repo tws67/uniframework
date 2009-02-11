@@ -141,6 +141,38 @@
             imagefile="${refresh}"/>
     </Path>
 
+    <Path name="/Shell/Module/Foundation/Common/Authorization/Command/ContentMenu" label="操作列表上下文菜单" buildstartup="true">
+      <Item id="New"
+            name="cmmNew"
+            label="新建操作(&amp;N)..."
+            command="/Shell/Module/Foundation/DataList/Insert"
+            classname="XtraButtonItem"
+            shortcut="CtrlIns"/>
+
+      <Item id="Edit"
+            name="cmmEdit"
+            label="编辑当前选定操作(&amp;E)..."
+            command="/Shell/Module/Foundation/DataList/Edit"
+            classname="XtraButtonItem"
+            shortcut="F4"/>
+
+      <Item id="Delete"
+            name="cmmDelete"
+            label="删除(&amp;D)"
+            command="/Shell/Module/Foundation/DataList/Delete"
+            classname="XtraButtonItem"
+            shortcut="Del"/>
+
+      <Item id="Refresh"
+            name="cmmRefresh"
+            label="刷新(&amp;E)"
+            command="/Shell/Module/Foundation/DataList/Refresh"
+            classname="XtraButtonItem"
+            begingroup="true"
+            shortcut="F5"
+            imagefile="${refresh}"/>
+    </Path>
+
     <Path name="/Shell/Bar/Mainmenu/Tool" label="工具菜单" buildstartup="true">
       <Item id="ChangeMyPassword"
             name="mmiChangeMyPassword"

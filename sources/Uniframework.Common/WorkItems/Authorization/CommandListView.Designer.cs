@@ -30,15 +30,15 @@ namespace Uniframework.Common.WorkItems.Authorization
         {
             this.components = new System.ComponentModel.Container();
             this.dataGrid = new DevExpress.XtraGrid.GridControl();
+            this.bsCommands = new System.Windows.Forms.BindingSource(this.components);
             this.lvCommands = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCommandUri = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colImage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.bsCommands = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCommands)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGrid
@@ -50,8 +50,13 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(760, 467);
             this.dataGrid.TabIndex = 0;
+            this.dataGrid.Tag = "/Shell/Module/Foundation/Common/Authorization/Command/ContentMenu";
             this.dataGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.lvCommands});
+            // 
+            // bsCommands
+            // 
+            this.bsCommands.CurrentChanged += new System.EventHandler(this.bsCommands_CurrentChanged);
             // 
             // lvCommands
             // 
@@ -65,6 +70,8 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.lvCommands.OptionsBehavior.Editable = false;
             this.lvCommands.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategory, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.lvCommands.Tag = "";
+            this.lvCommands.ViewCaption = "²Ù×÷ÁÐ±í";
             // 
             // colCategory
             // 
@@ -73,6 +80,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colCategory.Name = "colCategory";
             this.colCategory.Visible = true;
             this.colCategory.VisibleIndex = 0;
+            this.colCategory.Width = 162;
             // 
             // colName
             // 
@@ -81,6 +89,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
+            this.colName.Width = 162;
             // 
             // colCommandUri
             // 
@@ -89,6 +98,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colCommandUri.Name = "colCommandUri";
             this.colCommandUri.Visible = true;
             this.colCommandUri.VisibleIndex = 2;
+            this.colCommandUri.Width = 250;
             // 
             // colImage
             // 
@@ -97,11 +107,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colImage.Name = "colImage";
             this.colImage.Visible = true;
             this.colImage.VisibleIndex = 3;
-            this.colImage.Width = 117;
-            // 
-            // bsCommands
-            // 
-            this.bsCommands.CurrentChanged += new System.EventHandler(this.bsCommands_CurrentChanged);
+            this.colImage.Width = 165;
             // 
             // CommandListView
             // 
@@ -111,8 +117,8 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.Name = "CommandListView";
             this.Size = new System.Drawing.Size(760, 467);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCommands)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).EndInit();
             this.ResumeLayout(false);
 
         }
