@@ -77,5 +77,10 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         [EventPublication(EventNames.Authorization_CurrentCommandChanged, PublicationScope.WorkItem)]
         public event EventHandler<EventArgs<AuthorizationCommand>> CurrentCommandChanged;
+
+        private void CommandListView_Load(object sender, EventArgs e)
+        {
+            Presenter.OnViewReady();
+        }
     }
 }

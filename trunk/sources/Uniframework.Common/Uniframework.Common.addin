@@ -67,6 +67,12 @@
             lable="角色管理菜单"
             command=""
             classname="XtraContentMenu"/>
+
+      <Item id="Module/Foundation/Common/Authorization/Command/ContentMenu"
+            name="cmAuthorizationCommand"
+            label="操作列表上下文菜单"
+            command=""
+            classname="XtraContentMenu"/>
     </Path>
 
     <Path name="/Shell/Module/Foundation/Common/Membership/Role/ContentMenu" label="" buildstartup="false">

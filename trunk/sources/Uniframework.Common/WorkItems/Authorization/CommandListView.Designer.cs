@@ -116,6 +116,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.Controls.Add(this.dataGrid);
             this.Name = "CommandListView";
             this.Size = new System.Drawing.Size(760, 467);
+            this.Load += new System.EventHandler(this.CommandListView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCommands)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).EndInit();
