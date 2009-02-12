@@ -61,14 +61,13 @@ namespace Uniframework.Common.WorkItems.Authorization
                 Name = edtName.Text,
                 CommandUri = edtCommandUri.Text,
                 Category = edtCategory.Text,
-                Image = edtImage.Text
+                Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}"
             };
-            try
-            {
+
+            try {
                 Presenter.AuthorizationStoreService.SaveCommand(command);
             }
-            catch (Exception ex) 
-            {
+            catch (Exception ex) {
                 XtraMessageBox.Show("±£¥Ê√¸¡Ó \"" + edtName.Text + "\"  ± ß∞‹£¨"°°+°°ex.Message);
                 btnOK.DialogResult = DialogResult.None;
             }

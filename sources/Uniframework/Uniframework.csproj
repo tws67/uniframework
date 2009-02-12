@@ -87,6 +87,7 @@
     <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Common\Exception.cs" />
     <Compile Include="Common\DynamicLatebound.cs" />
+    <Compile Include="Security\Authorization\AuthorizationCommand.cs" />
     <Compile Include="Security\Authorization\AuthorizationNode.cs" />
     <Compile Include="Security\Authorization\IAuthorizationNode.cs" />
     <Compile Include="Security\PasswordGenterator.cs" />

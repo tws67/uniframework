@@ -32,6 +32,15 @@ namespace Uniframework.Common.WorkItems.Authorization
         }
 
         /// <summary>
+        /// 初始化数据列表操作只在数据列表第一次加载时使用
+        /// </summary>
+        public override void Initilize()
+        {
+            base.Initilize();
+
+            RefreshDataSource();
+        }
+        /// <summary>
         /// 插入新的数据资料
         /// </summary>
         public override void Insert()
@@ -84,6 +93,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             };
 
             ShowViewInWorkspace<CommandView>(SmartPartNames.AuthorizationCommandView, UIExtensionSiteNames.Shell_Workspace_Window, spi);
+            RefreshDataSource();
         }
 
         /// <summary>
@@ -116,6 +126,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                     XtraMessageBox.Show("删除命令项失败，" + ex.Message);
                 }
             }
+            RefreshDataSource();
         }
 
         /// <summary>
@@ -124,16 +135,26 @@ namespace Uniframework.Common.WorkItems.Authorization
         public override void RefreshDataSource()
         {
             base.RefreshDataSource();
-
-            try {
-                View.DataGrid.BeginUpdate();
-                View.DataSource.DataSource = AuthorizationStoreService.GetCommands();
-            }
-            finally
-            {
-                View.DataGrid.EndUpdate();
+            using (WaitCursor cursor = new WaitCursor(true)) {
+                try {
+                    View.DataGrid.BeginUpdate();
+                    View.DataSource.DataSource = AuthorizationStoreService.GetCommands();
+                }
+                finally {
+                    View.DataGrid.EndUpdate();
+                }
             }
         }
+
+        /// <summary>
+        /// 视图准备好方法用于在Presenter中初始化视图
+        /// </summary>
+        public override void OnViewReady()
+        {
+            base.OnViewReady();
+            Initilize();
+        }
+
         /// <summary>
         /// 默认列表视图
         /// </summary>

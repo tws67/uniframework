@@ -133,7 +133,7 @@ namespace Uniframework.Security
         /// <returns>授权节点列表</returns>
         public IList<AuthorizationNode> GetAuthorizationNodes()
         {
-            return db.Query<AuthorizationNode>();
+            return db.Load<AuthorizationNode>();
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace Uniframework.Security
         /// <returns>命令列表</returns>
         public IList<AuthorizationCommand> GetCommands()
         {
-            return db.Query<AuthorizationCommand>();
+            return db.Load<AuthorizationCommand>();
         }
 
         #endregion
