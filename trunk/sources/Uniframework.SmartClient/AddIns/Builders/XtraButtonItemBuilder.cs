@@ -61,7 +61,7 @@ namespace Uniframework.SmartClient
                 item = new BarSubItem();
             else
                 item = new BarButtonItem();
-            item.Caption = label;
+            item.Caption = BuilderUtility.GetStringRES(context, label);
             item.Name = element.Name;
             BarManager barManager = BuilderUtility.GetBarManager(context);
             if (barManager != null)

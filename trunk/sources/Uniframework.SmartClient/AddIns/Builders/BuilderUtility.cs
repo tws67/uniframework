@@ -122,5 +122,22 @@ namespace Uniframework.SmartClient
             }
             throw new UniframeworkException("没有加载 ImageService 服务不能获取指定的图像资源。");
         }
+
+        /// <summary>
+        /// 获取字符串资源值
+        /// </summary>
+        /// <param name="workItem">工作项.</param>
+        /// <param name="key">关键字</param>
+        /// <returns>如果字符串服务中存在指定关键字的值，返回其值否则直接返回其关键字</returns>
+        public static String GetStringRES(WorkItem workItem, string key)
+        {
+            IStringService strService = workItem.Services.Get<IStringService>();
+            if (strService != null && !String.IsNullOrEmpty(strService[key]))
+            {
+                return strService[key];
+            }
+            else
+                return key;
+        }
     }
 }

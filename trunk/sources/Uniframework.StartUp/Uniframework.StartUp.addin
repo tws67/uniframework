@@ -50,7 +50,8 @@
             classname="XtraBar" 
             register="true" 
             dockstyle="Top" 
-            wholerow="true"/>
+            wholerow="true"
+            allowcustomization="false"/>
     </Path>
 
     <Path name="/Shell/NaviPane" label="MyWorkspace" buildstartup="true">
@@ -238,6 +239,28 @@
             begingroup="true"
             shortcut="CtrlF"
             imagefile="${find}"/>
+
+      <Item id="Identity"
+            name="mmitIdentity"
+            label="${CurrentUser}"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${businessman}"
+            register="true"
+            alignment="Right"
+            paintstyle="CaptionGlyph"
+            begingroup="true"/>
+    </Path>
+
+    <Path name="/Shell/Bar/Standard/Identity" label="当前登录帐户" buildstartup="true">
+      <Item id="Exit"
+            name="mmiiExit"
+            label="退出系统(&amp;X)"
+            command="/Shell/Module/Foundation/File/Exit"
+            classname="XtraButtonItem"
+            imagefile="${exit}"
+            shortcut="AltF4"
+            begingroup="true"/>
     </Path>
     
     <Path name="/Shell/Bar/Mainmenu/File" label="文件菜单" buildstartup="true">

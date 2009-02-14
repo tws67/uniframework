@@ -8,6 +8,16 @@
 
   <AddIns>
 
+    <Path name="/Shell/Bar/Standard/Identity" lable="" buildstartup="true">
+      <Item id="ChangeMyPassword"
+            name="mmiiChangeMyPassword"
+            label="我要修改密码(&amp;C)..."
+            command="/Shell/Module/Foundation/Common/Membership/ChangedPassword"
+            classname="XtraButtonItem"
+            insertbefore="mmiiExit"
+            imagefile="${keys}"/>
+    </Path>
+
     <Path name="/Shell/NaviPane/Configuration" label="系统配置管理" buildstartup="true">
       <Item id="MembershipRole"
             name="nbMembershipRole"
@@ -177,15 +187,6 @@
             begingroup="true"
             shortcut="F5"
             imagefile="${refresh}"/>
-    </Path>
-
-    <Path name="/Shell/Bar/Mainmenu/Tool" label="工具菜单" buildstartup="true">
-      <Item id="ChangeMyPassword"
-            name="mmiChangeMyPassword"
-            label="修改我的密码(&amp;P)..."
-            command="/Shell/Module/Foundation/Common/Membership/ChangedPassword"
-            classname="XtraButtonItem"
-            imagefile="${keys}"/>
     </Path>
   </AddIns>
 </configuration>

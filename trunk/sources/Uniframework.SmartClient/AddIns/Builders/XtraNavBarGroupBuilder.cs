@@ -50,7 +50,7 @@ namespace Uniframework.SmartClient
 
             string label = element.Configuration.Attributes["label"];
             string navipane = element.Configuration.Attributes["navipane"];
-            NavBarGroup item = new NavBarGroup(label);
+            NavBarGroup item = new NavBarGroup(BuilderUtility.GetStringRES(context, label));
             item.GroupStyle = NavBarGroupStyle.LargeIconsText;
             NavBarControl naviPane = context.Items.Get<NavBarControl>(navipane);
             if (naviPane == null)

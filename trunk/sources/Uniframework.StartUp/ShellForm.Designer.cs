@@ -119,7 +119,6 @@ namespace Uniframework.StartUp
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabCustomPanel1, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabCustomPanel2),
             new DevExpress.XtraBars.LinkPersistInfo(((DevExpress.XtraBars.BarLinkUserDefines)((DevExpress.XtraBars.BarLinkUserDefines.PaintStyle | DevExpress.XtraBars.BarLinkUserDefines.Width))), this.ProgressBar, "", true, true, true, 106, null, DevExpress.XtraBars.BarItemPaintStyle.Standard),
-            new DevExpress.XtraBars.LinkPersistInfo(this.tlabUser, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.tbtnNetworkStatus, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.tlabRequestSize, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.ZoomBar)});
@@ -263,7 +262,7 @@ namespace Uniframework.StartUp
             this.naviWorkspace.Location = new System.Drawing.Point(0, 25);
             this.naviWorkspace.Name = "naviWorkspace";
             this.naviWorkspace.OptionsNavPane.ExpandedWidth = 169;
-            this.naviWorkspace.Size = new System.Drawing.Size(169, 517);
+            this.naviWorkspace.Size = new System.Drawing.Size(169, 518);
             this.naviWorkspace.TabIndex = 6;
             this.naviWorkspace.View = new DevExpress.XtraNavBar.ViewInfo.SkinNavigationPaneViewInfoRegistrator();
             // 
@@ -271,7 +270,7 @@ namespace Uniframework.StartUp
             // 
             this.SplitterControl.Location = new System.Drawing.Point(169, 25);
             this.SplitterControl.Name = "SplitterControl";
-            this.SplitterControl.Size = new System.Drawing.Size(6, 517);
+            this.SplitterControl.Size = new System.Drawing.Size(6, 518);
             this.SplitterControl.TabIndex = 7;
             this.SplitterControl.TabStop = false;
             // 

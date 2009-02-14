@@ -35,7 +35,7 @@ namespace Uniframework
         {
             lock (SyncObj) {
                 Bitmap bitmap = null;
-                string key = Parse(name, null);
+                string key = FileUtility.Parse(name, null);
                 // 首先从缓存中查找资源
                 if (imagesCache.ContainsKey(key))
                     return imagesCache[key];
@@ -110,7 +110,7 @@ namespace Uniframework
         {
             lock (SyncObj) {
                 Icon icon = null;
-                string key = Parse(name, null);
+                string key = FileUtility.Parse(name, null);
 
                 // 首先从图标缓存中查找图标
                 if (iconsCache.ContainsKey(size) && iconsCache[size].ContainsKey(key)) {
@@ -155,89 +155,89 @@ namespace Uniframework
             }
         }
 
-        /// <summary>
-        /// 分析字符串将其中以${...}括起来的字符串资源替换为实际的值。
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="customTags"></param>
-        /// <returns></returns>
-        public string Parse(string input, string[,] customTags)
-        {
-            if (input == null)
-                return null;
-            int pos = 0;
-            StringBuilder output = null; // don't use StringBuilder if input is a single property
-            do
-            {
-                int oldPos = pos;
-                pos = input.IndexOf("${", pos);
-                if (pos < 0)
-                {
-                    if (output == null)
-                    {
-                        return input;
-                    }
-                    else
-                    {
-                        if (oldPos < input.Length)
-                        {
-                            // normal text after last property
-                            output.Append(input, oldPos, input.Length - oldPos);
-                        }
-                        return output.ToString();
-                    }
-                }
-                if (output == null)
-                {
-                    if (pos == 0)
-                        output = new StringBuilder();
-                    else
-                        output = new StringBuilder(input, 0, pos, pos + 16);
-                }
-                else
-                {
-                    if (pos > oldPos)
-                    {
-                        // normal text between two properties
-                        output.Append(input, oldPos, pos - oldPos);
-                    }
-                }
-                int end = input.IndexOf('}', pos + 1);
-                if (end < 0)
-                {
-                    output.Append("${");
-                    pos += 2;
-                }
-                else
-                {
-                    string property = input.Substring(pos + 2, end - pos - 2);
-                    string val = GetValue(property, customTags);
-                    if (val == null)
-                    {
-                        output.Append("${");
-                        output.Append(property);
-                        output.Append('}');
-                    }
-                    else
-                    {
-                        output.Append(val);
-                    }
-                    pos = end + 1;
-                }
-            } while (pos < input.Length);
-            return output.ToString();
-        }
+        ///// <summary>
+        ///// 分析字符串将其中以${...}括起来的字符串资源替换为实际的值。
+        ///// </summary>
+        ///// <param name="input"></param>
+        ///// <param name="customTags"></param>
+        ///// <returns></returns>
+        //public string Parse(string input, string[,] customTags)
+        //{
+        //    if (input == null)
+        //        return null;
+        //    int pos = 0;
+        //    StringBuilder output = null; // don't use StringBuilder if input is a single property
+        //    do
+        //    {
+        //        int oldPos = pos;
+        //        pos = input.IndexOf("${", pos);
+        //        if (pos < 0)
+        //        {
+        //            if (output == null)
+        //            {
+        //                return input;
+        //            }
+        //            else
+        //            {
+        //                if (oldPos < input.Length)
+        //                {
+        //                    // normal text after last property
+        //                    output.Append(input, oldPos, input.Length - oldPos);
+        //                }
+        //                return output.ToString();
+        //            }
+        //        }
+        //        if (output == null)
+        //        {
+        //            if (pos == 0)
+        //                output = new StringBuilder();
+        //            else
+        //                output = new StringBuilder(input, 0, pos, pos + 16);
+        //        }
+        //        else
+        //        {
+        //            if (pos > oldPos)
+        //            {
+        //                // normal text between two properties
+        //                output.Append(input, oldPos, pos - oldPos);
+        //            }
+        //        }
+        //        int end = input.IndexOf('}', pos + 1);
+        //        if (end < 0)
+        //        {
+        //            output.Append("${");
+        //            pos += 2;
+        //        }
+        //        else
+        //        {
+        //            string property = input.Substring(pos + 2, end - pos - 2);
+        //            string val = GetValue(property, customTags);
+        //            if (val == null)
+        //            {
+        //                output.Append("${");
+        //                output.Append(property);
+        //                output.Append('}');
+        //            }
+        //            else
+        //            {
+        //                output.Append(val);
+        //            }
+        //            pos = end + 1;
+        //        }
+        //    } while (pos < input.Length);
+        //    return output.ToString();
+        //}
 
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <param name="customTags">The custom tags.</param>
-        /// <returns></returns>
-        private string GetValue(string propertyName, string[,] customTags)
-        {
-            return propertyName;
-        }
+        ///// <summary>
+        ///// Gets the value.
+        ///// </summary>
+        ///// <param name="propertyName">Name of the property.</param>
+        ///// <param name="customTags">The custom tags.</param>
+        ///// <returns></returns>
+        //private string GetValue(string propertyName, string[,] customTags)
+        //{
+        //    return propertyName;
+        //}
 
         #endregion
     }
