@@ -136,7 +136,9 @@
     <Compile Include="Services\DataList\Layout.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\IStringService.cs" />
     <Compile Include="Services\MethodInvokeInfo.cs" />
+    <Compile Include="Services\StringService.cs" />
     <Compile Include="Utility\MyConvert.cs" />
     <Compile Include="Common\NetworkInvokePackage.cs" />
     <Compile Include="Common\PackageUtility.cs" />

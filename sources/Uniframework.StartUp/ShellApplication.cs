@@ -34,6 +34,8 @@ namespace Uniframework.StartUp
 {
     public class ShellApplication : SmartFormApplication<ControlledWorkItem<RootController>, ShellForm>
     {
+        private static readonly string IdentityPath = "/Shell/Bar/Standard/Identity";
+
         private AddInTree addInTree;
 
         /// <summary>
@@ -199,6 +201,9 @@ namespace Uniframework.StartUp
                 {
                     string[] roles = membershipServce.GetRolesForUser(CommunicateProxy.UserName);
                     Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(CommunicateProxy.UserName), roles);
+                    IStringService strService = RootWorkItem.Services.Get<IStringService>();
+                    if (strService != null)
+                        strService.Register("CurrentUser", CommunicateProxy.UserName);
                 }
                 // 为环境变量赋值
                 SmartClientEnvironment scEnvironment = RootWorkItem.Services.Get<SmartClientEnvironment>();
@@ -282,8 +287,7 @@ namespace Uniframework.StartUp
         private void RegisterUISite()
         {
             string shellAddinfile = ConfigurationManager.AppSettings["ShellAddinfile"];
-            if (addInTree != null && File.Exists(shellAddinfile))
-            {
+            if (addInTree != null && File.Exists(shellAddinfile)) {
                 AddIn addIn = new AddIn(shellAddinfile, RootWorkItem);
                 addInTree.InsertAddIn(addIn);
             }

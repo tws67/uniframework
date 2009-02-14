@@ -65,8 +65,6 @@ namespace Uniframework.StartUp
             InitialNetworkState();
 
             IInitializeService initialService = ServiceRepository.Instance.GetService(typeof(IInitializeService)) as IInitializeService;
-            UserInfo ui = initialService.GetUserInfo(CommunicateProxy.UserName);
-            tlabUser.Caption = ui.DispalyName;
         }
 
         #region Shell form members
@@ -126,16 +124,6 @@ namespace Uniframework.StartUp
             }
             if (ConnectionStateChanged != null && (e.CurrentState != e.OriginalState))
                 ConnectionStateChanged(e.CurrentState);
-        }
-
-        /// <summary>
-        /// Gets or sets the current login user.
-        /// </summary>
-        /// <value>The current login user.</value>
-        public string CurrentLoginUser
-        {
-            get { return tlabUser.Caption; }
-            set { tlabUser.Caption = value; }
         }
 
         public BarManager BarManager

@@ -50,7 +50,7 @@ namespace Uniframework.SmartClient
                     element.ClassName, element.Id));
 
             string label = element.Configuration.Attributes["label"];
-            NavBarItem item = new NavBarItem(label);
+            NavBarItem item = new NavBarItem(BuilderUtility.GetStringRES(context, label));
             item.Name = element.Name;
             if (element.Configuration.Attributes["tooltip"] != null)
                 item.Hint = element.Configuration.Attributes["tooltip"];

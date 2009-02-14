@@ -54,6 +54,7 @@ namespace Uniframework.SmartClient
             //RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListHandler>, IAdapterFactoryCatalog<IDataListHandler>>();
             RootWorkItem.Services.AddOnDemand<AdapterFactoryCatalog<IDataListView>, IAdapterFactoryCatalog<IDataListView>>();
             RootWorkItem.Services.AddOnDemand<ImageService, IImageService>();
+            RootWorkItem.Services.AddOnDemand<StringService, IStringService>();
             RootWorkItem.Services.AddOnDemand<PropertyService, IPropertyService>();
             RootWorkItem.Services.AddOnDemand<SettingService, ISettingService>();
             RootWorkItem.Services.AddOnDemand<EntityTranslatorService, IEntityTranslatorService>();

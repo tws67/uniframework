@@ -324,30 +324,32 @@ namespace Uniframework.SmartClient
         private void ParseResource(IConfiguration configuration)
         {
             Guard.ArgumentNotNull(configuration, "configuration");
-            //IResourceService resService = workItem.Services.Get<IResourceService>();
-            //if (resService != null)
-            //{
-            //    foreach (IConfiguration config in configuration.Children)
-            //    {
-            //        switch (config.Name)
-            //        {
-            //            case "Images" : // Images
-            //                foreach (IConfiguration image in config.Children)
-            //                {
-            //                    if (image.Attributes["key"] != null && image.Attributes["value"] != null)
-            //                        resService.RegisterImages(image.Attributes["key"], image.Attributes["value"]);
-            //                }
-            //                break;
+            IStringService strService = workItem.Services.Get<IStringService>();
+            if (strService != null)
+            {
+                foreach (IConfiguration config in configuration.Children)
+                {
+                    switch (config.Name)
+                    {
+                        //case "Images": // Images
+                        //    foreach (IConfiguration image in config.Children)
+                        //    {
+                        //        if (image.Attributes["key"] != null && image.Attributes["value"] != null)
+                        //            strService.RegisterImages(image.Attributes["key"], image.Attributes["value"]);
+                        //    }
+                        //    break;
 
-            //            // 当前还没有实现直接注册字符串资源
-            //            //case "Strings" : // Strings
-            //            //    foreach (IConfiguration strings in config.Children)
-            //            //    {
-            //            //    }
-            //            //    break;
-            //        }
-            //    }
-            //}
+                        // 当前还没有实现直接注册字符串资源
+                        case "Strings" : // Strings
+                            foreach (IConfiguration str in config.Children)
+                            {
+                                if (str.Attributes["key"] != null && str.Attributes["value"] != null)
+                                    strService.Register(str.Attributes["key"], str.Attributes["value"]);
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
         #endregion
