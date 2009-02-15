@@ -55,6 +55,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlAuth.OptionsBehavior.Editable = false;
             this.tlAuth.OptionsView.ShowHorzLines = false;
             this.tlAuth.OptionsView.ShowIndicator = false;
+            this.tlAuth.OptionsView.ShowRoot = false;
             this.tlAuth.OptionsView.ShowVertLines = false;
             this.tlAuth.SelectImageList = this.ilAuth;
             this.tlAuth.Size = new System.Drawing.Size(189, 468);

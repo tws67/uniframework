@@ -11,7 +11,7 @@ namespace Uniframework.Security
 {
     public class AuthorizationStoreService : IAuthorizationStoreService
     {
-        private readonly string AUTHORIZATION_DBNAME = "Membership.yap";
+        private readonly string AUTHORIZATION_DBNAME = "Authorization.yap";
         private ILogger logger;
         private IDb4oDatabase db;
 

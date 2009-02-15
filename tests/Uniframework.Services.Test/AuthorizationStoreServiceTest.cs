@@ -52,7 +52,7 @@ namespace Uniframework.Services.Test
             authService.Save(node);
 
             Assert.AreEqual(1, authService.GetAuthorizationNodes().Count);
-            Assert.AreEqual("Shell", authService.GetAuthorizationNodes()[0].Name);
+            Assert.AreEqual("/Shell", authService.GetAuthorizationNodes()[0].Id);
             authService.Clear();
         }
     }

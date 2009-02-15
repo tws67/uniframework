@@ -62,8 +62,11 @@ namespace Uniframework.Common.WorkItems.Authorization
             foreach (AuthorizationNode authNode in Presenter.AuthorizationStoreService.GetAuthorizationNodes()) { 
 
             }
-            if (nodes == null) {
-                AuthorizationNode node = new AuthorizationNode("Shell", "系统权限");
+            if (nodes.Count == 0) {
+                AuthorizationNode node = new AuthorizationNode() { 
+                    Id = "Shell",
+                    Name = "系统权限"
+                };
                 node.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
                 TreeListNode tlNode = tlAuth.AppendNode(new object[] { node.Name, node.Id }, -1, node);
                 tlNode.ImageIndex = 0;
