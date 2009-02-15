@@ -74,7 +74,7 @@ namespace Uniframework.SmartClient
             if (element.Configuration.Attributes["tooltip"] != null)
                 item.Hint = element.Configuration.Attributes["tooltip"];
             else
-                item.Hint = label;
+                item.Hint = BuilderUtility.GetStringRES(context, label);
             if (element.Configuration.Attributes["largeimage"] != null) {
                 string largeImage = element.Configuration.Attributes["largeimage"];
                 item.LargeGlyph = BuilderUtility.GetBitmap(context, largeImage, 32, 32);

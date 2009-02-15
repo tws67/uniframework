@@ -16,5 +16,6 @@ namespace Uniframework.Common
 
         public const string AuthorizationCommandListView = "/Shell/Module/Foundation/Views/AuthorizationCommandListView";
         public const string AuthorizationCommandView = "/Shell/Module/Foundation/Views/AuthorzationCommandView";
+        public const string AuthorizationStoreListView = "/Shell/Module/Foundation/Views/AuthorzationStoreListView";
     }
 }

@@ -8,9 +8,14 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Microsoft.Practices.ObjectBuilder;
 using Uniframework.SmartClient;
+using Uniframework.Security;
+using DevExpress.XtraTreeList.Nodes;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
+    /// <summary>
+    /// 系统授权管理列表
+    /// </summary>
     public partial class AuthorizationStoreListView : DevExpress.XtraEditors.XtraUserControl, IDataListView
     {
         public AuthorizationStoreListView()
@@ -50,5 +55,63 @@ namespace Uniframework.Common.WorkItems.Authorization
         }
 
         #endregion
+
+        public void LoadAuthorizationsNodes()
+        {
+            IList<AuthorizationNode> nodes = Presenter.AuthorizationStoreService.GetAuthorizationNodes();
+            foreach (AuthorizationNode authNode in Presenter.AuthorizationStoreService.GetAuthorizationNodes()) { 
+
+            }
+            if (nodes == null) {
+                AuthorizationNode node = new AuthorizationNode("Shell", "系统权限");
+                node.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
+                TreeListNode tlNode = tlAuth.AppendNode(new object[] { node.Name, node.Id }, -1, node);
+                tlNode.ImageIndex = 0;
+                tlNode.SelectImageIndex = 1;
+            }
+            else {
+                foreach (AuthorizationNode authNode in nodes) {
+                    LoadAuthorizationNode(authNode, tlAuth.Nodes[0]);
+                }
+            }
+        }
+
+        private void LoadAuthorizationNode(AuthorizationNode authNode, TreeListNode tlNode)
+        {
+            string[] authPath = authNode.AuthorizationUri.Split(new string[] {GlobalConstants.Uri_Separator}, StringSplitOptions.None);
+            TreeListNode currentNode = tlNode;
+
+            if (authPath.Length < 1)
+                return;
+
+            for (int i = 1; i < authPath.Length; ++i) {
+                bool found = false;
+                foreach (TreeListNode node in tlNode.Nodes) {
+                    if (node.GetDisplayText(colId) == authPath[i]) {
+                        currentNode = node;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    if (i == authPath.Length - 1 && currentNode.Tag == null)
+                        currentNode.Tag = authNode;
+                }
+                else {
+                    TreeListNode newNode = tlAuth.AppendNode(new object[] { authNode.Name, authNode.Id }, currentNode, authNode);
+                    newNode.ImageIndex = 2;
+                    newNode.SelectImageIndex = 1;
+                    if (i == authPath.Length - 1)
+                        newNode.Tag = authNode;
+                }
+            }
+        }
+
+        private void AuthorizationStoreListView_Load(object sender, EventArgs e)
+        {
+            Presenter.OnViewReady();
+        }
     }
 }

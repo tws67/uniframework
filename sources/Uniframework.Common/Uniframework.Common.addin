@@ -40,6 +40,13 @@
             classname="XtraNavBarItem"
             largeimage="${gear}"/>
 
+      <Item id="AuthorizationStoreList"
+            name="nbAuthorizationStoreList"
+            label="权限管理"
+            command="/Shell/Module/Foundation/Command/Authorization/Store"
+            classname="XtraNavBarItem"
+            largeimage="${gears_preferences}"/>
+
       <Item id="Options"
             name="nbOptions"
             label="系统选项"

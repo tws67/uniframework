@@ -32,12 +32,13 @@ namespace Uniframework.Common.WorkItems.Authorization
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthorizationStoreListView));
             this.tlAuth = new DevExpress.XtraTreeList.TreeList();
             this.colNode = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.colId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.ilAuth = new System.Windows.Forms.ImageList(this.components);
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.tlCommands = new DevExpress.XtraTreeList.TreeList();
             this.colName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.colAuthorizationUri = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.colImageFile = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.ilAuth = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tlAuth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tlCommands)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +46,9 @@ namespace Uniframework.Common.WorkItems.Authorization
             // tlAuth
             // 
             this.tlAuth.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
-            this.colNode});
+            this.colNode,
+            this.colId});
+            this.tlAuth.ColumnsImageList = this.ilAuth;
             this.tlAuth.Dock = System.Windows.Forms.DockStyle.Left;
             this.tlAuth.Location = new System.Drawing.Point(0, 0);
             this.tlAuth.Name = "tlAuth";
@@ -53,6 +56,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlAuth.OptionsView.ShowHorzLines = false;
             this.tlAuth.OptionsView.ShowIndicator = false;
             this.tlAuth.OptionsView.ShowVertLines = false;
+            this.tlAuth.SelectImageList = this.ilAuth;
             this.tlAuth.Size = new System.Drawing.Size(189, 468);
             this.tlAuth.TabIndex = 1;
             // 
@@ -64,6 +68,21 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colNode.SummaryFooter = DevExpress.XtraTreeList.SummaryItemType.Count;
             this.colNode.Visible = true;
             this.colNode.VisibleIndex = 0;
+            // 
+            // colId
+            // 
+            this.colId.Caption = "节点标识";
+            this.colId.FieldName = "Id";
+            this.colId.Name = "colId";
+            // 
+            // ilAuth
+            // 
+            this.ilAuth.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilAuth.ImageStream")));
+            this.ilAuth.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilAuth.Images.SetKeyName(0, "folder_closed.ico");
+            this.ilAuth.Images.SetKeyName(1, "folder.ico");
+            this.ilAuth.Images.SetKeyName(2, "folder_gear.ico");
+            this.ilAuth.Images.SetKeyName(3, "gear.ico");
             // 
             // splitterControl1
             // 
@@ -79,6 +98,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colName,
             this.colAuthorizationUri,
             this.colImageFile});
+            this.tlCommands.ColumnsImageList = this.ilAuth;
             this.tlCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlCommands.Location = new System.Drawing.Point(195, 0);
             this.tlCommands.Name = "tlCommands";
@@ -87,6 +107,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlCommands.OptionsView.ShowIndicator = false;
             this.tlCommands.OptionsView.ShowRoot = false;
             this.tlCommands.OptionsView.ShowVertLines = false;
+            this.tlCommands.SelectImageList = this.ilAuth;
             this.tlCommands.Size = new System.Drawing.Size(586, 468);
             this.tlCommands.TabIndex = 3;
             // 
@@ -94,6 +115,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             // 
             this.colName.Caption = "名称";
             this.colName.FieldName = "Name";
+            this.colName.MinWidth = 35;
             this.colName.Name = "colName";
             this.colName.OptionsColumn.FixedWidth = true;
             this.colName.Visible = true;
@@ -118,15 +140,6 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colImageFile.VisibleIndex = 2;
             this.colImageFile.Width = 108;
             // 
-            // ilAuth
-            // 
-            this.ilAuth.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilAuth.ImageStream")));
-            this.ilAuth.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilAuth.Images.SetKeyName(0, "folder_closed.ico");
-            this.ilAuth.Images.SetKeyName(1, "folder.ico");
-            this.ilAuth.Images.SetKeyName(2, "folder_gear.ico");
-            this.ilAuth.Images.SetKeyName(3, "gear.ico");
-            // 
             // AuthorizationStoreListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -136,6 +149,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.Controls.Add(this.tlAuth);
             this.Name = "AuthorizationStoreListView";
             this.Size = new System.Drawing.Size(781, 468);
+            this.Load += new System.EventHandler(this.AuthorizationStoreListView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tlAuth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tlCommands)).EndInit();
             this.ResumeLayout(false);
@@ -152,5 +166,6 @@ namespace Uniframework.Common.WorkItems.Authorization
         private DevExpress.XtraTreeList.Columns.TreeListColumn colAuthorizationUri;
         private DevExpress.XtraTreeList.Columns.TreeListColumn colImageFile;
         private System.Windows.Forms.ImageList ilAuth;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colId;
     }
 }
