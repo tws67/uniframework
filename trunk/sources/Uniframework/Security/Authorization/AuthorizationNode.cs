@@ -13,35 +13,15 @@ namespace Uniframework.Security
     [Serializable]
     public class AuthorizationNode
     {
-        protected string authorizationUri = String.Empty;
-        private string id = String.Empty;
-        private string name = String.Empty;
+        private string authorizationUri;
+        private string id;
+        private string name;
         private List<AuthorizationCommand> commands = new List<AuthorizationCommand>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationNode"/> class.
         /// </summary>
         public AuthorizationNode() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorizationNode"/> class.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        public AuthorizationNode(string id)
-        {
-            this.id = id;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorizationNode"/> class.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="name">The name.</param>
-        public AuthorizationNode(string id, string name)
-            : this(id)
-        {
-            this.name = name;
-        }
 
         #region IAuthorizationNode Members
 
@@ -53,21 +33,12 @@ namespace Uniframework.Security
         {
             get
             {
-                return GetAuthorizationUri();
+                return authorizationUri;
             }
             set
             {
                 authorizationUri = value;
             }
-        }
-
-        /// <summary>
-        /// 获取节点路径
-        /// </summary>
-        /// <returns></returns>
-        protected virtual string GetAuthorizationUri()
-        {
-            return authorizationUri;
         }
 
         /// <summary>
@@ -95,7 +66,7 @@ namespace Uniframework.Security
         {
             get
             {
-                return String.IsNullOrEmpty(name) ? id : name;
+                return name; // String.IsNullOrEmpty(name) ? id : name;
             }
             set
             {
