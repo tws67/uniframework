@@ -37,7 +37,6 @@ namespace Uniframework.StartUp
             this.tlabCustomPanel2 = new DevExpress.XtraBars.BarStaticItem();
             this.ProgressBar = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemProgressBar1 = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
-            this.tlabUser = new DevExpress.XtraBars.BarStaticItem();
             this.tbtnNetworkStatus = new DevExpress.XtraBars.BarButtonItem();
             this.tlabRequestSize = new DevExpress.XtraBars.BarStaticItem();
             this.ZoomBar = new DevExpress.XtraBars.BarEditItem();
@@ -47,6 +46,7 @@ namespace Uniframework.StartUp
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.DockManager = new DevExpress.XtraBars.Docking.DockManager(this.components);
+            this.tlabUser = new DevExpress.XtraBars.BarStaticItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.edtAddress = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemMRUEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMRUEdit();
@@ -168,16 +168,6 @@ namespace Uniframework.StartUp
             this.repositoryItemProgressBar1.Name = "repositoryItemProgressBar1";
             this.repositoryItemProgressBar1.Step = 1;
             // 
-            // tlabUser
-            // 
-            this.tlabUser.Caption = "User";
-            this.tlabUser.Glyph = global::Uniframework.StartUp.Properties.Resources.user1_earth;
-            this.tlabUser.Hint = "当前登录的系统的用户名称";
-            this.tlabUser.Id = 3;
-            this.tlabUser.Name = "tlabUser";
-            this.tlabUser.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            this.tlabUser.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
             // tbtnNetworkStatus
             // 
             this.tbtnNetworkStatus.Glyph = global::Uniframework.StartUp.Properties.Resources.link;
@@ -192,6 +182,7 @@ namespace Uniframework.StartUp
             this.tlabRequestSize.Id = 6;
             this.tlabRequestSize.Name = "tlabRequestSize";
             this.tlabRequestSize.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.tlabRequestSize.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // ZoomBar
             // 
@@ -217,6 +208,16 @@ namespace Uniframework.StartUp
             "System.Windows.Forms.StatusBar",
             "DevExpress.XtraBars.Ribbon.RibbonStatusBar",
             "DevExpress.XtraBars.Ribbon.RibbonControl"});
+            // 
+            // tlabUser
+            // 
+            this.tlabUser.Caption = "User";
+            this.tlabUser.Glyph = global::Uniframework.StartUp.Properties.Resources.user1_earth;
+            this.tlabUser.Hint = "当前登录的系统的用户名称";
+            this.tlabUser.Id = 3;
+            this.tlabUser.Name = "tlabUser";
+            this.tlabUser.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.tlabUser.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // barStaticItem1
             // 

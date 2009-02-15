@@ -46,7 +46,11 @@ namespace Uniframework.Common.WorkItems.Authorization
                 edtImage.Text = diag.FileName;
                 string imagefile = Path.GetFileNameWithoutExtension(diag.FileName);
                 image.ContentImage = Presenter.ImageService.GetBitmap("${" + imagefile + "}", new Size(32, 32));
-            }    
+            }
+            
+            // 如果图标编辑框为空则不赋值
+            if (String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length == 0)
+                image.ContentImage = null;
         }
 
         /// <summary>
@@ -60,9 +64,11 @@ namespace Uniframework.Common.WorkItems.Authorization
             AuthorizationCommand command = new AuthorizationCommand() { 
                 Name = edtName.Text,
                 CommandUri = edtCommandUri.Text,
-                Category = edtCategory.Text,
-                Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}"
+                Category = edtCategory.Text
             };
+            if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";                                
+
 
             try {
                 Presenter.AuthorizationStoreService.SaveCommand(command);
@@ -90,6 +96,15 @@ namespace Uniframework.Common.WorkItems.Authorization
             edtCommandUri.Text = e.Data.CommandUri;
             edtCategory.Text = e.Data.Category;
             edtImage.Text = e.Data.Image;
+
+            // 显示图标
+            if (!String.IsNullOrEmpty(edtImage.Text))
+                image.ContentImage = Presenter.ImageService.GetBitmap(edtImage.Text);
+        }
+
+        private void edtImage_Leave(object sender, EventArgs e)
+        {
+            edtImage_ButtonClick(this, null);
         }
     }
 }

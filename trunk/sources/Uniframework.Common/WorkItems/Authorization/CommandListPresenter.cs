@@ -58,6 +58,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             };
 
             ShowViewInWorkspace<CommandView>(SmartPartNames.AuthorizationCommandView, UIExtensionSiteNames.Shell_Workspace_Window, spi);
+            RefreshDataSource();
         }
 
         /// <summary>

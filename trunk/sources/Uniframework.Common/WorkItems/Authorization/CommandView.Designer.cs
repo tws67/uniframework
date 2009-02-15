@@ -143,6 +143,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.edtImage.Size = new System.Drawing.Size(422, 21);
             this.edtImage.TabIndex = 9;
             this.edtImage.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.edtImage_ButtonClick);
+            this.edtImage.Leave += new System.EventHandler(this.edtImage_Leave);
             // 
             // label1
             // 

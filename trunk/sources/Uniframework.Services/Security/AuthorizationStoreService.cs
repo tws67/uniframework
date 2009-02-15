@@ -11,7 +11,7 @@ namespace Uniframework.Security
 {
     public class AuthorizationStoreService : IAuthorizationStoreService
     {
-        private readonly string AUTHORIZATION_DBNAME = "Authorization.yap";
+        private readonly string AUTHORIZATION_DBNAME = "Membership.yap";
         private ILogger logger;
         private IDb4oDatabase db;
 
@@ -143,6 +143,12 @@ namespace Uniframework.Security
         public void SaveCommand(AuthorizationCommand command)
         {
             DeleteCommand(command.CommandUri);
+
+            // 为操作命令赋一个唯一的序列号
+            if (command.Sequence == -1) {
+                IList<AuthorizationCommand> cmds = db.Query<AuthorizationCommand>((AuthorizationCommand cmd) => cmd.Category == command.Category);
+                command.Sequence = cmds.Count + 1;
+            }
             db.Store(command);
         }
 

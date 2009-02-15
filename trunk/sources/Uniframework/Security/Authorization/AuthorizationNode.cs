@@ -16,7 +16,7 @@ namespace Uniframework.Security
         protected string authorizationUri = String.Empty;
         private string id = String.Empty;
         private string name = String.Empty;
-        private Dictionary<string, Dictionary<string, AuthorizationCommand>> commands = new Dictionary<string, Dictionary<string, AuthorizationCommand>>();
+        private List<AuthorizationCommand> commands = new List<AuthorizationCommand>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationNode"/> class.
@@ -107,7 +107,7 @@ namespace Uniframework.Security
         /// Gets the commands.
         /// </summary>
         /// <value>The commands.</value>
-        public Dictionary<string, Dictionary<string, AuthorizationCommand>> Commands
+        public IList<AuthorizationCommand> Commands
         {
             get { return commands; }
         }
@@ -117,40 +117,33 @@ namespace Uniframework.Security
         /// <summary>
         /// Adds the command.
         /// </summary>
-        /// <param name="category">The category.</param>
         /// <param name="command">The command.</param>
-        public void AddCommand(string category, AuthorizationCommand command)
+        public void AddCommand(AuthorizationCommand command)
         {
             Guard.ArgumentNotNull(command, "Authorization command");
 
-            if (!commands.ContainsKey(category))
-                commands[category] = new Dictionary<string, AuthorizationCommand>();
-            commands[category][command.CommandUri] = command;
+            if (!commands.Contains(command))
+                commands.Add(command);
         }
 
         /// <summary>
         /// Removes the command.
         /// </summary>
-        /// <param name="cagegory">The cagegory.</param>
         /// <param name="command">The command.</param>
-        public void RemoveCommand(string cagegory, AuthorizationCommand command)
+        public void RemoveCommand(AuthorizationCommand command)
         {
             Guard.ArgumentNotNull(command, "Authorization command");
 
-            if (commands.ContainsKey(cagegory) && commands[cagegory].ContainsKey(command.CommandUri))
-                commands[cagegory].Remove(command.CommandUri);
+            if (commands.Contains(command))
+                commands.Remove(command);
         }
 
         /// <summary>
         /// Clears the command.
         /// </summary>
-        /// <param name="category">The category.</param>
-        public void ClearCommand(string category)
+        public void ClearCommand()
         {
-            Guard.ArgumentNotNull(category, "category");
-
-            if (commands.ContainsKey(category))
-                commands.Clear();
+            commands.Clear();
         }
         /// <summary>
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.

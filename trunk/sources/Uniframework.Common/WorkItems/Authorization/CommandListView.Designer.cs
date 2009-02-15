@@ -36,6 +36,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCommandUri = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colImage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSequence = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCommands)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvCommands)).BeginInit();
@@ -62,6 +63,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             // 
             this.lvCommands.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colCategory,
+            this.colSequence,
             this.colName,
             this.colCommandUri,
             this.colImage});
@@ -69,7 +71,8 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.lvCommands.Name = "lvCommands";
             this.lvCommands.OptionsBehavior.Editable = false;
             this.lvCommands.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategory, DevExpress.Data.ColumnSortOrder.Ascending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategory, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colSequence, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.lvCommands.Tag = "";
             this.lvCommands.ViewCaption = "²Ù×÷ÁÐ±í";
             // 
@@ -109,6 +112,12 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.colImage.VisibleIndex = 3;
             this.colImage.Width = 165;
             // 
+            // colSequence
+            // 
+            this.colSequence.Caption = "ÐòºÅ";
+            this.colSequence.FieldName = "Sequenece";
+            this.colSequence.Name = "colSequence";
+            // 
             // CommandListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -133,6 +142,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         private DevExpress.XtraGrid.Columns.GridColumn colCommandUri;
         private DevExpress.XtraGrid.Columns.GridColumn colImage;
         private System.Windows.Forms.BindingSource bsCommands;
+        private DevExpress.XtraGrid.Columns.GridColumn colSequence;
 
 
 

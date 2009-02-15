@@ -240,16 +240,41 @@
             shortcut="CtrlF"
             imagefile="${find}"/>
 
+      <Item id="Chart"
+            name="mmitChart"
+            label="统计报表"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${chart}"
+            alignment="Right"/>
+
+      <Item id="IM"
+            name="mmitIM"
+            label="沟通协作"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${message_edit}"
+            alignment="Right"
+            begingroup="true"/>
+      
+      <Item id="Schdule"
+            name="mmitSchdule"
+            label="工作安排"
+            command=""
+            classname="XtraButtonItem"
+            imagefile="${calendar}"
+            alignment="Right"/>
+      
       <Item id="Identity"
             name="mmitIdentity"
             label="${CurrentUser}"
             command=""
             classname="XtraButtonItem"
+            tooltip="登录到系统的帐户名称"
             imagefile="${businessman}"
             register="true"
             alignment="Right"
-            paintstyle="CaptionGlyph"
-            begingroup="true"/>
+            paintstyle="CaptionGlyph"/>
     </Path>
 
     <Path name="/Shell/Bar/Standard/Identity" label="当前登录帐户" buildstartup="true">
