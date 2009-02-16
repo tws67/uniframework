@@ -66,7 +66,7 @@ namespace Uniframework.Security
         {
             get
             {
-                return name; // String.IsNullOrEmpty(name) ? id : name;
+                return String.IsNullOrEmpty(name) ? id : name;
             }
             set
             {
@@ -78,7 +78,7 @@ namespace Uniframework.Security
         /// Gets the commands.
         /// </summary>
         /// <value>The commands.</value>
-        public IList<AuthorizationCommand> Commands
+        public List<AuthorizationCommand> Commands
         {
             get { return commands; }
         }
@@ -88,6 +88,7 @@ namespace Uniframework.Security
         /// <summary>
         /// Adds the command.
         /// </summary>
+        /// <param name="category">The category.</param>
         /// <param name="command">The command.</param>
         public void AddCommand(AuthorizationCommand command)
         {
@@ -100,6 +101,7 @@ namespace Uniframework.Security
         /// <summary>
         /// Removes the command.
         /// </summary>
+        /// <param name="category">The category.</param>
         /// <param name="command">The command.</param>
         public void RemoveCommand(AuthorizationCommand command)
         {
@@ -112,7 +114,7 @@ namespace Uniframework.Security
         /// <summary>
         /// Clears the command.
         /// </summary>
-        public void ClearCommand()
+        public void ClearCommand(string category)
         {
             commands.Clear();
         }

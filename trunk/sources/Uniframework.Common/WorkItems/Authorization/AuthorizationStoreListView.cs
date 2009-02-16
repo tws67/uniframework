@@ -10,6 +10,7 @@ using Microsoft.Practices.ObjectBuilder;
 using Uniframework.SmartClient;
 using Uniframework.Security;
 using DevExpress.XtraTreeList.Nodes;
+using DevExpress.XtraTreeList;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
@@ -56,6 +57,7 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         #endregion
 
+        
         public void LoadAuthorizationsNodes()
         {
             IList<AuthorizationNode> nodes = Presenter.AuthorizationStoreService.GetAuthorizationNodes();
@@ -115,6 +117,53 @@ namespace Uniframework.Common.WorkItems.Authorization
         private void AuthorizationStoreListView_Load(object sender, EventArgs e)
         {
             Presenter.OnViewReady();
+        }
+
+        /// <summary>
+        /// 获取当前授权节点的路径
+        /// </summary>
+        /// <param name="node">Tree list node</param>
+        /// <returns>返回从根节点到当前节点的路径值</returns>
+        private string GetAuthrizationNodePath(TreeListNode node)
+        {
+            string authPath = "";
+            if (node.Tag != null) {
+                AuthorizationNode authNode = node.Tag as AuthorizationNode; // 获取节点的授权信息
+                if (authNode == null)
+                    return authPath;
+                authPath = authNode.Id;
+                TreeListNode curr = node.ParentNode;
+
+                // 递归获取每一层节点的路径信息
+                while (curr != null) {
+                    if (curr.Tag != null) {
+                        authNode = curr.Tag as AuthorizationNode;
+                        if (authNode == null)
+                            return authPath;
+                        authPath = curr.Id + authPath;
+                    }
+                    curr = curr.ParentNode;
+                }
+                return authPath;
+            }
+            return authPath;
+        }
+
+        /// <summary>
+        /// 当前鼠标移动时显示授权节点的路径信息
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
+        private void tlAuth_MouseMove(object sender, MouseEventArgs e)
+        {
+            TreeListHitInfo hi = tlAuth.CalcHitInfo(new Point(e.X, e.Y));
+            if (hi.Node != null)
+            {
+                string authPath = GetAuthrizationNodePath(hi.Node);
+                Presenter.SmartClient.ShowHint(authPath);
+            }
+            else
+                Presenter.SmartClient.ShowHint(String.Empty);
         }
     }
 }

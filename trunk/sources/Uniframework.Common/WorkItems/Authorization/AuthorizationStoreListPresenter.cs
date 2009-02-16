@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
+using Microsoft.Practices.CompositeUI.EventBroker;
 using Uniframework.Security;
 using Uniframework.SmartClient;
+using Uniframework.Client;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
@@ -22,6 +24,13 @@ namespace Uniframework.Common.WorkItems.Authorization
         /// <value>The authorization store service.</value>
         [ServiceDependency]
         public IAuthorizationStoreService AuthorizationStoreService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public ISmartClient SmartClient
         {
             get;
             set;
