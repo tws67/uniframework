@@ -11,6 +11,7 @@ using DevExpress.XtraTreeList;
 using System.Drawing;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using DevExpress.XtraLayout;
 
 namespace Uniframework.SmartClient.Strategies
 {
@@ -46,17 +47,34 @@ namespace Uniframework.SmartClient.Strategies
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="register">if set to <c>true</c> [register].</param>
-        private void RegisterMouseEvent(Control control, bool register)
+        private void RegisterMouseEvent(Control ctrl, bool register)
         {
-            Guard.ArgumentNotNull(control, "control");
+            Guard.ArgumentNotNull(ctrl, "control");
 
-            if (register)
-                control.MouseUp += new MouseEventHandler(Control_MouseUp);
+            if (register) {
+                ctrl.MouseUp += new MouseEventHandler(Control_MouseUp);
+
+                // 设置数据表格的BarManager以使相关的下拉菜单呈现相同的样式
+                BarManager barManager = workItem.RootWorkItem.Items.Get<BarManager>(UIExtensionSiteNames.Shell_Bar_Manager);
+                if (barManager != null) {
+                    if (ctrl is GridControl) // 表格控件
+                        ((GridControl)ctrl).MenuManager = barManager;
+                    if (ctrl is TreeList)    // 树视图
+                        ((TreeList)ctrl).MenuManager = barManager;
+                    if (ctrl is LayoutControl) // 布局控件
+                        ((LayoutControl)ctrl).MenuManager = barManager;
+                }
+            }
             else
-                control.MouseUp -= new MouseEventHandler(Control_MouseUp);
+                ctrl.MouseUp -= new MouseEventHandler(Control_MouseUp);
 
-            foreach (Control ctrl in control.Controls)
-                RegisterMouseEvent(ctrl, register);
+                                
+                    if (register) {
+
+                        }
+
+            foreach (Control control in ctrl.Controls)
+                RegisterMouseEvent(control, register);
         }
 
         /// <summary>
