@@ -101,6 +101,12 @@
     <Compile Include="WorkItems\Authorization\CommandListView.Designer.cs">
       <DependentUpon>CommandListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\Authorization\frmAuthNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\frmAuthNode.Designer.cs">
+      <DependentUpon>frmAuthNode.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Membership\frmMembershipRole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Authorization\CommandListView.resx">
       <DependentUpon>CommandListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Authorization\frmAuthNode.resx">
+      <DependentUpon>frmAuthNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\frmMembershipRole.resx">
       <DependentUpon>frmMembershipRole.cs</DependentUpon>

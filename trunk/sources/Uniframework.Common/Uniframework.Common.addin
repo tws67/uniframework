@@ -36,14 +36,14 @@
       <Item id="CommandList"
             name="nbCommandList"
             label="命令列表"
-            command="/Shell/Module/Foundation/Command/Authorization/Command"
+            command="/Shell/Module/Foundation/Common/Authorization/Command"
             classname="XtraNavBarItem"
             largeimage="${gear}"/>
 
       <Item id="AuthorizationStoreList"
             name="nbAuthorizationStoreList"
             label="权限管理"
-            command="/Shell/Module/Foundation/Command/Authorization/Store"
+            command="/Shell/Module/Foundation/Common/Authorization/Store"
             classname="XtraNavBarItem"
             largeimage="${gears_preferences}"/>
 
@@ -211,26 +211,26 @@
     <Path name="/Shell/Module/Foundation/Common/Authorization/Store/AuthTree/ContentMenu" label="" buildstartup="false">
       <Item id="New"
             name="cmmNewAuthNode"
-            label="新建权限节点(&amp;N)..."
-            command=""
+            label="新建(&amp;N)..."
+            command="/Shell/Module/Foundation/Common/Authorization/NewAuthNode"
             classname="XtraButtonItem"/>
 
       <Item id="Edit"
             name="cmmEditAuthNode"
             label="编辑(&amp;E)..."
-            command=""
+            command="/Shell/Module/Foundation/Common/Authorization/EditAuthNode"
             classname="XtraButtonItem"/>
 
       <Item id="Delete"
             name="cmmDeleteAuthNode"
             label="删除(&amp;D)"
-            command=""
+            command="/Shell/Module/Foundation/Common/Authorization/DeleteAuthNode"
             classname="XtraButtonItem"/>
 
       <Item id="Refresh"
             name="cmmRefreshAuthNode"
             label="刷新(&amp;R)"
-            command=""
+            command="/Shell/Module/Foundation/Common/Authorization/RefreshAuthNode"
             classname="XtraButtonItem"
             begingroup="true"/>
     </Path>
