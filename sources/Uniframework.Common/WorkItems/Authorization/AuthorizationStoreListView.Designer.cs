@@ -55,12 +55,12 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlAuth.OptionsBehavior.Editable = false;
             this.tlAuth.OptionsView.ShowHorzLines = false;
             this.tlAuth.OptionsView.ShowIndicator = false;
-            this.tlAuth.OptionsView.ShowRoot = false;
             this.tlAuth.OptionsView.ShowVertLines = false;
             this.tlAuth.SelectImageList = this.ilAuth;
             this.tlAuth.Size = new System.Drawing.Size(189, 468);
             this.tlAuth.TabIndex = 1;
             this.tlAuth.Tag = "/Shell/Module/Foundation/Common/Authorization/Store/AuthTree/ContentMenu";
+            this.tlAuth.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tlAuth_FocusedNodeChanged);
             this.tlAuth.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tlAuth_MouseMove);
             // 
             // colNode

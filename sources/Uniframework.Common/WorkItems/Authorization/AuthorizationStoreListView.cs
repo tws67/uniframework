@@ -57,7 +57,24 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         #endregion
 
-        
+        /// <summary>
+        /// Get commands tree list
+        /// </summary>
+        /// <value>The TL commands.</value>
+        public TreeList TLCommands
+        {
+            get { return tlCommands; }
+        }
+
+        /// <summary>
+        /// Gets the TL auth.
+        /// </summary>
+        /// <value>The TL auth.</value>
+        public TreeList TLAuth
+        {
+            get { return tlAuth; }
+        }
+
         public void LoadAuthorizationsNodes()
         {
             IList<AuthorizationNode> nodes = Presenter.AuthorizationStoreService.GetAuthorizationNodes();
@@ -65,12 +82,13 @@ namespace Uniframework.Common.WorkItems.Authorization
 
             }
             if (nodes.Count == 0) {
-                AuthorizationNode node = new AuthorizationNode() { 
+                AuthorizationNode authNode = new AuthorizationNode() { 
                     Id = "Shell",
                     Name = "系统权限"
                 };
-                node.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
-                TreeListNode tlNode = tlAuth.AppendNode(new object[] { node.Name, node.Id }, -1, node);
+                authNode.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
+                TreeListNode tlNode = tlAuth.AppendNode(new object[] { authNode.Name, authNode.Id }, -1, authNode);
+                tlNode.Tag = authNode;
                 tlNode.ImageIndex = 0;
                 tlNode.SelectImageIndex = 1;
             }
@@ -80,6 +98,41 @@ namespace Uniframework.Common.WorkItems.Authorization
                 }
             }
         }
+
+        /// <summary>
+        /// 获取当前授权节点的路径
+        /// </summary>
+        /// <param name="node">Tree list node</param>
+        /// <returns>返回从根节点到当前节点的路径值</returns>
+        public string GetAuthrizationNodePath(TreeListNode node)
+        {
+            string authPath = "";
+            if (node.Tag != null)
+            {
+                AuthorizationNode authNode = node.Tag as AuthorizationNode; // 获取节点的授权信息
+                if (authNode == null)
+                    return authPath;
+                authPath = authNode.Id;
+                TreeListNode curr = node.ParentNode;
+
+                // 递归获取每一层节点的路径信息
+                while (curr != null)
+                {
+                    if (curr.Tag != null)
+                    {
+                        authNode = curr.Tag as AuthorizationNode;
+                        if (authNode == null)
+                            return authPath;
+                        authPath = authNode.Id + authPath;
+                    }
+                    curr = curr.ParentNode;
+                }
+                return authPath;
+            }
+            return authPath;
+        }
+
+        #region Assistant functions
 
         private void LoadAuthorizationNode(AuthorizationNode authNode, TreeListNode tlNode)
         {
@@ -120,36 +173,6 @@ namespace Uniframework.Common.WorkItems.Authorization
         }
 
         /// <summary>
-        /// 获取当前授权节点的路径
-        /// </summary>
-        /// <param name="node">Tree list node</param>
-        /// <returns>返回从根节点到当前节点的路径值</returns>
-        private string GetAuthrizationNodePath(TreeListNode node)
-        {
-            string authPath = "";
-            if (node.Tag != null) {
-                AuthorizationNode authNode = node.Tag as AuthorizationNode; // 获取节点的授权信息
-                if (authNode == null)
-                    return authPath;
-                authPath = authNode.Id;
-                TreeListNode curr = node.ParentNode;
-
-                // 递归获取每一层节点的路径信息
-                while (curr != null) {
-                    if (curr.Tag != null) {
-                        authNode = curr.Tag as AuthorizationNode;
-                        if (authNode == null)
-                            return authPath;
-                        authPath = curr.Id + authPath;
-                    }
-                    curr = curr.ParentNode;
-                }
-                return authPath;
-            }
-            return authPath;
-        }
-
-        /// <summary>
         /// 当前鼠标移动时显示授权节点的路径信息
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -165,5 +188,25 @@ namespace Uniframework.Common.WorkItems.Authorization
             else
                 Presenter.SmartClient.ShowHint(String.Empty);
         }
+
+        /// <summary>
+        /// 列出当前权限节点下所有的操作
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DevExpress.XtraTreeList.FocusedNodeChangedEventArgs"/> instance containing the event data.</param>
+        private void tlAuth_FocusedNodeChanged(object sender, FocusedNodeChangedEventArgs e)
+        {
+            AuthorizationNode authNode = e.Node.Tag as AuthorizationNode;
+            if (authNode != null) {
+                foreach (AuthorizationCommand cmd in authNode.Commands) {
+                    TreeListNode node = tlCommands.AppendNode(new object[] {cmd.Name, cmd.CommandUri, cmd.Image }, -1, cmd);
+                    node.ImageIndex = 3;
+                    node.SelectImageIndex = 3;
+                }
+            }
+        }
+
+        #endregion
+
     }
 }

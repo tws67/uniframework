@@ -114,7 +114,7 @@ namespace Uniframework.SmartClient
             if (!String.IsNullOrEmpty(element.Path) && context.UIExtensionSites.Contains(element.Path))
                 context.UIExtensionSites[element.Path].Add(item);
             Command cmd = BuilderUtility.GetCommand(context, element.Command);
-            if (cmd != null)
+            if (cmd != null) // 如果操作命令不为空则绑定命令
                 cmd.AddInvoker(item, "ItemClick");
 
             // 注册此路径的插件
