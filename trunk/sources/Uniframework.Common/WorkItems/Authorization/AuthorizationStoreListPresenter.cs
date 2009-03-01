@@ -11,6 +11,8 @@ using Microsoft.Practices.CompositeUI.EventBroker;
 using Uniframework.Client;
 using Uniframework.Security;
 using Uniframework.SmartClient;
+using Uniframework.XtraForms.SmartPartInfos;
+using Microsoft.Practices.CompositeUI.SmartParts;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
@@ -20,6 +22,8 @@ namespace Uniframework.Common.WorkItems.Authorization
     public class AuthorizationStoreListPresenter : DataListPresenter<AuthorizationStoreListView>
     {
         private readonly string AuthNodeForm = "AuthNodeForm";
+        private readonly string RootPath = "Shell";
+        private readonly string AuthCommandView = "AuthCommandView";
 
         #region Dependency Services
 
@@ -64,6 +68,50 @@ namespace Uniframework.Common.WorkItems.Authorization
         {
             base.Initilize();
             View.LoadAuthorizationsNodes();
+        }
+
+        /// <summary>
+        /// 获取一个值决定当前可否插入新的数据资料
+        /// </summary>
+        /// <value>返回<c>true</c>如果可以插入的话; 否则为, <c>false</c>.</value>
+        public override bool CanInsert
+        {
+            get
+            {
+                bool flag = base.CanInsert;
+                flag &= CurrentAuthNode != null && ((AuthorizationNode)CurrentAuthNode.Tag).Id != GlobalConstants.Uri_Separator + RootPath;
+                return flag;
+            }
+        }
+
+        /// <summary>
+        /// 插入新的数据资料
+        /// </summary>
+        public override void Insert()
+        {
+            base.Insert();
+
+            XtraWindowSmartPartInfo spi = new XtraWindowSmartPartInfo()
+            {
+                MaximizeBox = false,
+                MinimizeBox = false,
+                Modal = true,
+                ShowInTaskbar = false,
+                StartPosition = System.Windows.Forms.FormStartPosition.CenterParent,
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog,
+                Title = "新建命令"
+            };
+
+            IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Window);
+            if (wp != null) {
+                CommandView view = WorkItem.Items.Get<CommandView>(AuthCommandView);
+                if (view == null)
+                    view = WorkItem.Items.AddNew<CommandView>(AuthCommandView);
+
+                wp.Show(view, spi);
+
+                View.ListAuthorizationCommands(CurrentAuthNode.Tag as AuthorizationNode); // 刷新操作列表
+            }
         }
 
         /// <summary>
@@ -206,6 +254,10 @@ namespace Uniframework.Common.WorkItems.Authorization
                     Id = form.AuthId,
                     Name = form.AuthName
                 };
+                ((AuthorizationNode)node.Tag).AuthorizationUri = View.GetAuthrizationNodePath(node);
+
+                AuthorizationStoreService.Save(node.Tag as AuthorizationNode);
+
                 node.ImageIndex = 0;
                 node.SelectImageIndex = 1;
                 CurrentAuthNode.ExpandAll();
@@ -220,15 +272,16 @@ namespace Uniframework.Common.WorkItems.Authorization
         [CommandHandler(CommandHandlerNames.CMD_COMM_AUTHORIZTION_EDITAUTHNODE)]
         public void OnEditAuthNode(object sender, EventArgs e)
         {
-            using (frmAuthNode form = GetAuthNodeForm()) {
-                AuthorizationNode authNode = CurrentAuthNode.Tag as AuthorizationNode;
-                form.EditMode(true);
-                form.AuthId = authNode.Id;
-                form.AuthName = authNode.Name;
-                if (form.ShowDialog() == DialogResult.OK) {
-                    authNode.Id = form.AuthId;
-                    authNode.Name = form.AuthName;
-                }
+            frmAuthNode form = GetAuthNodeForm();
+            AuthorizationNode authNode = CurrentAuthNode.Tag as AuthorizationNode;
+            form.EditMode(true);
+            form.AuthId = authNode.Id;
+            form.AuthName = authNode.Name;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                authNode.Id = form.AuthId;
+                authNode.Name = form.AuthName;
+                AuthorizationStoreService.Save(authNode);
             }
         }
 
@@ -259,8 +312,8 @@ namespace Uniframework.Common.WorkItems.Authorization
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         [CommandHandler(CommandHandlerNames.CMD_COMM_AUTHORIZATION_REFRESHAUTHNODE)]
         public void OnRefreshAuthNode(object sender, EventArgs e)
-        { 
-
+        {
+            View.LoadAuthorizationsNodes();
         }
 
         #endregion
