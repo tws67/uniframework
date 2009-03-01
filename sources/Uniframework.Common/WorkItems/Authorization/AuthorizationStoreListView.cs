@@ -77,26 +77,38 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         public void LoadAuthorizationsNodes()
         {
-            IList<AuthorizationNode> nodes = Presenter.AuthorizationStoreService.GetAuthorizationNodes();
-            foreach (AuthorizationNode authNode in Presenter.AuthorizationStoreService.GetAuthorizationNodes()) { 
+            using (WaitCursor cursor = new WaitCursor(true)) {
+                tlAuth.BeginUpdate();
+                tlAuth.FocusedNodeChanged -= new FocusedNodeChangedEventHandler(tlAuth_FocusedNodeChanged);
+                tlAuth.Nodes.Clear();
+                try
+                {
+                    IList<AuthorizationNode> nodes = Presenter.AuthorizationStoreService.GetAuthorizationNodes();
 
-            }
-            if (nodes.Count == 0) {
-                AuthorizationNode authNode = new AuthorizationNode() { 
-                    Id = "Shell",
-                    Name = "系统权限"
-                };
-                authNode.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
-                TreeListNode tlNode = tlAuth.AppendNode(new object[] { authNode.Name, authNode.Id }, -1, authNode);
-                tlNode.Tag = authNode;
-                tlNode.ImageIndex = 0;
-                tlNode.SelectImageIndex = 1;
-            }
-            else {
-                foreach (AuthorizationNode authNode in nodes) {
-                    LoadAuthorizationNode(authNode, tlAuth.Nodes[0]);
+                    AuthorizationNode authNode = new AuthorizationNode()
+                    {
+                        Id = "Shell",
+                        Name = "系统权限"
+                    };
+                    authNode.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
+                    TreeListNode tlNode = tlAuth.AppendNode(new object[] { authNode.Name, authNode.Id }, -1, authNode);
+                    tlNode.Tag = authNode;
+                    ((AuthorizationNode)tlNode.Tag).AuthorizationUri = GetAuthrizationNodePath(tlNode);
+                    tlNode.ImageIndex = 0;
+                    tlNode.SelectImageIndex = 1;
+
+                    foreach (AuthorizationNode child in nodes)
+                    {
+                        LoadAuthorizationNode(child, tlAuth.Nodes[0]);
+                    }
+                    tlAuth.Nodes[0].ExpandAll(); // 展开所有子节点
+                }
+                finally {
+                    tlAuth.EndUpdate();
+                    tlAuth.FocusedNodeChanged += new FocusedNodeChangedEventHandler(tlAuth_FocusedNodeChanged);
                 }
             }
+
         }
 
         /// <summary>
@@ -132,37 +144,79 @@ namespace Uniframework.Common.WorkItems.Authorization
             return authPath;
         }
 
+        /// <summary>
+        /// Lists the authorization commands.
+        /// </summary>
+        /// <param name="authNode">The auth node.</param>
+        public void ListAuthorizationCommands(AuthorizationNode authNode)
+        {
+            using (WaitCursor cursor = new WaitCursor(true))
+            {
+                tlCommands.BeginUpdate();
+                tlCommands.ClearNodes();
+                try
+                {
+                    if (authNode != null)
+                    {
+                        foreach (AuthorizationCommand cmd in authNode.Commands)
+                        {
+                            TreeListNode node = tlCommands.AppendNode(new object[] { cmd.Name, cmd.CommandUri, cmd.Image }, -1, cmd);
+                            node.ImageIndex = 3;
+                            node.SelectImageIndex = 3;
+                        }
+                    }
+                }
+                finally
+                {
+                    tlCommands.EndUpdate();
+                }
+            }
+        }
+
         #region Assistant functions
 
+        /// <summary>
+        /// 加载权限节点
+        /// </summary>
+        /// <param name="authNode">权限节点</param>
+        /// <param name="tlNode">根节点</param>
         private void LoadAuthorizationNode(AuthorizationNode authNode, TreeListNode tlNode)
         {
             string[] authPath = authNode.AuthorizationUri.Split(new string[] {GlobalConstants.Uri_Separator}, StringSplitOptions.None);
-            TreeListNode currentNode = tlNode;
+            TreeListNode current = tlNode;
 
             if (authPath.Length < 1)
                 return;
 
-            for (int i = 1; i < authPath.Length; ++i) {
+            for (int i = 2; i < authPath.Length; ++i) {
                 bool found = false;
-                foreach (TreeListNode node in tlNode.Nodes) {
-                    if (node.GetDisplayText(colId) == authPath[i]) {
-                        currentNode = node;
+                foreach (TreeListNode node in current.Nodes) {
+                    string id = node.GetDisplayText(colId);
+                    if (id == authPath[i]) {
+                        current = node;
                         found = true;
                         break;
                     }
                 }
 
-                if (found)
-                {
-                    if (i == authPath.Length - 1 && currentNode.Tag == null)
-                        currentNode.Tag = authNode;
+                if (found) {
+                    if (i == authPath.Length - 1 && current.Tag == null)
+                    {
+                        current.SetValue(colName, authNode.Name);
+                        current.Tag = authNode;
+                    }
                 }
                 else {
-                    TreeListNode newNode = tlAuth.AppendNode(new object[] { authNode.Name, authNode.Id }, currentNode, authNode);
-                    newNode.ImageIndex = 2;
-                    newNode.SelectImageIndex = 1;
-                    if (i == authPath.Length - 1)
-                        newNode.Tag = authNode;
+                    TreeListNode child = tlAuth.AppendNode(new object[] { "tempnode", authPath[i] }, current); // 我们创建的可能是中间节点
+                    child.ImageIndex = 0;
+                    child.SelectImageIndex = 1;
+
+                    // 设置最终要创建的节点的相关属性
+                    if (i == authPath.Length - 1) {
+                        child.SetValue(colName, authNode.Name);
+                        child.Tag = authNode;
+                    }
+                    current = child;
                 }
             }
         }
@@ -197,13 +251,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         private void tlAuth_FocusedNodeChanged(object sender, FocusedNodeChangedEventArgs e)
         {
             AuthorizationNode authNode = e.Node.Tag as AuthorizationNode;
-            if (authNode != null) {
-                foreach (AuthorizationCommand cmd in authNode.Commands) {
-                    TreeListNode node = tlCommands.AppendNode(new object[] {cmd.Name, cmd.CommandUri, cmd.Image }, -1, cmd);
-                    node.ImageIndex = 3;
-                    node.SelectImageIndex = 3;
-                }
-            }
+            ListAuthorizationCommands(authNode);
         }
 
         #endregion

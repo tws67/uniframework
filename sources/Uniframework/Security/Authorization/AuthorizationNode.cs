@@ -129,4 +129,17 @@ namespace Uniframework.Security
             return name;
         }
     }
+
+    public class AuthorizationNodeCompare : IComparer<AuthorizationNode>
+    {
+        #region IComparer<AuthorizationNode> Members
+
+        public int Compare(AuthorizationNode x, AuthorizationNode y)
+        {
+            return x.AuthorizationUri.CompareTo(y.AuthorizationUri);
+        }
+
+        #endregion
+    }
+
 }

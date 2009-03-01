@@ -35,6 +35,13 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         #endregion
 
+
+        public AuthorizationNode AuthNode
+        {
+            get;
+            set;
+        }
+
         private void edtImage_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             OpenFileDialog diag = new OpenFileDialog() { 
@@ -60,22 +67,44 @@ namespace Uniframework.Common.WorkItems.Authorization
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Presenter.AuthorizationStoreService.DeleteCommand(edtCommandUri.Text);
-            AuthorizationCommand command = new AuthorizationCommand() { 
-                Name = edtName.Text,
-                CommandUri = edtCommandUri.Text,
-                Category = edtCategory.Text
-            };
-            if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
-                command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";                                
+            if (AuthNode == null) // 操作模拟的保存工作
+            {
+                Presenter.AuthorizationStoreService.DeleteCommand(edtCommandUri.Text);
+                AuthorizationCommand command = new AuthorizationCommand() {
+                    Name = edtName.Text,
+                    CommandUri = edtCommandUri.Text,
+                    Category = edtCategory.Text
+                };
+                if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                    command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";
 
 
-            try {
-                Presenter.AuthorizationStoreService.SaveCommand(command);
+                try {
+                    Presenter.AuthorizationStoreService.SaveCommand(command);
+                }
+                catch (Exception ex) {
+                    XtraMessageBox.Show("保存命令 \"" + edtName.Text + "\" 时失败，" + ex.Message);
+                    btnOK.DialogResult = DialogResult.None;
+                }
             }
-            catch (Exception ex) {
-                XtraMessageBox.Show("保存命令 \"" + edtName.Text + "\" 时失败，"　+　ex.Message);
-                btnOK.DialogResult = DialogResult.None;
+            else {
+                AuthorizationCommand command = new AuthorizationCommand() { 
+                    Name = edtName.Text,
+                    CommandUri = edtCommandUri.Text,
+                    Category = edtCategory.Text
+                };
+                if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                    command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";
+
+                // 保存新的操作
+                AuthNode.AddCommand(command);
+                try {
+                    Presenter.AuthorizationStoreService.Save(AuthNode);
+                }
+                catch (Exception ex) {
+                    XtraMessageBox.Show("保存操作 \"" + edtName.Text + "\" 时间失败，" + ex.Message);
+                    btnOK.DialogResult = DialogResult.None;
+                }
             }
         }
 
