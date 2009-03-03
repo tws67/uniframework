@@ -105,7 +105,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlCommands.Location = new System.Drawing.Point(195, 0);
             this.tlCommands.Name = "tlCommands";
-            this.tlCommands.OptionsView.ShowCheckBoxes = true;
+            this.tlCommands.OptionsBehavior.Editable = false;
             this.tlCommands.OptionsView.ShowHorzLines = false;
             this.tlCommands.OptionsView.ShowIndicator = false;
             this.tlCommands.OptionsView.ShowRoot = false;

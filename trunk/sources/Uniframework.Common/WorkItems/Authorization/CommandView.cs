@@ -96,6 +96,14 @@ namespace Uniframework.Common.WorkItems.Authorization
                 if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
                     command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";
 
+                foreach (AuthorizationCommand cmd in AuthNode.Commands) {
+                    // 删除列表中原来的操作项
+                    if (cmd.Name == command.Name || cmd.CommandUri == command.CommandUri) {
+                        AuthNode.RemoveCommand(cmd);
+                        break;
+                    }
+                }
+
                 // 保存新的操作
                 AuthNode.AddCommand(command);
                 try {
@@ -127,6 +135,21 @@ namespace Uniframework.Common.WorkItems.Authorization
             edtImage.Text = e.Data.Image;
 
             // 显示图标
+            if (!String.IsNullOrEmpty(edtImage.Text))
+                image.ContentImage = Presenter.ImageService.GetBitmap(edtImage.Text);
+        }
+
+        /// <summary>
+        /// Bindings the command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        public void BindingCommand(AuthorizationCommand command)
+        {
+            edtName.Text = command.Name;
+            edtCommandUri.Text = command.CommandUri;
+            edtCategory.Text = command.Category;
+            edtImage.Text = command.Image;
+
             if (!String.IsNullOrEmpty(edtImage.Text))
                 image.ContentImage = Presenter.ImageService.GetBitmap(edtImage.Text);
         }
