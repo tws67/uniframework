@@ -108,6 +108,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 if (view == null)
                     view = WorkItem.Items.AddNew<CommandView>(AuthCommandView);
 
+                view.AuthNode = CurrentAuthNode.Tag as AuthorizationNode;
                 wp.Show(view, spi);
 
                 View.ListAuthorizationCommands(CurrentAuthNode.Tag as AuthorizationNode); // 刷新操作列表
@@ -135,6 +136,30 @@ namespace Uniframework.Common.WorkItems.Authorization
         public override void Edit()
         {
             base.Edit();
+
+            XtraWindowSmartPartInfo spi = new XtraWindowSmartPartInfo()
+            {
+                MaximizeBox = false,
+                MinimizeBox = false,
+                Modal = true,
+                ShowInTaskbar = false,
+                StartPosition = System.Windows.Forms.FormStartPosition.CenterParent,
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog,
+                Title = "新建命令"
+            };
+
+            IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Window);
+            if (wp != null) {
+                CommandView view = WorkItem.Items.Get<CommandView>(AuthCommandView);
+                if (view == null)
+                    view = WorkItem.Items.AddNew<CommandView>(AuthCommandView);
+
+                view.AuthNode = CurrentAuthNode.Tag as AuthorizationNode;
+                view.BindingCommand(View.TLCommands.Selection[0].Tag as AuthorizationCommand); // 绑定操作项
+                wp.Show(view, spi);
+
+                View.ListAuthorizationCommands(CurrentAuthNode.Tag as AuthorizationNode); // 刷新操作列表
+            }
         }
 
         /// <summary>
@@ -167,6 +192,35 @@ namespace Uniframework.Common.WorkItems.Authorization
                     View.TLCommands.DeleteNode(View.TLCommands.Selection[0]);
                     CurrentAuthNode.Tag = authNode;
                     AuthorizationStoreService.Save(authNode); // 将变化保存回后端数据库
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取一个值决定当前数据列表是否可以刷新
+        /// </summary>
+        /// <value>返回<c>true</c>如果可以刷新的话; 否则为, <c>false</c>.</value>
+        public override bool CanRefreshDataSource
+        {
+            get
+            {
+                bool flag = base.CanRefreshDataSource;
+                flag &= CurrentAuthNode != null;
+                return flag;
+            }
+        }
+
+        /// <summary>
+        /// 刷新数据列表视图
+        /// </summary>
+        public override void RefreshDataSource()
+        {
+            base.RefreshDataSource();
+
+            AuthorizationNode authNode = CurrentAuthNode.Tag as AuthorizationNode;
+            if (authNode != null) {
+                using (WaitCursor cursor = new WaitCursor(true)) {
+                    View.ListAuthorizationCommands(authNode);
                 }
             }
         }
