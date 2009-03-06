@@ -260,7 +260,7 @@
       <Item id="Choice"
             name="cmmChoice"
             label="从操作列表中选择(&amp;C)..."
-            command=""
+            command="/Shell/Module/Foundation/Common/Authorization/AuthNode/SelectCommand"
             classname="XtraButtonItem"
             begingroup="true"/>
       

@@ -35,7 +35,6 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         #endregion
 
-
         public AuthorizationNode AuthNode
         {
             get;
@@ -69,7 +68,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         {
             if (AuthNode == null) // 操作模拟的保存工作
             {
-                Presenter.AuthorizationStoreService.DeleteCommand(edtCommandUri.Text);
+                Presenter.AuthorizationCommandService.Delete(edtCommandUri.Text);
                 AuthorizationCommand command = new AuthorizationCommand() {
                     Name = edtName.Text,
                     CommandUri = edtCommandUri.Text,
@@ -80,7 +79,8 @@ namespace Uniframework.Common.WorkItems.Authorization
 
 
                 try {
-                    Presenter.AuthorizationStoreService.SaveCommand(command);
+                    Presenter.AuthorizationCommandService.Save(command);
+                    btnOK.DialogResult = DialogResult.OK;
                 }
                 catch (Exception ex) {
                     XtraMessageBox.Show("保存命令 \"" + edtName.Text + "\" 时失败，" + ex.Message);
@@ -106,8 +106,11 @@ namespace Uniframework.Common.WorkItems.Authorization
 
                 // 保存新的操作
                 AuthNode.AddCommand(command);
+                if (!Presenter.AuthorizationCommandService.Exists(command.Name, command.CommandUri))
+                    Presenter.AuthorizationCommandService.Save(command); // 保存到操作模板中去
                 try {
-                    Presenter.AuthorizationStoreService.Save(AuthNode);
+                    Presenter.AuthorizationNodeService.Save(AuthNode);
+                    btnOK.DialogResult = DialogResult.OK;
                 }
                 catch (Exception ex) {
                     XtraMessageBox.Show("保存操作 \"" + edtName.Text + "\" 时间失败，" + ex.Message);

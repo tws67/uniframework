@@ -20,5 +20,6 @@ namespace Uniframework.Common
         public const string CMD_COMM_AUTHORIZTION_EDITAUTHNODE = "/Shell/Module/Foundation/Common/Authorization/EditAuthNode";
         public const string CMD_COMM_AUTHORIZATION_DELETEAUTHNODE = "/Shell/Module/Foundation/Common/Authorization/DeleteAuthNode";
         public const string CMD_COMM_AUTHORIZATION_REFRESHAUTHNODE = "/Shell/Module/Foundation/Common/Authorization/RefreshAuthNode";
+        public const string CMD_COMM_AUTHORIZATION_SELECTCOMMAND = "/Shell/Module/Foundation/Common/Authorization/AuthNode/SelectCommand";
     }
 }

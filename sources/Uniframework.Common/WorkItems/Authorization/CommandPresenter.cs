@@ -18,7 +18,14 @@ namespace Uniframework.Common.WorkItems.Authorization
         }
 
         [ServiceDependency]
-        public IAuthorizationStoreService AuthorizationStoreService
+        public IAuthorizationCommandService AuthorizationCommandService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public IAuthorizationNodeService AuthorizationNodeService
         {
             get;
             set;
