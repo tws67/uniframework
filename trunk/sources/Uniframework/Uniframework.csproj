@@ -89,7 +89,9 @@
     <Compile Include="Common\DynamicLatebound.cs" />
     <Compile Include="Security\Authorization\AuthorizationCommand.cs" />
     <Compile Include="Security\Authorization\AuthorizationNode.cs" />
+    <Compile Include="Security\Authorization\IAuthorizationCommandService.cs" />
     <Compile Include="Security\Authorization\IAuthorizationNode.cs" />
+    <Compile Include="Security\Authorization\IAuthorizationNodeService.cs" />
     <Compile Include="Security\PasswordGenterator.cs" />
     <Compile Include="Common\WaitCursor.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />

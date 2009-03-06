@@ -95,6 +95,8 @@
     <Compile Include="Providers\db4o\User.cs" />
     <Compile Include="Providers\db4o\Utils.cs" />
     <Compile Include="Providers\db4o\ValidationKeyInfo.cs" />
+    <Compile Include="Security\AuthorizationCommandService.cs" />
+    <Compile Include="Security\AuthorizationNodeService.cs" />
     <Compile Include="Security\AuthorizationStoreService.cs" />
     <Compile Include="ServiceGateway.cs" />
     <Compile Include="Services\DataList\LayoutService.cs" />

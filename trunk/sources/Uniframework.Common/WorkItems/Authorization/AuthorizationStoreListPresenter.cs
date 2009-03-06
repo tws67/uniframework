@@ -24,6 +24,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         private readonly string AuthNodeForm = "AuthNodeForm";
         private readonly string RootPath = "Shell";
         private readonly string AuthCommandView = "AuthCommandView";
+        private readonly string SelectCommandForm = "SelectCommandForm";
 
         #region Dependency Services
 
@@ -33,6 +34,20 @@ namespace Uniframework.Common.WorkItems.Authorization
         /// <value>The authorization store service.</value>
         [ServiceDependency]
         public IAuthorizationStoreService AuthorizationStoreService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public IAuthorizationCommandService AuthorizationCommandService
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public IAuthorizationNodeService AuthorizationNodeService
         {
             get;
             set;
@@ -191,7 +206,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                     authNode.RemoveCommand(command);
                     View.TLCommands.DeleteNode(View.TLCommands.Selection[0]);
                     CurrentAuthNode.Tag = authNode;
-                    AuthorizationStoreService.Save(authNode); // 将变化保存回后端数据库
+                    AuthorizationNodeService.Save(authNode); // 将变化保存回后端数据库
                 }
             }
         }
@@ -252,6 +267,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_COMM_AUTHORIZTION_NEWAUTHNODE, enabled && CurrentAuthNode != null);
             BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_COMM_AUTHORIZATION_DELETEAUTHNODE, enabled && CurrentAuthNode != null);
             BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_COMM_AUTHORIZTION_EDITAUTHNODE, enabled && CurrentAuthNode != null);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_COMM_AUTHORIZATION_SELECTCOMMAND, enabled && CurrentAuthNode != null);
         }
 
         /// <summary>
@@ -279,7 +295,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             AuthorizationNode authNode = node.Tag as AuthorizationNode;
             if (authNode != null)
                 try {
-                    AuthorizationStoreService.Delete(authNode);
+                    AuthorizationNodeService.Delete(authNode);
                     //View.TLAuth.DeleteNode(node);
                 }
                 catch { }
@@ -310,7 +326,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 };
                 ((AuthorizationNode)node.Tag).AuthorizationUri = View.GetAuthrizationNodePath(node);
 
-                AuthorizationStoreService.Save(node.Tag as AuthorizationNode);
+                AuthorizationNodeService.Save(node.Tag as AuthorizationNode);
 
                 node.ImageIndex = 0;
                 node.SelectImageIndex = 1;
@@ -335,7 +351,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             {
                 authNode.Id = form.AuthId;
                 authNode.Name = form.AuthName;
-                AuthorizationStoreService.Save(authNode);
+                AuthorizationNodeService.Save(authNode);
             }
         }
 
@@ -368,6 +384,37 @@ namespace Uniframework.Common.WorkItems.Authorization
         public void OnRefreshAuthNode(object sender, EventArgs e)
         {
             View.LoadAuthorizationsNodes();
+        }
+
+        /// <summary>
+        /// 选择操作命令
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        [CommandHandler(CommandHandlerNames.CMD_COMM_AUTHORIZATION_SELECTCOMMAND)]
+        public void OnSelectCommand(object sender, EventArgs e)
+        {
+            frmSelectCommand form = WorkItem.Items.Get<frmSelectCommand>(SelectCommandForm);
+            if (form == null)
+                form = WorkItem.Items.AddNew<frmSelectCommand>(SelectCommandForm);
+
+            AuthorizationNode authNode = CurrentAuthNode.Tag as AuthorizationNode;
+            form.AuthNode = authNode;
+            form.RefreshList();
+
+            // 为授权节点添加操作
+            if (form.ShowDialog() == DialogResult.OK) {
+                foreach (AuthorizationCommand ac in form.Selection) {
+                    authNode.AddCommand(ac);
+
+                    TreeListNode node = View.TLCommands.AppendNode(new object[] { ac.Name, ac.CommandUri, ac.Image }, -1, ac);
+                    node.ImageIndex = 3;
+                    node.SelectImageIndex = 3;
+
+                    AuthorizationNodeService.Save(authNode);
+                    CurrentAuthNode.Tag = authNode;
+                }
+            }
         }
 
         #endregion

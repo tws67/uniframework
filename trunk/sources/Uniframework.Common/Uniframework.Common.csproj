@@ -107,6 +107,12 @@
     <Compile Include="WorkItems\Authorization\frmAuthNode.Designer.cs">
       <DependentUpon>frmAuthNode.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkItems\Authorization\frmSelectCommand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkItems\Authorization\frmSelectCommand.Designer.cs">
+      <DependentUpon>frmSelectCommand.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorkItems\Membership\frmMembershipRole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Authorization\frmAuthNode.resx">
       <DependentUpon>frmAuthNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkItems\Authorization\frmSelectCommand.resx">
+      <DependentUpon>frmSelectCommand.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkItems\Membership\frmMembershipRole.resx">
       <DependentUpon>frmMembershipRole.cs</DependentUpon>

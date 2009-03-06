@@ -83,7 +83,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 tlAuth.Nodes.Clear();
                 try
                 {
-                    IList<AuthorizationNode> nodes = Presenter.AuthorizationStoreService.GetAuthorizationNodes();
+                    IList<AuthorizationNode> nodes = Presenter.AuthorizationNodeService.GetAll();
 
                     AuthorizationNode authNode = new AuthorizationNode()
                     {

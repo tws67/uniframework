@@ -15,7 +15,7 @@ namespace Uniframework.Common.WorkItems.Authorization
     public class CommandListPresenter : DataListPresenter<CommandListView>
     {
         [ServiceDependency]
-        public IAuthorizationStoreService AuthorizationStoreService
+        public IAuthorizationCommandService AuthorizationCommandService
         {
             get;
             set;
@@ -121,7 +121,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             if (XtraMessageBox.Show("您真的要删除当前选定的命令项吗？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 try {
                     if (CurrentCommand != null)
-                        AuthorizationStoreService.DeleteCommand(CurrentCommand);
+                        AuthorizationCommandService.Delete(CurrentCommand);
                 }
                 catch (Exception ex) {
                     XtraMessageBox.Show("删除命令项失败，" + ex.Message);
@@ -139,7 +139,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             using (WaitCursor cursor = new WaitCursor(true)) {
                 try {
                     View.DataGrid.BeginUpdate();
-                    View.DataSource.DataSource = AuthorizationStoreService.GetCommands();
+                    View.DataSource.DataSource = AuthorizationCommandService.GetAll();
                 }
                 finally {
                     View.DataGrid.EndUpdate();
