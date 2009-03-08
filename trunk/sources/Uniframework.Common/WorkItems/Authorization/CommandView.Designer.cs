@@ -116,7 +116,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.edtCommandUri.Size = new System.Drawing.Size(422, 21);
             this.edtCommandUri.TabIndex = 6;
             conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule2.ErrorText = "命令操作不能为空，例如\"/Shell/Module/Foundation/File/Print\"";
+            conditionValidationRule2.ErrorText = "命令操作不能为空，例如\"/Shell/Foundation/File/Print\"";
             this.dxValidationProvider.SetValidationRule(this.edtCommandUri, conditionValidationRule2);
             // 
             // image
@@ -140,9 +140,9 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.edtImage.Name = "edtImage";
             this.edtImage.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.edtImage.Properties.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.edtImage_ButtonClick);
             this.edtImage.Size = new System.Drawing.Size(422, 21);
             this.edtImage.TabIndex = 9;
-            this.edtImage.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.edtImage_ButtonClick);
             this.edtImage.Leave += new System.EventHandler(this.edtImage_Leave);
             // 
             // label1

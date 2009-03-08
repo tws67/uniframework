@@ -127,6 +127,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 wp.Show(view, spi);
 
                 View.ListAuthorizationCommands(CurrentAuthNode.Tag as AuthorizationNode); // 刷新操作列表
+                UpdateRoleAuthorization(view.AuthNode);
             }
         }
 
@@ -140,7 +141,8 @@ namespace Uniframework.Common.WorkItems.Authorization
             get
             {
                 bool flag = base.CanEdit;
-                flag &= View.TLCommands.Nodes.Count > 0 && View.TLCommands.Selection.Count > 0;
+                flag &= View.TLCommands.Nodes.Count > 0 && View.TLCommands.Selection.Count > 0 
+                    && View.TLCommands.Selection[0].Tag != null;
                 return flag;
             }
         }
@@ -160,7 +162,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 ShowInTaskbar = false,
                 StartPosition = System.Windows.Forms.FormStartPosition.CenterParent,
                 FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog,
-                Title = "新建命令"
+                Title = "新建操作"
             };
 
             IWorkspace wp = WorkItem.Workspaces.Get(UIExtensionSiteNames.Shell_Workspace_Window);
@@ -174,6 +176,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 wp.Show(view, spi);
 
                 View.ListAuthorizationCommands(CurrentAuthNode.Tag as AuthorizationNode); // 刷新操作列表
+                UpdateRoleAuthorization(view.AuthNode);
             }
         }
 
@@ -186,7 +189,8 @@ namespace Uniframework.Common.WorkItems.Authorization
             get
             {
                 bool flag = base.CanDelete;
-                flag &= View.TLCommands.Nodes.Count > 0 && View.TLCommands.Selection.Count > 0;
+                flag &= View.TLCommands.Nodes.Count > 0 && View.TLCommands.Selection.Count > 0
+                    && View.TLCommands.Selection[0].Tag != null;
                 return flag;
             }
         }
@@ -207,6 +211,8 @@ namespace Uniframework.Common.WorkItems.Authorization
                     View.TLCommands.DeleteNode(View.TLCommands.Selection[0]);
                     CurrentAuthNode.Tag = authNode;
                     AuthorizationNodeService.Save(authNode); // 将变化保存回后端数据库
+
+                    UpdateRoleAuthorization(authNode);
                 }
             }
         }
@@ -241,6 +247,19 @@ namespace Uniframework.Common.WorkItems.Authorization
         }
 
         #region Assistant functions
+
+        /// <summary>
+        /// 更新角色的授权信息
+        /// </summary>
+        /// <param name="authNode">The auth node.</param>
+        private void UpdateRoleAuthorization(AuthorizationNode authNode)
+        {
+            IList<AuthorizationStore> stores = AuthorizationStoreService.GetAll();
+            foreach (AuthorizationStore store in stores) {
+                store.Store(authNode);
+                AuthorizationStoreService.SaveAuthorization(store);
+            }
+        }
 
         /// <summary>
         /// Gets the current auth node.
@@ -296,7 +315,13 @@ namespace Uniframework.Common.WorkItems.Authorization
             if (authNode != null)
                 try {
                     AuthorizationNodeService.Delete(authNode);
-                    //View.TLAuth.DeleteNode(node);
+
+                    // 更新角色的授权信息
+                    IList<AuthorizationStore> stores = AuthorizationStoreService.GetAll();
+                    foreach (AuthorizationStore store in stores) {
+                        store.Remove(authNode);
+                        AuthorizationStoreService.SaveAuthorization(store);
+                    }
                 }
                 catch { }
         }
@@ -324,9 +349,13 @@ namespace Uniframework.Common.WorkItems.Authorization
                     Id = form.AuthId,
                     Name = form.AuthName
                 };
-                ((AuthorizationNode)node.Tag).AuthorizationUri = View.GetAuthrizationNodePath(node);
 
-                AuthorizationNodeService.Save(node.Tag as AuthorizationNode);
+                AuthorizationNode authNode = node.Tag as AuthorizationNode;
+                if (authNode != null) {
+                    authNode.AuthorizationUri = View.GetAuthrizationNodePath(node);
+                    AuthorizationNodeService.Save(authNode);
+                    UpdateRoleAuthorization(authNode);
+                }
 
                 node.ImageIndex = 0;
                 node.SelectImageIndex = 1;
@@ -352,6 +381,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 authNode.Id = form.AuthId;
                 authNode.Name = form.AuthName;
                 AuthorizationNodeService.Save(authNode);
+                UpdateRoleAuthorization(authNode);
             }
         }
 
@@ -404,13 +434,10 @@ namespace Uniframework.Common.WorkItems.Authorization
 
             // 为授权节点添加操作
             if (form.ShowDialog() == DialogResult.OK) {
-                foreach (AuthorizationCommand ac in form.Selection) {
+                List<AuthorizationCommand> lcs = form.GetSelection();
+                foreach (AuthorizationCommand ac in lcs) {
                     authNode.AddCommand(ac);
-
-                    TreeListNode node = View.TLCommands.AppendNode(new object[] { ac.Name, ac.CommandUri, ac.Image }, -1, ac);
-                    node.ImageIndex = 3;
-                    node.SelectImageIndex = 3;
-
+                    View.ListAuthorizationCommands(authNode); // 刷新操作列表
                     AuthorizationNodeService.Save(authNode);
                     CurrentAuthNode.Tag = authNode;
                 }

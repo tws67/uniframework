@@ -43,27 +43,13 @@ namespace Uniframework.Security
         }
 
         /// <summary>
-        /// 添加授权节点信息
+        /// 为特定的权限路径进行授权
         /// </summary>
-        /// <param name="node">授权节点</param>
-        public void Add(AuthorizationNode node)
+        /// <param name="authorizationUri">权限路径</param>
+        /// <param name="action">授权动作<see cref="AuthorizationAction"/></param>
+        public void Authorization(string authorizationUri, AuthorizationAction action)
         {
-            Guard.ArgumentNotNull(node, "Authorization node");
-            Guard.ArgumentNotNull(node.AuthorizationUri, "Authorization uri");
-
-            authorizations[node.AuthorizationUri] = node;
-            actions[node.AuthorizationUri] = AuthorizationAction.Deny;
-        }
-
-        /// <summary>
-        /// 添加授权节点信息
-        /// </summary>
-        /// <param name="node">授权节点</param>
-        /// <param name="action">授权动作</param>
-        public void Add(AuthorizationNode node, AuthorizationAction action)
-        {
-            Add(node);
-            actions[node.AuthorizationUri] = action;
+            actions[authorizationUri] = action;
         }
 
         /// <summary>
@@ -72,10 +58,18 @@ namespace Uniframework.Security
         /// <param name="authorizationUri">授权路径</param>
         public void Remove(string authorizationUri)
         {
-            if (authorizations.ContainsKey(authorizationUri))
+            Guard.ArgumentNotNull(authorizationUri, "Authorization Uri");
+
+            if (authorizations.ContainsKey(authorizationUri)) {
+                AuthorizationNode node = authorizations[authorizationUri];
+                // 选择节点下的所有操作项的授权信息
+                foreach (AuthorizationCommand cmd in node.Commands) {
+                    string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+                    if (actions.ContainsKey(key))
+                        actions.Remove(key);
+                }
                 authorizations.Remove(authorizationUri);
-            if (actions.ContainsKey(authorizationUri))
-                actions.Remove(authorizationUri);
+            }
         }
 
         /// <summary>
@@ -86,6 +80,33 @@ namespace Uniframework.Security
         {
             if (node != null && !String.IsNullOrEmpty(node.AuthorizationUri))
                 Remove(node.AuthorizationUri);
+        }
+
+        /// <summary>
+        /// 存储授权节点
+        /// </summary>
+        /// <param name="node">授权节点</param>
+        public void Store(AuthorizationNode node)
+        {
+            Guard.ArgumentNotNull(node, "node");
+
+            Dictionary<string, AuthorizationAction> acs = new Dictionary<string, AuthorizationAction>();
+            // 原来的授权信息
+            foreach (AuthorizationCommand cmd in node.Commands) {
+                string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+                if (actions.ContainsKey(key))
+                    acs[key] = actions[key];
+            }
+
+            Remove(node.AuthorizationUri); // 删除原来的授权信息
+            authorizations[node.AuthorizationUri] = node;
+            foreach (AuthorizationCommand cmd in node.Commands) {
+                string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+                if (acs.ContainsKey(key))
+                    actions[key] = acs[key];
+                else
+                    actions[key] = AuthorizationAction.Deny;
+            }
         }
 
         /// <summary>

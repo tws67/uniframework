@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Uniframework.Services;
 using Uniframework.Db4o;
+using Castle.MicroKernel;
 
 namespace Uniframework.Security
 {

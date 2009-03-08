@@ -15,6 +15,7 @@ using Uniframework.Services;
 using Uniframework.XtraForms.SmartPartInfos;
 using Microsoft.Practices.ObjectBuilder;
 using Uniframework.SmartClient;
+using Uniframework.Security;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
@@ -24,6 +25,8 @@ namespace Uniframework.Common.WorkItems.Membership
     [SmartPart]
     public partial class MembershipRoleView : DevExpress.XtraEditors.XtraUserControl
     {
+        private AuthorizationStore authStore; 
+
         public MembershipRoleView()
         {
             InitializeComponent();
@@ -49,13 +52,6 @@ namespace Uniframework.Common.WorkItems.Membership
             set;
         }
 
-        [ServiceDependency]
-        public IMembershipService MembershipService
-        {
-            get;
-            set;
-        }
-
         #endregion
 
         /// <summary>
@@ -67,10 +63,187 @@ namespace Uniframework.Common.WorkItems.Membership
         public void OnCurrentRoleChanged(object sender, EventArgs<string> e)
         {
             RefreshCurrentRole(e.Data);
+
+            GetAuthorizationForRole(e.Data);
+            LoadAuthorizationNodes();
         }
+
 
         #region Assistant functions
 
+        /// <summary>
+        /// 获取指定角色的权限信息
+        /// </summary>
+        /// <param name="role">角色名称</param>
+        private void GetAuthorizationForRole(string role)
+        {
+            authStore = Presenter.AuthorizationStoreService.GetAuthorizationsByRole(role);
+            if (authStore == null)
+            {
+                authStore = new AuthorizationStore(role);
+
+                IList<AuthorizationNode> lns = Presenter.AuthorizationNodeService.GetAll();
+                foreach (AuthorizationNode an in lns)
+                    authStore.Store(an);
+                Presenter.AuthorizationStoreService.SaveAuthorization(authStore); // 保存角色的权限信息
+            }
+        }
+
+        private void LoadAuthorizationNodes()
+        {
+            using (WaitCursor cursor = new WaitCursor(true))
+            {
+                tlAuth.BeginUpdate();
+                tlAuth.Nodes.Clear();
+                try
+                {
+                    IList<AuthorizationNode> nodes = Presenter.AuthorizationNodeService.GetAll();
+
+                    AuthorizationNode authNode = new AuthorizationNode()
+                    {
+                        Id = "Shell",
+                        Name = "系统权限"
+                    };
+                    authNode.AuthorizationUri = GlobalConstants.Uri_Separator + "Shell";
+                    TreeListNode tlNode = tlAuth.AppendNode(new object[] { authNode.Name, authNode.Id }, -1, authNode);
+                    tlNode.Tag = authNode;
+                    ((AuthorizationNode)tlNode.Tag).AuthorizationUri = GetAuthrizationNodePath(tlNode);
+                    tlNode.ImageIndex = 0;
+                    tlNode.SelectImageIndex = 1;
+
+                    foreach (AuthorizationNode child in nodes)
+                    {
+                        LoadAuthorizationNode(child, tlAuth.Nodes[0]);
+                    }
+                    tlAuth.Nodes[0].ExpandAll(); // 展开所有子节点
+                }
+                finally
+                {
+                    tlAuth.EndUpdate();
+                }
+            }
+        }
+
+        private void LoadAuthorizationNode(AuthorizationNode authNode, TreeListNode tlNode)
+        {
+            string[] authPath = authNode.AuthorizationUri.Split(new string[] { GlobalConstants.Uri_Separator }, StringSplitOptions.None);
+            TreeListNode current = tlNode;
+
+            if (authPath.Length < 1)
+                return;
+
+            for (int i = 2; i < authPath.Length; ++i)
+            {
+                bool found = false;
+                foreach (TreeListNode node in current.Nodes)
+                {
+                    string id = node.GetDisplayText(colId);
+                    if (id == authPath[i])
+                    {
+                        current = node;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    if (i == authPath.Length - 1 && current.Tag == null)
+                    {
+                        current.SetValue(colNode, authNode.Name);
+                        current.Tag = authNode;
+                    }
+                }
+                else
+                {
+                    TreeListNode child = tlAuth.AppendNode(new object[] { "tempnode", authPath[i] }, current); // 我们创建的可能是中间节点
+                    child.ImageIndex = 0;
+                    child.SelectImageIndex = 1;
+
+                    // 设置最终要创建的节点的相关属性
+                    if (i == authPath.Length - 1)
+                    {
+                        child.SetValue(colNode, authNode.Name);
+                        child.Tag = authNode;
+                        LoadAuthorizationCommandNode(child, authNode);
+                    }
+                    current = child;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 加载权限节点下的操作项
+        /// </summary>
+        /// <param name="parent">The parent.</param>
+        /// <param name="authNode">The auth node.</param>
+        private void LoadAuthorizationCommandNode(TreeListNode parent, AuthorizationNode authNode)
+        {
+            Dictionary<string, TreeListNode> categories = new Dictionary<string, TreeListNode>(); // 分组
+            foreach (AuthorizationCommand cmd in authNode.Commands) {
+
+                if (!categories.ContainsKey(cmd.Category))
+                    categories[cmd.Category] = GetCategoryNode(cmd.Category, parent);
+                TreeListNode category = categories[cmd.Category];
+                TreeListNode child = tlAuth.AppendNode(new object[] { cmd.Name, cmd.CommandUri }, category, cmd);
+                child.ImageIndex = 3;
+                child.SelectImageIndex = 3;
+            }
+        }
+
+        /// <summary>
+        /// Gets the category node.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <returns></returns>
+        private TreeListNode GetCategoryNode(string category, TreeListNode parent)
+        {
+            if (String.IsNullOrEmpty(category) || category.Length == 0)
+                category = Constants.DefaultCommandCategory;
+
+            TreeListNode node = tlAuth.AppendNode(new object[] { category, "", "" }, parent);
+            node.ImageIndex = 4;
+            node.SelectImageIndex = 2;
+            return node;
+        }
+
+        /// <summary>
+        /// 获取当前授权节点的路径
+        /// </summary>
+        /// <param name="node">Tree list node</param>
+        /// <returns>返回从根节点到当前节点的路径值</returns>
+        public string GetAuthrizationNodePath(TreeListNode node)
+        {
+            string authPath = "";
+            if (node.Tag != null)
+            {
+                AuthorizationNode authNode = node.Tag as AuthorizationNode; // 获取节点的授权信息
+                if (authNode == null)
+                    return authPath;
+                authPath = authNode.Id;
+                TreeListNode curr = node.ParentNode;
+
+                // 递归获取每一层节点的路径信息
+                while (curr != null)
+                {
+                    if (curr.Tag != null)
+                    {
+                        authNode = curr.Tag as AuthorizationNode;
+                        if (authNode == null)
+                            return authPath;
+                        authPath = authNode.Id + authPath;
+                    }
+                    curr = curr.ParentNode;
+                }
+                return authPath;
+            }
+            return authPath;
+        }
+
+        /// <summary>
+        /// 刷新角色的成员信息
+        /// </summary>
+        /// <param name="role">The role.</param>
         private void RefreshCurrentRole(string role)
         {
             membershipRole.Role = role;
@@ -78,8 +251,8 @@ namespace Uniframework.Common.WorkItems.Membership
                 tlMembers.BeginUpdate();
                 tlMembers.ClearNodes();
                 try {
-                    string[] users = MembershipService.GetUsersForRole(role);
-                    foreach (string user in MembershipService.GetUsersForRole(role)) {
+                    string[] users = Presenter.MembershipService.GetUsersForRole(role);
+                    foreach (string user in Presenter.MembershipService.GetUsersForRole(role)) {
                         TreeListNode node = tlMembers.AppendNode(new object[] { user }, -1, 0, 0, 0);
                         node.Tag = true; // 此值代表角色原来就拥有的成员
                     }
@@ -95,6 +268,9 @@ namespace Uniframework.Common.WorkItems.Membership
             if (WorkItem.State[Constants.CurrentRole] != null) {
                 string role = (string)WorkItem.State[Constants.CurrentRole];
                 RefreshCurrentRole(role);
+
+                GetAuthorizationForRole(role);
+                LoadAuthorizationNodes();
             }
         }
 
@@ -129,8 +305,8 @@ namespace Uniframework.Common.WorkItems.Membership
             string role = membershipRole.Role;
             foreach (TreeListNode node in tlMembers.Selection) {
                 string user = node.GetDisplayText(colUserName);
-                if (MembershipService.IsUserInRole(user, role))
-                    MembershipService.RemoveUserFromRole(user, role); // 将成员从角色中移除
+                if (Presenter.MembershipService.IsUserInRole(user, role))
+                    Presenter.MembershipService.RemoveUserFromRole(user, role); // 将成员从角色中移除
             }
             RefreshCurrentRole(role);
         }

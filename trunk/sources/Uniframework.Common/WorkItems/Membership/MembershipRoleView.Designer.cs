@@ -40,11 +40,20 @@ namespace Uniframework.Common.WorkItems.Membership
             this.colUserName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.ilMembers = new System.Windows.Forms.ImageList(this.components);
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.tlAuth = new DevExpress.XtraTreeList.TreeList();
+            this.colNode = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.colId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.ilAuth = new System.Windows.Forms.ImageList(this.components);
             this.membershipRole = new Uniframework.Common.WorkItems.Membership.MembershipRoleEdit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tlMembers)).BeginInit();
+            this.xtraTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tlAuth)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -115,7 +124,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlMembers.OptionsView.ShowIndicator = false;
             this.tlMembers.OptionsView.ShowRoot = false;
             this.tlMembers.OptionsView.ShowVertLines = false;
-            this.tlMembers.Size = new System.Drawing.Size(539, 153);
+            this.tlMembers.Size = new System.Drawing.Size(527, 153);
             this.tlMembers.StateImageList = this.ilMembers;
             this.tlMembers.TabIndex = 0;
             // 
@@ -135,9 +144,65 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // xtraTabPage1
             // 
+            this.xtraTabPage1.Controls.Add(this.panelControl1);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(533, 215);
+            this.xtraTabPage1.Size = new System.Drawing.Size(533, 191);
             this.xtraTabPage1.Text = "权限管理";
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Controls.Add(this.tlAuth);
+            this.panelControl1.Location = new System.Drawing.Point(3, 3);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(527, 185);
+            this.panelControl1.TabIndex = 0;
+            // 
+            // tlAuth
+            // 
+            this.tlAuth.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.tlAuth.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.colNode,
+            this.colId});
+            this.tlAuth.ColumnsImageList = this.ilAuth;
+            this.tlAuth.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tlAuth.Location = new System.Drawing.Point(2, 2);
+            this.tlAuth.Name = "tlAuth";
+            this.tlAuth.OptionsBehavior.AllowIndeterminateCheckState = true;
+            this.tlAuth.OptionsBehavior.Editable = false;
+            this.tlAuth.OptionsView.ShowCheckBoxes = true;
+            this.tlAuth.OptionsView.ShowHorzLines = false;
+            this.tlAuth.OptionsView.ShowIndicator = false;
+            this.tlAuth.OptionsView.ShowVertLines = false;
+            this.tlAuth.SelectImageList = this.ilAuth;
+            this.tlAuth.Size = new System.Drawing.Size(525, 181);
+            this.tlAuth.TabIndex = 2;
+            this.tlAuth.Tag = "/Shell/Foundation/Common/Authorization/Store/AuthTree/ContentMenu";
+            // 
+            // colNode
+            // 
+            this.colNode.Caption = "节点名称";
+            this.colNode.FieldName = "Name";
+            this.colNode.MinWidth = 35;
+            this.colNode.Name = "colNode";
+            this.colNode.SummaryFooter = DevExpress.XtraTreeList.SummaryItemType.Count;
+            this.colNode.Visible = true;
+            this.colNode.VisibleIndex = 0;
+            // 
+            // colId
+            // 
+            this.colId.Caption = "节点标识";
+            this.colId.FieldName = "Id";
+            this.colId.Name = "colId";
+            // 
+            // ilAuth
+            // 
+            this.ilAuth.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilAuth.ImageStream")));
+            this.ilAuth.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilAuth.Images.SetKeyName(0, "folder_closed.ico");
+            this.ilAuth.Images.SetKeyName(1, "folder.ico");
+            this.ilAuth.Images.SetKeyName(2, "folder_gear.ico");
+            this.ilAuth.Images.SetKeyName(3, "gear.ico");
+            this.ilAuth.Images.SetKeyName(4, "gears.ico");
             // 
             // membershipRole
             // 
@@ -163,6 +228,10 @@ namespace Uniframework.Common.WorkItems.Membership
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tlMembers)).EndInit();
+            this.xtraTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tlAuth)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -180,5 +249,10 @@ namespace Uniframework.Common.WorkItems.Membership
         private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
         private MembershipRoleEdit membershipRole;
         private System.Windows.Forms.ImageList ilMembers;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraTreeList.TreeList tlAuth;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colNode;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colId;
+        private System.Windows.Forms.ImageList ilAuth;
     }
 }

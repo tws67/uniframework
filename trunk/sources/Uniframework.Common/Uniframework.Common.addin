@@ -12,7 +12,7 @@
       <Item id="ChangeMyPassword"
             name="mmiiChangeMyPassword"
             label="我要修改密码(&amp;C)..."
-            command="/Shell/Module/Foundation/Common/Membership/ChangedPassword"
+            command="/Shell/Foundation/Common/Membership/ChangedPassword"
             classname="XtraButtonItem"
             insertbefore="mmiiExit"
             imagefile="${keys}"/>
@@ -22,35 +22,35 @@
       <Item id="MembershipRole"
             name="nbMembershipRole"
             label="角色管理"
-            command="/Shell/Module/Foundation/Common/Membership/Role"
+            command="/Shell/Foundation/Common/Membership/Role"
             classname="XtraNavBarItem"
             largeimage="${businessmen}"/>
 
       <Item id="MembershipUser"
             name="nbMembershipUser"
             label="用户管理"
-            command="/Shell/Module/Foundation/Common/Membership/User"
+            command="/Shell/Foundation/Common/Membership/User"
             classname="XtraNavBarItem"
             largeimage="${businessman}"/>
 
       <Item id="CommandList"
             name="nbCommandList"
             label="命令列表"
-            command="/Shell/Module/Foundation/Common/Authorization/Command"
+            command="/Shell/Foundation/Common/Authorization/Command"
             classname="XtraNavBarItem"
             largeimage="${gear}"/>
 
       <Item id="AuthorizationStoreList"
             name="nbAuthorizationStoreList"
             label="权限管理"
-            command="/Shell/Module/Foundation/Common/Authorization/Store"
+            command="/Shell/Foundation/Common/Authorization/Store"
             classname="XtraNavBarItem"
             largeimage="${gears_preferences}"/>
 
       <Item id="Options"
             name="nbOptions"
             label="系统选项"
-            command="/Shell/Module/Foundation/View/Setting"
+            command="/Shell/Foundation/View/Setting"
             classname="XtraNavBarItem"
             largeimage="${preferences}"/>
     </Path>
@@ -59,7 +59,7 @@
       <Item id="MembershipRole"
             name="mmivMembershipRole"
             label="角色管理(&amp;R)"
-            command="/Shell/Module/Foundation/Common/Membership/Role"
+            command="/Shell/Foundation/Common/Membership/Role"
             classname="XtraButtonItem"
             begingroup="true"
             insertbefore="mmivSetting"/>
@@ -67,87 +67,87 @@
       <Item id="MembershipUser"
             name="mmivMembershipUser"
             label="用户管理(&amp;U)"
-            command="/Shell/Module/Foundation/Common/Membership/User"
+            command="/Shell/Foundation/Common/Membership/User"
             classname="XtraButtonItem"
             insertbefore="mmivSetting"/>
     </Path>-->
     
     <Path name="/Shell" label="右键菜单" buildstartup="true">
-      <Item id="Module/Foundation/Common/Membership/User/ContentMenu"
+      <Item id="Foundation/Common/Membership/User/ContentMenu"
             name="cmMembershipUser"
             label="用户管理上下文菜单"
             command=""
             classname="XtraContentMenu"/>
 
-      <Item id="Module/Foundation/Common/Membership/Role/ContentMenu"
+      <Item id="Foundation/Common/Membership/Role/ContentMenu"
             name="cmMembershipRole"
             lable="角色管理上下文菜单"
             command=""
             classname="XtraContentMenu"/>
 
-      <Item id="Module/Foundation/Common/Authorization/Command/ContentMenu"
+      <Item id="Foundation/Common/Authorization/Command/ContentMenu"
             name="cmAuthorizationCommand"
             label="操作列表上下文菜单"
             command=""
             classname="XtraContentMenu"/>
 
-      <Item id="Module/Foundation/Common/Authorization/Store/AuthTree/ContentMenu"
+      <Item id="Foundation/Common/Authorization/Store/AuthTree/ContentMenu"
             name="cmAuthTree"
             label="权限管理树上下文菜单"
             command=""
             classname="XtraContentMenu"/>
 
-      <Item id="Module/Foundation/Common/Authorization/Store/Command/ContentMenu"
+      <Item id="Foundation/Common/Authorization/Store/Command/ContentMenu"
             name="cmCommand"
             lable="权限管理操作列表上下文菜单"
             command=""
             classname="XtraContentMenu"/>
     </Path>
 
-    <Path name="/Shell/Module/Foundation/Common/Membership/Role/ContentMenu" label="" buildstartup="false">
+    <Path name="/Shell/Foundation/Common/Membership/Role/ContentMenu" label="" buildstartup="false">
       <Item id="New"
             name="cmmNew"
             label="新建角色(&amp;N)..."
-            command="/Shell/Module/Foundation/DataList/Insert"
+            command="/Shell/Foundation/DataList/Insert"
             classname="XtraButtonItem"
             shortcut="CtrlIns"/>
 
       <Item id="Edit"
             name="cmmEdit"
             label="编辑当前选定角色(&amp;E)..."
-            command="/Shell/Module/Foundation/DataList/Edit"
+            command="/Shell/Foundation/DataList/Edit"
             classname="XtraButtonItem"
             shortcut="F4"/>
 
       <Item id="Delete"
             name="cmmDelete"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/DataList/Delete"
+            command="/Shell/Foundation/DataList/Delete"
             classname="XtraButtonItem"
             shortcut="Del"/>
 
       <Item id="Refresh"
             name="cmmRefresh"
             label="刷新(&amp;E)"
-            command="/Shell/Module/Foundation/DataList/Refresh"
+            command="/Shell/Foundation/DataList/Refresh"
             classname="XtraButtonItem"
             begingroup="true"
             shortcut="F5"
             imagefile="${refresh}"/>
     </Path>
     
-    <Path name="/Shell/Module/Foundation/Common/Membership/User/ContentMenu" label="" buildstartup="false">
+    <Path name="/Shell/Foundation/Common/Membership/User/ContentMenu" label="" buildstartup="false">
       <Item id="SetPassword"
             name="cmmSetPassword"
             label="设置密码(&amp;S)..."
-            command="/Shell/Module/Foundation/Common/Membership/User/SetPassword"
+            command="/Shell/Foundation/Common/Membership/User/SetPassword"
             classname="XtraButtonItem"
             imagefile="${keys}"/>
       
       <Item id="New"
             name="cmmNew"
             label="新建用户(&amp;N)..."
-            command="/Shell/Module/Foundation/DataList/Insert"
+            command="/Shell/Foundation/DataList/Insert"
             classname="XtraButtonItem"
             shortcut="CtrlIns"
             begingroup="true"/>
@@ -155,119 +155,119 @@
       <Item id="Edit"
             name="cmmEdit"
             label="编辑当前选定用户(&amp;E)..."
-            command="/Shell/Module/Foundation/DataList/Edit"
+            command="/Shell/Foundation/DataList/Edit"
             classname="XtraButtonItem"
             shortcut="F4"/>
 
       <Item id="Delete"
             name="cmmDelete"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/DataList/Delete"
+            command="/Shell/Foundation/DataList/Delete"
             classname="XtraButtonItem"
             shortcut="Del"/>
 
       <Item id="Refresh"
             name="cmmRefresh"
             label="刷新(&amp;E)"
-            command="/Shell/Module/Foundation/DataList/Refresh"
+            command="/Shell/Foundation/DataList/Refresh"
             classname="XtraButtonItem"
             begingroup="true"
             shortcut="F5"
             imagefile="${refresh}"/>
     </Path>
 
-    <Path name="/Shell/Module/Foundation/Common/Authorization/Command/ContentMenu" label="操作列表上下文菜单" buildstartup="false">
+    <Path name="/Shell/Foundation/Common/Authorization/Command/ContentMenu" label="操作列表上下文菜单" buildstartup="false">
       <Item id="New"
             name="cmmNew"
             label="新建操作(&amp;N)..."
-            command="/Shell/Module/Foundation/DataList/Insert"
+            command="/Shell/Foundation/DataList/Insert"
             classname="XtraButtonItem"
             shortcut="CtrlIns"/>
 
       <Item id="Edit"
             name="cmmEdit"
             label="编辑当前选定操作(&amp;E)..."
-            command="/Shell/Module/Foundation/DataList/Edit"
+            command="/Shell/Foundation/DataList/Edit"
             classname="XtraButtonItem"
             shortcut="F4"/>
 
       <Item id="Delete"
             name="cmmDelete"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/DataList/Delete"
+            command="/Shell/Foundation/DataList/Delete"
             classname="XtraButtonItem"
             shortcut="Del"/>
 
       <Item id="Refresh"
             name="cmmRefresh"
             label="刷新(&amp;E)"
-            command="/Shell/Module/Foundation/DataList/Refresh"
+            command="/Shell/Foundation/DataList/Refresh"
             classname="XtraButtonItem"
             begingroup="true"
             shortcut="F5"
             imagefile="${refresh}"/>
     </Path>
 
-    <Path name="/Shell/Module/Foundation/Common/Authorization/Store/AuthTree/ContentMenu" label="" buildstartup="false">
+    <Path name="/Shell/Foundation/Common/Authorization/Store/AuthTree/ContentMenu" label="" buildstartup="false">
       <Item id="New"
             name="cmmNewAuthNode"
             label="新建(&amp;N)..."
-            command="/Shell/Module/Foundation/Common/Authorization/NewAuthNode"
+            command="/Shell/Foundation/Common/Authorization/NewAuthNode"
             classname="XtraButtonItem"/>
 
       <Item id="Edit"
             name="cmmEditAuthNode"
             label="编辑(&amp;E)..."
-            command="/Shell/Module/Foundation/Common/Authorization/EditAuthNode"
+            command="/Shell/Foundation/Common/Authorization/EditAuthNode"
             classname="XtraButtonItem"/>
 
       <Item id="Delete"
             name="cmmDeleteAuthNode"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/Common/Authorization/DeleteAuthNode"
+            command="/Shell/Foundation/Common/Authorization/DeleteAuthNode"
             classname="XtraButtonItem"/>
 
       <Item id="Refresh"
             name="cmmRefreshAuthNode"
             label="刷新(&amp;R)"
-            command="/Shell/Module/Foundation/Common/Authorization/RefreshAuthNode"
+            command="/Shell/Foundation/Common/Authorization/RefreshAuthNode"
             classname="XtraButtonItem"
             begingroup="true"/>
     </Path>
 
-    <Path name="/Shell/Module/Foundation/Common/Authorization/Store/Command/ContentMenu" label="" buildstartup="false">
+    <Path name="/Shell/Foundation/Common/Authorization/Store/Command/ContentMenu" label="" buildstartup="false">
       <Item id="New"
             name="cmmNew"
             label="新建操作(&amp;N)..."
-            command="/Shell/Module/Foundation/DataList/Insert"
+            command="/Shell/Foundation/DataList/Insert"
             classname="XtraButtonItem"
             shortcut="CtrlIns"/>
 
       <Item id="Edit"
             name="cmmEdit"
             label="编辑当前选定操作(&amp;E)..."
-            command="/Shell/Module/Foundation/DataList/Edit"
+            command="/Shell/Foundation/DataList/Edit"
             classname="XtraButtonItem"
             shortcut="F4"/>
 
       <Item id="Delete"
             name="cmmDelete"
             label="删除(&amp;D)"
-            command="/Shell/Module/Foundation/DataList/Delete"
+            command="/Shell/Foundation/DataList/Delete"
             classname="XtraButtonItem"
             shortcut="Del"/>
 
       <Item id="Choice"
             name="cmmChoice"
             label="从操作列表中选择(&amp;C)..."
-            command="/Shell/Module/Foundation/Common/Authorization/AuthNode/SelectCommand"
+            command="/Shell/Foundation/Common/Authorization/AuthNode/SelectCommand"
             classname="XtraButtonItem"
             begingroup="true"/>
       
       <Item id="Refresh"
             name="cmmRefresh"
             label="刷新(&amp;E)"
-            command="/Shell/Module/Foundation/DataList/Refresh"
+            command="/Shell/Foundation/DataList/Refresh"
             classname="XtraButtonItem"
             begingroup="true"
             shortcut="F5"

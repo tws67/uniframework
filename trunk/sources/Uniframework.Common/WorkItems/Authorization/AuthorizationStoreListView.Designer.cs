@@ -59,7 +59,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlAuth.SelectImageList = this.ilAuth;
             this.tlAuth.Size = new System.Drawing.Size(189, 468);
             this.tlAuth.TabIndex = 1;
-            this.tlAuth.Tag = "/Shell/Module/Foundation/Common/Authorization/Store/AuthTree/ContentMenu";
+            this.tlAuth.Tag = "/Shell/Foundation/Common/Authorization/Store/AuthTree/ContentMenu";
             this.tlAuth.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tlAuth_FocusedNodeChanged);
             this.tlAuth.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tlAuth_MouseMove);
             // 
@@ -86,6 +86,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.ilAuth.Images.SetKeyName(1, "folder.ico");
             this.ilAuth.Images.SetKeyName(2, "folder_gear.ico");
             this.ilAuth.Images.SetKeyName(3, "gear.ico");
+            this.ilAuth.Images.SetKeyName(4, "gears.ico");
             // 
             // splitterControl1
             // 
@@ -113,7 +114,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlCommands.SelectImageList = this.ilAuth;
             this.tlCommands.Size = new System.Drawing.Size(586, 468);
             this.tlCommands.TabIndex = 3;
-            this.tlCommands.Tag = "/Shell/Module/Foundation/Common/Authorization/Store/Command/ContentMenu";
+            this.tlCommands.Tag = "/Shell/Foundation/Common/Authorization/Store/Command/ContentMenu";
             // 
             // colName
             // 

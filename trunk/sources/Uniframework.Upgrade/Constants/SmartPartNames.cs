@@ -7,6 +7,6 @@ namespace Uniframework.Upgrade
 {
     public static class SmartPartNames
     {
-        public const string SmartPart_Upgrade_UpgradeBuilderView = "/Shell/Module/Foundation/Views/UpgradeBuilderView";
+        public const string SmartPart_Upgrade_UpgradeBuilderView = "/Shell/Foundation/Views/UpgradeBuilderView";
     }
 }

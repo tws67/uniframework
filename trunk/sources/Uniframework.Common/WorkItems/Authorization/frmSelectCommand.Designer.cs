@@ -65,6 +65,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlCommands.ColumnsImageList = this.ilCommands;
             this.tlCommands.Location = new System.Drawing.Point(12, 32);
             this.tlCommands.Name = "tlCommands";
+            this.tlCommands.OptionsBehavior.AllowIndeterminateCheckState = true;
             this.tlCommands.OptionsBehavior.Editable = false;
             this.tlCommands.OptionsBehavior.EnableFiltering = true;
             this.tlCommands.OptionsSelection.MultiSelect = true;
@@ -75,6 +76,8 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.tlCommands.SelectImageList = this.ilCommands;
             this.tlCommands.Size = new System.Drawing.Size(528, 211);
             this.tlCommands.TabIndex = 2;
+            this.tlCommands.BeforeCheckNode += new DevExpress.XtraTreeList.CheckNodeEventHandler(this.tlCommands_BeforeCheckNode);
+            this.tlCommands.AfterCheckNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tlCommands_AfterCheckNode);
             // 
             // colName
             // 

@@ -152,6 +152,7 @@ namespace Uniframework.Common.WorkItems.Authorization
         {
             using (WaitCursor cursor = new WaitCursor(true))
             {
+                Dictionary<string, TreeListNode> categories = new Dictionary<string, TreeListNode>(); // 分组
                 tlCommands.BeginUpdate();
                 tlCommands.ClearNodes();
                 try
@@ -160,20 +161,42 @@ namespace Uniframework.Common.WorkItems.Authorization
                     {
                         foreach (AuthorizationCommand cmd in authNode.Commands)
                         {
-                            TreeListNode node = tlCommands.AppendNode(new object[] { cmd.Name, cmd.CommandUri, cmd.Image }, -1, cmd);
-                            node.ImageIndex = 3;
-                            node.SelectImageIndex = 3;
+                            if (!categories.ContainsKey(cmd.Category))
+                                categories.Add(cmd.Category, GetCategoryNode(cmd.Category));
+
+                            TreeListNode parent = categories[cmd.Category];
+                            TreeListNode child = tlCommands.AppendNode(new object[] { cmd.Name, cmd.CommandUri, cmd.Image }, parent, cmd);
+                            child.ImageIndex = 3;
+                            child.SelectImageIndex = 3;
                         }
                     }
                 }
                 finally
                 {
+                    tlCommands.ExpandAll();
                     tlCommands.EndUpdate();
                 }
             }
         }
 
         #region Assistant functions
+
+
+        /// <summary>
+        /// Gets the category node.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <returns></returns>
+        private TreeListNode GetCategoryNode(string category)
+        {
+            if (String.IsNullOrEmpty(category) || category.Length == 0)
+                category = Constants.DefaultCommandCategory;
+
+            TreeListNode node = tlCommands.AppendNode(new object[] { category, "", "" }, -1);
+            node.ImageIndex = 4;
+            node.SelectImageIndex = 2;
+            return node;
+        }
 
         /// <summary>
         /// 加载权限节点
@@ -202,7 +225,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                 if (found) {
                     if (i == authPath.Length - 1 && current.Tag == null)
                     {
-                        current.SetValue(colName, authNode.Name);
+                        current.SetValue(colNode, authNode.Name);
                         current.Tag = authNode;
                     }
                 }
@@ -213,7 +236,7 @@ namespace Uniframework.Common.WorkItems.Authorization
 
                     // 设置最终要创建的节点的相关属性
                     if (i == authPath.Length - 1) {
-                        child.SetValue(colName, authNode.Name);
+                        child.SetValue(colNode, authNode.Name);
                         child.Tag = authNode;
                     }
                     current = child;

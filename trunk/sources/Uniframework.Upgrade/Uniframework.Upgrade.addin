@@ -11,7 +11,7 @@
       <Item id="UpgradeBuilder"
             name="mmitUpgradeBuilder"
             label="创建升级包(&amp;B)"
-            command="/Shell/Module/Foundation/ShowUpgradeBuilder"
+            command="/Shell/Foundation/ShowUpgradeBuilder"
             classname="XtraButtonItem"/>
 
     </Path>
@@ -20,7 +20,7 @@
       <Item id="CheckUpgrade"
             name="mmihCheckUpgrade"
             label="检查更新(&amp;C)"
-            command="/Shell/Module/Foundation/Help/CheckUpgrade"
+            command="/Shell/Foundation/Help/CheckUpgrade"
             classname="XtraButtonItem"
             imagefile="${earth_connection}"
             begingroup="true"

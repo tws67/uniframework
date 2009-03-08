@@ -7,7 +7,7 @@ namespace Uniframework.Upgrade
 {
     public static class CommandHandlerNames
     {
-        public const string CMD_SHOWUPGRADEBUILDER     = "/Shell/Module/Foundation/ShowUpgradeBuilder";
-        public const string CMD_SHOWUPGRADESETTINGVIEW = "/Shell/Module/Foundation/Setting/UpgradeSetting";
+        public const string CMD_SHOWUPGRADEBUILDER     = "/Shell/Foundation/ShowUpgradeBuilder";
+        public const string CMD_SHOWUPGRADESETTINGVIEW = "/Shell/Foundation/Setting/UpgradeSetting";
     }
 }
