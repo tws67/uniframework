@@ -7,6 +7,7 @@ namespace Uniframework.Security
     /// <summary>
     /// 对资源的授权操作
     /// </summary>
+    [Serializable]
     public enum AuthorizationAction
     {
         /// <summary>
