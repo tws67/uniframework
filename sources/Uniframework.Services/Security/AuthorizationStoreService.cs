@@ -58,11 +58,12 @@ namespace Uniframework.Security
         /// </summary>
         /// <param name="role">角色名称</param>
         /// <returns>特定角色的授权信息</returns>
-        public IList<AuthorizationStore> GetAuthorizationsByRole(string role)
+        public AuthorizationStore GetAuthorizationsByRole(string role)
         {
-            return db.Load<AuthorizationStore>(delegate(AuthorizationStore authStore) {
+            IList<AuthorizationStore> results = db.Load<AuthorizationStore>(delegate(AuthorizationStore authStore) {
                 return authStore.Role == role;
             });
+            return results.Count > 0 ? results[0] : null;
         }
 
         /// <summary>
@@ -93,6 +94,15 @@ namespace Uniframework.Security
             if (results.Count > 0) {
                 db.Delete(results[0]);
             }
+        }
+
+        /// <summary>
+        /// 返回所有角色的授权信息
+        /// </summary>
+        /// <returns>授权列表</returns>
+        public IList<AuthorizationStore> GetAll()
+        {
+            return db.Load<AuthorizationStore>();
         }
 
         public event EventHandler<EventArgs<string>> AuthorizationChanged;

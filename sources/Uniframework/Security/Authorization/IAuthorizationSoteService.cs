@@ -26,7 +26,7 @@ namespace Uniframework.Security
         /// <param name="role">角色名称</param>
         /// <returns>特定角色的授权信息</returns>
         [RemoteMethod]
-        IList<AuthorizationStore> GetAuthorizationsByRole(string role);
+        AuthorizationStore GetAuthorizationsByRole(string role);
         /// <summary>
         /// 保存授权信息
         /// </summary>
@@ -39,6 +39,13 @@ namespace Uniframework.Security
         /// <param name="role">The role.</param>
         [RemoteMethod]
         void DeleteAuthorization(string role);
+
+        /// <summary>
+        /// 返回所有角色的授权信息
+        /// </summary>
+        /// <returns>授权列表</returns>
+        [RemoteMethod]
+        IList<AuthorizationStore> GetAll();
         /// <summary>
         /// 当某角色所拥有的授权信息发生变化时触发此事件，用于通知客户端实时处理用户的权限
         /// </summary>

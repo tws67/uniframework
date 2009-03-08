@@ -15,7 +15,7 @@ using Uniframework.SmartClient;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
-    [AuthResource("系统公共模块", "/Shell/Module/Foundation/MembershipUser")] 
+    [AuthResource("系统公共模块", "/Shell/Foundation/MembershipUser")] 
     public partial class MembershipUserListView : DevExpress.XtraEditors.XtraUserControl, IDataListView
     {
         public MembershipUserListView()

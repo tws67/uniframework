@@ -43,20 +43,7 @@ namespace Uniframework.Common.WorkItems.Authorization
 
         private void edtImage_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            OpenFileDialog diag = new OpenFileDialog() { 
-                CheckFileExists = true,
-                Filter = "所有文件(*.*)|*.*",
-                Title = "选择"
-            };
-            if (diag.ShowDialog() == DialogResult.OK) {
-                edtImage.Text = diag.FileName;
-                string imagefile = Path.GetFileNameWithoutExtension(diag.FileName);
-                image.ContentImage = Presenter.ImageService.GetBitmap("${" + imagefile + "}", new Size(32, 32));
-            }
-            
-            // 如果图标编辑框为空则不赋值
-            if (String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length == 0)
-                image.ContentImage = null;
+
         }
 
         /// <summary>
@@ -74,7 +61,8 @@ namespace Uniframework.Common.WorkItems.Authorization
                     CommandUri = edtCommandUri.Text,
                     Category = edtCategory.Text
                 };
-                if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                if ((!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                    && edtImage.Text.IndexOf("${") == -1)
                     command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";
 
 
@@ -93,7 +81,8 @@ namespace Uniframework.Common.WorkItems.Authorization
                     CommandUri = edtCommandUri.Text,
                     Category = edtCategory.Text
                 };
-                if (!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                if ((!String.IsNullOrEmpty(edtImage.Text) || edtImage.Text.Length != 0)
+                    && edtImage.Text.IndexOf("${") == -1)
                     command.Image = "${" + Path.GetFileNameWithoutExtension(edtImage.Text) + "}";
 
                 foreach (AuthorizationCommand cmd in AuthNode.Commands) {

@@ -55,7 +55,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlRole.Size = new System.Drawing.Size(690, 435);
             this.tlRole.StateImageList = this.ilRoles;
             this.tlRole.TabIndex = 1;
-            this.tlRole.Tag = "/Shell/Module/Foundation/Common/Membership/Role/ContentMenu";
+            this.tlRole.Tag = "/Shell/Foundation/Common/Membership/Role/ContentMenu";
             this.tlRole.AfterFocusNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tlRole_AfterFocusNode);
             // 
             // colRoleName

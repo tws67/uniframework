@@ -51,7 +51,7 @@ namespace Uniframework.Common.WorkItems.Authorization
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.Size = new System.Drawing.Size(760, 467);
             this.dataGrid.TabIndex = 0;
-            this.dataGrid.Tag = "/Shell/Module/Foundation/Common/Authorization/Command/ContentMenu";
+            this.dataGrid.Tag = "/Shell/Foundation/Common/Authorization/Command/ContentMenu";
             this.dataGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.lvCommands});
             // 

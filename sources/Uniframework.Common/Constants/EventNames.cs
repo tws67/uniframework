@@ -10,8 +10,8 @@ namespace Uniframework.Common
     /// </summary>
     public static class EventNames
     {
-        public const string Membership_CurrentRoleChanged = "topic://Shell/Module/Foundation/Membership/CurrentRoleChanged";
-        public const string Membership_CurrentUserChanged = "topic://Shell/Module/Foundation/Membership/CurrentUserChanged";
-        public const string Authorization_CurrentCommandChanged = "topic://Shell/Module/Foundation/Membership/CurrentCommandChanged";
+        public const string Membership_CurrentRoleChanged = "topic://Shell/Foundation/Membership/CurrentRoleChanged";
+        public const string Membership_CurrentUserChanged = "topic://Shell/Foundation/Membership/CurrentUserChanged";
+        public const string Authorization_CurrentCommandChanged = "topic://Shell/Foundation/Membership/CurrentCommandChanged";
     }
 }
