@@ -102,7 +102,12 @@ namespace Uniframework.Security
         /// <returns>授权列表</returns>
         public IList<AuthorizationStore> GetAll()
         {
-            return db.Load<AuthorizationStore>();
+            try {
+                return db.Load<AuthorizationStore>();
+            }
+            catch {
+                return new List<AuthorizationStore>();
+            }
         }
 
         public event EventHandler<EventArgs<string>> AuthorizationChanged;
