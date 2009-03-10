@@ -12,14 +12,17 @@ namespace Uniframework.Security
     public class AuthorizationStore
     {
         private string role;
-        private Dictionary<string, AuthorizationNode> authorizations = new Dictionary<string, AuthorizationNode>();
-        private Dictionary<string, AuthorizationAction> actions = new Dictionary<string, AuthorizationAction>();
+        private Dictionary<string, AuthorizationNode> authorizations;
+        private Dictionary<string, AuthorizationAction> actions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationStore"/> class.
         /// </summary>
         public AuthorizationStore()
-        { }
+        {
+            authorizations = new Dictionary<string, AuthorizationNode>();
+            actions = new Dictionary<string, AuthorizationAction>();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationStore"/> class.
@@ -39,6 +42,17 @@ namespace Uniframework.Security
         { 
             get { 
                 return role; 
+            }
+        }
+
+        /// <summary>
+        /// 返回当前角色的权限节点列表
+        /// </summary>
+        /// <value>权限节点列表</value>
+        public IEnumerable<AuthorizationNode> Nodes
+        {
+            get {
+                return authorizations.Values;
             }
         }
 
