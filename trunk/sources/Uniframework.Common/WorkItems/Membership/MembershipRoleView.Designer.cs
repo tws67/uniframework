@@ -177,6 +177,8 @@ namespace Uniframework.Common.WorkItems.Membership
             this.tlAuth.Size = new System.Drawing.Size(525, 181);
             this.tlAuth.TabIndex = 2;
             this.tlAuth.Tag = "/Shell/Foundation/Common/Authorization/Store/AuthTree/ContentMenu";
+            this.tlAuth.BeforeCheckNode += new DevExpress.XtraTreeList.CheckNodeEventHandler(this.tlAuth_BeforeCheckNode);
+            this.tlAuth.AfterCheckNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tlAuth_AfterCheckNode);
             // 
             // colNode
             // 

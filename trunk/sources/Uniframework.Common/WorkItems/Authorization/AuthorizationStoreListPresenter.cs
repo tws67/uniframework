@@ -254,10 +254,15 @@ namespace Uniframework.Common.WorkItems.Authorization
         /// <param name="authNode">The auth node.</param>
         private void UpdateRoleAuthorization(AuthorizationNode authNode)
         {
+            Guard.ArgumentNotNull(authNode, "Authorization node");
+
             IList<AuthorizationStore> stores = AuthorizationStoreService.GetAll();
-            foreach (AuthorizationStore store in stores) {
-                store.Store(authNode);
-                AuthorizationStoreService.SaveAuthorization(store);
+            if (stores != null) {
+                foreach (AuthorizationStore store in stores)
+                {
+                    store.Store(authNode);
+                    AuthorizationStoreService.SaveAuthorization(store);
+                }
             }
         }
 
@@ -318,9 +323,12 @@ namespace Uniframework.Common.WorkItems.Authorization
 
                     // 更新角色的授权信息
                     IList<AuthorizationStore> stores = AuthorizationStoreService.GetAll();
-                    foreach (AuthorizationStore store in stores) {
-                        store.Remove(authNode);
-                        AuthorizationStoreService.SaveAuthorization(store);
+                    if (stores != null) {
+                        foreach (AuthorizationStore store in stores)
+                        {
+                            store.Remove(authNode);
+                            AuthorizationStoreService.SaveAuthorization(store);
+                        }
                     }
                 }
                 catch { }

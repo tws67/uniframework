@@ -64,8 +64,8 @@ namespace Uniframework.Common.WorkItems.Membership
         {
             RefreshCurrentRole(e.Data);
 
-            GetAuthorizationForRole(e.Data);
-            LoadAuthorizationNodes();
+            AuthorizationStore store = GetAuthorizationForRole(e.Data);
+            LoadAuthorizationNodes(store);
         }
 
 
@@ -75,7 +75,7 @@ namespace Uniframework.Common.WorkItems.Membership
         /// 获取指定角色的权限信息
         /// </summary>
         /// <param name="role">角色名称</param>
-        private void GetAuthorizationForRole(string role)
+        private AuthorizationStore GetAuthorizationForRole(string role)
         {
             authStore = Presenter.AuthorizationStoreService.GetAuthorizationsByRole(role);
             if (authStore == null)
@@ -87,9 +87,13 @@ namespace Uniframework.Common.WorkItems.Membership
                     authStore.Store(an);
                 Presenter.AuthorizationStoreService.SaveAuthorization(authStore); // 保存角色的权限信息
             }
+            return authStore;
         }
 
-        private void LoadAuthorizationNodes()
+        /// <summary>
+        /// 加载所有的权限节点信息
+        /// </summary>
+        private void LoadAuthorizationNodes(AuthorizationStore store)
         {
             using (WaitCursor cursor = new WaitCursor(true))
             {
@@ -97,10 +101,7 @@ namespace Uniframework.Common.WorkItems.Membership
                 tlAuth.Nodes.Clear();
                 try
                 {
-                    IList<AuthorizationNode> nodes = Presenter.AuthorizationNodeService.GetAll();
-
-                    AuthorizationNode authNode = new AuthorizationNode()
-                    {
+                    AuthorizationNode authNode = new AuthorizationNode() {
                         Id = "Shell",
                         Name = "系统权限"
                     };
@@ -111,8 +112,8 @@ namespace Uniframework.Common.WorkItems.Membership
                     tlNode.ImageIndex = 0;
                     tlNode.SelectImageIndex = 1;
 
-                    foreach (AuthorizationNode child in nodes)
-                    {
+                    // 加载角色的相关权限节点
+                    foreach (AuthorizationNode child in store.Nodes) {
                         LoadAuthorizationNode(child, tlAuth.Nodes[0]);
                     }
                     tlAuth.Nodes[0].ExpandAll(); // 展开所有子节点
@@ -212,7 +213,7 @@ namespace Uniframework.Common.WorkItems.Membership
         /// </summary>
         /// <param name="node">Tree list node</param>
         /// <returns>返回从根节点到当前节点的路径值</returns>
-        public string GetAuthrizationNodePath(TreeListNode node)
+        private string GetAuthrizationNodePath(TreeListNode node)
         {
             string authPath = "";
             if (node.Tag != null)
@@ -269,8 +270,8 @@ namespace Uniframework.Common.WorkItems.Membership
                 string role = (string)WorkItem.State[Constants.CurrentRole];
                 RefreshCurrentRole(role);
 
-                GetAuthorizationForRole(role);
-                LoadAuthorizationNodes();
+                AuthorizationStore store = GetAuthorizationForRole(role);
+                LoadAuthorizationNodes(store);
             }
         }
 
@@ -311,6 +312,84 @@ namespace Uniframework.Common.WorkItems.Membership
             RefreshCurrentRole(role);
         }
 
+        /// <summary>
+        /// Sets the checked parent nodes.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="check">The check.</param>
+        private void SetCheckedParentNodes(TreeListNode node, CheckState check)
+        {
+            if (node.ParentNode != null)
+            {
+                bool b = false;
+                CheckState state;
+                for (int i = 0; i < node.ParentNode.Nodes.Count; i++)
+                {
+                    state = (CheckState)node.ParentNode.Nodes[i].CheckState;
+                    if (!check.Equals(state))
+                    {
+                        b = !b;
+                        break;
+                    }
+                }
+                node.ParentNode.CheckState = b ? CheckState.Indeterminate : check;
+                SetCheckedParentNodes(node.ParentNode, check);
+            }
+        }
+
+        /// <summary>
+        /// Sets the checked child nodes.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="check">The check.</param>
+        private void SetCheckedChildNodes(TreeListNode node, CheckState check)
+        {
+            for (int i = 0; i < node.Nodes.Count; i++)
+            {
+                node.Nodes[i].CheckState = check;
+                SetCheckedChildNodes(node.Nodes[i], check);
+            }
+        }
+
+        /// <summary>
+        /// 保存当前角色的权限信息
+        /// </summary>
+        private void SaveAuthorizationForRole()
+        {
+            foreach (TreeListNode node in tlAuth.Nodes) {
+                if (node.Tag != null && node.Tag is AuthorizationCommand) {
+                    AuthorizationCommand command = node.Tag as AuthorizationCommand;
+                    string authorizationUri = GetAuthrizationNodePath(node);
+                    authStore.Authorization(SecurityUtility.HashObject(authorizationUri + command.CommandUri), 
+                        node.Checked ? AuthorizationAction.Allow : AuthorizationAction.Deny);
+                }
+            }
+        }
+
+        private string GetAuthorizationUri(TreeListNode node)
+        {
+            string authorizationUri = "";
+            TreeListNode current = node.ParentNode;
+            while (current != null) {
+                if (current.Tag != null && current.Tag is AuthorizationNode)
+                    break;
+                current = current.ParentNode;
+            }
+            authorizationUri = ((AuthorizationNode)current.Tag).AuthorizationUri;
+            return authorizationUri;
+        }
+
         #endregion
+
+        private void tlAuth_AfterCheckNode(object sender, DevExpress.XtraTreeList.NodeEventArgs e)
+        {
+            SetCheckedChildNodes(e.Node, e.Node.CheckState);
+            SetCheckedParentNodes(e.Node, e.Node.CheckState);
+        }
+
+        private void tlAuth_BeforeCheckNode(object sender, DevExpress.XtraTreeList.CheckNodeEventArgs e)
+        {
+            e.State = (e.PrevState == CheckState.Checked ? CheckState.Unchecked : CheckState.Checked);
+        }
     }
 }
