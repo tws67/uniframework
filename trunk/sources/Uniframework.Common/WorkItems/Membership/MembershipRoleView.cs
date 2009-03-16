@@ -189,6 +189,10 @@ namespace Uniframework.Common.WorkItems.Membership
                 TreeListNode child = tlAuth.AppendNode(new object[] { cmd.Name, cmd.CommandUri }, category, cmd);
                 child.ImageIndex = 3;
                 child.SelectImageIndex = 3;
+                
+                // 设置当前操作的权限操作
+                string authorizationUri = GetAuthorizationUri(child);
+                child.Checked = authStore.CanExecute(SecurityUtility.HashObject(authorizationUri + cmd.CommandUri));
             }
         }
 
@@ -354,18 +358,27 @@ namespace Uniframework.Common.WorkItems.Membership
         /// <summary>
         /// 保存当前角色的权限信息
         /// </summary>
-        private void SaveAuthorizationForRole()
+        private void SaveAuthorizationForRole(TreeListNode authNode)
         {
-            foreach (TreeListNode node in tlAuth.Nodes) {
+            foreach (TreeListNode node in authNode.Nodes) {
                 if (node.Tag != null && node.Tag is AuthorizationCommand) {
                     AuthorizationCommand command = node.Tag as AuthorizationCommand;
                     string authorizationUri = GetAuthrizationNodePath(node);
                     authStore.Authorization(SecurityUtility.HashObject(authorizationUri + command.CommandUri), 
                         node.Checked ? AuthorizationAction.Allow : AuthorizationAction.Deny);
                 }
+                SaveAuthorizationForRole(node); // 保存子节点的权限授权信息
             }
+
+            // 保存到对象数据库中
+            Presenter.AuthorizationStoreService.SaveAuthorization(authStore);
         }
 
+        /// <summary>
+        /// 获取指定操作节点的权限路径
+        /// </summary>
+        /// <param name="node">操作节点</param>
+        /// <returns>权限路径字符串</returns>
         private string GetAuthorizationUri(TreeListNode node)
         {
             string authorizationUri = "";
@@ -390,6 +403,18 @@ namespace Uniframework.Common.WorkItems.Membership
         private void tlAuth_BeforeCheckNode(object sender, DevExpress.XtraTreeList.CheckNodeEventArgs e)
         {
             e.State = (e.PrevState == CheckState.Checked ? CheckState.Unchecked : CheckState.Checked);
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveAuthorizationForRole(tlAuth.Nodes[0]);
+                btnOK.DialogResult = DialogResult.OK;
+            }
+            catch {
+                btnOK.DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

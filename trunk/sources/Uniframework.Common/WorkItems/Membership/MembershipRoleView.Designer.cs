@@ -58,12 +58,12 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // btnOK
             // 
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(399, 287);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 9;
             this.btnOK.Text = "È·¶¨(&O)";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
