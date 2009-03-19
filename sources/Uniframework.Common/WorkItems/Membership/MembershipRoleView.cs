@@ -62,10 +62,10 @@ namespace Uniframework.Common.WorkItems.Membership
         [EventSubscription(EventNames.Membership_CurrentRoleChanged)]
         public void OnCurrentRoleChanged(object sender, EventArgs<string> e)
         {
-            RefreshCurrentRole(e.Data);
+            //RefreshCurrentRole(e.Data);
 
-            AuthorizationStore store = GetAuthorizationForRole(e.Data);
-            LoadAuthorizationNodes(store);
+            //AuthorizationStore store = GetAuthorizationForRole(e.Data);
+            //LoadAuthorizationNodes(store);
         }
 
 
@@ -193,6 +193,7 @@ namespace Uniframework.Common.WorkItems.Membership
                 // 设置当前操作的权限操作
                 string authorizationUri = GetAuthorizationUri(child);
                 child.Checked = authStore.CanExecute(SecurityUtility.HashObject(authorizationUri + cmd.CommandUri));
+                SetCheckedParentNodes(child, child.CheckState); 
             }
         }
 
@@ -270,13 +271,13 @@ namespace Uniframework.Common.WorkItems.Membership
 
         private void MembershipRoleView_Load(object sender, EventArgs e)
         {
-            if (WorkItem.State[Constants.CurrentRole] != null) {
-                string role = (string)WorkItem.State[Constants.CurrentRole];
-                RefreshCurrentRole(role);
+            //if (WorkItem.State[Constants.CurrentRole] != null) {
+            //    string role = (string)WorkItem.State[Constants.CurrentRole];
+            //    RefreshCurrentRole(role);
 
-                AuthorizationStore store = GetAuthorizationForRole(role);
-                LoadAuthorizationNodes(store);
-            }
+            //    AuthorizationStore store = GetAuthorizationForRole(role);
+            //    LoadAuthorizationNodes(store);
+            //}
         }
 
         /// <summary>
@@ -363,7 +364,7 @@ namespace Uniframework.Common.WorkItems.Membership
             foreach (TreeListNode node in authNode.Nodes) {
                 if (node.Tag != null && node.Tag is AuthorizationCommand) {
                     AuthorizationCommand command = node.Tag as AuthorizationCommand;
-                    string authorizationUri = GetAuthrizationNodePath(node);
+                    string authorizationUri = GetAuthorizationUri(node); // 获取当前操作的权限路径
                     authStore.Authorization(SecurityUtility.HashObject(authorizationUri + command.CommandUri), 
                         node.Checked ? AuthorizationAction.Allow : AuthorizationAction.Deny);
                 }
@@ -405,15 +406,30 @@ namespace Uniframework.Common.WorkItems.Membership
             e.State = (e.PrevState == CheckState.Checked ? CheckState.Unchecked : CheckState.Checked);
         }
 
+        /// <summary>
+        /// 保存对角色的权限编辑
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             try
             {
                 SaveAuthorizationForRole(tlAuth.Nodes[0]);
-                btnOK.DialogResult = DialogResult.OK;
             }
             catch {
-                btnOK.DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private void MembershipRoleView_Enter(object sender, EventArgs e)
+        {
+            if (WorkItem.State[Constants.CurrentRole] != null)
+            {
+                string role = (string)WorkItem.State[Constants.CurrentRole];
+                RefreshCurrentRole(role);
+
+                AuthorizationStore store = GetAuthorizationForRole(role);
+                LoadAuthorizationNodes(store);
             }
         }
     }

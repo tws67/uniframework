@@ -447,6 +447,7 @@ namespace Uniframework.Common.WorkItems.Authorization
                     authNode.AddCommand(ac);
                     View.ListAuthorizationCommands(authNode); // 刷新操作列表
                     AuthorizationNodeService.Save(authNode);
+                    UpdateRoleAuthorization(authNode);
                     CurrentAuthNode.Tag = authNode;
                 }
             }

@@ -58,6 +58,7 @@ namespace Uniframework.Common.WorkItems.Membership
             // 
             // btnOK
             // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(399, 287);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
@@ -226,6 +227,7 @@ namespace Uniframework.Common.WorkItems.Membership
             this.Name = "MembershipRoleView";
             this.Size = new System.Drawing.Size(566, 320);
             this.Load += new System.EventHandler(this.MembershipRoleView_Load);
+            this.Enter += new System.EventHandler(this.MembershipRoleView_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage3.ResumeLayout(false);
