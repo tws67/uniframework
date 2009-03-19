@@ -12,9 +12,9 @@ namespace Microsoft.Practices.CompositeUI.Services
         /// <summary>
         /// 检查指定路径下的命令可否执行
         /// </summary>
-        /// <param name="command">命令名</param>
+        /// <param name="authorizationUri">授权路径</param>
         /// <returns>如果可以执行返回true，否则为false</returns>
-        bool CanExecute(string command);
+        bool CanExecute(string authorizationUri);
     }
 
     /// <summary>

@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
+using Microsoft.Practices.CompositeUI.Services;
 
 namespace Uniframework.SmartClient
 {
@@ -38,6 +39,13 @@ namespace Uniframework.SmartClient
         {
             get { return factoryCatalog; }
             set { factoryCatalog = value; }
+        }
+
+        [ServiceDependency]
+        public IAuthorizationService AuthorizationService
+        {
+            get;
+            set;
         }
 
         #endregion
