@@ -64,8 +64,8 @@ namespace Uniframework.SmartClient.Strategies
         {
             foreach (CommandHandlerAttribute attr in method.GetCustomAttributes(typeof(CommandHandlerAttribute), true))
             {
-                string path = GetAuthorizeResourcePath(method);
-                if (path != null) // 命令所在的类必须定义资源标签才会注册到系统中
+                string authorizationUri = GetAuthorizationUri(method);
+                if (authorizationUri != null) // 命令所在的类必须定义资源标签才会注册到系统中
                 {
                     //if (logger != null)
                     //    logger.Debug("向系统权限管理服务注册命令：" + attr.CommandName + ", 路径：" + path);
@@ -82,11 +82,11 @@ namespace Uniframework.SmartClient.Strategies
             }
         }
 
-        private string GetAuthorizeResourcePath(MethodInfo method)
+        private string GetAuthorizationUri(MethodInfo method)
         {
-            AuthResourceAttribute[] attrs = (AuthResourceAttribute[])method.DeclaringType.GetCustomAttributes(typeof(AuthResourceAttribute), true);
+            AuthorizationAttribute[] attrs = (AuthorizationAttribute[])method.DeclaringType.GetCustomAttributes(typeof(AuthorizationAttribute), true);
             if (attrs.Length > 0)
-                return attrs[0].Path;
+                return attrs[0].AuthorizationUri;
             else
                 return String.Empty;
         }
