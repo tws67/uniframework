@@ -8,6 +8,8 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
 using Microsoft.Practices.CompositeUI.Services;
+using Uniframework.Security;
+using log4net;
 
 namespace Uniframework.SmartClient
 {
@@ -20,6 +22,7 @@ namespace Uniframework.SmartClient
         private Dictionary<object, IDataListView> views = new Dictionary<object, IDataListView>();
 
         private WorkItem workItem;
+        private ILog logger;
         private IAdapterFactoryCatalog<IDataListView> factoryCatalog;
         
         #region Dependency services
@@ -163,16 +166,25 @@ namespace Uniframework.SmartClient
                 cmd.Status = (enabled) ? CommandStatus.Enabled : CommandStatus.Disabled;
         }
 
+        /// <summary>
+        /// 更新操作的状态
+        /// </summary>
         private void UpdateCommandStatus()
         {
             bool enabled = Handler != null;
 
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_INSERT, enabled && Handler.CanInsert);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EDIT, enabled && Handler.CanEdit);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_DELETE, enabled && Handler.CanDelete);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EXPAND, enabled && Handler.CanExpand);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && Handler.CanCollaspe);
-            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && Handler.CanRefreshDataSource);
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_INSERT, enabled && Handler.CanInsert 
+                && CanExecute(CommandHandlerNames.CMD_DATAGRID_INSERT));
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EDIT, enabled && Handler.CanEdit
+                && CanExecute(CommandHandlerNames.CMD_DATAGRID_EDIT));
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_DELETE, enabled && Handler.CanDelete
+                && CanExecute(CommandHandlerNames.CMD_DATAGRID_DELETE));
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_EXPAND, enabled && Handler.CanExpand
+                && CanExecute(CommandHandlerNames.CMD_DATAGRID_EXPAND));
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_COLLAPSE, enabled && Handler.CanCollaspe
+                && CanExecute(CommandHandlerNames.CMD_DATAGRID_COLLAPSE));
+            SetCommandStatus(CommandHandlerNames.CMD_DATAGRID_REFRESH, enabled && Handler.CanRefreshDataSource
+                && CanExecute(CommandHandlerNames.CMD_DATAGRID_REFRESH));
         }
 
         private void OnEnter(object sender, EventArgs e)
@@ -191,6 +203,40 @@ namespace Uniframework.SmartClient
         {
             handler = null;
             UpdateCommandStatus();
+        }
+
+        /// <summary>
+        /// 检查当前用户是否可以执行指定的操作
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns>
+        /// 	<c>true</c> if this instance can execute the specified command; otherwise, <c>false</c>.
+        /// </returns>
+        private bool CanExecute(string command)
+        {
+            //logger = WorkItem.Services.Get<ILog>();
+            string authorizationUri = GetAuthorizationPath();
+            string actionKey = SecurityUtility.HashObject(authorizationUri + command);
+            //if (logger != null) {
+            //    logger.Debug("Authorization Path: " + authorizationUri + " , Command: " + command);
+            //    logger.Debug("Action Key:" + actionKey);
+            //}
+            return AuthorizationService.CanExecute(actionKey);
+        }
+
+        /// <summary>
+        /// 获取当前处理器的授权路径
+        /// </summary>
+        /// <returns>如果处理器定义了<see cref="AuthorizationAttribute"/>属性则返回其授权路径，否则为空</returns>
+        private string GetAuthorizationPath()
+        {
+            String authPath = String.Empty;
+            if (handler != null) {
+                AuthorizationAttribute[] attrs = (AuthorizationAttribute[])handler.GetType().GetCustomAttributes(typeof(AuthorizationAttribute), true);
+                if (attrs.Length > 0)
+                    authPath = attrs[0].AuthorizationUri;
+            }
+            return authPath;
         }
 
         #endregion

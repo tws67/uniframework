@@ -15,6 +15,10 @@ using DevExpress.XtraEditors;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
+    /// <summary>
+    /// 本地用户管理
+    /// </summary>
+    [Authorization("/Shell/Foundation/Membership/Users")]
     public class MembershipUserListPresenter : DataListPresenter<MembershipUserListView>
     {
         #region Dependency Services

@@ -34,23 +34,23 @@ namespace Uniframework.SmartClient
             }
         }
 
-        /// <summary>
-        /// 系统角色授权信息变化事件订阅器
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        [EventSubscriber("topic://Authorization/AuthorizationChanged")]
-        public void OnAuthorizationChanged(object sender, EventArgs<string> e)
-        {
-            lock (syncObj) {
-                authorizations.Clear();
-                if (authorizationStoreService == null) {
-                    authorizationStoreService = workItem.Services.Get<IAuthorizationStoreService>();
-                    if (authorizationStoreService != null)
-                        authorizations = authorizationStoreService.GetAuthorizationsByUser(Thread.CurrentPrincipal.Identity.Name);
-                }
-            }
-        }
+        ///// <summary>
+        ///// 系统角色授权信息变化事件订阅器
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //[EventSubscriber("topic://Authorization/AuthorizationChanged")]
+        //public void OnAuthorizationChanged(object sender, EventArgs<string> e)
+        //{
+        //    lock (syncObj) {
+        //        authorizations.Clear();
+        //        if (authorizationStoreService == null) {
+        //            authorizationStoreService = workItem.Services.Get<IAuthorizationStoreService>();
+        //            if (authorizationStoreService != null)
+        //                authorizations = authorizationStoreService.GetAuthorizationsByUser(Thread.CurrentPrincipal.Identity.Name);
+        //        }
+        //    }
+        //}
 
         #region IAuthorizationService Members
 
@@ -64,9 +64,12 @@ namespace Uniframework.SmartClient
         {
             lock (syncObj) {
                 bool flag = false;
-                foreach (AuthorizationStore store in authorizations) {
-                    flag |= store.CanExecute(authorizationUri); // 取并集
-                }
+                if (authorizations.Count > 0)
+                    foreach (AuthorizationStore store in authorizations) {
+                        flag |= store.CanExecute(authorizationUri); // 取并集
+                    }
+                else
+                    flag = true;
                 return flag;
             }
         }

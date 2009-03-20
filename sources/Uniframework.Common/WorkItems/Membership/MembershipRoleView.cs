@@ -11,11 +11,11 @@ using DevExpress.XtraTreeList.Nodes;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.EventBroker;
 using Microsoft.Practices.CompositeUI.SmartParts;
-using Uniframework.Services;
-using Uniframework.XtraForms.SmartPartInfos;
 using Microsoft.Practices.ObjectBuilder;
-using Uniframework.SmartClient;
 using Uniframework.Security;
+using Uniframework.Services;
+using Uniframework.SmartClient;
+using Uniframework.XtraForms.SmartPartInfos;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
