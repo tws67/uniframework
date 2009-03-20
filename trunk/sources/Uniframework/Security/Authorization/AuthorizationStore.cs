@@ -130,9 +130,10 @@ namespace Uniframework.Security
         /// <returns>
         /// 	如果当前角色拥有相关权限返回<c>true</c>；否则返回<c>false</c>.
         /// </returns>
+        /// <remarks>在处理角色的权限时如果没有将相关的授权路径放入Store中则直接返回<c>true</c></remarks>
         public bool CanExecute(string authorizationUri)
         {
-            bool result = false;
+            bool result = true;
             if (actions.ContainsKey(authorizationUri))
                 result = actions[authorizationUri] == AuthorizationAction.Allow;
             return result;
