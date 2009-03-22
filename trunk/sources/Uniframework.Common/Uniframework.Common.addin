@@ -35,7 +35,7 @@
 
       <Item id="CommandList"
             name="nbCommandList"
-            label="命令列表"
+            label="操作列表"
             command="/Shell/Foundation/Common/Authorization/Command"
             classname="XtraNavBarItem"
             largeimage="${gear}"/>
@@ -54,23 +54,6 @@
             classname="XtraNavBarItem"
             largeimage="${preferences}"/>
     </Path>
-    
-    <!--<Path name="/Shell/Bar/Mainmenu/View" label="视图菜单" buildstartup="true">
-      <Item id="MembershipRole"
-            name="mmivMembershipRole"
-            label="角色管理(&amp;R)"
-            command="/Shell/Foundation/Common/Membership/Role"
-            classname="XtraButtonItem"
-            begingroup="true"
-            insertbefore="mmivSetting"/>
-      
-      <Item id="MembershipUser"
-            name="mmivMembershipUser"
-            label="用户管理(&amp;U)"
-            command="/Shell/Foundation/Common/Membership/User"
-            classname="XtraButtonItem"
-            insertbefore="mmivSetting"/>
-    </Path>-->
     
     <Path name="/Shell" label="右键菜单" buildstartup="true">
       <Item id="Foundation/Common/Membership/User/ContentMenu"

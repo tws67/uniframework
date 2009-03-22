@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
+using Uniframework.Security;
+using Microsoft.Practices.CompositeUI.Services;
 
 namespace Uniframework.SmartClient
 {
@@ -39,6 +41,13 @@ namespace Uniframework.SmartClient
 
         [ServiceDependency]
         public IAdapterFactoryCatalog<IPrintHandler> FactoryCatalog
+        {
+            get;
+            set;
+        }
+
+        [ServiceDependency]
+        public IAuthorizationService AuthorizationService
         {
             get;
             set;
@@ -184,11 +193,25 @@ namespace Uniframework.SmartClient
         {
             bool enabled = (activeHandler != null);
 
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PRINT, enabled && activeHandler.CanPrint);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_QUICKPRINT, enabled && activeHandler.CanQuickPrint);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PREVIEW, enabled && activeHandler.CanPreview);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PAGESETUP, enabled && activeHandler.CanPageSetup);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_DESIGN, enabled && activeHandler.CanDesign);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PRINT, enabled && activeHandler.CanPrint
+                && CanExecute(CommandHandlerNames.CMD_FILE_PRINT));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_QUICKPRINT, enabled && activeHandler.CanQuickPrint
+                && CanExecute(CommandHandlerNames.CMD_FILE_QUICKPRINT));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PREVIEW, enabled && activeHandler.CanPreview
+                && CanExecute(CommandHandlerNames.CMD_FILE_PREVIEW));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_PAGESETUP, enabled && activeHandler.CanPageSetup
+                && CanExecute(CommandHandlerNames.CMD_FILE_PAGESETUP));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_DESIGN, enabled && activeHandler.CanDesign
+                && CanExecute(CommandHandlerNames.CMD_FILE_DESIGN));
+        }
+
+        private bool CanExecute(string command)
+        {
+            string authorizationUri = "";
+            AuthorizationAttribute[] attrs = (AuthorizationAttribute[])activeHandler.GetType().GetCustomAttributes(typeof(AuthorizationAttribute), true);
+            if (attrs.Length > 0)
+                authorizationUri = attrs[0].AuthorizationUri;
+            return AuthorizationService.CanExecute(SecurityUtility.HashObject(authorizationUri + command));
         }
 
         #endregion

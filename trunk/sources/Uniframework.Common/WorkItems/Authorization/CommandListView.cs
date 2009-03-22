@@ -14,7 +14,7 @@ using Uniframework.Security;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
-    [AuthResource("权限管理", "/Shell/Foundation/Common/Authorization/Command")]
+    [Authorization("/Shell/Foundation/Authorization/Command")]
     public partial class CommandListView : DevExpress.XtraEditors.XtraUserControl, IDataListView
     {
         public CommandListView()

@@ -4,6 +4,8 @@ using System.Text;
 
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Services;
+using Uniframework.Security;
+using log4net;
 
 namespace Uniframework.SmartClient
 {
@@ -49,14 +51,14 @@ namespace Uniframework.SmartClient
         /// <returns>如果通过权限管理系统检查用户可以执行此插件元素对应的功能返回true，否则为false</returns>
         public bool IsValid(object caller, WorkItem context)
         {
-            //if (String.IsNullOrEmpty(command))
-            //    return true;
-
             IAuthorizationService authorizationService = context.Services.Get<IAuthorizationService>();
-            if (authorizationService != null)
-            {
-                return authorizationService.CanExecute(command);
-            }
+            if (authorizationService != null) {
+                string actionKey = SecurityUtility.HashObject(addInPath + command);
+                bool flag = authorizationService.CanExecute(actionKey);
+                ILog logger = context.Services.Get<ILog>();
+                logger.Debug("AddIn Path: " + addInPath + ", Command : " + command + " CanExecute: " + flag);
+                return flag;
+            } 
             else
                 return true;
         }

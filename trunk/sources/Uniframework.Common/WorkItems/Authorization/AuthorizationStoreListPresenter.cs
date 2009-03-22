@@ -19,6 +19,7 @@ namespace Uniframework.Common.WorkItems.Authorization
     /// <summary>
     /// 
     /// </summary>
+    [Authorization("/Shell/Foundation/Authorization/AuthorizationStore")]
     public class AuthorizationStoreListPresenter : DataListPresenter<AuthorizationStoreListView>
     {
         private readonly string AuthNodeForm = "AuthNodeForm";

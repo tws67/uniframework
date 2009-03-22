@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Common;
+using Uniframework.Security;
+using Microsoft.Practices.CompositeUI.Services;
 
 namespace Uniframework.SmartClient
 {
@@ -38,6 +40,13 @@ namespace Uniframework.SmartClient
         {
             get { return factoryCatalog; }
             set { factoryCatalog = value; }
+        }
+
+        [ServiceDependency]
+        public IAuthorizationService AuthorizationService
+        {
+            get;
+            set;
         }
 
         #endregion
@@ -107,15 +116,34 @@ namespace Uniframework.SmartClient
         {
             bool enabled = (activeHandler != null);
 
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_UNDO, enabled && activeHandler.CanUndo);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_REDO, enabled && activeHandler.CanRedo);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_CUT, enabled && activeHandler.CanCut);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_COPY, enabled && activeHandler.CanCopy);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_PASTE, enabled && activeHandler.CanPaste);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_DELETE, enabled && activeHandler.CanDelete);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_SELECTALL, enabled && activeHandler.CanSelectAll);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_SEARCH, enabled && activeHandler.CanSearch);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_REPLACE, enabled && activeHandler.CanReplace);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_UNDO, enabled && activeHandler.CanUndo
+                && CanExecute(CommandHandlerNames.CMD_EDIT_UNDO));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_REDO, enabled && activeHandler.CanRedo
+                && CanExecute(CommandHandlerNames.CMD_EDIT_REDO));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_CUT, enabled && activeHandler.CanCut
+                && CanExecute(CommandHandlerNames.CMD_EDIT_CUT));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_COPY, enabled && activeHandler.CanCopy
+                && CanExecute(CommandHandlerNames.CMD_EDIT_COPY));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_PASTE, enabled && activeHandler.CanPaste
+                && CanExecute(CommandHandlerNames.CMD_EDIT_PASTE));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_DELETE, enabled && activeHandler.CanDelete
+                && CanExecute(CommandHandlerNames.CMD_EDIT_DELETE));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_SELECTALL, enabled && activeHandler.CanSelectAll
+                && CanExecute(CommandHandlerNames.CMD_EDIT_SELECTALL));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_SEARCH, enabled && activeHandler.CanSearch
+                && CanExecute(CommandHandlerNames.CMD_EDIT_SEARCH));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_EDIT_REPLACE, enabled && activeHandler.CanReplace
+                && CanExecute(CommandHandlerNames.CMD_EDIT_REPLACE));
+        }
+
+        private bool CanExecute(string command)
+        {
+            string authorizationUri = "";
+            AuthorizationAttribute[] attrs = (AuthorizationAttribute[])activeHandler.GetType().GetCustomAttributes(typeof(AuthorizationAttribute), true);
+            if (attrs.Length > 0)
+                authorizationUri = attrs[0].AuthorizationUri;
+            return AuthorizationService.CanExecute(SecurityUtility.HashObject(authorizationUri + command));
+            return true;
         }
 
         #endregion

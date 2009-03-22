@@ -10,6 +10,8 @@ using Microsoft.Practices.CompositeUI;
 using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
 using log4net;
+using Uniframework.Security;
+using Microsoft.Practices.CompositeUI.Services;
 
 namespace Uniframework.SmartClient
 {
@@ -64,6 +66,13 @@ namespace Uniframework.SmartClient
         public ILog Logger
         {
             set { logger = value; }
+        }
+
+        [ServiceDependency]
+        public IAuthorizationService AuthorizationService
+        {
+            get;
+            set;
         }
 
         #endregion
@@ -249,9 +258,21 @@ namespace Uniframework.SmartClient
         {
             bool enabled = (activeDocument != null);
 
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_OPEN, documentFactories.Count > 0);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_SAVE, enabled && ActiveDocument.CanSave);
-            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_SAVEAS, enabled && ActiveDocument.CanSave);
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_OPEN, documentFactories.Count > 0
+                && CanExecute(CommandHandlerNames.CMD_FILE_OPEN));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_SAVE, enabled && ActiveDocument.CanSave
+                && CanExecute(CommandHandlerNames.CMD_FILE_SAVE));
+            BuilderUtility.SetCommandStatus(WorkItem, CommandHandlerNames.CMD_FILE_SAVEAS, enabled && ActiveDocument.CanSave
+                && CanExecute(CommandHandlerNames.CMD_FILE_SAVEAS));
+        }
+
+        private bool CanExecute(string command)
+        {
+            string authorizationUri = "";
+            AuthorizationAttribute[] attrs = (AuthorizationAttribute[])activeDocument.GetType().GetCustomAttributes(typeof(AuthorizationAttribute), true);
+            if (attrs.Length > 0)
+                authorizationUri = attrs[0].AuthorizationUri;
+            return AuthorizationService.CanExecute(SecurityUtility.HashObject(authorizationUri + command));
         }
 
         private static string AppendFilter(string filter, IDocumentType extension)

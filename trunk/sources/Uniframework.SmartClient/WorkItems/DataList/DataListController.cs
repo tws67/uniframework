@@ -63,7 +63,7 @@ namespace Uniframework.SmartClient
         /// <param name="e">The <see cref="Microsoft.Practices.CompositeUI.SmartParts.WorkspaceCancelEventArgs"/> instance containing the event data.</param>
         private void DataList_SmartPartClosing(object sender, WorkspaceCancelEventArgs e)
         {
-            AuthResourceAttribute[] attrs = (AuthResourceAttribute[])e.SmartPart.GetType().GetCustomAttributes(typeof(AuthResourceAttribute), true);
+            AuthorizationAttribute[] attrs = (AuthorizationAttribute[])e.SmartPart.GetType().GetCustomAttributes(typeof(AuthorizationAttribute), true);
             if (attrs.Length > 0) {
                 try {
                     StoreLayout((Control)e.SmartPart, attrs[0]);
@@ -80,7 +80,7 @@ namespace Uniframework.SmartClient
         private void DataList_SmartPartActivated(object sender, WorkspaceEventArgs e)
         {
             if (!smartParts.Contains(e.SmartPart)) {
-                AuthResourceAttribute[] attrs = (AuthResourceAttribute[])e.SmartPart.GetType().GetCustomAttributes(typeof(AuthResourceAttribute), true);
+                AuthorizationAttribute[] attrs = (AuthorizationAttribute[])e.SmartPart.GetType().GetCustomAttributes(typeof(AuthorizationAttribute), true);
                 if (attrs.Length > 0) {
                     try {
                         ResotreLayout((Control)e.SmartPart, attrs[0]);
@@ -96,14 +96,14 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <param name="control">控件</param>
         /// <param name="attr">授权属性</param>
-        private void StoreLayout(Control control, AuthResourceAttribute attr)
+        private void StoreLayout(Control control, AuthorizationAttribute attr)
         {
             // 表格控件
             if (control is GridControl) {
                 foreach (BaseView view in ((GridControl)control).Views) {
                     using (MemoryStream stream = new MemoryStream()) {
                         view.SaveLayoutToStream(stream);
-                        Layout layout = new Layout(Thread.CurrentPrincipal.Identity.Name, attr.Module, ConbinPath(attr.Path, view.Name));
+                        Layout layout = new Layout(Thread.CurrentPrincipal.Identity.Name, ConbinPath(attr.AuthorizationUri, view.Name));
                         layout.Data = stream.ToArray();
                         LayoutService.StoreLayout(layout); // 保存布局
                     }
@@ -115,7 +115,7 @@ namespace Uniframework.SmartClient
                 using (MemoryStream stream = new MemoryStream()) {
                     TreeList list = (TreeList)control;
                     list.SaveLayoutToStream(stream);
-                    Layout layout = new Layout(Thread.CurrentPrincipal.Identity.Name, attr.Module, ConbinPath(attr.Path, list.Name));
+                    Layout layout = new Layout(Thread.CurrentPrincipal.Identity.Name, ConbinPath(attr.AuthorizationUri, list.Name));
                     layout.Data = stream.ToArray();
                     LayoutService.StoreLayout(layout); // 保存布局
                 }
@@ -132,13 +132,13 @@ namespace Uniframework.SmartClient
         /// </summary>
         /// <param name="control">控件</param>
         /// <param name="attr">授权属性</param>
-        private void ResotreLayout(Control control, AuthResourceAttribute attr)
+        private void ResotreLayout(Control control, AuthorizationAttribute attr)
         {
             // 表格控件
             if (control is GridControl) { 
                 GridControl grid = (GridControl)control;
                 foreach (BaseView view in grid.Views) {
-                    Layout layout = LayoutService.RestoreLayout(Thread.CurrentPrincipal.Identity.Name, attr.Module, ConbinPath(attr.Path, view.Name));
+                    Layout layout = LayoutService.RestoreLayout(Thread.CurrentPrincipal.Identity.Name, ConbinPath(attr.AuthorizationUri, view.Name));
                     if (layout != null)
                         view.RestoreLayoutFromStream(new MemoryStream(layout.Data));
                 }
@@ -147,7 +147,7 @@ namespace Uniframework.SmartClient
             // 列表控件
             if (control is TreeList) {
                 TreeList list = (TreeList)control;
-                Layout layout = LayoutService.RestoreLayout(Thread.CurrentPrincipal.Identity.Name, attr.Module, ConbinPath(attr.Path, list.Name));
+                Layout layout = LayoutService.RestoreLayout(Thread.CurrentPrincipal.Identity.Name, ConbinPath(attr.AuthorizationUri, list.Name));
                 list.RestoreLayoutFromStream(new MemoryStream(layout.Data));
             }
 

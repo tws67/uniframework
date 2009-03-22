@@ -67,7 +67,6 @@
       <Link>UniframeworkInfo.cs</Link>
     </Compile>
     <Compile Include="Attributes\AuthorizationAttribute.cs" />
-    <Compile Include="Attributes\AuthResourceAttribute.cs" />
     <Compile Include="Attributes\ClientCacheAttribute.cs" />
     <Compile Include="Attributes\ClientModuleAttribute.cs" />
     <Compile Include="Attributes\EventPublisherAttribute.cs" />

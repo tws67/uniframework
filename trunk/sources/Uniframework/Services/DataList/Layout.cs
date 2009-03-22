@@ -17,8 +17,6 @@ namespace Uniframework.Services
         [Indexed]
         private string user;
         [Indexed]
-        private string module;
-        [Indexed]
         private string appUri;
         private string version;
         private DateTime updatedOn = DateTime.Now;
@@ -35,21 +33,14 @@ namespace Uniframework.Services
         /// <param name="user">The user.</param>
         /// <param name="module">The module.</param>
         /// <param name="appUri">The app URI.</param>
-        public Layout(string user, string module, string appUri)
+        public Layout(string user, string appUri)
             : this()
         {
             this.user = user;
-            this.module = module;
             this.appUri = appUri;
         }
 
         #region Members
-
-        public string Module
-        {
-            get { return module; }
-            set { module = value; }
-        }
 
         public string AppUri
         {
