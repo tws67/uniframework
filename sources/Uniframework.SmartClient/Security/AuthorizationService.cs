@@ -27,10 +27,12 @@ namespace Uniframework.SmartClient
         /// <param name="workItem">The work item.</param>
         public AuthorizationService([ServiceDependency]WorkItem workItem)
         {
-            this.workItem = workItem;
-            authorizationStoreService = workItem.Services.Get<IAuthorizationStoreService>();
-            if (authorizationStoreService != null) {
-                authorizations = authorizationStoreService.GetAuthorizationsByUser(Thread.CurrentPrincipal.Identity.Name); // 获取当前用户的所有授权信息
+            lock (syncObj) { 
+                this.workItem = workItem;
+                authorizationStoreService = workItem.Services.Get<IAuthorizationStoreService>();
+                if (authorizationStoreService != null) {
+                    authorizations = authorizationStoreService.GetAuthorizationsByUser(Thread.CurrentPrincipal.Identity.Name); // 获取当前用户的所有授权信息
+                }
             }
         }
 

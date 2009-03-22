@@ -20,6 +20,7 @@ namespace Uniframework.SmartClient
         #region Smart client environment fields
 
         private UserInfo currentUser;
+
         /// <summary>
         /// Occurs when [shell status updated].
         /// </summary>

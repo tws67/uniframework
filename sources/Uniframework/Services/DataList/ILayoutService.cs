@@ -25,6 +25,6 @@ namespace Uniframework.Services
         /// <param name="appUri">应用程序路径</param>
         /// <returns>如果存在列表布局信息则返回其布局信息否则为空</returns>
         [RemoteMethod]
-        Layout RestoreLayout(string user, string module, string appUri);
+        Layout RestoreLayout(string user, string appUri);
     }
 }

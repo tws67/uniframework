@@ -68,11 +68,7 @@ namespace Uniframework.SmartClient.Strategies
             else
                 ctrl.MouseUp -= new MouseEventHandler(Control_MouseUp);
 
-                                
-                    if (register) {
-
-                        }
-
+            // 递归注册所有组件
             foreach (Control control in ctrl.Controls)
                 RegisterMouseEvent(control, register);
         }

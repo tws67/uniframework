@@ -34,7 +34,7 @@ namespace Uniframework.Services
         /// <param name="layout">布局信息</param>
         public void StoreLayout(Layout layout)
         {
-            DeleteLayout(layout.User, layout.Module, layout.AppUri);
+            DeleteLayout(layout.User, layout.AppUri);
             db.Store(layout);
         }
 
@@ -45,16 +45,16 @@ namespace Uniframework.Services
         /// <param name="module">模块</param>
         /// <param name="appUri">应用程序路径</param>
         /// <returns>如果存在列表布局信息则返回其布局信息否则为空</returns>
-        public Layout RestoreLayout(string user, string module, string appUri)
+        public Layout RestoreLayout(string user, string appUri)
         {
             IList<Layout> layouts = db.Query<Layout>(lay => 
-                lay.User == user && lay.Module == module && lay.AppUri == appUri);
+                lay.User == user && lay.AppUri == appUri);
             if (layouts.Count > 0)
                 return layouts[0];
             else {
                 // 如果不存在用户定义的布局信息则加载管理员的布局
                 layouts = db.Query<Layout>(lay => 
-                    lay.User == DEFAULT_USER && lay.Module == module && lay.AppUri == appUri);
+                    lay.User == DEFAULT_USER && lay.AppUri == appUri);
                 if (layouts.Count > 0)
                     return layouts[0];
             }
@@ -63,10 +63,10 @@ namespace Uniframework.Services
 
         #endregion
 
-        private void DeleteLayout(string user, string module, string appUri)
+        private void DeleteLayout(string user, string appUri)
         {
             IList<Layout> layouts = db.Query<Layout>(lay => 
-                lay.User == user && lay.Module == module && lay.AppUri == appUri);
+                lay.User == user && lay.AppUri == appUri);
             if (layouts.Count > 0)
                 db.Delete(layouts[0]);
         }

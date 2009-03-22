@@ -47,7 +47,7 @@ namespace Uniframework.SmartClient
             this.label = configuration.Attributes["label"];
             this.className = configuration.Attributes["classname"].ToLower(); // 小写
             this.command = configuration.Attributes["command"];
-            this.conditions.Add(new AuthorizationCondition(this));
+            this.conditions.Add(new AuthorizationCondition(this)); // 加入默认的权限管理条件表达式
         }
 
         /// <summary>

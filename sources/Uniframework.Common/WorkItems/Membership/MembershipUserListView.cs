@@ -18,7 +18,6 @@ namespace Uniframework.Common.WorkItems.Membership
     /// <summary>
     /// 本地用户管理视图
     /// </summary>
-    [AuthResource("系统公共模块", "/Shell/Foundation/MembershipUser")] 
     [Authorization("/Shell/Foundation/Membership/Users")]
     public partial class MembershipUserListView : DevExpress.XtraEditors.XtraUserControl, IDataListView
     {

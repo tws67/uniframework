@@ -17,6 +17,7 @@ namespace Uniframework.Common.WorkItems.Authorization
     /// <summary>
     /// 系统授权管理列表
     /// </summary>
+    [Authorization("/Shell/Foundation/Authorization/AuthorizationStore")]
     public partial class AuthorizationStoreListView : DevExpress.XtraEditors.XtraUserControl, IDataListView
     {
         public AuthorizationStoreListView()

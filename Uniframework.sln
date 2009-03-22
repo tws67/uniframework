@@ -104,7 +104,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "3132"
+		VWDPort = "1458"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

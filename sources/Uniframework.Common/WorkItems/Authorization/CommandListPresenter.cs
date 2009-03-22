@@ -12,6 +12,7 @@ using Microsoft.Practices.CompositeUI;
 
 namespace Uniframework.Common.WorkItems.Authorization
 {
+    [Authorization("/Shell/Foundation/Authorization/Command")]
     public class CommandListPresenter : DataListPresenter<CommandListView>
     {
         [ServiceDependency]
