@@ -169,20 +169,21 @@ namespace Uniframework.Services
         /// <returns>如果创建成功则返回true，否则为false</returns>
         public string CreateVirtualDirectory(string server, UpgradeProject proj)
         {
+            Guard.ArgumentNotNull(proj, "Upgrade project");
             string virtualPath = String.Empty;
             IISManager iisManager = new IISManager(server);
-            try
-            {
+            try {
                 iisManager.Connect();
                 string physicalPath = HttpContext.Current.Server.MapPath(UPGRADE_PATH + proj.Product + "/" + proj.Version);
                 virtualPath = UPGRADE_PATH + proj.Product + "/" + proj.Version;
+                logger.Debug("创建升级虚拟目录: " + virtualPath + ", 物理路径为: " + physicalPath);
                 VirtualDirectory vd = new VirtualDirectory(virtualPath, physicalPath);
                 vd.AccessExecute = true;
                 vd.AccessWrite = true;
                 iisManager.CreateVirtualDirectory(vd);
             }
-            catch
-            {
+            catch(Exception ex) {
+                logger.Debug("创建升级虚拟目录: " + virtualPath + " 失败, " + ex.Message);
                 return String.Empty;
             }
             return GetUpgradeAbsoluteUrl(virtualPath);
