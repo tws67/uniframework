@@ -197,7 +197,7 @@ namespace Uniframework.Upgrade.Views
             this.standaloneBarDockControl2.AutoSizeInLayoutControl = true;
             this.standaloneBarDockControl2.Location = new System.Drawing.Point(326, 261);
             this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
-            this.standaloneBarDockControl2.Size = new System.Drawing.Size(141, 27);
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(130, 27);
             this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
             // 
             // standaloneBarDockControl1
