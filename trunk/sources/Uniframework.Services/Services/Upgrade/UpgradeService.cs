@@ -171,16 +171,17 @@ namespace Uniframework.Services
         {
             Guard.ArgumentNotNull(proj, "Upgrade project");
             string virtualPath = String.Empty;
-            IISManager iisManager = new IISManager(server);
+            //IISManager iisManager = new IISManager(server);
             try {
-                iisManager.Connect();
+                //iisManager.Connect();
                 string physicalPath = HttpContext.Current.Server.MapPath(UPGRADE_PATH + proj.Product + "/" + proj.Version);
                 virtualPath = UPGRADE_PATH + proj.Product + "/" + proj.Version;
                 logger.Debug("创建升级虚拟目录: " + virtualPath + ", 物理路径为: " + physicalPath);
-                VirtualDirectory vd = new VirtualDirectory(virtualPath, physicalPath);
-                vd.AccessExecute = true;
-                vd.AccessWrite = true;
-                iisManager.CreateVirtualDirectory(vd);
+                //VirtualDirectory vd = new VirtualDirectory(virtualPath, physicalPath);
+                //vd.AccessExecute = true;
+                //vd.AccessWrite = true;
+                IISUtility.CreateVDir("localhost", virtualPath, physicalPath, false, true, true, true, true, true, 1, server);
+                //iisManager.CreateVirtualDirectory(vd);
             }
             catch(Exception ex) {
                 logger.Debug("创建升级虚拟目录: " + virtualPath + " 失败, " + ex.Message);

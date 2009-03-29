@@ -44,6 +44,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel">
@@ -140,6 +141,7 @@
     <Compile Include="Services\IStringService.cs" />
     <Compile Include="Services\MethodInvokeInfo.cs" />
     <Compile Include="Services\StringService.cs" />
+    <Compile Include="Utility\IISUtility.cs" />
     <Compile Include="Utility\MyConvert.cs" />
     <Compile Include="Common\NetworkInvokePackage.cs" />
     <Compile Include="Common\PackageUtility.cs" />
