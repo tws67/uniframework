@@ -107,6 +107,7 @@
     <Compile Include="Services\Session\SessionState.cs" />
     <Compile Include="Services\Upgrade\IISManagement.cs" />
     <Compile Include="Services\Upgrade\IISManager.cs" />
+    <Compile Include="Services\Upgrade\IISUtility.cs" />
     <Compile Include="Services\Upgrade\IISWebServer.cs" />
     <Compile Include="Services\Upgrade\IISWebServerCollection.cs" />
     <Compile Include="Services\Upgrade\IISWebVirtualDir.cs" />

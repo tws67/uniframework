@@ -95,10 +95,6 @@
       <Name>Microsoft.Interop.Security.AzRoles</Name>
       <HintPath>C:\WINDOWS\Microsoft.NET\AuthMan\Microsoft.Interop.Security.AzRoles.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -110,6 +106,10 @@
     <Reference Include="System.Management">
       <Name>System.Management</Name>
     </Reference>
+    <ProjectReference Include="..\..\..\cab\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\Common.csproj">
       <Name>Common</Name>
       <Project>{A09297C8-2C40-470B-8856-D856676DDFFA}</Project>

@@ -91,10 +91,6 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -102,6 +98,10 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Management" />
     <Reference Include="System.XML" />
+    <ProjectReference Include="..\..\..\..\cab\ObjectBuilder\ObjectBuilder.csproj">
+      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
+      <Name>ObjectBuilder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Caching\Caching.csproj">
       <Name>Caching</Name>
       <Project>{E725A5B4-A379-492F-89E3-3D8021376C3F}</Project>
