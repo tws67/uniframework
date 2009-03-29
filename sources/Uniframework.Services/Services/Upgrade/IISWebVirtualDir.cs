@@ -54,8 +54,7 @@ namespace Uniframework.Services
         public IISWebVirtualDir(string WebServerName)
             : this()
         {
-            if (WebServerName.ToString() == "")
-                throw (new Exception("WebServerName不能为空!"));
+            Guard.ArgumentNotNull(WebServerName, "Web server name");
             this.WebServer = WebServerName;
         }
 
