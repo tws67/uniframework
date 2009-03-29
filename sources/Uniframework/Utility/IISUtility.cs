@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Uniframework.Services.Services.Upgrade
+namespace Uniframework
 {
     public static class IISUtility
     {
