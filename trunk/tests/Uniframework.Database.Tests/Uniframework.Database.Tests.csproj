@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5671D224-D411-43BA-B207-D94EEA76B764}</ProjectGuid>
+    <ProjectGuid>{2C41EFD2-106F-4066-B37F-1D0FF72F4969}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Uniframework.Database</RootNamespace>
-    <AssemblyName>Uniframework.Database</AssemblyName>
+    <RootNamespace>Uniframework.Database.Tests</RootNamespace>
+    <AssemblyName>Uniframework.Database.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,21 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lephone.Data, Version=3.5.3241.38467, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
+    <Reference Include="Lephone.Data, Version=3.5.3381.37180, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\Lephone.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Lephone.Linq, Version=3.5.3241.38467, Culture=neutral, PublicKeyToken=bd3c4fc2b6b55f02, processorArchitecture=MSIL">
+    <Reference Include="Lephone.Linq, Version=3.5.3381.37181, Culture=neutral, PublicKeyToken=bd3c4fc2b6b55f02, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\Lephone.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="Lephone.Util, Version=3.5.3241.38466, Culture=neutral, PublicKeyToken=3eacc2a29b11f14a, processorArchitecture=MSIL">
+    <Reference Include="Lephone.Util, Version=3.5.3381.37179, Culture=neutral, PublicKeyToken=3eacc2a29b11f14a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\Lephone.Util.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.0.8189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\assembly\log4net.dll</HintPath>
+      <HintPath>..\..\assembly\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -61,19 +61,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\UniframeworkInfo.cs">
-      <Link>UniframeworkInfo.cs</Link>
-    </Compile>
-    <Compile Include="DatabaseService.cs" />
-    <Compile Include="Definition\DbBaseEntity.cs" />
-    <Compile Include="IDatabaseService.cs" />
+    <Compile Include="CommonTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Uniframework\Uniframework.csproj">
-      <Project>{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}</Project>
-      <Name>Uniframework %28Sources\Uniframework%29</Name>
+    <ProjectReference Include="..\..\sources\Uniframework.Database\Uniframework.Database.csproj">
+      <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
+      <Name>Uniframework.Database</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
