@@ -78,9 +78,9 @@ namespace Uniframework.StartUp
             this.linkClose.LinkArea = new System.Windows.Forms.LinkArea(0, 8);
             this.linkClose.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkClose.LinkColor = System.Drawing.Color.White;
-            this.linkClose.Location = new System.Drawing.Point(12, 17);
+            this.linkClose.Location = new System.Drawing.Point(14, 20);
             this.linkClose.Name = "linkClose";
-            this.linkClose.Size = new System.Drawing.Size(97, 26);
+            this.linkClose.Size = new System.Drawing.Size(113, 30);
             this.linkClose.TabIndex = 3;
             this.linkClose.TabStop = true;
             this.linkClose.Text = "取消登录";
@@ -92,20 +92,20 @@ namespace Uniframework.StartUp
             // pbProgress
             // 
             this.pbProgress.EditValue = 20;
-            this.pbProgress.Location = new System.Drawing.Point(8, 149);
+            this.pbProgress.Location = new System.Drawing.Point(14, 148);
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Properties.ProgressViewStyle = DevExpress.XtraEditors.Controls.ProgressViewStyle.Solid;
             this.pbProgress.Properties.Step = 1;
-            this.pbProgress.Size = new System.Drawing.Size(239, 16);
+            this.pbProgress.Size = new System.Drawing.Size(237, 17);
             this.pbProgress.TabIndex = 21;
             this.toolTip.SetToolTip(this.pbProgress, "系统加载进度条");
             this.pbProgress.Visible = false;
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(50, 65);
+            this.btnLogin.Location = new System.Drawing.Point(58, 76);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.Size = new System.Drawing.Size(87, 27);
             this.btnLogin.TabIndex = 12;
             this.btnLogin.Text = "登录(&L)";
             this.toolTip.SetToolTip(this.btnLogin, "开始工作了，不然老板会有意见D：）");
@@ -114,21 +114,21 @@ namespace Uniframework.StartUp
             // txtPassword
             // 
             this.txtPassword.EnterMoveNextControl = true;
-            this.txtPassword.Location = new System.Drawing.Point(50, 38);
+            this.txtPassword.Location = new System.Drawing.Point(58, 44);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Properties.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(176, 21);
+            this.txtPassword.Size = new System.Drawing.Size(167, 21);
             this.txtPassword.TabIndex = 11;
             this.toolTip.SetToolTip(this.txtPassword, "看看背后是否有人在偷窥哟");
             // 
             // txtUser
             // 
             this.txtUser.EnterMoveNextControl = true;
-            this.txtUser.Location = new System.Drawing.Point(50, 5);
+            this.txtUser.Location = new System.Drawing.Point(58, 6);
             this.txtUser.Name = "txtUser";
             this.txtUser.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtUser.Size = new System.Drawing.Size(176, 21);
+            this.txtUser.Size = new System.Drawing.Size(167, 21);
             this.txtUser.TabIndex = 9;
             this.toolTip.SetToolTip(this.txtUser, "进入系统的用户名称");
             // 
@@ -141,9 +141,9 @@ namespace Uniframework.StartUp
             this.pnlClient.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Middle;
             this.pnlClient.Controls.Add(this.CenterPanel);
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlClient.Location = new System.Drawing.Point(0, 60);
+            this.pnlClient.Location = new System.Drawing.Point(0, 70);
             this.pnlClient.Name = "pnlClient";
-            this.pnlClient.Size = new System.Drawing.Size(560, 200);
+            this.pnlClient.Size = new System.Drawing.Size(560, 180);
             this.pnlClient.TabIndex = 3;
             // 
             // CenterPanel
@@ -154,7 +154,7 @@ namespace Uniframework.StartUp
             this.CenterPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CenterPanel.Location = new System.Drawing.Point(0, 0);
             this.CenterPanel.Name = "CenterPanel";
-            this.CenterPanel.Size = new System.Drawing.Size(560, 200);
+            this.CenterPanel.Size = new System.Drawing.Size(560, 180);
             this.CenterPanel.TabIndex = 0;
             // 
             // panel1
@@ -163,9 +163,9 @@ namespace Uniframework.StartUp
             this.panel1.Controls.Add(this.pbProgress);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.lblProgress);
-            this.panel1.Location = new System.Drawing.Point(282, 0);
+            this.panel1.Location = new System.Drawing.Point(281, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(261, 200);
+            this.panel1.Size = new System.Drawing.Size(267, 185);
             this.panel1.TabIndex = 7;
             // 
             // panel2
@@ -176,9 +176,9 @@ namespace Uniframework.StartUp
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtUser);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(8, 8);
+            this.panel2.Location = new System.Drawing.Point(9, 9);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(239, 98);
+            this.panel2.Size = new System.Drawing.Size(242, 114);
             this.panel2.TabIndex = 5;
             // 
             // label4
@@ -187,7 +187,7 @@ namespace Uniframework.StartUp
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label4.Location = new System.Drawing.Point(15, 43);
+            this.label4.Location = new System.Drawing.Point(17, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 10;
@@ -200,7 +200,7 @@ namespace Uniframework.StartUp
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label3.Location = new System.Drawing.Point(3, 10);
+            this.label3.Location = new System.Drawing.Point(3, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 8;
@@ -211,7 +211,7 @@ namespace Uniframework.StartUp
             // 
             this.lblProgress.AutoSize = true;
             this.lblProgress.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblProgress.Location = new System.Drawing.Point(7, 134);
+            this.lblProgress.Location = new System.Drawing.Point(12, 133);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(59, 12);
             this.lblProgress.TabIndex = 20;
@@ -222,9 +222,9 @@ namespace Uniframework.StartUp
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BackgroundImage = global::Uniframework.StartUp.Properties.Resources.Top;
-            this.panel3.Location = new System.Drawing.Point(271, -7);
+            this.panel3.Location = new System.Drawing.Point(273, -8);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(2, 214);
+            this.panel3.Size = new System.Drawing.Size(2, 189);
             this.panel3.TabIndex = 6;
             // 
             // pnlLeft
@@ -232,9 +232,9 @@ namespace Uniframework.StartUp
             this.pnlLeft.BackColor = System.Drawing.Color.Transparent;
             this.pnlLeft.Controls.Add(this.label2);
             this.pnlLeft.Controls.Add(this.label1);
-            this.pnlLeft.Location = new System.Drawing.Point(20, 0);
+            this.pnlLeft.Location = new System.Drawing.Point(14, 0);
             this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(233, 201);
+            this.pnlLeft.Size = new System.Drawing.Size(250, 185);
             this.pnlLeft.TabIndex = 5;
             // 
             // label2
@@ -243,9 +243,9 @@ namespace Uniframework.StartUp
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label2.Location = new System.Drawing.Point(21, 49);
+            this.label2.Location = new System.Drawing.Point(16, 57);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(209, 18);
+            this.label2.Size = new System.Drawing.Size(231, 21);
             this.label2.TabIndex = 9;
             this.label2.Text = "请输入您的用户名和密码";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -256,9 +256,9 @@ namespace Uniframework.StartUp
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Impact", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(2, 9);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 30);
+            this.label1.Size = new System.Drawing.Size(235, 35);
             this.label1.TabIndex = 8;
             this.label1.Text = "Based on Uniframework 2.0";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -269,9 +269,9 @@ namespace Uniframework.StartUp
             this.pnlBottom.Controls.Add(this.lblServer);
             this.pnlBottom.Controls.Add(this.linkClose);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 260);
+            this.pnlBottom.Location = new System.Drawing.Point(0, 250);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(560, 60);
+            this.pnlBottom.Size = new System.Drawing.Size(560, 70);
             this.pnlBottom.TabIndex = 2;
             // 
             // lblServer
@@ -280,9 +280,9 @@ namespace Uniframework.StartUp
             this.lblServer.BackColor = System.Drawing.Color.Transparent;
             this.lblServer.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblServer.ForeColor = System.Drawing.Color.White;
-            this.lblServer.Location = new System.Drawing.Point(8, 43);
+            this.lblServer.Location = new System.Drawing.Point(-84, 50);
             this.lblServer.Name = "lblServer";
-            this.lblServer.Size = new System.Drawing.Size(547, 12);
+            this.lblServer.Size = new System.Drawing.Size(638, 14);
             this.lblServer.TabIndex = 5;
             this.lblServer.Text = "Server";
             this.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -294,12 +294,12 @@ namespace Uniframework.StartUp
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(560, 60);
+            this.pnlTop.Size = new System.Drawing.Size(560, 70);
             this.pnlTop.TabIndex = 1;
             // 
             // frmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(560, 320);
             this.Controls.Add(this.pnlClient);
