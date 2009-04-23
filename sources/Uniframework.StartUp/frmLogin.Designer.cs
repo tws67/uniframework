@@ -103,9 +103,9 @@ namespace Uniframework.StartUp
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(58, 76);
+            this.btnLogin.Location = new System.Drawing.Point(58, 71);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(87, 27);
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 12;
             this.btnLogin.Text = "登录(&L)";
             this.toolTip.SetToolTip(this.btnLogin, "开始工作了，不然老板会有意见D：）");
