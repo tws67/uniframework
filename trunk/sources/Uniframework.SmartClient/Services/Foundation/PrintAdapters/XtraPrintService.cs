@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-
-using DevExpress.XtraPrinting;
 using System.Windows.Forms;
+using DevExpress.XtraPrinting;
 
 namespace Uniframework.SmartClient
 {
@@ -128,7 +124,7 @@ namespace Uniframework.SmartClient
         {
             PreparePrint();
             if (printSystem.Links.Count > 0)
-                printSystem.Links[0].ShowPreviewDialog();
+                (printSystem.Links[0] as Link).ShowPreviewDialog();
         }
 
         /// <summary>
@@ -139,7 +135,7 @@ namespace Uniframework.SmartClient
         {
             PreparePrint();
             if (printSystem.Links.Count > 0)
-                printSystem.Links[0].ShowPreviewDialog(owner);
+                (printSystem.Links[0] as Link).ShowPreviewDialog(owner);
         }
 
         /// <summary>
@@ -157,7 +153,8 @@ namespace Uniframework.SmartClient
         /// </summary>
         private void PreparePrint()
         {
-            foreach (Link link in printSystem.Links) {
+            foreach (Link link in printSystem.Links)
+            {
                 link.CreateDocument();
             }
         }
@@ -169,7 +166,8 @@ namespace Uniframework.SmartClient
         /// <param name="e">The <see cref="DevExpress.XtraPrinting.CreateAreaEventArgs"/> instance containing the event data.</param>
         private void pcl_CreateMarginalHeaderArea(object sender, CreateAreaEventArgs e)
         {
-            if (!String.IsNullOrEmpty(reportTitle) && reportTitle.Length > 0) {
+            if (!String.IsNullOrEmpty(reportTitle) && reportTitle.Length > 0)
+            {
                 e.Graph.Font = new Font("宋体", 15, FontStyle.Bold);
                 e.Graph.BackColor = Color.Transparent;
                 RectangleF r = new RectangleF(0, 20, 0, e.Graph.Font.Height + 20);
@@ -178,7 +176,8 @@ namespace Uniframework.SmartClient
                 brick.AutoWidth = true;
             }
 
-            if (!String.IsNullOrEmpty(condition)) {
+            if (!String.IsNullOrEmpty(condition))
+            {
                 e.Graph.Font = new Font("宋体", 10);
                 e.Graph.BackColor = Color.Transparent;
                 RectangleF r = new RectangleF(0, 50, 0, e.Graph.Font.Height + 20);

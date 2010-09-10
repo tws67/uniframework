@@ -51,7 +51,7 @@ namespace Uniframework.Database
                         return contexts[context.ToLower()];
                     else
                         try {
-                            DbContext dbContext = new DbContext(context.ToLower());
+                            DbContext dbContext = DbEntry.GetContext(context.ToLower()); //new DbContext(context.ToLower());
                             contexts.Add(context.ToLower(), dbContext);
                             return dbContext;
                         }
@@ -361,7 +361,7 @@ namespace Uniframework.Database
         /// <typeparam name="T">泛型类型<see cref="T"/></typeparam>
         /// <param name="iwc">条件</param>
         /// <returns>执行成功与否的返回值</returns>
-        public int Delete<T>(WhereCondition iwc) where T : class, IDbObject
+        public int Delete<T>(Condition iwc) where T : class, IDbObject
         {
             return DefaultContext.Delete<T>(iwc);
         }
@@ -373,7 +373,7 @@ namespace Uniframework.Database
         /// <param name="context">数据库连接上下文</param>
         /// <param name="iwc">条件</param>
         /// <returns>执行成功与否的返回值</returns>
-        public int Delete<T>(string context, WhereCondition iwc) where T : class, IDbObject
+        public int Delete<T>(string context, Condition iwc) where T : class, IDbObject
         {
             DbContext dbContext = this[context];
             Guard.ArgumentNotNull(dbContext, "dbContext");
@@ -494,83 +494,17 @@ namespace Uniframework.Database
         /// <param name="iwc">Where子句</param>
         /// <param name="oc">Order by子句</param>
         /// <param name="lc">范围子句</param>
-        public void FillCollection(IList list, Type DbObjectType, FromClause from, WhereCondition iwc, OrderBy oc, Range lc)
+        public void FillCollection(IList list, Type returnType, Type dbObjectType, FromClause from, Condition iwc, OrderBy oc, Range lc, bool isDistinct)
         {
-            DefaultContext.FillCollection(list, DbObjectType, from, iwc, oc, lc);
+            DefaultContext.FillCollection(list, returnType, dbObjectType, from, iwc, oc, lc, isDistinct);
         }
 
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="from">From子句</param>
-        /// <param name="iwc">Where子句</param>
-        /// <param name="oc">Order by子句</param>
-        /// <param name="lc">范围子句</param>
-        public void FillCollection(string context, IList list, Type DbObjectType, FromClause from, WhereCondition iwc, OrderBy oc, Range lc)
+        public void FillCollection(string context, IList list, Type returnType, Type dbObjectType, FromClause from, Condition iwc, OrderBy oc, Range lc, bool isDistinct)
         {
             DbContext dbContext = this[context];
             Guard.ArgumentNotNull(dbContext, "dbContext");
 
-            dbContext.FillCollection(list, DbObjectType, from, iwc, oc, lc);
-        }
-
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="Sql">SQL语句</param>
-        public void FillCollection(IList list, Type DbObjectType, SqlStatement Sql)
-        {
-            DefaultContext.FillCollection(list, DbObjectType, Sql);
-        }
-
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="Sql">SQL语句</param>
-        public void FillCollection(string context, IList list, Type DbObjectType, SqlStatement Sql)
-        {
-            DbContext dbContext = this[context];
-            Guard.ArgumentNotNull(dbContext, "dbContext");
-
-            dbContext.FillCollection(list, DbObjectType, Sql);
-        }
-
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="iwc">Where子句</param>
-        /// <param name="oc">Order by子句</param>
-        /// <param name="lc">范围子句</param>
-        public void FillCollection(IList list, Type DbObjectType, WhereCondition iwc, OrderBy oc, Range lc)
-        {
-            DefaultContext.FillCollection(list, DbObjectType, iwc, oc, lc);
-        }
-
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="context">数据连接上下文</param>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="iwc">Where子句</param>
-        /// <param name="oc">Order by子句</param>
-        /// <param name="lc">范围子句</param>
-        public void FillCollection(string context, IList list, Type DbObjectType, WhereCondition iwc, OrderBy oc, Range lc)
-        {
-            DbContext dbContext = this[context];
-            Guard.ArgumentNotNull(dbContext, "dbContext");
-
-            dbContext.FillCollection(list, DbObjectType, iwc, oc, lc);
+            dbContext.FillCollection(list, returnType, dbObjectType, from, iwc, oc, lc, isDistinct);
         }
 
         /// <summary>
@@ -627,7 +561,7 @@ namespace Uniframework.Database
         /// <typeparam name="T">泛型类型<see cref="T"/></typeparam>
         /// <param name="c">Where子句</param>
         /// <returns>数据对象</returns>
-        public T GetObject<T>(WhereCondition c) where T : class, IDbObject
+        public T GetObject<T>(Condition c) where T : class, IDbObject
         {
             return DefaultContext.GetObject<T>(c);
         }
@@ -639,7 +573,7 @@ namespace Uniframework.Database
         /// <param name="context">数据库连接上下文</param>
         /// <param name="c">Where子句</param>
         /// <returns>数据对象</returns>
-        public T GetObject<T>(string context, WhereCondition c) where T : class, IDbObject
+        public T GetObject<T>(string context, Condition c) where T : class, IDbObject
         {
             DbContext dbContext = this[context];
             Guard.ArgumentNotNull(dbContext, "dbContext");
@@ -654,7 +588,7 @@ namespace Uniframework.Database
         /// <param name="c">Where子句</param>
         /// <param name="ob">Order by子句</param>
         /// <returns>数据对象</returns>
-        public T GetObject<T>(WhereCondition c, OrderBy ob) where T : class, IDbObject
+        public T GetObject<T>(Condition c, OrderBy ob) where T : class, IDbObject
         {
             return DefaultContext.GetObject<T>(c, ob);
         }
@@ -667,7 +601,7 @@ namespace Uniframework.Database
         /// <param name="c">Where子句</param>
         /// <param name="ob">Order by子句</param>
         /// <returns>数据对象</returns>
-        public T GetObject<T>(string context, WhereCondition c, OrderBy ob) where T : class, IDbObject
+        public T GetObject<T>(string context, Condition c, OrderBy ob) where T : class, IDbObject
         {
             DbContext dbContext = this[context];
             Guard.ArgumentNotNull(dbContext, "dbContext");
