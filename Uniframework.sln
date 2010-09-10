@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{291E7C53-3CC8-45AA-A3D4-5F41CD103B64}"
 	ProjectSection(SolutionItems) = preProject
 		Clean.bat = Clean.bat
@@ -25,9 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", 
 		assembly\Db4objects.Db4o.xml = assembly\Db4objects.Db4o.xml
 		assembly\ICSharpCode.SharpZipLib.dll = assembly\ICSharpCode.SharpZipLib.dll
 		assembly\ICSharpCode.SharpZipLib.xml = assembly\ICSharpCode.SharpZipLib.xml
-		assembly\Lephone.Data.dll = assembly\Lephone.Data.dll
-		assembly\Lephone.Linq.dll = assembly\Lephone.Linq.dll
-		assembly\Lephone.Util.dll = assembly\Lephone.Util.dll
 		assembly\log4net.dll = assembly\log4net.dll
 		assembly\log4net.xml = assembly\log4net.xml
 		assembly\Microsoft.SharePoint.dll = assembly\Microsoft.SharePoint.dll
@@ -54,19 +51,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Slice", "Slice", "{CBD80B93
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Composite UI Application Block", "Composite UI Application Block", "{B689B4A4-0646-42EF-A080-0A4580362A8A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2A7A90DD-C339-4B48-8FA5-92585BB38096}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Uniframework", "Uniframework", "{2A5994FA-F9EA-4768-AADD-FFDF9416C150}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Switch", "Switch", "{6CE8E19B-F8A7-4BE7-BFDE-6D4BF20F005E}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUI.Common", "sources\cab\CompositeUI.Common\CompositeUI.Common.csproj", "{2EBAFFF1-0A45-4160-B2F5-386BCC89520C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework", "sources\Uniframework\Uniframework.csproj", "{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net", "Net", "{0CD5502B-F9FB-4A8E-B501-4A74E698B6D9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicClient", "demos\Net\BasicClient\BasicClient.csproj", "{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicServer", "demos\Net\BasicServer\BasicServer.csproj", "{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBlockServer", "demos\Net\MessageBlockServer\MessageBlockServer.csproj", "{39A87C67-5307-4AF1-93B9-063BC72BE79C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBlockClient", "demos\Net\MessageBlockClient\MessageBlockClient.csproj", "{4822AF22-787A-464E-8581-09857F4B2992}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.ScriptEngine", "sources\Uniframework.ScriptEngine\Uniframework.ScriptEngine.csproj", "{ACDDB0B6-140E-41DD-BA88-02042B524A86}"
 EndProject
@@ -88,7 +81,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.StartUp", "sou
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources\Uniframework.Web\", "{A901DC92-B135-4774-9E8C-3BDCF2CA65E2}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFramework = "3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}|Uniframework.dll;{AB560843-D1D0-4D14-AAED-42F87ED5D089}|Uniframework.Services.dll;{54CEE371-BBD0-4C9E-80A6-A72BE01F9500}|Uniframework.Communication.dll;{5671D224-D411-43BA-B207-D94EEA76B764}|Uniframework.Database.dll;{4DF29E17-6C52-47D4-9F4E-42691C358F83}|Uniframework.Entities.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Uniframework.Web"
 		Debug.AspNetCompiler.PhysicalPath = "sources\Uniframework.Web\"
@@ -108,8 +101,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Uniframework.Web", "sources
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2A7A90DD-C339-4B48-8FA5-92585BB38096}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.UpgradeLaunch", "sources\Uniframework.UpgradeLaunch\Uniframework.UpgradeLaunch.csproj", "{D1B7F516-6632-44F0-B354-7D717C8E02C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Upgrade", "sources\Uniframework.Upgrade\Uniframework.Upgrade.csproj", "{EF391648-B893-45D2-ACE0-12981EB53525}"
@@ -122,31 +113,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectBuilder", "sources\ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Database", "sources\Uniframework.Database\Uniframework.Database.csproj", "{5671D224-D411-43BA-B207-D94EEA76B764}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Uniframework", "Uniframework", "{2A5994FA-F9EA-4768-AADD-FFDF9416C150}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.DemoCenter.Client", "demos\Uniframework\Uniframework.DemoCenter.Client\Uniframework.DemoCenter.Client.csproj", "{4526AC92-283B-4445-B6D5-800EDEE61913}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.DemoCenter", "demos\Uniframework\Uniframework.DemoCenter\Uniframework.DemoCenter.csproj", "{EE77BF85-CD50-457D-AA61-A722497FA25A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Entities", "sources\Uniframework.Entities\Uniframework.Entities.csproj", "{4DF29E17-6C52-47D4-9F4E-42691C358F83}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Switch", "Switch", "{6CE8E19B-F8A7-4BE7-BFDE-6D4BF20F005E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Switch", "switch\Uniframework.Switch\Uniframework.Switch.csproj", "{65DFE2F6-8748-4574-A070-2B0BF1564E86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.Endpoints.DB160X", "switch\Uniframework.Endpoints.DB160X\Uniframework.Endpoints.DB160X.csproj", "{6461AC1F-0D07-4BD2-AAD4-46449D12302E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.TTS.DJTTS3", "switch\Uniframework.TTS.DJTTS3\Uniframework.TTS.DJTTS3.csproj", "{DB27E4F8-DE7D-4D47-A11D-EDCBD6D9FAC5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharePoint", "SharePoint", "{E283F687-8A49-470F-B9BC-429D300D5392}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.SharePoint.Linq", "sources\Uniframework.SharePoint.Linq\Uniframework.SharePoint.Linq.csproj", "{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.SharePoint.Linq.EntityGenerator", "sources\Uniframework.SharePoint.Linq.EntityGenerator\Uniframework.SharePoint.Linq.EntityGenerator.csproj", "{67AA3765-542B-44BA-8B26-49402555D0B6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.SharePoint.Linq.SpMetal", "sources\Uniframework.SharePoint.Linq.SpMetal\Uniframework.SharePoint.Linq.SpMetal.csproj", "{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uniframework.SharePoint.Linq.Spml", "sources\Uniframework.SharePoint.Linq.Spml\Uniframework.SharePoint.Linq.Spml.csproj", "{D40D3731-1597-4180-B5D7-E052B5D9A935}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,30 +144,6 @@ Global
 		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Full build|Any CPU.Build.0 = Release|Any CPU
 		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A0BCB4-E235-40E7-864D-4075A2A7BC48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}.Full build|Any CPU.ActiveCfg = Release|Any CPU
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}.Full build|Any CPU.Build.0 = Release|Any CPU
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}.Full build|Any CPU.ActiveCfg = Release|Any CPU
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}.Full build|Any CPU.Build.0 = Release|Any CPU
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C}.Full build|Any CPU.ActiveCfg = Release|Any CPU
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C}.Full build|Any CPU.Build.0 = Release|Any CPU
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4822AF22-787A-464E-8581-09857F4B2992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4822AF22-787A-464E-8581-09857F4B2992}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4822AF22-787A-464E-8581-09857F4B2992}.Full build|Any CPU.ActiveCfg = Release|Any CPU
-		{4822AF22-787A-464E-8581-09857F4B2992}.Full build|Any CPU.Build.0 = Release|Any CPU
-		{4822AF22-787A-464E-8581-09857F4B2992}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4822AF22-787A-464E-8581-09857F4B2992}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACDDB0B6-140E-41DD-BA88-02042B524A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACDDB0B6-140E-41DD-BA88-02042B524A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACDDB0B6-140E-41DD-BA88-02042B524A86}.Full build|Any CPU.ActiveCfg = Release|Any CPU
@@ -323,30 +276,6 @@ Global
 		{DB27E4F8-DE7D-4D47-A11D-EDCBD6D9FAC5}.Full build|Any CPU.Build.0 = Release|Any CPU
 		{DB27E4F8-DE7D-4D47-A11D-EDCBD6D9FAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB27E4F8-DE7D-4D47-A11D-EDCBD6D9FAC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}.Full build|Any CPU.ActiveCfg = Full build|Any CPU
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}.Full build|Any CPU.Build.0 = Full build|Any CPU
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67AA3765-542B-44BA-8B26-49402555D0B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67AA3765-542B-44BA-8B26-49402555D0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67AA3765-542B-44BA-8B26-49402555D0B6}.Full build|Any CPU.ActiveCfg = Full build|Any CPU
-		{67AA3765-542B-44BA-8B26-49402555D0B6}.Full build|Any CPU.Build.0 = Full build|Any CPU
-		{67AA3765-542B-44BA-8B26-49402555D0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67AA3765-542B-44BA-8B26-49402555D0B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}.Full build|Any CPU.ActiveCfg = Full build|Any CPU
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}.Full build|Any CPU.Build.0 = Full build|Any CPU
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D40D3731-1597-4180-B5D7-E052B5D9A935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D40D3731-1597-4180-B5D7-E052B5D9A935}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D40D3731-1597-4180-B5D7-E052B5D9A935}.Full build|Any CPU.ActiveCfg = Full build|Any CPU
-		{D40D3731-1597-4180-B5D7-E052B5D9A935}.Full build|Any CPU.Build.0 = Full build|Any CPU
-		{D40D3731-1597-4180-B5D7-E052B5D9A935}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D40D3731-1597-4180-B5D7-E052B5D9A935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -368,26 +297,16 @@ Global
 		{EF391648-B893-45D2-ACE0-12981EB53525} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{5671D224-D411-43BA-B207-D94EEA76B764} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
 		{4DF29E17-6C52-47D4-9F4E-42691C358F83} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
-		{E283F687-8A49-470F-B9BC-429D300D5392} = {AD2ADB89-32C4-4535-9678-39D45604F9FF}
-		{0CD5502B-F9FB-4A8E-B501-4A74E698B6D9} = {C9EDC766-4B5B-4B8F-A3BD-41FAB4AE3D7E}
 		{2A5994FA-F9EA-4768-AADD-FFDF9416C150} = {C9EDC766-4B5B-4B8F-A3BD-41FAB4AE3D7E}
 		{2EBAFFF1-0A45-4160-B2F5-386BCC89520C} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
 		{C478E40B-A05E-4C69-9AB3-7A3BB374243F} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
 		{073BCD60-F2FB-4DB9-92FB-403C8F9E8DD0} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
 		{2AE49F19-392B-4C50-A13C-F49B2579849D} = {B689B4A4-0646-42EF-A080-0A4580362A8A}
-		{069D864D-60B3-4BEA-AA5C-1EA9FEEC3F17} = {0CD5502B-F9FB-4A8E-B501-4A74E698B6D9}
-		{FDBB111D-7EDE-4C53-99D0-503BDA9F1806} = {0CD5502B-F9FB-4A8E-B501-4A74E698B6D9}
-		{39A87C67-5307-4AF1-93B9-063BC72BE79C} = {0CD5502B-F9FB-4A8E-B501-4A74E698B6D9}
-		{4822AF22-787A-464E-8581-09857F4B2992} = {0CD5502B-F9FB-4A8E-B501-4A74E698B6D9}
 		{A901DC92-B135-4774-9E8C-3BDCF2CA65E2} = {2A7A90DD-C339-4B48-8FA5-92585BB38096}
 		{4526AC92-283B-4445-B6D5-800EDEE61913} = {2A5994FA-F9EA-4768-AADD-FFDF9416C150}
 		{EE77BF85-CD50-457D-AA61-A722497FA25A} = {2A5994FA-F9EA-4768-AADD-FFDF9416C150}
 		{65DFE2F6-8748-4574-A070-2B0BF1564E86} = {6CE8E19B-F8A7-4BE7-BFDE-6D4BF20F005E}
 		{6461AC1F-0D07-4BD2-AAD4-46449D12302E} = {6CE8E19B-F8A7-4BE7-BFDE-6D4BF20F005E}
 		{DB27E4F8-DE7D-4D47-A11D-EDCBD6D9FAC5} = {6CE8E19B-F8A7-4BE7-BFDE-6D4BF20F005E}
-		{B19723C2-779B-4FE5-B5BB-A9CAC927F96A} = {E283F687-8A49-470F-B9BC-429D300D5392}
-		{67AA3765-542B-44BA-8B26-49402555D0B6} = {E283F687-8A49-470F-B9BC-429D300D5392}
-		{3FBD2C31-0D90-42FA-BC23-CBE8A5DDE45A} = {E283F687-8A49-470F-B9BC-429D300D5392}
-		{D40D3731-1597-4180-B5D7-E052B5D9A935} = {E283F687-8A49-470F-B9BC-429D300D5392}
 	EndGlobalSection
 EndGlobal

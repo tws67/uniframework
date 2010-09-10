@@ -214,7 +214,7 @@ namespace Uniframework.Database
         /// <param name="iwc">条件</param>
         /// <returns>执行成功与否的返回值</returns>
         [RemoteMethod]
-        int Delete<T>(WhereCondition iwc) where T : class, IDbObject;
+        int Delete<T>(Condition iwc) where T : class, IDbObject;
         /// <summary>
         /// 删除满足条件指定类型<see cref="T"/>的对象
         /// </summary>
@@ -223,7 +223,7 @@ namespace Uniframework.Database
         /// <param name="iwc">条件</param>
         /// <returns>执行成功与否的返回值</returns>
         [RemoteMethod]
-        int Delete<T>(string context, WhereCondition iwc) where T : class, IDbObject;
+        int Delete<T>(string context, Condition iwc) where T : class, IDbObject;
         /// <summary>
         /// 删除特定对象
         /// </summary>
@@ -295,56 +295,6 @@ namespace Uniframework.Database
         /// <summary>
         /// 填充集合
         /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="from">From子句</param>
-        /// <param name="iwc">Where子句</param>
-        /// <param name="oc">Order by子句</param>
-        /// <param name="lc">范围子句</param>
-        [RemoteMethod]
-        void FillCollection(IList list, Type DbObjectType, FromClause from, WhereCondition iwc, OrderBy oc, Range lc);
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="from">From子句</param>
-        /// <param name="iwc">Where子句</param>
-        /// <param name="oc">Order by子句</param>
-        /// <param name="lc">范围子句</param>
-        [RemoteMethod]
-        void FillCollection(string context, IList list, Type DbObjectType, FromClause from, WhereCondition iwc, OrderBy oc, Range lc);
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="Sql">SQL语句</param>
-        [RemoteMethod]
-        void FillCollection(IList list, Type DbObjectType, SqlStatement Sql);
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="context">数据库连接上下文</param>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="Sql">SQL语句</param>
-        [RemoteMethod]
-        void FillCollection(string context, IList list, Type DbObjectType, SqlStatement Sql);
-        /// <summary>
-        /// 填充集合
-        /// </summary>
-        /// <param name="list">集合</param>
-        /// <param name="DbObjectType">数据对象类型</param>
-        /// <param name="iwc">Where子句</param>
-        /// <param name="oc">Order by子句</param>
-        /// <param name="lc">范围子句</param>
-        [RemoteMethod]
-        void FillCollection(IList list, Type DbObjectType, WhereCondition iwc, OrderBy oc, Range lc);
-        /// <summary>
-        /// 填充集合
-        /// </summary>
         /// <param name="context">数据连接上下文</param>
         /// <param name="list">集合</param>
         /// <param name="DbObjectType">数据对象类型</param>
@@ -352,7 +302,9 @@ namespace Uniframework.Database
         /// <param name="oc">Order by子句</param>
         /// <param name="lc">范围子句</param>
         [RemoteMethod]
-        void FillCollection(string context, IList list, Type DbObjectType, WhereCondition iwc, OrderBy oc, Range lc);
+        void FillCollection(IList list, Type returnType, Type dbObjectType, FromClause from, Condition iwc, OrderBy oc, Range lc, bool isDistinct);
+        [RemoteMethod]
+        void FillCollection(string context, IList list, Type returnType, Type dbObjectType, FromClause from, Condition iwc, OrderBy oc, Range lc, bool isDistinct);
         /// <summary>
         /// 获取数据库服务器上当前的时间
         /// </summary>
@@ -390,7 +342,7 @@ namespace Uniframework.Database
         /// <param name="c">Where子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(WhereCondition c) where T : class, IDbObject;
+        T GetObject<T>(Condition c) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -399,7 +351,7 @@ namespace Uniframework.Database
         /// <param name="c">Where子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(string context, WhereCondition c) where T : class, IDbObject;
+        T GetObject<T>(string context, Condition c) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -408,7 +360,7 @@ namespace Uniframework.Database
         /// <param name="ob">Order by子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(WhereCondition c, OrderBy ob) where T : class, IDbObject;
+        T GetObject<T>(Condition c, OrderBy ob) where T : class, IDbObject;
         /// <summary>
         /// 获取指定类型的对象
         /// </summary>
@@ -418,7 +370,7 @@ namespace Uniframework.Database
         /// <param name="ob">Order by子句</param>
         /// <returns>数据对象</returns>
         [RemoteMethod]
-        T GetObject<T>(string context, WhereCondition c, OrderBy ob) where T : class, IDbObject;
+        T GetObject<T>(string context, Condition c, OrderBy ob) where T : class, IDbObject;
         /// <summary>
         /// 向数据库中插入对象
         /// </summary>

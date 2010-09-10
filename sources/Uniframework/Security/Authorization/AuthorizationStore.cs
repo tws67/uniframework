@@ -12,16 +12,17 @@ namespace Uniframework.Security
     public class AuthorizationStore
     {
         private string role;
-        private Dictionary<string, AuthorizationNode> authorizations;
-        private Dictionary<string, AuthorizationAction> actions;
-
+        //private Dictionary<string, AuthorizationNode> authorizations;
+        private List<AuthorizationNode> authorizations;
+        //private Dictionary<string, AuthorizationAction> actions;
+        private List<AuthorizationActionInfo> actions;
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationStore"/> class.
         /// </summary>
         public AuthorizationStore()
         {
-            authorizations = new Dictionary<string, AuthorizationNode>();
-            actions = new Dictionary<string, AuthorizationAction>();
+            authorizations = new List<AuthorizationNode>();
+            actions = new List<AuthorizationActionInfo>();
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Uniframework.Security
         public IEnumerable<AuthorizationNode> Nodes
         {
             get {
-                return authorizations.Values;
+                return authorizations;
             }
         }
 
@@ -63,7 +64,8 @@ namespace Uniframework.Security
         /// <param name="action">授权动作<see cref="AuthorizationAction"/></param>
         public void Authorization(string authorizationUri, AuthorizationAction action)
         {
-            actions[authorizationUri] = action;
+            if(!actions.Contains(new AuthorizationActionInfo(authorizationUri, action)))
+                actions.Add(new AuthorizationActionInfo(authorizationUri, action));
         }
 
         /// <summary>
@@ -74,15 +76,26 @@ namespace Uniframework.Security
         {
             Guard.ArgumentNotNull(authorizationUri, "Authorization Uri");
 
-            if (authorizations.ContainsKey(authorizationUri)) {
-                AuthorizationNode node = authorizations[authorizationUri];
-                // 选择节点下的所有操作项的授权信息
-                foreach (AuthorizationCommand cmd in node.Commands) {
-                    string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
-                    if (actions.ContainsKey(key))
-                        actions.Remove(key);
+            //if (authorizations.ContainsKey(authorizationUri)) {
+            //    AuthorizationNode node = authorizations[authorizationUri];
+            //    // 选择节点下的所有操作项的授权信息
+            //    foreach (AuthorizationCommand cmd in node.Commands) {
+            //        string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+            //        if (actions.ContainsKey(key))
+            //            actions.Remove(key);
+            //    }
+            //    authorizations.Remove(authorizationUri);
+            //}
+
+            foreach (AuthorizationNode node in authorizations) {
+                if (node.AuthorizationUri == authorizationUri) {
+                    foreach (AuthorizationCommand cmd in node.Commands) {
+                        string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+                        AuthorizationActionInfo actionInfo = new AuthorizationActionInfo(key, cmd.Action);
+                        if (actions.Contains(actionInfo))
+                            actions.Remove(actionInfo);
+                    }
                 }
-                authorizations.Remove(authorizationUri);
             }
         }
 
@@ -105,21 +118,36 @@ namespace Uniframework.Security
             Guard.ArgumentNotNull(node, "node");
 
             Dictionary<string, AuthorizationAction> acs = new Dictionary<string, AuthorizationAction>();
-            // 原来的授权信息
-            foreach (AuthorizationCommand cmd in node.Commands) {
-                string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
-                if (actions.ContainsKey(key))
-                    acs[key] = actions[key];
-            }
+            //// 原来的授权信息
+            //foreach (AuthorizationCommand cmd in node.Commands) {
+            //    string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+            //    if (actions.ContainsKey(key))
+            //        acs[key] = actions[key];
+            //}
 
-            Remove(node.AuthorizationUri); // 删除原来的授权信息
-            authorizations[node.AuthorizationUri] = node;
+            //Remove(node.AuthorizationUri); // 删除原来的授权信息
+            //authorizations[node.AuthorizationUri] = node;
+            //foreach (AuthorizationCommand cmd in node.Commands) {
+            //    string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+            //    if (acs.ContainsKey(key))
+            //        actions[key] = acs[key];
+            //    else
+            //        actions[key] = AuthorizationAction.Deny;
+            //}
+
+            // 首先删除原来的授权信息
             foreach (AuthorizationCommand cmd in node.Commands) {
                 string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
-                if (acs.ContainsKey(key))
-                    actions[key] = acs[key];
-                else
-                    actions[key] = AuthorizationAction.Deny;
+                AuthorizationActionInfo actionInfo = new AuthorizationActionInfo(key, cmd.Action);
+                if (actions.Contains(actionInfo))
+                    actions.Remove(actionInfo);
+            }
+            Remove(node.AuthorizationUri);
+            authorizations.Add(node);
+            foreach (AuthorizationCommand cmd in node.Commands) {
+                string key = SecurityUtility.HashObject(node.AuthorizationUri + cmd.CommandUri);
+                AuthorizationActionInfo actionInfo = new AuthorizationActionInfo(key, cmd.Action);
+                actions.Add(actionInfo); 
             }
         }
 
@@ -134,9 +162,24 @@ namespace Uniframework.Security
         public bool CanExecute(string authorizationUri)
         {
             bool result = true;
-            if (actions.ContainsKey(authorizationUri))
-                result = actions[authorizationUri] == AuthorizationAction.Allow;
+            //if (actions.ContainsKey(authorizationUri))
+            //    result = actions[authorizationUri] == AuthorizationAction.Allow;
+
             return result;
         }
+    }
+
+    [Serializable]
+    public class AuthorizationActionInfo
+    {
+        public AuthorizationActionInfo(string authorizationUri, AuthorizationAction action)
+        {
+            AuthorizationUri = authorizationUri;
+            Action = action;
+        }
+
+        public string AuthorizationUri { get; set;    }
+
+        public AuthorizationAction Action { get; set; }
     }
 }
