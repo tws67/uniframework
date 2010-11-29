@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Web.Security;
 using System.Windows.Forms;
-
+using DevExpress.XtraEditors;
 using Microsoft.Practices.CompositeUI;
+using Microsoft.Practices.CompositeUI.Commands;
 using Microsoft.Practices.CompositeUI.Common;
 using Uniframework.Services;
 using Uniframework.SmartClient;
 using Uniframework.XtraForms.SmartPartInfos;
-using Microsoft.Practices.CompositeUI.Commands;
-using DevExpress.XtraEditors;
 
 namespace Uniframework.Common.WorkItems.Membership
 {
