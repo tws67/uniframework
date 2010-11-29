@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Uniframework.Switch
 {
@@ -84,7 +82,7 @@ namespace Uniframework.Switch
     /// 呼叫结果状态
     /// </summary>
     public enum CallStatus
-    { 
+    {
         /// <summary>
         /// 未完成
         /// </summary>
@@ -689,59 +687,59 @@ namespace Uniframework.Switch
         /// <summary>
         /// Indication to redirect audio to another location if possible
         /// </summary>
-	    REDIRECT_AUDIO,
+        REDIRECT_AUDIO,
         /// <summary>
         /// A text message
         /// </summary>
-	    TRANSMIT_TEXT,
+        TRANSMIT_TEXT,
         /// <summary>
         /// indicate answer
         /// </summary>
-	    INDICATE_ANSWER,
+        INDICATE_ANSWER,
         /// <summary>
         /// indicate progress 
         /// </summary>
-	    INDICATE_PROGRESS,
+        INDICATE_PROGRESS,
         /// <summary>
         /// indicate a bridge starting
         /// </summary>
-	    INDICATE_BRIDGE,
+        INDICATE_BRIDGE,
         /// <summary>
         /// indicate a bridge ending
         /// </summary>
-	    INDICATE_UNBRIDGE,
+        INDICATE_UNBRIDGE,
         /// <summary>
         /// indicate a transfer is taking place
         /// </summary>
-	    INDICATE_TRANSFER,
+        INDICATE_TRANSFER,
         /// <summary>
         /// indicate media is required
         /// </summary>
-	    INDICATE_MEDIA,
+        INDICATE_MEDIA,
         /// <summary>
         /// indicate no-media is required
         /// </summary>
-	    INDICATE_NOMEDIA,
+        INDICATE_NOMEDIA,
         /// <summary>
         /// indicate hold
         /// </summary>
-	    INDICATE_HOLD,
+        INDICATE_HOLD,
         /// <summary>
         /// indicate unhold
         /// </summary>
-	    INDICATE_UNHOLD,
+        INDICATE_UNHOLD,
         /// <summary>
         /// indicate redirect
         /// </summary>
-	    INDICATE_REDIRECT,
+        INDICATE_REDIRECT,
         /// <summary>
         /// indicate reject
         /// </summary>
-	    INDICATE_REJECT,
+        INDICATE_REJECT,
         /// <summary>
         /// indicate media broadcast
         /// </summary>
-	    INDICATE_BROADCAST
+        INDICATE_BROADCAST
     }
 
     #endregion
