@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
+using DevExpress.Skins;
+using DevExpress.UserSkins;
 using DevExpress.XtraEditors;
 using DevExpress.XtraNavBar;
 using Microsoft.Practices.CompositeUI;
@@ -14,9 +18,7 @@ using Microsoft.Practices.ObjectBuilder;
 using Uniframework.SmartClient;
 using Uniframework.SmartClient.WorkItems.Setting;
 using Uniframework.XtraForms.Workspaces;
-//using Uniframework.Client;
-//using Uniframework.Client.ConnectionManagement;
-//using Uniframework.Client.OfflineProxy;
+
 
 namespace Uniframework.LocalStartUp
 {
@@ -26,6 +28,19 @@ namespace Uniframework.LocalStartUp
 
         private AddInTree addInTree;
 
+        [STAThread]
+        static void Main() {
+            BonusSkins.Register();
+            OfficeSkins.Register();
+            SkinManager.EnableFormSkins();
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-CN");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
+
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+
+            new ShellApplication().Run();
+        }
+
         /// <summary>
         /// May be overridden in derived classes to perform activities just before the shell
         /// is created.
@@ -33,7 +48,6 @@ namespace Uniframework.LocalStartUp
         protected override void BeforeShellCreated()
         {
             base.BeforeShellCreated();
-            InitializeEnvironment();
         }
 
         /// <summary>
@@ -69,8 +83,6 @@ namespace Uniframework.LocalStartUp
             RegisterViews();
             RegisterUIElements();
             RegisterUISite(); // 构建用户界面并添加UI构建服务
-
-            //Program.CloseLoginForm();
         }
 
         /// <summary>
@@ -79,8 +91,6 @@ namespace Uniframework.LocalStartUp
         protected override void AddServices()
         {
             base.AddServices();
-
-
         }
 
         /// <summary>
@@ -104,51 +114,33 @@ namespace Uniframework.LocalStartUp
         #region Assistant functions
 
         /// <summary>
-        /// 初始化框架系统环境
+        /// Handles the AssemblyResolve event of the CurrentDomain control.
         /// </summary>
-        private void InitializeEnvironment()
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="args">The <see cref="System.ResolveEventArgs"/> instance containing the event data.</param>
+        /// <returns></returns>
+        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            //RemoteServiceRegister register = new RemoteServiceRegister();
-            //Program.Logger.Debug("将远程服务注入到本地容器中");
-            //Program.SetInitialState("检查远程服务……");
-            //Program.IncreaseProgressBar(10);
-            //register.RegisterRemoteServices(RootWorkItem, ServiceRepository.Instance);
-            //RegisterUserInfo(); // 注册用户信息需要放在其它服务启动之前
+            string[] asmFileNameTokens = args.Name.Split(", ".ToCharArray(), 5);
+            string asmFile = asmFileNameTokens[0] + ".dll";
 
-            //// 注册系统权限管理服务
-            //Program.SetInitialState("注册系统权限管理服务……");
-            //Program.Logger.Debug("加载系统权限管理服务");
-            //Program.IncreaseProgressBar(5);
-            //IAuthorizationService authorizationService = new AuthorizationService(RootWorkItem);
-            //RootWorkItem.Services.Add<IAuthorizationService>(authorizationService);
+            // 从系统预定义的外部库路径加载文件以提高系统性能
+            string libPath = FileUtility.ConvertToFullPath(@"..\Libraries\");
+            if (File.Exists(Path.Combine(libPath, asmFile)))
+                return Assembly.LoadFile(Path.Combine(libPath, asmFile));
 
-            // 注册自定义的UI组件
-            //Program.SetInitialState("注册自定义UI组件构建服务……");
-            //Program.IncreaseProgressBar(10);
-            RootWorkItem.Services.Add<SmartClientEnvironment>(new SmartClientEnvironment());
-            RootWorkItem.Services.Add<IBuilderService>(new BuilderService(RootWorkItem));
-
-            // 添加系统自定义的默认服务
-            //Program.SetInitialState("注册本地默认服务……");
-            //Program.IncreaseProgressBar(10);
-            RootWorkItem.Services.Add(typeof(log4net.ILog), Program.Logger);
-
-            //RootWorkItem.Services.Remove<IModuleEnumerator>(); // 删除系统默认的模块枚举服务
-
-            // 从服务器下载配置模块信息
-            //Program.SetInitialState("从服务器下载客户端配置信息……");
-            //Program.IncreaseProgressBar(10);
-            //WebServiceModuleEnumerator ws = new WebServiceModuleEnumerator();
-            //ws.Load();
-
-            //IModuleLoaderService mls = RootWorkItem.Services.Get<IModuleLoaderService>();
-            //if (mls != null)
-            //{
-            //    mls.ModuleLoaded += new EventHandler<DataEventArgs<LoadedModuleInfo>>(ModuleLoaderService_ModuleLoaded);
-            //}
-
-            //RootWorkItem.Services.Add<IModuleEnumerator>(ws);
-            //Program.IncreaseProgressBar(10);
+            List<string> files = FileUtility.SearchDirectory(FileUtility.ConvertToFullPath(@"..\"), asmFile);
+            if (files.Count > 0)
+            {
+                try
+                {
+                    AssemblyName asmName = AssemblyName.GetAssemblyName(files[0]);
+                    if (asmName != null)
+                        return Assembly.LoadFile(files[0]);
+                }
+                catch { }
+            }
+            throw new FileNotFoundException("系统找不到指定的程序集文件", asmFile);
         }
 
         /// <summary>
@@ -173,35 +165,7 @@ namespace Uniframework.LocalStartUp
                     addInTree.InsertAddIn(addIn);
                 }
             }
-            Program.Logger.Info(String.Format("完成加载应用系统插件 \"{0}\"", e.Data.Name.Split(',')[0] + ".dll"));
-        }
-
-        /// <summary>
-        /// 注册用户信息
-        /// </summary>
-        private void RegisterUserInfo()
-        {
-            //IInitializeService initService = RootWorkItem.Services.Get<IInitializeService>();
-            //if (initService != null)
-            //{
-            //    UserInfo user = initService.GetUserInfo(CommunicateProxy.UserName);
-            //    RootWorkItem.Items.Add(user, "CurrentUser");
-            //    IMembershipService membershipServce = RootWorkItem.Services.Get<IMembershipService>();
-            //    if (membershipServce != null)
-            //    {
-            //        string[] roles = membershipServce.GetRolesForUser(CommunicateProxy.UserName);
-            //        Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(CommunicateProxy.UserName), roles);
-            //        IStringService strService = RootWorkItem.Services.Get<IStringService>();
-            //        if (strService != null)
-            //            strService.Register("CurrentUser", CommunicateProxy.UserName);
-            //    }
-            //    // 为环境变量赋值
-            //    SmartClientEnvironment scEnvironment = RootWorkItem.Services.Get<SmartClientEnvironment>();
-            //    if (scEnvironment != null)
-            //    {
-            //        scEnvironment.CurrentUser = user;
-            //    }
-            //}
+            //Program.Logger.Info(String.Format("完成加载应用系统插件 \"{0}\"", e.Data.Name.Split(',')[0] + ".dll"));
         }
 
         /// <summary>
