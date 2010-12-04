@@ -58,17 +58,15 @@
     <Reference Include="DevExpress.XtraEditors.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=MSIL" />
+    <Reference Include="Lephone.Core">
+      <HintPath>..\..\..\assembly\Lephone.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Lephone.Data, Version=3.5.3241.38467, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\assembly\Lephone.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Lephone.Linq, Version=3.5.3241.38467, Culture=neutral, PublicKeyToken=bd3c4fc2b6b55f02, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\assembly\Lephone.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Lephone.Util, Version=3.5.3241.38466, Culture=neutral, PublicKeyToken=3eacc2a29b11f14a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\assembly\Lephone.Util.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ObjectBuilder">
+      <HintPath>..\..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -121,10 +119,6 @@
     <ProjectReference Include="..\..\..\sources\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\sources\cab\ObjectBuilder\ObjectBuilder.csproj">
-      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
-      <Name>ObjectBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\sources\Uniframework.Database\Uniframework.Database.csproj">
       <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
