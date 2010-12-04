@@ -71,6 +71,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\assembly\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -257,10 +261,6 @@
     <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cab\ObjectBuilder\ObjectBuilder.csproj">
-      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
-      <Name>ObjectBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.XtraForms\Uniframework.XtraForms.csproj">
       <Project>{E9CBA808-D476-4034-9FD7-ABBF69D13B2B}</Project>

@@ -63,6 +63,9 @@
     <Reference Include="DevExpress.RichEdit.v10.1.Core, Version=10.1.5.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd" />
     <Reference Include="DevExpress.XtraRichEdit.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd" />
     <Reference Include="DevExpress.XtraTreeList.v10.1, Version=10.1.5.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ObjectBuilder">
+      <HintPath>..\..\assembly\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -215,10 +218,6 @@
     <ProjectReference Include="..\cab\CompositeUI\CompositeUI.csproj">
       <Project>{C478E40B-A05E-4C69-9AB3-7A3BB374243F}</Project>
       <Name>CompositeUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cab\ObjectBuilder\ObjectBuilder.csproj">
-      <Project>{2AE49F19-392B-4C50-A13C-F49B2579849D}</Project>
-      <Name>ObjectBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Uniframework.Database\Uniframework.Database.csproj">
       <Project>{5671D224-D411-43BA-B207-D94EEA76B764}</Project>
