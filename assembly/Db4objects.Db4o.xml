@@ -5605,8 +5605,32 @@
             If a file already exists at the specified path, it will be overwritten.<br/><br/>
             The backup call may be started in a seperated thread by the application,
             if concurrent execution with normal database access is desired.<br/><br/>
+            For backup, the IoAdapter factory configured for the container is used.<br/><br/>
             </remarks>
             <param name="path">a fully qualified path</param>
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException">I/O operation failed or was unexpectedly interrupted.
+            	</exception>
+            <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException">db4o database file was closed or failed to open.
+            	</exception>
+            <exception cref="T:System.NotSupportedException">
+            is thrown when the operation is not supported in current
+            configuration/environment
+            </exception>
+        </member>
+        <member name="M:Db4objects.Db4o.Ext.IExtObjectContainer.Backup(Db4objects.Db4o.IO.IoAdapter,System.String)">
+            <summary>backs up a database file of an open ObjectContainer.</summary>
+            <remarks>
+            backs up a database file of an open ObjectContainer.
+            <br/><br/>While the backup is running, the ObjectContainer can continue to be
+            used. Changes that are made while the backup is in progress, will be applied to
+            the open ObjectContainer and to the backup.<br/><br/>
+            While the backup is running, the ObjectContainer should not be closed.<br/><br/>
+            If a file already exists at the specified path, it will be overwritten.<br/><br/>
+            The backup call may be started in a seperated thread by the application,
+            if concurrent execution with normal database access is desired.<br/><br/>
+            </remarks>
+            <param name="path">a fully qualified path</param>
+            <param name="targetIo">target IoAdapter factory for backup</param>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException">I/O operation failed or was unexpectedly interrupted.
             	</exception>
             <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException">db4o database file was closed or failed to open.
@@ -7056,6 +7080,10 @@
         <member name="T:Db4objects.Db4o.Foundation.BooleanByRef">
             <summary>Useful as "out" or "by ref" function parameter.</summary>
             <remarks>Useful as "out" or "by ref" function parameter.</remarks>
+        </member>
+        <member name="T:Db4objects.Db4o.Foundation.ByRef">
+            <summary>Useful as "out" or "by reference" function parameter.</summary>
+            <remarks>Useful as "out" or "by reference" function parameter.</remarks>
         </member>
         <member name="T:Db4objects.Db4o.Foundation.ByReference">
             <summary>Useful as "out" or "by reference" function parameter.</summary>
@@ -8760,11 +8788,16 @@
             <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
             <exception cref="T:System.NotSupportedException"></exception>
         </member>
+        <member name="M:Db4objects.Db4o.Internal.ExternalObjectContainer.Backup(Db4objects.Db4o.IO.IoAdapter,System.String)">
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
+            <exception cref="T:System.NotSupportedException"></exception>
+        </member>
         <member name="M:Db4objects.Db4o.Internal.ExternalObjectContainer.ReplicationBegin(Db4objects.Db4o.IObjectContainer,Db4objects.Db4o.Replication.IReplicationConflictHandler)">
             <param name="peerB"></param>
             <param name="conflictHandler"></param>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.CS.ClientObjectContainer.Backup(System.String)">
+        <member name="M:Db4objects.Db4o.Internal.CS.ClientObjectContainer.Backup(Db4objects.Db4o.IO.IoAdapter,System.String)">
             <exception cref="T:System.NotSupportedException"></exception>
         </member>
         <member name="M:Db4objects.Db4o.Internal.CS.ClientObjectContainer.CreateParalellSocket">
@@ -10416,7 +10449,7 @@
         <member name="M:Db4objects.Db4o.Internal.InMemoryObjectContainer.OpenImpl">
             <exception cref="T:Db4objects.Db4o.Ext.OldFormatException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.InMemoryObjectContainer.Backup(System.String)">
+        <member name="M:Db4objects.Db4o.Internal.InMemoryObjectContainer.Backup(Db4objects.Db4o.IO.IoAdapter,System.String)">
             <exception cref="T:System.NotSupportedException"></exception>
         </member>
         <member name="T:Db4objects.Db4o.Internal.IntMatcher">
@@ -10432,7 +10465,7 @@
             <exception cref="T:Db4objects.Db4o.Ext.OldFormatException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.DatabaseReadOnlyException"></exception>
         </member>
-        <member name="M:Db4objects.Db4o.Internal.IoAdaptedObjectContainer.Backup(System.String)">
+        <member name="M:Db4objects.Db4o.Internal.IoAdaptedObjectContainer.Backup(Db4objects.Db4o.IO.IoAdapter,System.String)">
             <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
         </member>
@@ -10684,8 +10717,12 @@
         <member name="T:Db4objects.Db4o.Internal.PartialEmbeddedClientObjectContainer">
             <exclude></exclude>
         </member>
+        <member name="M:Db4objects.Db4o.Internal.PartialEmbeddedClientObjectContainer.Backup(Db4objects.Db4o.IO.IoAdapter,System.String)">
+            <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
+            <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
+            <exception cref="T:System.NotSupportedException"></exception>
+        </member>
         <member name="M:Db4objects.Db4o.Internal.PartialEmbeddedClientObjectContainer.Backup(System.String)">
-            <param name="path"></param>
             <exception cref="T:Db4objects.Db4o.Ext.Db4oIOException"></exception>
             <exception cref="T:Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
             <exception cref="T:System.NotSupportedException"></exception>
