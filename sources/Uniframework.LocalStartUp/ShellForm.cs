@@ -48,10 +48,6 @@ namespace Uniframework.LocalStartUp
         {
             this.workItem = workItem;
             this.workItemTypeCatalog = workItemTypeCatalog;
-            this.workItem.Services.Add<ISmartClient>(this); // 添加智能客户端服务
-            //InitialNetworkState();
-
-            //IInitializeService initialService = ServiceRepository.Instance.GetService(typeof(IInitializeService)) as IInitializeService;
         }
 
         #region Shell form members
@@ -72,47 +68,6 @@ namespace Uniframework.LocalStartUp
             get { return workItem; }
         }
 
-        /// <summary>
-        /// Called when [request queue changed].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RequestQueueEventArgs"/> instance containing the event data.</param>
-        //public void OnRequestQueueChanged(object sender, RequestQueueEventArgs e)
-        //{
-        //    ChangeRequestQueueSize(e.QueueSize);
-        //}
-
-        /// <summary>
-        /// Called when [connection state changed].
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="ConnectionStateChangedEventArgs"/> instance containing the event data.</param>
-        //public void OnConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
-        //{
-        //    online = e.CurrentState == Uniframework.Client.ConnectionState.Online;
-        //    if (e.CurrentState == Uniframework.Client.ConnectionState.Online)
-        //    {
-        //        this.Invoke(new EventHandler(delegate
-        //        {
-        //            tbtnNetworkStatus.Glyph = Resources.link;
-        //            tbtnNetworkStatus.Hint = "当前状态 - 在线（双击鼠标强制系统离线）";
-        //        }));
-
-        //        // 重新注册事件，防止服务器重启丢失挂接的客户端事件
-        //        ClientEventDispatcher.Instance.RereregisterAllEvent();
-        //    }
-        //    else
-        //    {
-        //        this.Invoke(new EventHandler(delegate
-        //        {
-        //            tbtnNetworkStatus.Glyph = Resources.link_delete;
-        //            tbtnNetworkStatus.Hint = "当前状态 - 离线（双击鼠标强制系统在线）";
-        //        }));
-        //    }
-        //    if (ConnectionStateChanged != null && (e.CurrentState != e.OriginalState))
-        //        ConnectionStateChanged(e.CurrentState);
-        //}
-
         public BarManager BarManager
         {
             get { return barManager; }
@@ -132,22 +87,6 @@ namespace Uniframework.LocalStartUp
         {
             get { return tabbedMdiManager; }
         }
-
-        //public bool Online
-        //{
-        //    get { return online; }
-        //    set
-        //    {
-        //        if (online != value)
-        //        {
-        //            online = value;
-        //            if (online)
-        //                ServiceRepository.Instance.GoOnline();
-        //            else
-        //                ServiceRepository.Instance.GoOffline();
-        //        }
-        //    }
-        //}
 
         #endregion
 
@@ -264,25 +203,6 @@ namespace Uniframework.LocalStartUp
                 this.tlabRequestSize.Caption = String.Format("指令队列({0})", queueSize);
             }));
         }
-
-        /// <summary>
-        /// Initials the state of the network.
-        /// </summary>
-        //private void InitialNetworkState()
-        //{
-        //    if (CommunicateProxy.Ping())
-        //    {
-        //        online = true;
-        //        tbtnNetworkStatus.Glyph = Resources.link;
-        //        tbtnNetworkStatus.Hint = "当前状态 - 在线（双击鼠标强制系统离线）";
-        //    }
-        //    else
-        //    {
-        //        online = false;
-        //        tbtnNetworkStatus.Glyph = Resources.link_delete;
-        //        tbtnNetworkStatus.Hint = "当前状态 - 离线（双击鼠标强制系统在线）";
-        //    }
-        //}
 
         /// <summary>
         /// Stores the configuration.
