@@ -15,7 +15,7 @@ using Lephone.Data.Definition;
 using Lephone.Data.Dialect;
 using Lephone.Data.Driver;
 using Lephone.Data.SqlEntry;
-using Lephone.Util;
+using Lephone.Core;
 
 namespace Uniframework.Database
 {

@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Migrated rules for Uniframework.SharePoint.Linq.Spml (2).ruleset" Description="This rule set was created from the CodeAnalysisRules property for the &quot;Full build (Any CPU)&quot; configuration in project &quot;F:\Workdir\dotnet\Uniframework\sources\Uniframework.SharePoint.Linq.Spml\Uniframework.SharePoint.Linq.Spml.csproj&quot;." ToolsVersion="10.0">
-  <RuleHintPaths>
-    <Path>C:\Program Files\Microsoft Visual Studio 9.0\Team Tools\Static Analysis Tools\FxCop\\Rules</Path>
-  </RuleHintPaths>
-</RuleSet>
