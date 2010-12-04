@@ -5,7 +5,6 @@ using System.Text;
 
 using Lephone.Data;
 using Lephone.Data.Definition;
-using Lephone.Linq;
 
 namespace Uniframework.Entities
 {
@@ -14,7 +13,7 @@ namespace Uniframework.Entities
     /// </summary>
     [DbTable("COM_DocumentAssociate")]
     [Cacheable, Serializable]
-    public class DocumentAssociate : LinqObjectModel<DocumentAssociate>
+    public class DocumentAssociate : DbObjectModel<DocumentAssociate>
     {
         [Index("IX_DocumentAssociate")]
         [Length(128)]
